@@ -100,7 +100,6 @@ async function submitLogin(form: VeeValidateValues) {
     const { data: user } = await $api().post<UserType>('user/login', form as WithoutId<UserType>)
 
     if (user && isUserType(user)) {
-      console.log(user, '<==== user')
       storeUsersEntities(user, true)
       // cookies.set('userToken', user.token)
       const decode = jwtDecode(user.token)
