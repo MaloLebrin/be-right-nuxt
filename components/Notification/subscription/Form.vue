@@ -11,36 +11,45 @@
         class="w-5 h-5 text-purple-500"
       />
     </DisclosureButton>
-    <DisclosurePanel class="px-4 pt-4 pb-2 text-sm text-gray-500 divide-y rounded-b-lg shadow-lg">
-      <div
-        v-for="type in NotificationTypeEnumArray"
-        :key="type"
-        class="py-2"
-      >
-        <SwitchGroup>
-          <div class="flex items-center">
-            <Switch
-              v-model="initalesSubscription(type).value"
-              :disabled="uiStore.isLoading > 0"
-              :class="initalesSubscription(type).value ? 'bg-green-500' : 'bg-gray-200'"
-              class="relative inline-flex items-center h-6 transition-colors rounded-full w-11 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-              @click="submit(type)"
-            >
-              <span
-                :class="initalesSubscription(type).value ? 'translate-x-6' : 'translate-x-1'"
-                class="inline-block w-4 h-4 transition-transform transform bg-white rounded-full"
-              />
-            </Switch>
-            <SwitchLabel class="ml-4 text-gray-800">
-              {{ getTranslationNotificationType(type)?.label }}
-            </SwitchLabel>
-          </div>
-          <p class="my-1 font-extralight">
-            {{ getTranslationNotificationType(type)?.description }}
-          </p>
-        </SwitchGroup>
-      </div>
-    </DisclosurePanel>
+    <transition
+      enter-active-class="transition duration-200 ease-out"
+      enter-from-class="transform scale-95 opacity-0"
+      enter-to-class="transform scale-100 opacity-100"
+      leave-active-class="transition duration-200 ease-out"
+      leave-from-class="transform scale-100 opacity-100"
+      leave-to-class="transform scale-95 opacity-0"
+    >
+      <DisclosurePanel class="px-4 pt-4 pb-2 text-sm text-gray-500 divide-y rounded-b-lg shadow-lg">
+        <div
+          v-for="type in NotificationTypeEnumArray"
+          :key="type"
+          class="py-2"
+        >
+          <SwitchGroup>
+            <div class="flex items-center">
+              <Switch
+                v-model="initalesSubscription(type).value"
+                :disabled="uiStore.isLoading > 0"
+                :class="initalesSubscription(type).value ? 'bg-green-500' : 'bg-gray-200'"
+                class="relative inline-flex items-center h-6 transition-colors rounded-full w-11 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                @click="submit(type)"
+              >
+                <span
+                  :class="initalesSubscription(type).value ? 'translate-x-6' : 'translate-x-1'"
+                  class="inline-block w-4 h-4 transition-transform transform bg-white rounded-full"
+                />
+              </Switch>
+              <SwitchLabel class="ml-4 text-gray-800">
+                {{ getTranslationNotificationType(type)?.label }}
+              </SwitchLabel>
+            </div>
+            <p class="my-1 font-extralight">
+              {{ getTranslationNotificationType(type)?.description }}
+            </p>
+          </SwitchGroup>
+        </div>
+      </DisclosurePanel>
+    </transition>
   </Disclosure>
 </div>
 </template>
