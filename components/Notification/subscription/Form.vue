@@ -1,12 +1,16 @@
 <!-- eslint-disable vue/prefer-separate-static-class -->
 <template>
 <div class="w-full max-w-2xl p-2 mx-auto bg-white rounded-2xl">
-  <Disclosure v-slot="{ open }">
+  <Disclosure
+    v-slot="{ open }"
+    :default-open="$route.query.notificationSubscriptionOpen !== 'false'"
+  >
     <DisclosureButton
       :class="[
         'flex justify-between w-full px-4 py-2 text-sm font-medium text-left text-purple-900 bg-purple-100 rounded-lg',
         'hover:bg-purple-200 focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75',
       ]"
+      @click="toggleDisclosure(open)"
     >
       <span>Abonnez vous à des notifications</span>
       <ChevronUpIconOutline
@@ -92,5 +96,23 @@ async function submit(type: NotificationTypeEnum) {
   } else {
     await subscribe(type)
   }
+}
+
+function toggleDisclosure(open: boolean) {
+  const route = useRoute()
+  const router = useRouter()
+
+  const queries: any = {}
+
+  if (open) {
+    queries.notificationSubscriptionOpen = false
+  }
+
+  router.push({
+    name: route.name || 'notifications',
+    query: {
+      ...queries,
+    },
+  })
 }
 </script>
