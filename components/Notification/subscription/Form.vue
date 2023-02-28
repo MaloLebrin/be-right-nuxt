@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/prefer-separate-static-class -->
 <template>
 <div class="w-full max-w-2xl p-2 mx-auto bg-white rounded-2xl">
   <Disclosure v-slot="{ open }">
@@ -30,8 +31,12 @@
               <Switch
                 v-model="initalesSubscription(type).value"
                 :disabled="uiStore.isLoading > 0"
-                :class="initalesSubscription(type).value ? 'bg-green-500' : 'bg-gray-200'"
-                class="relative inline-flex items-center h-6 transition-colors rounded-full w-11 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                :class="[
+                  'relative inline-flex items-center h-6 transition-colors rounded-full w-11',
+                  'focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2',
+                  initalesSubscription(type).value ? 'bg-green-500' : 'bg-gray-200',
+                  uiStore.isLoading > 0 ? 'cursor-not-allowed opacity-50' : '',
+                ]"
                 @click="submit(type)"
               >
                 <span
