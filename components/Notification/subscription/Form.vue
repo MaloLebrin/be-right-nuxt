@@ -108,7 +108,7 @@ function toggleDisclosure(open: boolean) {
     queries.notificationSubscriptionOpen = false
   }
 
-  router.push({
+  router.replace({
     name: route.name || 'notifications',
     query: {
       ...queries,
