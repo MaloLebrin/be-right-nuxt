@@ -13,7 +13,10 @@ export default function notificationSubscriptionHook() {
       const { data } = await $api().get<NotificationSubscriptionType[]>('notificationSubscription')
 
       if (data && data.length > 0) {
-        addMany(data)
+        const missingSubscriptions = data.filter(item => !notificationSubscriptionStore.isAlreadyInStore(item.id))
+        if (missingSubscriptions?.length > 0) {
+          addMany(missingSubscriptions)
+        }
       }
     } catch (error) {
       console.error(error)
