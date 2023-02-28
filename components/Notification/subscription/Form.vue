@@ -3,7 +3,10 @@
 <div class="w-full max-w-2xl p-2 mx-auto bg-white rounded-2xl">
   <Disclosure v-slot="{ open }">
     <DisclosureButton
-      class="flex justify-between w-full px-4 py-2 text-sm font-medium text-left text-purple-900 bg-purple-100 rounded-lg hover:bg-purple-200 focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75"
+      :class="[
+        'flex justify-between w-full px-4 py-2 text-sm font-medium text-left text-purple-900 bg-purple-100 rounded-lg',
+        'hover:bg-purple-200 focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75',
+      ]"
     >
       <span>Abonnez vous à des notifications</span>
       <ChevronUpIconOutline
@@ -40,8 +43,10 @@
                 @click="submit(type)"
               >
                 <span
-                  :class="initalesSubscription(type).value ? 'translate-x-6' : 'translate-x-1'"
-                  class="inline-block w-4 h-4 transition-transform transform bg-white rounded-full"
+                  :class="[
+                    'inline-block w-4 h-4 transition-transform transform bg-white rounded-full',
+                    initalesSubscription(type).value ? 'translate-x-6' : 'translate-x-1',
+                  ]"
                 />
               </Switch>
               <SwitchLabel class="ml-4 text-gray-800">
@@ -75,7 +80,7 @@ const uiStore = useUiStore()
 const initalesSubscription = (type: NotificationTypeEnum) =>
   computed(() => notificationSubscriptionStore.getForCurrentUser.map(sub => sub.type).includes(type))
 
-async function submit(type: any) {
+async function submit(type: NotificationTypeEnum) {
   const userSubscription = notificationSubscriptionStore.getForCurrentUser
 
   if (userSubscription.map(sub => sub.type)?.includes(type)) {
