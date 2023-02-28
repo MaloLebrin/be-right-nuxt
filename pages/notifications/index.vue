@@ -14,7 +14,9 @@ import {
   useAnswerStore,
   useEventStore,
   useNotificationsStore,
+  useNotificationsSubscriptionStore,
   useUiStore,
+  useUserStore,
 } from '~~/store'
 
 const { IncLoading, DecLoading } = useUiStore()
@@ -24,12 +26,17 @@ const { fetchMany: fetchManyAnswers } = answerHook()
 const { fetchMany: fetchManyEvents } = eventHook()
 
 const notificationStore = useNotificationsStore()
+const notificationSubscriptionStore = useNotificationsSubscriptionStore()
 const eventStore = useEventStore()
 const answerStore = useAnswerStore()
+const userStore = useUserStore()
 
 onMounted(async () => {
   IncLoading()
-  await fetchSubscriptions()
+
+  if (!userStore.getAuthUser?.notificationSubscriptionIds.every(id => notificationSubscriptionStore.isAlreadyInStore(id))) {
+    await fetchSubscriptions()
+  }
   await fetchUserNotifications()
 
   const notifications = notificationStore.getAllArray
