@@ -160,6 +160,11 @@
       :employee-creator="employeeCreator"
     />
   </article>
+
+  <EventList
+    v-if="employeeEvents.length > 0"
+    :events="employeeEvents"
+  />
 </main>
 </template>
 
@@ -169,6 +174,7 @@ import { ModalModeEnum, ModalNameEnum } from '@/types'
 import {
   useAddressStore,
   useAuthStore,
+  useEventStore,
   useUiStore,
   useUserStore,
 } from '~~/store'
@@ -182,11 +188,12 @@ const props = defineProps<Props>()
 const userStore = useUserStore()
 const authStore = useAuthStore()
 const addressStore = useAddressStore()
-// const fileStore = useFileStore()
+const eventStore = useEventStore()
 const { setUiModal } = useUiStore()
 const employeeCreator = computed(() => userStore.getOne(props.employee?.createdByUserId))
 const employeeAddress = computed(() => addressStore.getOne(props.employee?.addressId))
-// const creatorLogo = computed(() => fileStore.getWhereArray(file => file.createdByUser === employeeCreator.value.id && file.type === FileTypeEnum.LOGO)[0])
+const employeeEvents = computed(() =>
+  props.employee ? eventStore.getAllByEmployee(props.employee?.id) : [])
 
 const { getEmployeeFullname } = employeeHook()
 
