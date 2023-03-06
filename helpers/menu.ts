@@ -2,8 +2,8 @@ import {
   BellAlertIcon,
   ChartPieIcon,
   ExclamationCircleIcon,
-  FolderOpenIcon,
   HomeIcon,
+  ListBulletIcon,
   PlusIcon,
   UserGroupIcon,
   UsersIcon,
@@ -76,6 +76,12 @@ export const MENU_ITEMS = [
     label: 'Destinataires',
     icon: UsersIcon,
     linkName: 'destinataire',
+    isAdmin: false,
+  },
+  {
+    label: 'Groupes de diffusion',
+    icon: ListBulletIcon,
+    linkName: 'groupe',
     isAdmin: false,
   },
   {
