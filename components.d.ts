@@ -45,6 +45,7 @@ declare module '@vue/runtime-core' {
     MenuButton: typeof import('@headlessui/vue')['MenuButton']
     MenuItem: typeof import('@headlessui/vue')['MenuItem']
     MenuItems: typeof import('@headlessui/vue')['MenuItems']
+    MinusCircleIconOutline: typeof import('@heroicons/vue/24/outline/esm/MinusCircleIcon.js')['default']
     PencilIconOutline: typeof import('@heroicons/vue/24/outline/esm/PencilIcon.js')['default']
     PencilSquareIconOutline: typeof import('@heroicons/vue/24/outline/esm/PencilSquareIcon.js')['default']
     PhoneIconOutline: typeof import('@heroicons/vue/24/outline/esm/PhoneIcon.js')['default']
