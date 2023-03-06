@@ -6,12 +6,18 @@
   <td class="py-4 pl-4 text-sm font-medium text-gray-900 truncate whitespace-nowrap">
     {{ group.name }}
   </td>
-  <td class="relative py-4 pl-3 pr-4 text-sm font-medium text-right whitespace-nowrap sm:pr-6">
+  <td class="relative flex flex-col py-4 pl-3 pr-4 space-y-2 text-sm font-medium text-right whitespace-nowrap sm:pr-6">
     <BaseButton>
       <template #icon>
-        <MinusCircleIconOutline class="w-5 h-5 text-red-500" />
+        <EyeIconOutline />
       </template>
-      Retirer du groupe
+      Voir le group
+    </BaseButton>
+    <BaseButton>
+      <template #icon>
+        <MinusCircleIconOutline class="text-red-500" />
+      </template>
+      <span class="text-red-800">Retirer du groupe</span>
     </BaseButton>
   </td>
 </tr>
