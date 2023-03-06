@@ -49,6 +49,7 @@ declare module '@vue/runtime-core' {
     PencilIconOutline: typeof import('@heroicons/vue/24/outline/esm/PencilIcon.js')['default']
     PencilSquareIconOutline: typeof import('@heroicons/vue/24/outline/esm/PencilSquareIcon.js')['default']
     PhoneIconOutline: typeof import('@heroicons/vue/24/outline/esm/PhoneIcon.js')['default']
+    PlusIconOutline: typeof import('@heroicons/vue/24/outline/esm/PlusIcon.js')['default']
     RadioGroup: typeof import('@headlessui/vue')['RadioGroup']
     RadioGroupLabel: typeof import('@headlessui/vue')['RadioGroupLabel']
     RadioGroupOption: typeof import('@headlessui/vue')['RadioGroupOption']
