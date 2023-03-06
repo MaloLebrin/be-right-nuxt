@@ -1,5 +1,6 @@
+import { uniq } from '@antfu/utils'
 import type { Group } from '~~/store'
-import { useUiStore } from '~~/store'
+import { useEmployeeStore, useUiStore } from '~~/store'
 import { useGroupStore } from '~~/store/group/groupStore'
 
 export default function groupHook() {
@@ -7,6 +8,9 @@ export default function groupHook() {
 
   const { IncLoading, DecLoading } = useUiStore()
   const groupStore = useGroupStore()
+  const employeeStore = useEmployeeStore()
+  const { fetchMany: fetchManyEmployees } = employeeHook()
+
   const { addMany, deleteOne } = groupStore
 
   async function deleteGroup(id: number) {
@@ -81,11 +85,29 @@ export default function groupHook() {
     DecLoading()
   }
 
+  async function fetchUserGroupsAndRelations() {
+    IncLoading()
+    if (groupStore.getIsEmpty) {
+      await fetchByUser()
+    }
+
+    const missingEmployees = uniq(groupStore.getAllArray
+      .reduce((acc, emp) => [...acc, ...emp.employeeIds], [] as number[]))
+      .filter(id => !employeeStore.isAlreadyInStore(id))
+
+    if (missingEmployees.length > 0) {
+      await fetchManyEmployees(missingEmployees)
+    }
+
+    DecLoading()
+  }
+
   return {
     deleteGroup,
     fetchByEmployeeId,
     fetchByUser,
     fetchMany,
     fetchOne,
+    fetchUserGroupsAndRelations,
   }
 }

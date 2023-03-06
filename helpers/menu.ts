@@ -102,6 +102,12 @@ export const MENU_ITEMS = [
     linkName: 'destinataire-create',
     isAdmin: false,
   },
+  {
+    label: 'Créer un groupe de diffusion',
+    icon: PlusIcon,
+    linkName: 'groupe-creation',
+    isAdmin: false,
+  },
   // {
   //   label: 'Créer un nouveau fichier',
   //   icon: FolderPlusIcon,
