@@ -30,7 +30,7 @@ interface Props {
 }
 
 withDefaults(defineProps<Props>(), {
-  noEventMessage: 'Aucun événement enregistré!',
+  noEventMessage: 'Aucun événement',
   events: () => [],
 })
 </script>
