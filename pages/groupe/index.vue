@@ -24,22 +24,34 @@
 </template>
 
 <script setup lang="ts">
+import { uniq } from '@antfu/utils'
 import {
+  useEmployeeStore,
   useGroupStore,
   useUiStore,
 } from '~~/store'
 
 const { IncLoading, DecLoading } = useUiStore()
 const { fetchByUser } = groupHook()
-const groupStore = useGroupStore()
+const { fetchMany } = employeeHook()
 
-const groups = []
+const groupStore = useGroupStore()
+const employeeStore = useEmployeeStore()
 
 onMounted(async () => {
   IncLoading()
   if (groupStore.getIsEmpty) {
     await fetchByUser()
   }
+
+  const missingEmployees = uniq(groupStore.getAllArray
+    .reduce((acc, emp) => [...acc, ...emp.employeeIds], [] as number[]))
+    .filter(id => !employeeStore.isAlreadyInStore(id))
+
+  if (missingEmployees.length > 0) {
+    await fetchMany(missingEmployees)
+  }
+
   DecLoading()
 })
 
