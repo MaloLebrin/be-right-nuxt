@@ -2,7 +2,7 @@
 <PageAuthWrapper>
   <div class="px-8">
     <template v-if="groupStore.getAllArray?.length > 0">
-      <GroupList :groups="[...groupStore.getAllArray, ...groupStore.getAllArray, ...groupStore.getAllArray, ...groupStore.getAllArray, ...groupStore.getAllArray, ...groupStore.getAllArray]" />
+      <GroupList :groups="groupStore.getAllArray" />
     </template>
     <BaseMessage
       v-else
