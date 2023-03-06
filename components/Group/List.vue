@@ -31,6 +31,17 @@
           </p>
 
           <ul class="px-4 py-2 space-y-2 overflow-hidden overflow-y-visible max-h-72">
+            <li>
+              <BaseButton
+                :href="{ name: 'destinataire' }"
+                title="Ajouter un destinataire"
+              >
+                <template #icon>
+                  <PlusCircleIconOutline />
+                </template>
+                Ajouter un destinataire à la liste
+              </BaseButton>
+            </li>
             <li
               v-for="employee in getEmployees(group).value"
               :key="employee.id"
