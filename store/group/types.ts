@@ -8,3 +8,5 @@ export interface Group extends BaseEntity {
   employees?: EmployeeType[]
   employeeIds: number[]
 }
+
+export type GroupCreationPayload = Pick<Group, 'name' | 'description' | 'employeeIds'>

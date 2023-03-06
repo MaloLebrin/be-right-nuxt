@@ -1,5 +1,5 @@
 import { uniq } from '@antfu/utils'
-import type { Group } from '~~/store'
+import type { Group, GroupCreationPayload } from '~~/store'
 import { useEmployeeStore, useUiStore } from '~~/store'
 import { useGroupStore } from '~~/store/group/groupStore'
 
@@ -32,20 +32,6 @@ export default function groupHook() {
       const { data: groups } = await $api().get<Group[]>('group/user')
       if (groups && groups.length > 0) {
         addMany(groups)
-      }
-    } catch (error) {
-      console.error(error)
-      $toast.error('Une erreur est survenue')
-    }
-    DecLoading()
-  }
-
-  async function fetchOne(id: number) {
-    IncLoading()
-    try {
-      const { data: group } = await $api().get<Group>(`group/${id}`)
-      if (group) {
-        addMany([group])
       }
     } catch (error) {
       console.error(error)
@@ -102,12 +88,29 @@ export default function groupHook() {
     DecLoading()
   }
 
+  async function postOne(group: GroupCreationPayload) {
+    IncLoading()
+    try {
+      const { data } = await $api().post<Group>('group', {
+        group,
+      })
+      if (data) {
+        addMany([data])
+        $toast.success('Groupe créé avec succès')
+      }
+    } catch (error) {
+      console.error(error)
+      $toast.error('Une erreur est survenue')
+    }
+    DecLoading()
+  }
+
   return {
     deleteGroup,
     fetchByEmployeeId,
+    postOne,
     fetchByUser,
     fetchMany,
-    fetchOne,
     fetchUserGroupsAndRelations,
   }
 }

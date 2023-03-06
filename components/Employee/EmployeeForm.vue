@@ -144,16 +144,16 @@ interface Props {
   isDebug?: boolean
 }
 
-const props = withDefaults(defineProps<Props>(), {
+const emit = defineEmits<{
+  (e: 'submit'): void
+}>()
+
+const props = withDefaults(efineProps<Props>(), {
   employee: null,
   mode: ModalModeEnum.CREATE,
   eventId: 0,
   userId: 0,
 })
-
-const emit = defineEmits<{
-  (e: 'submit'): void
-}>()
 
 const userStore = useUserStore()
 const eventStore = useEventStore()

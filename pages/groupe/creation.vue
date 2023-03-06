@@ -1,6 +1,8 @@
 <template>
 <PageAuthWrapper>
-  créer un groupe
+  <div class="flex justify-center">
+    <GroupForm />
+  </div>
 </PageAuthWrapper>
 </template>
 
