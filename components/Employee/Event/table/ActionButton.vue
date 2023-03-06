@@ -32,7 +32,6 @@
           <NuxtLink
             class="flex items-center w-full px-2 py-2 text-sm rounded-md group"
             :to="{ name: 'evenement-show-id', params: { id: event.id } }"
-            :data-cy="`event-${event.id}-show-link`"
           >
             <PencilSquareIconOutline
               class="w-5 h-5 mr-2 text-gray-800"
@@ -41,11 +40,17 @@
             Voir
           </NuxtLink>
         </MenuItem>
-        <MenuItem>
+        <MenuItem v-if="answer">
           <NuxtLink
             class="flex items-center w-full px-2 py-2 text-sm rounded-md group"
-            :to="{ name: 'evenement-show-id', params: { id: event.id } }"
-            :data-cy="`event-${event.id}-show-link`"
+            :class="{ isDowloadDisabled: 'cursor-not-allowed opacity-50' }"
+            :to="{
+              name: 'evenement-answer-download-id',
+              params: {
+                id: answer.id,
+              },
+            }"
+            :disabled="isDowloadDisabled"
           >
             <ArrowDownTrayIconOutline
               class="w-5 h-5 mr-2 text-gray-800"
@@ -63,37 +68,19 @@
 <script setup lang="ts">
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
 import type { EventType } from '@/types'
-import { ModalModeEnum, ModalNameEnum } from '@/types'
-import { useUiStore } from '~~/store'
+import { useAnswerStore } from '~~/store'
 
 interface Props {
   event: EventType
+  employeeId: number
 }
 
 const props = defineProps<Props>()
+const answerStore = useAnswerStore()
 
-const uiStore = useUiStore()
-const { setUiModal } = uiStore
+const answer = computed(() => answerStore.getAllArray.find(answer =>
+  answer.eventId === props.event.id && answer.employeeId === props.employeeId),
+)
 
-// function addEmployeeToEvent() {
-//   setUiModal({
-//     isActive: true,
-//     modalName: ModalNameEnum.ADD_EMPLOYEE,
-//     modalMode: ModalModeEnum.CREATE,
-//     data: {
-//       eventId: props.event.id,
-//     },
-//   })
-// }
-
-function deleteEvent() {
-  setUiModal({
-    isActive: true,
-    modalName: ModalNameEnum.EVENT_FORM,
-    modalMode: ModalModeEnum.DELETE,
-    data: {
-      event: props.event,
-    },
-  })
-}
+const isDowloadDisabled = computed(() => !answer.value || !answer.value?.signedAt)
 </script>

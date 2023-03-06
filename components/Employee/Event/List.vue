@@ -9,6 +9,7 @@
         v-for="event in events"
         :key="event.id"
         :event="event"
+        :employee-id="employeeId"
       />
     </tbody>
   </template>
@@ -27,6 +28,7 @@ import type { EventType } from '@/types'
 interface Props {
   noEventMessage?: string
   events: EventType[]
+  employeeId: number
 }
 
 withDefaults(defineProps<Props>(), {

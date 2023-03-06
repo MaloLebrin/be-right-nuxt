@@ -41,7 +41,10 @@
     class="px-8 py-2"
   >
     <TabPanel>
-      <EmployeeEventList :events="employeeEvents" />
+      <EmployeeEventList
+        :events="employeeEvents"
+        :employee-id="employee?.id"
+      />
     </TabPanel>
     <TabPanel>
       Groupes
