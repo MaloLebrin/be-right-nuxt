@@ -123,6 +123,33 @@ export default function groupHook() {
     DecLoading()
   }
 
+  async function removeRecipient(employeeId: number, groupId: number) {
+    IncLoading()
+    try {
+      if (employeeId && groupId) {
+        const groupToUpdate = groupStore.getOne(groupId)
+
+        const payload: Group = {
+          ...groupToUpdate,
+          employeeIds: groupToUpdate.employeeIds.filter(id => id !== employeeId),
+        }
+
+        const { data } = await $api().patch<Group>(`group/${groupId}`, {
+          group: payload,
+        })
+        if (data) {
+          deleteOne(groupId)
+          addMany([data])
+          $toast.success('Groupe modifié avec succès')
+        }
+      }
+    } catch (error) {
+      console.error(error)
+      $toast.error('Une erreur est survenue')
+    }
+    DecLoading()
+  }
+
   return {
     deleteGroup,
     fetchByEmployeeId,
@@ -131,5 +158,6 @@ export default function groupHook() {
     fetchByUser,
     fetchMany,
     fetchUserGroupsAndRelations,
+    removeRecipient,
   }
 }

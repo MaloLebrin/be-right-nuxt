@@ -55,10 +55,15 @@
                 <BaseButton
                   :href="{ name: 'destinataire' }"
                   title="Voir"
+                  :disabled="uiStore.getUIIsLoading"
                 >
                   <EyeIconOutline class="w-4 h-4 text-blue-800" />
                 </BaseButton>
-                <BaseButton title="Retirer de la liste">
+                <BaseButton
+                  title="Retirer de la liste"
+                  :disabled="uiStore.getUIIsLoading"
+                  @click="removeRecipient(employee.id, group.id)"
+                >
                   <MinusCircleIconOutline class="w-4 h-4 m-0 text-red-500" />
                 </BaseButton>
               </div>
@@ -84,8 +89,10 @@ withDefaults(defineProps<Props>(), {
 })
 
 const employeeStore = useEmployeeStore()
-const { setUiModal } = useUiStore()
+const uiStore = useUiStore()
+const { setUiModal } = uiStore
 const { getEmployeeFullname } = employeeHook()
+const { removeRecipient } = groupHook()
 const getEmployees = (group: Group) => computed(() => employeeStore.getMany(group.employeeIds))
 
 function openAddRecipientModal(groupId: number) {
