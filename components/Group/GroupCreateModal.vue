@@ -59,6 +59,29 @@
             >
               Nothing found.
             </div>
+            <li
+              class="relative py-2 pl-10 pr-4 cursor-pointer select-none hover:bg-teal-600 hover:text-white"
+              :class="{
+                'text-gray-900': !areAllSelected,
+              }"
+              @click="toggleSelectAll"
+            >
+              <span
+                class="block truncate"
+                :class="{ 'font-medium': areAllSelected, 'font-normal': !areAllSelected }"
+              >
+                Tout sélectionner
+              </span>
+              <span
+                v-if="areAllSelected"
+                class="absolute inset-y-0 left-0 flex items-center pl-3 text-teal-600"
+              >
+                <CheckIconOutline
+                  class="w-5 h-5"
+                  aria-hidden="true"
+                />
+              </span>
+            </li>
 
             <ComboboxOption
               v-for="employee in filteredEmployee"
@@ -135,6 +158,7 @@
 </template>
 
 <script setup lang="ts">
+import type { EmployeeType } from '~~/store'
 import { useEmployeeStore, useUiStore } from '~~/store'
 
 interface Props {
@@ -155,7 +179,7 @@ const employeeStore = useEmployeeStore()
 const { IncLoading, DecLoading, resetUiModalState } = uiStore
 const { getEmployeeFullname } = employeeHook()
 
-const selected = ref([])
+const selected = ref<EmployeeType[]>([])
 const query = ref('')
 
 const filteredEmployee = computed(() =>
@@ -169,8 +193,18 @@ const filteredEmployee = computed(() =>
     ),
 )
 
+const areAllSelected = computed(() => filteredEmployee.value.length === selected.value.length)
+
 function onRemoveValue(index: number) {
   selected.value.splice(index, 1)
+}
+
+function toggleSelectAll() {
+  if (filteredEmployee.value.length === selected.value.length) {
+    selected.value = []
+  } else {
+    selected.value = filteredEmployee.value
+  }
 }
 
 function close() {
