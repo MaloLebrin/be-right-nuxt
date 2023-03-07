@@ -147,6 +147,7 @@
           </BaseButton>
           <BaseButton
             :disabled="!noNull(selected) || !noUndefined(selected) || selected.length <= 0"
+            @click="onSubmit"
           >
             Enregister
           </BaseButton>
@@ -159,13 +160,14 @@
 
 <script setup lang="ts">
 import type { EmployeeType } from '~~/store'
-import { useEmployeeStore, useUiStore } from '~~/store'
+import { useEmployeeStore, useGroupStore, useUiStore } from '~~/store'
 
 interface Props {
   isActive: boolean
+  groupId: number
 }
 
-withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<Props>(), {
   isActive: false,
 })
 
@@ -176,11 +178,14 @@ const emit = defineEmits<{
 
 const uiStore = useUiStore()
 const employeeStore = useEmployeeStore()
-const { IncLoading, DecLoading, resetUiModalState } = uiStore
+const groupStore = useGroupStore()
+const { resetUiModalState } = uiStore
 const { getEmployeeFullname } = employeeHook()
+const { patchOne } = groupHook()
 
 const selected = ref<EmployeeType[]>([])
 const query = ref('')
+const router = useRouter()
 
 const filteredEmployee = computed(() =>
   query.value === ''
@@ -210,5 +215,22 @@ function toggleSelectAll() {
 function close() {
   resetUiModalState()
   emit('close')
+}
+
+async function onSubmit() {
+  if (selected?.value.length > 0 && props.groupId) {
+    const group = groupStore.getOne(props.groupId)
+    await patchOne(props.groupId, {
+      ...group,
+      employeeIds: [
+        ...group.employeeIds,
+        ...selected.value.map(emp => emp.id),
+      ],
+    })
+
+    router.push({
+      name: 'groupe',
+    })
+  }
 }
 </script>

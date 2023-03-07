@@ -16,7 +16,7 @@ export default function groupHook() {
   async function deleteGroup(id: number) {
     try {
       IncLoading()
-      await $api().delete(`user/${id}`)
+      await $api().delete(`group/${id}`)
       deleteOne(id)
       $toast.success('Groupe à été supprimé avec succès')
     } catch (error) {
@@ -105,10 +105,29 @@ export default function groupHook() {
     DecLoading()
   }
 
+  async function patchOne(id: number, group: Partial<Group>) {
+    IncLoading()
+    try {
+      const { data } = await $api().patch<Group>(`group/${id}`, {
+        group,
+      })
+      if (data) {
+        deleteOne(id)
+        addMany([data])
+        $toast.success('Groupe modifié avec succès')
+      }
+    } catch (error) {
+      console.error(error)
+      $toast.error('Une erreur est survenue')
+    }
+    DecLoading()
+  }
+
   return {
     deleteGroup,
     fetchByEmployeeId,
     postOne,
+    patchOne,
     fetchByUser,
     fetchMany,
     fetchUserGroupsAndRelations,
