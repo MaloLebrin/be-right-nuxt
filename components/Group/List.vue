@@ -33,8 +33,8 @@
           <ul class="px-4 py-2 space-y-2 overflow-hidden overflow-y-visible max-h-72">
             <li>
               <BaseButton
-                :href="{ name: 'destinataire' }"
                 title="Ajouter un destinataire"
+                @click="openAddRecipientModal(group.id)"
               >
                 <template #icon>
                   <PlusCircleIconOutline />
@@ -73,7 +73,7 @@
 
 <script setup lang="ts">
 import type { Group } from '~~/store'
-import { useEmployeeStore } from '~~/store'
+import { ModalModeEnum, ModalNameEnum, useEmployeeStore, useUiStore } from '~~/store'
 
 interface Props {
   groups: Group[]
@@ -84,6 +84,18 @@ withDefaults(defineProps<Props>(), {
 })
 
 const employeeStore = useEmployeeStore()
+const { setUiModal } = useUiStore()
 const { getEmployeeFullname } = employeeHook()
 const getEmployees = (group: Group) => computed(() => employeeStore.getMany(group.employeeIds))
+
+function openAddRecipientModal(groupId: number) {
+  setUiModal({
+    modalMode: ModalModeEnum.EDIT,
+    modalName: ModalNameEnum.ADD_RECIPIENT_TO_GROUP,
+    isActive: true,
+    data: {
+      groupId,
+    },
+  })
+}
 </script>

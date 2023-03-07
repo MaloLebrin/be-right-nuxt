@@ -30,6 +30,8 @@
     is-required
   />
 
+  <BaseInputFileButton name="file" />
+
   <BaseFormDebug
     v-if="isDebug"
     :errors="errors"
@@ -73,6 +75,7 @@ const schema = object({
   name: string().required('le nom de l\'événement est obligatoire'),
   description: string().nullable(),
   employeeIds: array(number()).required('Les destinataires sont requis'),
+  file: string(),
 })
 
 const initialValues = {

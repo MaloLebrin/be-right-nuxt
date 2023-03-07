@@ -228,6 +228,7 @@ async function onSubmit() {
       ],
     })
 
+    close()
     router.push({
       name: 'groupe',
     })

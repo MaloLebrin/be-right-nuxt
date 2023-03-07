@@ -4,6 +4,7 @@ export enum ModalNameEnum {
   EVENT_FORM = 'EVENT_FORM',
   FILE_MODAL = 'FILE_MODAL',
   DOWNLOAD_ANSWER = 'DOWNLOAD_ANSWER',
+  ADD_RECIPIENT_TO_GROUP = 'ADD_RECIPIENT_TO_GROUP',
 }
 
 export enum ModalModeEnum {

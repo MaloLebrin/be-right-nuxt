@@ -20,7 +20,11 @@
     @close="CloseResetModalState"
   />
 
-  <GroupCreateModal :is-active="true" />
+  <GroupAddRecipientModal
+    v-if="isModalActive(ModalNameEnum.ADD_RECIPIENT_TO_GROUP).value"
+    :is-active="isModalActive(ModalNameEnum.ADD_RECIPIENT_TO_GROUP).value"
+    :group-id="uiStore.getUiModalState.data?.groupId"
+  />
 </main>
 </template>
 
