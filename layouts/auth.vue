@@ -19,6 +19,8 @@
     :event-id="eventID"
     @close="CloseResetModalState"
   />
+
+  <GroupCreateModal :is-active="true" />
 </main>
 </template>
 
