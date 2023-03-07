@@ -84,7 +84,7 @@
             </li>
 
             <ComboboxOption
-              v-for="employee in filteredEmployee"
+              v-for="employee in filterAlReadyInGroup(filteredEmployee)"
               :key="employee.id"
               v-slot="{ selected, active }"
               as="template"
@@ -186,6 +186,11 @@ const { patchOne } = groupHook()
 const selected = ref<EmployeeType[]>([])
 const query = ref('')
 const router = useRouter()
+
+function filterAlReadyInGroup(employees: EmployeeType[]) {
+  const employeesAlReadyInGroup = groupStore.getOne(props.groupId)?.employeeIds
+  return employees.filter(emp => !employeesAlReadyInGroup.includes(emp.id))
+}
 
 const filteredEmployee = computed(() =>
   query.value === ''
