@@ -129,8 +129,8 @@ async function submit(form: VeeValidateValues) {
   if (selected.value === 'csv') {
     const formData = new FormData()
     formData.append('file', form.file)
-    formData.append('name', form.file)
-    formData.append('description', form.file)
+    formData.append('name', form.name)
+    formData.append('description', form.description)
     console.log(formData, '<==== formData')
     await postOneCSV(formData)
   }
