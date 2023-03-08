@@ -60,6 +60,7 @@ declare module '@vue/runtime-core' {
     PlusCircleIconOutline: typeof import('@heroicons/vue/24/outline/esm/PlusCircleIcon.js')['default']
     PlusIconOutline: typeof import('@heroicons/vue/24/outline/esm/PlusIcon.js')['default']
     RadioGroup: typeof import('@headlessui/vue')['RadioGroup']
+    RadioGroupDescription: typeof import('@headlessui/vue')['RadioGroupDescription']
     RadioGroupLabel: typeof import('@headlessui/vue')['RadioGroupLabel']
     RadioGroupOption: typeof import('@headlessui/vue')['RadioGroupOption']
     RouterLink: typeof import('vue-router')['RouterLink']

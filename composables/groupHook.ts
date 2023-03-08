@@ -105,6 +105,21 @@ export default function groupHook() {
     DecLoading()
   }
 
+  async function postOneCSV(data: FormData) {
+    IncLoading()
+    try {
+      const { data } = await $api().post<Group>('group/csv', data, true)
+      if (data) {
+        addMany([data])
+        $toast.success('Groupe créé avec succès')
+      }
+    } catch (error) {
+      console.error(error)
+      $toast.error('Une erreur est survenue')
+    }
+    DecLoading()
+  }
+
   async function patchOne(id: number, group: Partial<Group>) {
     IncLoading()
     try {
@@ -154,6 +169,7 @@ export default function groupHook() {
     deleteGroup,
     fetchByEmployeeId,
     postOne,
+    postOneCSV,
     patchOne,
     fetchByUser,
     fetchMany,
