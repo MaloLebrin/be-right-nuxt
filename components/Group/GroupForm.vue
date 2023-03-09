@@ -1,7 +1,7 @@
 <template>
 <Form
   v-slot="{ meta, isSubmitting, errors }"
-  :validation-schema="schema"
+  :validation-schema="validationSchema"
   :initial-values="initialValues"
   class="grid w-full max-w-xl grid-cols-1 gap-6 mt-4 md:grid-cols-2"
   @submit="submit"
@@ -100,11 +100,24 @@ const { postOne, postOneCSV } = groupHook()
 
 const selected = ref<'list' | 'csv'>('list')
 
-const schema = object({
-  name: string().required('le nom de l\'événement est obligatoire'),
-  description: string().nullable(),
-  // employeeIds: array(number()).required('Les destinataires sont requis'),
-  // file: string(),
+const validationSchema = computed(() => {
+  if (selected.value === 'list') {
+    return object({
+      name: string().required('le nom de l\'événement est obligatoire'),
+      description: string().nullable(),
+      employeeIds: array(number())
+        .min(1, 'Sélectionnez au moins un destinataire')
+        .required('Les destinataires sont requis'),
+    })
+  }
+
+  if (selected.value === 'csv') {
+    return object({
+      name: string().required('le nom de l\'événement est obligatoire'),
+      description: string().nullable(),
+      file: string().required('Le fichier CSV est requis'),
+    })
+  }
 })
 
 const initialValues = {
