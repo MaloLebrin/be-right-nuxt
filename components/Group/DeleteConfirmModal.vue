@@ -1,52 +1,27 @@
 <template>
-<BaseModal
+<BaseDeleteConfirmModal
+  :title="getModalTitle"
   :is-active="isActive"
-  @close="close"
 >
-  <div class="px-4 py-2 sm:flex sm:items-start">
-    <div
-      v-if="uiStore.getUiModalState.modalMode === ModalModeEnum.DELETE"
-      class="flex items-center justify-center flex-shrink-0 w-12 h-12 mx-auto bg-red-100 rounded-full sm:mx-0 sm:h-10 sm:w-10"
+  <p class="text-sm text-gray-500">
+    Êtes-vous sûr de vouloir supprimer cette liste ?
+  </p>
+  <div class="mt-5 sm:space-x-8 sm:mt-4 sm:flex sm:items-center sm:justify-center">
+    <BaseButton
+      color="red"
+      :is-loading="uiStore.getUIIsLoading"
+      @click="deletegroupe"
     >
-      <ExclamationTriangleIconOutline
-        class="w-6 h-6 text-red-600"
-        aria-hidden="true"
-      />
-    </div>
-    <div class="mt-3 space-y-2 text-center sm:mt-0 sm:ml-4 sm:text-left">
-      <DialogTitle
-        as="h3"
-        class="text-lg font-medium leading-6 text-gray-900"
-      >
-        {{ getModalTitle }}
-      </DialogTitle>
-      <div
-        v-if="uiStore.getUiModalState.modalMode === ModalModeEnum.DELETE"
-        class="mt-2 space-y-4"
-      >
-        <p class="text-sm text-gray-500">
-          Êtes-vous sûr de vouloir supprimer cette liste ?
-        </p>
-        <div class="mt-5 sm:space-x-8 sm:mt-4 sm:flex sm:items-center sm:justify-center">
-          <BaseButton
-            color="red"
-            :is-loading="uiStore.getUIIsLoading"
-            @click="deletegroupe"
-          >
-            Supprimer
-          </BaseButton>
-          <BaseButton @click="close">
-            Annuler
-          </BaseButton>
-        </div>
-      </div>
-    </div>
+      Supprimer
+    </BaseButton>
+    <BaseButton @click="close">
+      Annuler
+    </BaseButton>
   </div>
-</BaseModal>
+</BaseDeleteConfirmModal>
 </template>
 
 <script setup lang="ts">
-import { ModalModeEnum } from '@/types'
 import { useGroupStore, useUiStore } from '~~/store'
 
 interface Props {
