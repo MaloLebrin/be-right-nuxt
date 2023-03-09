@@ -1,5 +1,5 @@
 <template>
-<div class="py-8 -mt-6 bg-gray-50">
+<div class="py-8 bg-gray-50">
   <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8 xl:flex xl:items-center xl:justify-between">
     <div class="flex-1 min-w-0">
       <nav
