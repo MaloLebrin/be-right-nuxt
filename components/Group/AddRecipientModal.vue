@@ -186,6 +186,7 @@ const { patchOne } = groupHook()
 const selected = ref<EmployeeType[]>([])
 const query = ref('')
 const router = useRouter()
+const route = useRoute()
 
 function filterAlReadyInGroup(employees: EmployeeType[]) {
   const employeesAlReadyInGroup = groupStore.getOne(props.groupId)?.employeeIds
@@ -234,9 +235,12 @@ async function onSubmit() {
     })
 
     close()
-    router.push({
-      name: 'groupe',
-    })
+
+    if (route.name !== 'groupe-show-id') {
+      router.push({
+        name: 'groupe',
+      })
+    }
   }
 }
 </script>

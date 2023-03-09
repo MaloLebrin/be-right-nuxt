@@ -124,6 +124,7 @@ const initialValues = {
   name: null,
   description: null,
   employeeIds: [],
+  file: null,
 }
 
 async function submit(form: VeeValidateValues) {

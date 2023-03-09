@@ -1,15 +1,14 @@
 import { uniq } from '@antfu/utils'
 import type { Group, GroupCreationPayload } from '~~/store'
-import { useAuthStore, useEmployeeStore, useUiStore } from '~~/store'
+import { ModalModeEnum, ModalNameEnum, useEmployeeStore, useUiStore } from '~~/store'
 import { useGroupStore } from '~~/store/group/groupStore'
 
 export default function groupHook() {
   const { $toast, $api } = useNuxtApp()
 
-  const { IncLoading, DecLoading } = useUiStore()
+  const { IncLoading, DecLoading, setUiModal } = useUiStore()
   const groupStore = useGroupStore()
   const employeeStore = useEmployeeStore()
-  const authStore = useAuthStore()
   const { fetchMany: fetchManyEmployees } = employeeHook()
 
   const { addMany, removeOne } = groupStore
@@ -48,6 +47,8 @@ export default function groupHook() {
         const { data } = await $api().get<Group[]>(`group/manyByIds?ids=${ids.join(',')}`)
 
         if (data && data.length > 0) {
+          await fetchGroupRelations(data)
+
           addMany(data)
         }
       }
@@ -78,16 +79,7 @@ export default function groupHook() {
       await fetchByUser()
     }
 
-    const missingEmployees = groupStore.getAllArray?.length > 0
-      ? uniq(groupStore.getAllArray
-        .reduce((acc, emp) => [...acc, ...emp?.employeeIds], [] as number[]))
-        .filter(id => !employeeStore.isAlreadyInStore(id))
-      : []
-
-    if (missingEmployees.length > 0) {
-      await fetchManyEmployees(missingEmployees)
-    }
-
+    await fetchGroupRelations(groupStore.getAllArray)
     DecLoading()
   }
 
@@ -131,7 +123,7 @@ export default function groupHook() {
         group,
       })
       if (data) {
-        deleteOne(id)
+        removeOne(id)
         addMany([data])
         $toast.success('Groupe modifié avec succès')
       }
@@ -142,22 +134,22 @@ export default function groupHook() {
     DecLoading()
   }
 
-  async function removeRecipient(employeeId: number, groupId: number) {
+  async function removeRecipients(employeeIds: number[], groupId: number) {
     IncLoading()
     try {
-      if (employeeId && groupId) {
+      if (employeeIds?.length > 0 && groupId) {
         const groupToUpdate = groupStore.getOne(groupId)
 
         const payload: Group = {
           ...groupToUpdate,
-          employeeIds: groupToUpdate.employeeIds.filter(id => id !== employeeId),
+          employeeIds: groupToUpdate.employeeIds.filter(id => !employeeIds.includes(id)),
         }
 
         const { data } = await $api().patch<Group>(`group/${groupId}`, {
           group: payload,
         })
         if (data) {
-          deleteOne(groupId)
+          removeOne(groupId)
           addMany([data])
           $toast.success('Groupe modifié avec succès')
         }
@@ -169,15 +161,57 @@ export default function groupHook() {
     DecLoading()
   }
 
+  async function fetchGroupRelations(groups: Group[]) {
+    const missingEmployees = groups?.length > 0
+      ? uniq(groups
+        .reduce((acc, emp) => {
+          if (emp && emp.employeeIds?.length > 0) {
+            return [...acc, ...emp?.employeeIds]
+          }
+          return acc
+        }, [] as number[]))
+        .filter(id => !employeeStore.isAlreadyInStore(id))
+      : []
+
+    if (missingEmployees.length > 0) {
+      await fetchManyEmployees(missingEmployees)
+    }
+  }
+
+  function openAddRecipientModal(groupId: number) {
+    setUiModal({
+      modalMode: ModalModeEnum.EDIT,
+      modalName: ModalNameEnum.ADD_RECIPIENT_TO_GROUP,
+      isActive: true,
+      data: {
+        groupId,
+      },
+    })
+  }
+
+  function openDeleteConfirmModal(groupId: number) {
+    setUiModal({
+      modalMode: ModalModeEnum.DELETE,
+      modalName: ModalNameEnum.DELETE_CONFIRM_GROUP,
+      isActive: true,
+      data: {
+        groupId,
+      },
+    })
+  }
+
   return {
     deleteGroup,
     fetchByEmployeeId,
+    openAddRecipientModal,
+    openDeleteConfirmModal,
     postOne,
     postOneCSV,
     patchOne,
     fetchByUser,
+    fetchGroupRelations,
     fetchMany,
     fetchUserGroupsAndRelations,
-    removeRecipient,
+    removeRecipients,
   }
 }

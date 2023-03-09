@@ -73,7 +73,7 @@
                 <BaseButton
                   title="Retirer de la liste"
                   :disabled="uiStore.getUIIsLoading"
-                  @click="removeRecipient(employee.id, group.id)"
+                  @click="removeRecipients([employee.id], group.id)"
                 >
                   <MinusCircleIconOutline class="w-4 h-4 m-0 text-red-500" />
                 </BaseButton>
@@ -89,7 +89,7 @@
 
 <script setup lang="ts">
 import type { Group } from '~~/store'
-import { ModalModeEnum, ModalNameEnum, useEmployeeStore, useUiStore } from '~~/store'
+import { useEmployeeStore, useUiStore } from '~~/store'
 
 interface Props {
   groups: Group[]
@@ -101,30 +101,12 @@ withDefaults(defineProps<Props>(), {
 
 const employeeStore = useEmployeeStore()
 const uiStore = useUiStore()
-const { setUiModal } = uiStore
 const { getEmployeeFullname } = employeeHook()
-const { removeRecipient } = groupHook()
+const {
+  removeRecipients,
+  openAddRecipientModal,
+  openDeleteConfirmModal,
+} = groupHook()
+
 const getEmployees = (group: Group) => computed(() => employeeStore.getMany(group.employeeIds))
-
-function openAddRecipientModal(groupId: number) {
-  setUiModal({
-    modalMode: ModalModeEnum.EDIT,
-    modalName: ModalNameEnum.ADD_RECIPIENT_TO_GROUP,
-    isActive: true,
-    data: {
-      groupId,
-    },
-  })
-}
-
-function openDeleteConfirmModal(groupId: number) {
-  setUiModal({
-    modalMode: ModalModeEnum.DELETE,
-    modalName: ModalNameEnum.DELETE_CONFIRM_GROUP,
-    isActive: true,
-    data: {
-      groupId,
-    },
-  })
-}
 </script>

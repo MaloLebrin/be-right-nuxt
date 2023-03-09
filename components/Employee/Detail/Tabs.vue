@@ -54,6 +54,7 @@
       <EmployeeGroupList
         v-else
         :groups="employeeGroups"
+        :employee-id="employee?.id"
       />
     </TabPanel>
   </TabPanels>

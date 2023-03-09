@@ -8,6 +8,7 @@
       v-for="group in groups"
       :key="group.id"
       :group="group"
+      :employee-id="employeeId"
     />
   </template>
 </BaseTable>
@@ -18,6 +19,7 @@ import type { Group } from '~~/store'
 
 interface Props {
   groups: Group[]
+  employeeId: number
 }
 
 withDefaults(defineProps<Props>(), {

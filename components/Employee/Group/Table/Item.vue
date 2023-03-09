@@ -7,13 +7,24 @@
     {{ group.name }}
   </td>
   <td class="relative flex flex-col py-4 pl-3 pr-4 space-y-2 text-sm font-medium text-right whitespace-nowrap sm:pr-6">
-    <BaseButton>
+    <BaseButton
+      :disabled="uiStore.getUIIsLoading"
+      :href="{
+        name: 'groupe-show-id',
+        params: {
+          id: group.id,
+        },
+      }"
+    >
       <template #icon>
         <EyeIconOutline />
       </template>
       Voir le group
     </BaseButton>
-    <BaseButton>
+    <BaseButton
+      :disabled="uiStore.getUIIsLoading"
+      @click="removeRecipients([employeeId], group.id)"
+    >
       <template #icon>
         <MinusCircleIconOutline class="text-red-500" />
       </template>
@@ -25,10 +36,15 @@
 
 <script setup lang="ts">
 import type { Group } from '~~/store'
+import { useUiStore } from '~~/store'
 
 interface Props {
   group: Group
+  employeeId: number
 }
 
 defineProps<Props>()
+
+const uiStore = useUiStore()
+const { removeRecipients } = groupHook()
 </script>
