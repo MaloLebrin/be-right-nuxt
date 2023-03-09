@@ -31,7 +31,7 @@
           </p>
 
           <ul class="px-4 py-2 space-y-2 overflow-hidden overflow-y-visible max-h-72">
-            <li>
+            <li class="flex items-center justify-between mb-4">
               <BaseButton
                 title="Ajouter un destinataire"
                 @click="openAddRecipientModal(group.id)"
@@ -40,6 +40,17 @@
                   <PlusCircleIconOutline />
                 </template>
                 Ajouter un destinataire à la liste
+              </BaseButton>
+
+              <BaseButton
+                title="Supprimer le groupe de diffusion"
+                color="red"
+                @click="openDeleteConfirmModal(group.id)"
+              >
+                <template #icon>
+                  <MinusCircleIconOutline />
+                </template>
+                Supprimer le groupe de diffusion
               </BaseButton>
             </li>
             <li
@@ -99,6 +110,17 @@ function openAddRecipientModal(groupId: number) {
   setUiModal({
     modalMode: ModalModeEnum.EDIT,
     modalName: ModalNameEnum.ADD_RECIPIENT_TO_GROUP,
+    isActive: true,
+    data: {
+      groupId,
+    },
+  })
+}
+
+function openDeleteConfirmModal(groupId: number) {
+  setUiModal({
+    modalMode: ModalModeEnum.DELETE,
+    modalName: ModalNameEnum.DELETE_CONFIRM_GROUP,
     isActive: true,
     data: {
       groupId,

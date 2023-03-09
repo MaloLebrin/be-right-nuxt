@@ -21,6 +21,11 @@ export const useGroupStore = defineStore('group', {
       })
     },
 
+    removeOne(id: number) {
+      delete this.entities.byId[id]
+      this.entities.allIds = this.entities.allIds.filter(entityId => entityId !== id)
+    },
+
     // actions common to all entities
     resetState() {
       this.$state = defaultGroupState()

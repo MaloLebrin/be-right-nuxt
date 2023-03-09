@@ -12,13 +12,13 @@ export default function groupHook() {
   const authStore = useAuthStore()
   const { fetchMany: fetchManyEmployees } = employeeHook()
 
-  const { addMany, deleteOne } = groupStore
+  const { addMany, removeOne } = groupStore
 
   async function deleteGroup(id: number) {
     try {
       IncLoading()
       await $api().delete(`group/${id}`)
-      deleteOne(id)
+      removeOne(id)
       $toast.success('Groupe à été supprimé avec succès')
     } catch (error) {
       $toast.error('Une erreur est survenue')

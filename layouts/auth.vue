@@ -25,6 +25,12 @@
     :is-active="isModalActive(ModalNameEnum.ADD_RECIPIENT_TO_GROUP).value"
     :group-id="uiStore.getUiModalState.data?.groupId"
   />
+
+  <GroupDeleteConfirmModal
+    v-if="isModalActive(ModalNameEnum.DELETE_CONFIRM_GROUP).value"
+    :is-active="isModalActive(ModalNameEnum.DELETE_CONFIRM_GROUP).value"
+    :group-id="uiStore.getUiModalState.data?.groupId"
+  />
 </main>
 </template>
 
@@ -61,6 +67,7 @@ function CloseResetModalState() {
 }
 
 onMounted(async () => {
+  // TODO refacto this in hook
   if (!authStore.isAuthUserAdmin && userStore.getAuthUser) {
     await fetchUserNotifications()
   }
