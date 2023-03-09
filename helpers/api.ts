@@ -45,7 +45,7 @@ export class FetchWrapper implements ApiMethods {
     this.redirect = init.redirect
   }
 
-  private buildBodyToSend(body: BodyInit | null | undefined, isFileRequest?: boolean) {
+  private buildBody(body: BodyInit | null | undefined, isFileRequest?: boolean) {
     if (!body) {
       return null
     }
@@ -75,7 +75,7 @@ export class FetchWrapper implements ApiMethods {
     const request = new Request(url, {
       ...config,
       headers: this.buildHeaders(config.headers, isFileRequest),
-      body: this.buildBodyToSend(config.body, isFileRequest),
+      body: this.buildBody(config.body, isFileRequest),
     })
 
     const response = await fetch(request)
