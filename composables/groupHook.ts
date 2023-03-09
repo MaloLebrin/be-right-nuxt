@@ -1,6 +1,6 @@
 import { uniq } from '@antfu/utils'
 import type { Group, GroupCreationPayload } from '~~/store'
-import { useEmployeeStore, useUiStore } from '~~/store'
+import { useAuthStore, useEmployeeStore, useUiStore } from '~~/store'
 import { useGroupStore } from '~~/store/group/groupStore'
 
 export default function groupHook() {
@@ -9,6 +9,7 @@ export default function groupHook() {
   const { IncLoading, DecLoading } = useUiStore()
   const groupStore = useGroupStore()
   const employeeStore = useEmployeeStore()
+  const authStore = useAuthStore()
   const { fetchMany: fetchManyEmployees } = employeeHook()
 
   const { addMany, deleteOne } = groupStore
@@ -77,9 +78,11 @@ export default function groupHook() {
       await fetchByUser()
     }
 
-    const missingEmployees = uniq(groupStore.getAllArray
-      .reduce((acc, emp) => [...acc, ...emp.employeeIds], [] as number[]))
-      .filter(id => !employeeStore.isAlreadyInStore(id))
+    const missingEmployees = groupStore.getAllArray?.length > 0
+      ? uniq(groupStore.getAllArray
+        .reduce((acc, emp) => [...acc, ...emp?.employeeIds], [] as number[]))
+        .filter(id => !employeeStore.isAlreadyInStore(id))
+      : []
 
     if (missingEmployees.length > 0) {
       await fetchManyEmployees(missingEmployees)
@@ -105,10 +108,21 @@ export default function groupHook() {
     DecLoading()
   }
 
-  async function postOneCSV(data: FormData) {
+  async function postOneCSV(dataForm: FormData) {
     IncLoading()
     try {
-      const { data } = await $api().post<Group>('group/csv', data, true)
+      // const { data } = await $api().post<Group>('group/csv', dataForm, true)
+      const res = await fetch('http://localhost:8080/group/csv', {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${authStore.getToken}`,
+          Accept: 'application/json',
+          // 'Content-Type': 'multipart/form-data',
+        },
+        body: dataForm,
+      })
+      const data = await res.json()
+      console.log(data, '<==== data')
       if (data) {
         addMany([data])
         $toast.success('Groupe créé avec succès')
