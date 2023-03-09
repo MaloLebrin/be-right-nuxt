@@ -86,7 +86,6 @@ import { Form } from 'vee-validate'
 import { array, number, object, string } from 'yup'
 import { useEmployeeStore, useUiStore } from '~~/store'
 import type { VeeValidateValues } from '~~/types'
-
 interface Props {
   isDebug?: boolean
 }
@@ -117,7 +116,6 @@ const initialValues = {
 async function submit(form: VeeValidateValues) {
   const router = useRouter()
 
-  console.log(form, '<==== form')
   if (selected.value === 'list') {
     await postOne({
       name: form.name,
@@ -128,10 +126,9 @@ async function submit(form: VeeValidateValues) {
 
   if (selected.value === 'csv') {
     const formData = new FormData()
-    formData.append('file', form.file)
-    formData.append('name', form.name)
-    formData.append('description', form.description)
-    console.log(formData, '<==== formData')
+    formData.set('file', form.file, 'file')
+    formData.set('name', form.name)
+    formData.set('description', form.description)
     await postOneCSV(formData)
   }
 

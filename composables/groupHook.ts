@@ -111,18 +111,8 @@ export default function groupHook() {
   async function postOneCSV(dataForm: FormData) {
     IncLoading()
     try {
-      // const { data } = await $api().post<Group>('group/csv', dataForm, true)
-      const res = await fetch('http://localhost:8080/group/csv', {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${authStore.getToken}`,
-          Accept: 'application/json',
-          // 'Content-Type': 'multipart/form-data',
-        },
-        body: dataForm,
-      })
-      const data = await res.json()
-      console.log(data, '<==== data')
+      const { data } = await $api().post<Group>('group/csv', dataForm, true)
+
       if (data) {
         addMany([data])
         $toast.success('Groupe créé avec succès')
