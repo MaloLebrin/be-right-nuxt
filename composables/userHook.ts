@@ -137,23 +137,6 @@ export default function userHook() {
     }
   }
 
-  async function userToggleTheme(theme: ThemeEnum) {
-    try {
-      IncLoading()
-      const id = userStore.entities.current?.id
-      if (id) {
-        const { data } = await $api().patch<UserType>(`user/theme/${id}`, theme)
-        if (data && isUserType(data)) {
-          userStore.updateOne(id, data)
-        }
-      }
-    } catch (error) {
-      console.error(error)
-      $toast.error('Une erreur est survenue')
-    }
-    DecLoading()
-  }
-
   async function fetchAll(url?: string) {
     IncLoading()
     try {
@@ -292,7 +275,7 @@ export default function userHook() {
       const { data, success } = await $api().get<UserType[]>(`user/partners/${userId}`)
       if (data && success) {
         const partners = data.filter(user => !userStore.isAlreadyInStore(user.id))
-        userStore.addMany(uniq(partners))
+        userStore.addMany(partners)
         return partners
       }
       return []
@@ -321,6 +304,5 @@ export default function userHook() {
     postPhotographer,
     redirectBaseOneCurrentUserRole,
     storeUsersEntities,
-    userToggleTheme,
   }
 }
