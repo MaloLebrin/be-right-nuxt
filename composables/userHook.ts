@@ -1,4 +1,4 @@
-import { hasOwnProperty, uniq } from '@antfu/utils'
+import { hasOwnProperty } from '@antfu/utils'
 import { RoleEnum } from '@/types'
 import type {
   EmployeeType,
@@ -6,7 +6,6 @@ import type {
   FileType,
   PaginatedResponse,
   PhotographerCreatePayload,
-  ThemeEnum,
   UserType,
 } from '@/types'
 import { isArrayOfNumbers } from '@/utils'
