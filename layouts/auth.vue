@@ -75,27 +75,27 @@ onMounted(async () => {
   const notifications = notificationStore.getAllArray
 
   if (notifications?.length > 0) {
-    const eventIds: number[] = []
-    const answerIds: number[] = []
+    const missingEventIds: number[] = []
+    const missingAnswerIds: number[] = []
 
     notifications.forEach(notif => {
       if (notif.eventNotification) {
         const { eventId, answerId } = notif.eventNotification
         if (eventId && !eventStore.isAlreadyInStore(eventId)) {
-          eventIds.push(eventId)
+          missingEventIds.push(eventId)
         }
         if (answerId && !answerStore.isAlreadyInStore(answerId)) {
-          answerIds.push(answerId)
+          missingAnswerIds.push(answerId)
         }
       }
     })
 
-    if (answerIds.length > 0) {
-      await fetchManyAnswers(uniq(answerIds))
+    if (missingAnswerIds.length > 0) {
+      await fetchManyAnswers(uniq(missingAnswerIds))
     }
 
-    if (eventIds.length > 0) {
-      await fetchManyEvents(uniq(eventIds))
+    if (missingEventIds.length > 0) {
+      await fetchManyEvents(uniq(missingEventIds))
     }
   }
 })
