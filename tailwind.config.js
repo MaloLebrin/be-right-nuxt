@@ -8,8 +8,6 @@ delete colors.blueGray
 /** @type {import("@types/tailwindcss/tailwind-config").TailwindConfig } */
 module.exports = {
   mode: 'jit',
-  content: ['./pages/**/*.vue', './components/**/*.vue'],
-  presets: [],
   safelist: [
     ...(Object.keys(colors).reduce((acc, name) => {
       acc.push(`bg-${name}-50`)
@@ -20,6 +18,8 @@ module.exports = {
       acc.push(`border-${name}-700`)
       return acc
     }, [])),
+    'bg-gray-900',
+    'text-white',
   ],
   theme: {
     extends: {

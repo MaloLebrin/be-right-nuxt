@@ -139,9 +139,3 @@ function getMenuItems() {
   return MENU_ITEMS.filter(item => !item.isAdmin)
 }
 </script>
-
-<style scoped>
-.active-nuxt-link {
-  @apply bg-gray-900 text-white
-}
-</style>
