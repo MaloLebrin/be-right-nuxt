@@ -38,30 +38,36 @@
         >
           <PencilSquareIconOutline
             :active="active"
-            class="w-5 h-5 mr-2 text-violet-500"
+            class="w-5 h-5 mr-2 text-violet-800"
             aria-hidden="true"
           />
           Voir / Modifier
         </NuxtLink>
       </MenuItem>
-      <!-- <MenuItem v-slot="{ active }">
-          <button
-            :class="[
-              active ? 'bg-purple-300 text-purple-800' : 'text-gray-900',
-              'group flex rounded-md items-center w-full px-3 py-3 text-sm',
-            ]"
-            @click="addEmployeeToEvent"
-          >
-            <PlusCircleIconOutline
-              :active="active"
-              class="w-5 h-5 mr-2 text-violet-400"
-              aria-hidden="true"
-            />
-            Ajouter un destinataire
-          </button>
-        </MenuItem> -->
+      <MenuItem
+        v-if="!isDeleted"
+        v-slot="{ active }"
+      >
+        <button
+          class="flex items-center w-full px-3 py-3 text-sm rounded-md group"
+          :class="[
+            active ? 'bg-purple-100 text-purple-800' : 'text-gray-900',
+          ]"
+        >
+          <!-- @click="addEmployeeToEvent" -->
+          <PlusCircleIconOutline
+            :active="active"
+            class="w-5 h-5 mr-2 text-violet-800"
+            aria-hidden="true"
+          />
+          Ajouter un destinataire
+        </button>
+      </MenuItem>
       <!-- TODO find UI-UX and code way to add existing or new Employee to event -->
-      <MenuItem v-slot="{ active }">
+      <MenuItem
+        v-if="!isDeleted"
+        v-slot="{ active }"
+      >
         <NuxtLink
           class="flex items-center w-full px-3 py-3 text-sm rounded-md cursor-pointer group"
           :class="[
@@ -96,6 +102,8 @@ const props = defineProps<Props>()
 
 const uiStore = useUiStore()
 const { setUiModal } = uiStore
+
+const isDeleted = computed(() => noNull(props.event.deletedAt) && noUndefined(props.event.deletedAt))
 
 // function addEmployeeToEvent() {
 //   setUiModal({
