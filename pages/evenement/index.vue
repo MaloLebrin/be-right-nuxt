@@ -1,13 +1,19 @@
 <template>
 <PageAuthWrapper>
   <EventList
-    :events="eventStore.getAllSorted"
+    :events="eventStore.getAllSorted()"
   />
 </PageAuthWrapper>
 </template>
 
 <script setup lang="ts">
-import { useAuthStore, useEventStore, useTableStore, useUiStore, useUserStore } from '~~/store'
+import {
+  useAuthStore,
+  useEventStore,
+  useTableStore,
+  useUiStore,
+  useUserStore,
+} from '~~/store'
 
 const eventStore = useEventStore()
 const { IncLoading, DecLoading } = useUiStore()
