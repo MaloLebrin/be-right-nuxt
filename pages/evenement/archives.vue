@@ -1,16 +1,14 @@
 <template>
 <PageAuthWrapper>
   <EventList
-    :events="eventStore.getAllSorted(true)"
+    :events="events"
   />
 </PageAuthWrapper>
 </template>
 
 <script setup lang="ts">
 import {
-  useAuthStore,
   useEventStore,
-  useTableStore,
   useUiStore,
   useUserStore,
 } from '~~/store'
@@ -19,6 +17,10 @@ const eventStore = useEventStore()
 const userStore = useUserStore()
 const { IncLoading, DecLoading } = useUiStore()
 const { fetchDeleted } = eventHook()
+
+const events = computed(() =>
+  eventStore.getAllSorted(true),
+)
 
 onMounted(async () => {
   const userId = userStore.getAuthUserId

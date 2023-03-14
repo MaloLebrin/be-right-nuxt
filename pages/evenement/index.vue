@@ -1,7 +1,7 @@
 <template>
 <PageAuthWrapper>
   <EventList
-    :events="eventStore.getAllSorted()"
+    :events="events"
   />
 </PageAuthWrapper>
 </template>
@@ -21,6 +21,9 @@ const userStore = useUserStore()
 const tableStore = useTableStore()
 const authStore = useAuthStore()
 // const { setFilters } = tableStore
+const events = computed(() =>
+  eventStore.getAllSorted(),
+)
 
 const { fetchEventsByUser, fetchAllEvents } = eventHook()
 const { fetchManyAnswerForManyEvent } = answerHook()
