@@ -27,31 +27,28 @@
     <MenuItems
       class="absolute right-0 z-10 w-56 mt-2 overflow-visible origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
     >
-      <div class="px-1 py-1">
-        <MenuItem v-slot="{ active }">
-          <NuxtLink
-            class="flex items-center w-full px-2 py-2 text-sm rounded-md group"
-            :class="[
-              active ? 'bg-purple-300 text-purple-800' : 'text-gray-900',
-            ]"
-            :to="{ name: 'evenement-show-id', params: { id: props.event.id } }"
-            :data-cy="`event-${props.event.id}-show-link`"
-          >
-            <PencilSquareIconOutline
-              :active="active"
-              class="w-5 h-5 mr-2 text-violet-400"
-              aria-hidden="true"
-            />
-            Voir / Modifier
-          </NuxtLink>
-        </MenuItem>
-      </div>
-      <!-- <div class="px-1 py-1">
-        <MenuItem v-slot="{ active }">
+      <MenuItem v-slot="{ active }">
+        <NuxtLink
+          class="flex items-center w-full px-3 py-3 text-sm rounded-md group"
+          :class="[
+            active ? 'bg-purple-100 text-purple-800' : 'text-gray-900',
+          ]"
+          :to="{ name: 'evenement-show-id', params: { id: props.event.id } }"
+          :data-cy="`event-${props.event.id}-show-link`"
+        >
+          <PencilSquareIconOutline
+            :active="active"
+            class="w-5 h-5 mr-2 text-violet-500"
+            aria-hidden="true"
+          />
+          Voir / Modifier
+        </NuxtLink>
+      </MenuItem>
+      <!-- <MenuItem v-slot="{ active }">
           <button
             :class="[
               active ? 'bg-purple-300 text-purple-800' : 'text-gray-900',
-              'group flex rounded-md items-center w-full px-2 py-2 text-sm',
+              'group flex rounded-md items-center w-full px-3 py-3 text-sm',
             ]"
             @click="addEmployeeToEvent"
           >
@@ -62,27 +59,24 @@
             />
             Ajouter un destinataire
           </button>
-        </MenuItem>
-      </div> -->
+        </MenuItem> -->
       <!-- TODO find UI-UX and code way to add existing or new Employee to event -->
-      <div class="px-1 py-1">
-        <MenuItem v-slot="{ active }">
-          <NuxtLink
-            class="flex items-center w-full px-2 py-2 text-sm rounded-md group"
-            :class="[
-              active ? 'bg-purple-300 text-purple-800' : 'text-gray-900',
-            ]"
-            @click="deleteEvent"
-          >
-            <ArchiveBoxIconOutline
-              :active="active"
-              class="w-5 h-5 mr-2 text-violet-400"
-              aria-hidden="true"
-            />
-            Archiver
-          </NuxtLink>
-        </MenuItem>
-      </div>
+      <MenuItem v-slot="{ active }">
+        <NuxtLink
+          class="flex items-center w-full px-3 py-3 text-sm rounded-md cursor-pointer group"
+          :class="[
+            active ? 'bg-red-100 text-red-500' : 'text-gray-900',
+          ]"
+          @click="deleteEvent"
+        >
+          <ArchiveBoxIconOutline
+            :active="active"
+            class="w-5 h-5 mr-2 text-red-500"
+            aria-hidden="true"
+          />
+          Archiver
+        </NuxtLink>
+      </MenuItem>
     </MenuItems>
   </transition>
 </Menu>
