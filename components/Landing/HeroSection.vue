@@ -15,8 +15,9 @@
         Commencez maintenant avec un mois gratuit.
       </p>
       <button
-        class="hidden px-8 py-4 mx-auto my-6 font-bold text-gray-800 transition duration-300 ease-in-out transform bg-white rounded-full shadow-lg ms:block lg:mx-0 hover:underline focus:outline-none focus:shadow-outline hover:-translate-y-2 hover:scale-105"
+        class="px-8 py-4 mx-auto my-6 font-bold text-gray-800 transition duration-300 ease-in-out transform bg-white rounded-full shadow-lg ms:block lg:mx-0 hover:underline focus:outline-none focus:shadow-outline hover:-translate-y-2 hover:scale-105"
         href="#Newsletter"
+        @click="ShowToast"
       >
         Commencez
       </button>
@@ -32,3 +33,28 @@
   </div>
 </section>
 </template>
+
+<script setup lang="ts">
+import { useToast } from 'vue-toastification'
+import BaseToast from '../Base/BaseToast.vue'
+
+const toast = useToast()
+console.log(toast, '<==== toast')
+function ShowToast() {
+  const content = {
+    component: BaseToast,
+    // Any prop can be passed, but don't expect them to be reactive
+    props: {
+      title: 'test',
+      description: 'test description',
+      type: 'test',
+      isActive: true,
+    },
+    // Listen and react to events using callbacks. In this case we listen for
+    // the "click" event emitted when clicking the toast button
+    listeners: {
+    },
+  }
+  toast(content)
+}
+</script>
