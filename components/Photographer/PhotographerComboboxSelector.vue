@@ -1,7 +1,14 @@
 <!-- eslint-disable vue/prefer-separate-static-class -->
 <template>
 <Combobox v-model="inputValue">
-  <div class="relative mt-1">
+  <div class="relative w-full">
+    <ComboboxLabel
+      v-if="label"
+      class="block mb-2 text-sm font-bold text-blue dark:text-gray-100"
+    >
+      {{ label }}<span v-if="isRequired">*</span>
+    </ComboboxLabel>
+
     <div
       :class="[
         'relative w-full overflow-hidden text-left bg-white rounded-lg shadow-md cursor-default border',

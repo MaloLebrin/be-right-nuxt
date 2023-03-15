@@ -158,8 +158,7 @@ export default function eventHook() {
 
   async function postOne(payload: EventCreatePayload): Promise<EventType | undefined> {
     try {
-      const { userId } = payload
-      const { data } = await $api().post<EventType>(`event/${userId}`, payload)
+      const { data } = await $api().post<EventType>('event', payload)
 
       if (data) {
         eventStore.addMany([data])
