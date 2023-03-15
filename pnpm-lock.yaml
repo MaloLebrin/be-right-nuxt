@@ -8,6 +8,7 @@ specifiers:
   '@malolebrin/pinia-entity-store': ^0.2.4
   '@nuxtjs/tailwindcss': ^6.4.1
   '@pinia/nuxt': ^0.4.7
+  '@popperjs/core': ^2.11.6
   '@sidebase/nuxt-pdf': ^0.1.1
   '@types/jsonwebtoken': ^9.0.1
   autoprefixer: ^10.4.14
@@ -33,10 +34,11 @@ dependencies:
   '@heroicons/vue': 2.0.16
   '@malolebrin/pinia-entity-store': 0.2.4
   '@pinia/nuxt': 0.4.7_typescript@4.9.5
+  '@popperjs/core': 2.11.6
   jsonwebtoken: 9.0.0
   pinia: 2.0.33_typescript@4.9.5
   rollup-plugin-visualizer: 5.9.0
-  v-calendar: 3.0.0
+  v-calendar: 3.0.0_@popperjs+core@2.11.6
   vee-validate: 4.8.1
   vue-toastification: 2.0.0-rc.5
   yup: 1.0.2
@@ -1793,6 +1795,10 @@ packages:
     requiresBuild: true
     dev: true
     optional: true
+
+  /@popperjs/core/2.11.6:
+    resolution: {integrity: sha512-50/17A98tWUfQ176raKiOGXuYpLyyVMkxxG6oylzL3BPOlA6ADGdK7EYunSa4I064xerltq9TGXs8HmOk5E+vw==}
+    dev: false
 
   /@rollup/plugin-alias/4.0.3_rollup@3.19.1:
     resolution: {integrity: sha512-ZuDWE1q4PQDhvm/zc5Prun8sBpLJy41DMptYrS6MhAy9s9kL/doN1613BWfEchGVfKxzliJ3BjbOPizXX38DbQ==}
@@ -4547,16 +4553,6 @@ packages:
     resolution: {integrity: sha512-5nqDSxl8nn5BSNxyR3n4I6eDmbolI6WT+QqR547RwxQapgjQBmtktdP+HTBb/a/zLsbzERTONyUB5pefh5TtjQ==}
     dev: true
 
-  /follow-redirects/1.15.2:
-    resolution: {integrity: sha512-VQLG33o04KaQ8uYi2tVNbdrWp1QWxNNea+nmIB4EVM28v0hmP17z7aG1+wAkNzVq4KeXTq3221ye5qTJP91JwA==}
-    engines: {node: '>=4.0'}
-    peerDependencies:
-      debug: '*'
-    peerDependenciesMeta:
-      debug:
-        optional: true
-    dev: true
-
   /follow-redirects/1.15.2_debug@4.3.4:
     resolution: {integrity: sha512-VQLG33o04KaQ8uYi2tVNbdrWp1QWxNNea+nmIB4EVM28v0hmP17z7aG1+wAkNzVq4KeXTq3221ye5qTJP91JwA==}
     engines: {node: '>=4.0'}
@@ -5027,7 +5023,7 @@ packages:
     engines: {node: '>=8.0.0'}
     dependencies:
       eventemitter3: 4.0.7
-      follow-redirects: 1.15.2
+      follow-redirects: 1.15.2_debug@4.3.4
       requires-port: 1.0.0
     transitivePeerDependencies:
       - debug
@@ -8497,12 +8493,13 @@ packages:
     hasBin: true
     dev: true
 
-  /v-calendar/3.0.0:
+  /v-calendar/3.0.0_@popperjs+core@2.11.6:
     resolution: {integrity: sha512-9r+swG8v2iUvaa2P1BGWEEeutZ+XCttHOzl0uXmzA7JND86GGZbM4QDPm8ZpBXav+NgheRm9MYs/Uz8mgKVZXg==}
     peerDependencies:
       '@popperjs/core': ^2.0.0
       vue: ^3.2.0
     dependencies:
+      '@popperjs/core': 2.11.6
       '@types/lodash': 4.14.191
       '@types/resize-observer-browser': 0.1.7
       date-fns: 2.29.3
