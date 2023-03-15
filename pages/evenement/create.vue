@@ -207,7 +207,7 @@ const employeeStore = useEmployeeStore()
 const authStore = useAuthStore()
 
 const { postOne: postOneEvent } = eventHook()
-const { postPhotographer } = userHook()
+const { postPhotographer, getPhotographerUserWorkedWith } = userHook()
 const { fetchMany } = employeeHook()
 
 const isEventCreation = computed(() => route.query.step === 'event' || route.query.step === undefined)
@@ -293,6 +293,7 @@ onMounted(async () => {
     if (missingsEmployeeIds?.length > 0) {
       await fetchMany(missingsEmployeeIds)
     }
+    await getPhotographerUserWorkedWith(userStore.getAuthUser.id)
   }
   DecLoading()
 })

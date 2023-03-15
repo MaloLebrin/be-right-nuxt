@@ -25,13 +25,13 @@
     >
       <ClientOnly>
         <DatePicker
-          v-model="values.period"
+          v-model.range="values.period"
           v-bind="field"
           color="purple"
           is-required
           locale="fr"
           mode="date"
-          is-range
+          range
         />
       </Clientonly>
     </Field>
