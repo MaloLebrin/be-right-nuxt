@@ -15,33 +15,53 @@
         aria-hidden="true"
       />
       <span
-        class="flex items-start px-6 py-5 text-sm font-medium"
-        :class="[stepIdx !== 0 ? 'lg:pl-9' : '']"
+        class="flex items-start px-2 py-2 text-sm font-medium lg:px-4"
+        :class="[stepIdx !== 0 ? 'lg:pl-7' : '']"
       >
         <span class="flex-shrink-0">
           <span
-            v-if="isStatusComplete(stepIdx)"
-            class="flex items-center justify-center w-10 h-10 bg-indigo-600 rounded-full"
+            v-if="isStepCompleted(stepIdx) && isStepPassed(stepIdx)"
+            class="flex items-center justify-center w-8 h-8 bg-indigo-600 rounded-full lg:w-10 lg:h-10"
           >
             <CheckIconOutline
               class="w-6 h-6 text-white"
               aria-hidden="true"
             />
           </span>
+
+          <span
+            v-else-if="isStepPassed(stepIdx) && !isStepCompleted(stepIdx)"
+            class="flex items-center justify-center w-8 h-8 bg-orange-600 rounded-full lg:w-10 lg:h-10"
+          >
+            <ExclamationCircleIconOutline
+              class="w-6 h-6 text-white"
+              aria-hidden="true"
+            />
+          </span>
+
           <span
             v-else
-            class="flex items-center justify-center w-10 h-10 border-2 rounded-full"
+            class="flex items-center justify-center w-8 h-8 border-2 rounded-full lg:w-10 lg:h-10"
             :class="isStatusCurrent(stepIdx) ? 'border-indigo-600' : 'border-gray-300'"
           >
             <span :class="isStatusCurrent(stepIdx) ? 'text-indigo-600' : 'text-gray-500'">{{ step.id }}</span>
           </span>
         </span>
+
         <span class="mt-0.5 ml-4 min-w-0 flex flex-col">
           <span class="text-xs font-semibold tracking-wide uppercase">{{ step.name }}</span>
-          <span class="text-sm font-medium text-gray-500">{{ step.description }}</span>
+          <span
+            v-if="isStepPassed(stepIdx) && !isStepCompleted(stepIdx)"
+            class="text-sm font-light text-orange-500"
+          >Vous n'avez pas rempli l'étape précédente</span>
+          <span
+            v-else
+            class="text-sm font-light text-gray-500"
+          >{{ step.description }}</span>
         </span>
       </span>
     </div>
+
     <template v-if="stepIdx !== 0">
       <div
         class="absolute inset-0 top-0 left-0 hidden w-3 lg:block"
@@ -66,9 +86,15 @@
 </template>
 
 <script setup lang="ts">
+import { useAddressStore, useEventStore, useUserStore } from '~~/store'
+
 interface Props {
   currentStepIndex: number
-  step: { id: string; name: string; description: string }
+  step: {
+    id: string
+    name: string
+    description: string
+  }
   stepIdx: number
   stepsLength: number
 }
@@ -77,9 +103,44 @@ const props = withDefaults(defineProps<Props>(), {
   currentStepIndex: 0,
 })
 
-function isStatusComplete(index: number) {
+const eventStore = useEventStore()
+const addressStore = useAddressStore()
+const userStore = useUserStore()
+
+function isStepPassed(index: number) {
   return props.currentStepIndex > index
 }
+
+function isStepCompleted(index: number) {
+  const { name, start, end } = eventStore.getCreationForm
+  const { addressLine, city, country, postalCode } = addressStore.getCreationForm
+
+  if (index === 0) {
+    return name
+      && start
+      && end
+      && addressLine
+      && city
+      && country
+      && postalCode
+  }
+
+  if (index === 1) {
+    return eventStore.getCreationForm.employeeIds?.length > 0
+  }
+
+  if (index === 2) {
+    const { firstName, lastName, email, photographerId } = userStore.photographerForm
+    return (
+      (firstName
+        && lastName
+        && email)
+        || photographerId)
+  }
+
+  return true
+}
+
 function isStatusCurrent(index: number) {
   return props.currentStepIndex === index
 }
