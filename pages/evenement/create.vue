@@ -157,12 +157,6 @@
           </div>
           <div
             class="text-center"
-            :class="isSubmitStepComplete(40).value ? 'text-indigo-600' : ''"
-          >
-            Adresse
-          </div>
-          <div
-            class="text-center"
             :class="isSubmitStepComplete(60).value ? 'text-indigo-600' : ''"
           >
             Photographe
@@ -213,7 +207,6 @@ const employeeStore = useEmployeeStore()
 const authStore = useAuthStore()
 
 const { postOne: postOneEvent } = eventHook()
-const { postMany: postManyAnswers } = answerHook()
 const { postPhotographer } = userHook()
 const { fetchMany } = employeeHook()
 
