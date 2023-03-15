@@ -24,7 +24,7 @@ specifiers:
   tailwindcss: ^3.2.7
   typescript: ^4.9.5
   unplugin-vue-components: ^0.24.1
-  v-calendar: 3.0.0-alpha.8
+  v-calendar: 3.0.0
   vee-validate: ^4.8.1
   vue-toastification: 2.0.0-rc.5
   yup: ^1.0.2
@@ -36,7 +36,7 @@ dependencies:
   jsonwebtoken: 9.0.0
   pinia: 2.0.33_typescript@4.9.5
   rollup-plugin-visualizer: 5.9.0
-  v-calendar: 3.0.0-alpha.8
+  v-calendar: 3.0.0
   vee-validate: 4.8.1
   vue-toastification: 2.0.0-rc.5
   yup: 1.0.2
@@ -1794,10 +1794,6 @@ packages:
     dev: true
     optional: true
 
-  /@popperjs/core/2.4.0:
-    resolution: {integrity: sha512-NMrDy6EWh9TPdSRiHmHH2ye1v5U0gBD7pRYwSwJvomx7Bm4GG04vu63dYiVzebLOx2obPpJugew06xVP0Nk7hA==}
-    dev: false
-
   /@rollup/plugin-alias/4.0.3_rollup@3.19.1:
     resolution: {integrity: sha512-ZuDWE1q4PQDhvm/zc5Prun8sBpLJy41DMptYrS6MhAy9s9kL/doN1613BWfEchGVfKxzliJ3BjbOPizXX38DbQ==}
     engines: {node: '>=14.0.0'}
@@ -2042,6 +2038,10 @@ packages:
     resolution: {integrity: sha512-taW5/WYqo36N7V39oYyHP9Ipfd5pNFvGTIQsNGj86xV88YQ7GnI30/yMfKDF7Zgin0m3e+ikX88FvImnK4RjGw==}
     dev: true
     optional: true
+
+  /@types/resize-observer-browser/0.1.7:
+    resolution: {integrity: sha512-G9eN0Sn0ii9PWQ3Vl72jDPgeJwRWhv2Qk/nQkJuWmRmOB4HX3/BhD5SE1dZs/hzPZL/WKnvF0RHdTSG54QJFyg==}
+    dev: false
 
   /@types/resolve/1.20.2:
     resolution: {integrity: sha512-60BCwRFOZCQhDncwQdxxeOEEkbc5dIMccYLwbxsS4TUNeVECQ/pBJ0j09mrHOl/JJvpRPGwO9SvE4nR2Nb/a4Q==}
@@ -8497,16 +8497,18 @@ packages:
     hasBin: true
     dev: true
 
-  /v-calendar/3.0.0-alpha.8:
-    resolution: {integrity: sha512-T23H5UbK0EomrwArlF/jrT2LFbV/lu+Bp9JroZ1paN6rPoaMyvE+HrLxvAmUgi+pODrdTURDMzM3+WPgeFKEBQ==}
+  /v-calendar/3.0.0:
+    resolution: {integrity: sha512-9r+swG8v2iUvaa2P1BGWEEeutZ+XCttHOzl0uXmzA7JND86GGZbM4QDPm8ZpBXav+NgheRm9MYs/Uz8mgKVZXg==}
     peerDependencies:
-      vue: ^3.1.0
+      '@popperjs/core': ^2.0.0
+      vue: ^3.2.0
     dependencies:
-      '@popperjs/core': 2.4.0
       '@types/lodash': 4.14.191
+      '@types/resize-observer-browser': 0.1.7
       date-fns: 2.29.3
       date-fns-tz: 1.3.8_date-fns@2.29.3
       lodash: 4.17.21
+      vue-screen-utils: 1.0.0-beta.13
     dev: false
 
   /validate-npm-package-license/3.0.4:
@@ -8733,6 +8735,12 @@ packages:
       '@vue/devtools-api': 6.5.0
       vue: 3.2.47
     dev: true
+
+  /vue-screen-utils/1.0.0-beta.13:
+    resolution: {integrity: sha512-EJ/8TANKhFj+LefDuOvZykwMr3rrLFPLNb++lNBqPOpVigT2ActRg6icH9RFQVm4nHwlHIHSGm5OY/Clar9yIg==}
+    peerDependencies:
+      vue: ^3.2.0
+    dev: false
 
   /vue-toastification/2.0.0-rc.5:
     resolution: {integrity: sha512-q73e5jy6gucEO/U+P48hqX+/qyXDozAGmaGgLFm5tXX4wJBcVsnGp4e/iJqlm9xzHETYOilUuwOUje2Qg1JdwA==}
