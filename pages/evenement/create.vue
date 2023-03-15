@@ -110,11 +110,11 @@
       leave-from-class="transform scale-100 opacity-100"
       leave-to-class="transform opacity-0"
     >
-      <UserPhotographerForm
+      <PhotographerForm
         v-if="!isPhotographerAlreadyCreated"
         @submitted="submit"
       />
-      <UserPhotographerSelect
+      <PhotographerSelect
         v-else
         @submitted="submit"
       />
