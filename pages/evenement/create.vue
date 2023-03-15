@@ -1,6 +1,6 @@
 <template>
 <PageAuthWrapper>
-  <EventCreationStepper :current-step-index="currentStepIndex" />
+  <EventFormStepperWrapper :current-step-index="currentStepIndex" />
 
   <div
     v-if="!haveUserEmployees"

@@ -52,11 +52,11 @@
           <span class="text-xs font-semibold tracking-wide uppercase">{{ step.name }}</span>
           <span
             v-if="isStepPassed(stepIdx) && !isStepCompleted(stepIdx)"
-            class="text-sm font-light text-orange-500"
-          >Vous n'avez pas rempli l'étape précédente</span>
+            class="text-xs font-light text-orange-500"
+          >Vous n'avez pas rempli cette étape</span>
           <span
             v-else
-            class="text-sm font-light text-gray-500"
+            class="text-xs font-light text-gray-500"
           >{{ step.description }}</span>
         </span>
       </span>
