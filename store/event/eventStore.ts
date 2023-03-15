@@ -21,15 +21,16 @@ export const useEventStore = defineStore('events', {
 
     getAllSorted: state => {
       return (onlyDeleted?: boolean) => {
+        const { isBefore } = dateHook()
         const events = Object.values(state.entities.byId)
         if (onlyDeleted) {
           return events
             .filter(event => noNull(event.deletedAt) && noUndefined(event.deletedAt))
-            .sort((a, b) => EventStatusOrder[a.status] - EventStatusOrder[b.status])
+            .sort((a, b) => isBefore(a.start, b.start) ? 1 : isBefore(a.start, b.start) ? -1 : -2)
         }
         return events
           .filter(event => !event.deletedAt)
-          .sort((a, b) => EventStatusOrder[a.status] - EventStatusOrder[b.status])
+          .sort((a, b) => isBefore(a.start, b.start) ? 1 : isBefore(a.start, b.start) ? -1 : -2)
       }
     },
 
