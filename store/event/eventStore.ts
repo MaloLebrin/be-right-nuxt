@@ -5,7 +5,6 @@ import { useAnswerStore } from '../answer'
 import { useAddressStore } from '../address'
 import { baseCreationForm, defaultEventState, eventState } from './state'
 import type { BaseCreationFormType, EventType } from './types'
-import { EventStatusOrder } from './types'
 
 export const useEventStore = defineStore('events', {
   state: () => ({
