@@ -1,6 +1,14 @@
 <template>
-<li
+<NuxtLink
   class="relative overflow-hidden lg:flex-1"
+  :class="[
+    stepIdx === stepsLength - 1 ? 'cursor-not-allowed' : '',
+  ]"
+  :to="{
+    query: {
+      step: stepIdx === stepsLength - 1 ? $route.query.step : step.query,
+    },
+  }"
 >
   <div
     class="overflow-hidden border border-gray-200 lg:border-0"
@@ -82,7 +90,7 @@
       </div>
     </template>
   </div>
-</li>
+</NuxtLink>
 </template>
 
 <script setup lang="ts">
@@ -94,6 +102,7 @@ interface Props {
     id: string
     name: string
     description: string
+    query: string
   }
   stepIdx: number
   stepsLength: number
