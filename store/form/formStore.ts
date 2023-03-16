@@ -136,4 +136,5 @@ export const useFormStore = defineStore('form', {
       this.$state = defaultFormState()
     },
   },
+  persist: true,
 })
