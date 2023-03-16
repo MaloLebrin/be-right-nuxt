@@ -46,7 +46,8 @@ const { IncLoading, DecLoading, resetUiModalState } = uiStore
 const authStore = useAuthStore()
 const userStore = useUserStore()
 const router = useRouter()
-const { setEmployeeIds } = useFormStore()
+const formStore = useFormStore()
+const { setEmployeeIds } = formStore
 
 const schema = object({
   employees: array().of(number()).min(1, 'Sélectionnez au moins un destinataire')
@@ -54,7 +55,7 @@ const schema = object({
 })
 
 const initialValues = {
-  employees: [],
+  employees: formStore.getEmployeeIds || [],
 }
 
 async function submit(form: VeeValidateValues) {

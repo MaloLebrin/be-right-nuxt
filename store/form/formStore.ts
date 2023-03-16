@@ -31,6 +31,7 @@ export const useFormStore = defineStore('form', {
     },
 
     getPhotographerId: state => state.photographerForm.photographerId,
+    getEmployeeIds: state => state.eventform.employeeIds,
 
     isFormDirty: state => (type: FormEnum) => {
       switch (type) {
