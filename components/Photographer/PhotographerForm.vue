@@ -78,7 +78,8 @@ const emit = defineEmits<{
 
 const uiStore = useUiStore()
 const { IncLoading, DecLoading, resetUiModalState } = uiStore
-const { setPhotographerForm } = useFormStore()
+const formStore = useFormStore()
+const { setPhotographerForm } = formStore
 const { patchOne } = userHook()
 const router = useRouter()
 
@@ -90,10 +91,10 @@ const schema = object({
 })
 
 const initialValues = {
-  email: props.photographer?.email || '',
-  firstName: props.photographer?.firstName || '',
-  lastName: props.photographer?.lastName || '',
-  companyName: props.photographer?.companyName || null,
+  email: props.photographer?.email || formStore.photographerForm.email,
+  firstName: props.photographer?.firstName || formStore.photographerForm.firstName,
+  lastName: props.photographer?.lastName || formStore.photographerForm.lastName,
+  companyName: props.photographer?.companyName || formStore.photographerForm.companyName,
 }
 
 async function submit(form: VeeValidateValues) {

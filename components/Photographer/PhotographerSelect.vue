@@ -2,6 +2,7 @@
 <Form
   v-slot="{ meta, isSubmitting }"
   :validation-schema="schema"
+  :initial-values="initialValues"
   class="grid w-full max-w-xl grid-cols-1 gap-6 mt-4 mb-36"
   @submit="submit"
 >
@@ -55,11 +56,16 @@ const emit = defineEmits<{
 const uiStore = useUiStore()
 const { setUiModal } = uiStore
 const userStore = useUserStore()
-const { setPhotographerId } = useFormStore()
+const formStore = useFormStore()
+const { setPhotographerId } = formStore
 
 const schema = object({
   photographerId: number().required('L\'identifiant de l\'utilisateur est requis'),
 })
+
+const initialValues = {
+  photographerId: formStore.getPhotographerId,
+}
 
 interface IForm extends InferType<typeof schema> {}
 
