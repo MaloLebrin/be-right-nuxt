@@ -71,7 +71,9 @@ interface IForm extends InferType<typeof schema> {}
 
 async function submit(form: VeeValidateValues) {
   const formValues = form as IForm
+
   setPhotographerId(formValues.photographerId)
+
   emit('submitted', formValues.photographerId)
 }
 
