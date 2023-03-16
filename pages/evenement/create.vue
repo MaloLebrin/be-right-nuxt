@@ -106,17 +106,20 @@
 </template>
 
 <script setup lang="ts">
-import type { EventTypeCreate, UserType } from '@/types'
+import type { EventTypeCreate, PhotographerCreatePayload, UserType } from '@/types'
 import {
   useAddressStore,
   useAuthStore,
   useEmployeeStore,
   useEventStore,
+  useFormStore,
   useUiStore,
   useUserStore,
 } from '~~/store'
 import PhotographerModal from '~~/components/Photographer/PhotographerModal.vue'
 import { ModalNameEnum } from '~~/types'
+import type { BaseAddressCreationForm } from '~~/store/form/types'
+import { BaseEventFormType, FormEnum } from '~~/store/form/types'
 
 const route = useRoute()
 const router = useRouter()
@@ -135,6 +138,7 @@ const authStore = useAuthStore()
 const { postOne: postOneEvent } = eventHook()
 const { postPhotographer, getPhotographerUserWorkedWith } = userHook()
 const { fetchMany } = employeeHook()
+const formStore = useFormStore()
 
 const isEventCreation = computed(() => route.query.step === 'evenement' || route.query.step === undefined)
 const isEmployeeStepEventCreation = computed(() => route.query.step === 'destinataires')
@@ -167,39 +171,44 @@ const haveUserEmployees = computed(() => {
   return true
 })
 
-async function submit(photographerId?: number | UserType) {
+async function submit() {
   IncLoading()
   let photographer = null
 
-  if (!photographerId
-    && userStore.photographerForm.email
-    && userStore.photographerForm.firstName
-    && userStore.photographerForm.lastName) {
-    photographer = await postPhotographer({
-      ...userStore.photographerForm,
-    })
-  } else if (photographerId) {
-    photographer = userStore.getOne(photographerId)
+  const {
+    isSelectedPhotographerValid,
+    isNewPhotographerValid,
+    getFormState,
+    getPhotographerId,
+    resetForm,
+  } = formStore
+
+  if (!isSelectedPhotographerValid && isNewPhotographerValid) {
+    const payload = getFormState(FormEnum.PHOTOGRAPHER_FORM)
+    photographer = await postPhotographer(payload as PhotographerCreatePayload)
+  } else if (getPhotographerId) {
+    photographer = userStore.getOne(getPhotographerId)
   }
 
-  resetPhotographerForm()
+  resetForm(FormEnum.PHOTOGRAPHER_FORM)
   progressBarProgession.value = 20
 
   if (photographer) {
     const newEvent = await postOneEvent(
       {
-        event: eventStore.creationForm as unknown as EventTypeCreate,
-        address: { ...addressStore.creationForm },
+        event: getFormState(FormEnum.EVENT_FORM) as unknown as EventTypeCreate,
+        address: getFormState(FormEnum.ADDRESS_FORM) as BaseAddressCreationForm,
         photographerId: photographer.id,
       })
 
     progressBarProgession.value = 40
 
     if (newEvent) {
-      resetEventForm()
+      resetForm(FormEnum.EVENT_FORM)
       progressBarProgession.value = 100
 
-      resetAddressForm()
+      resetForm(FormEnum.ADDRESS_FORM)
+
       router.push({
         name: 'evenement-show-id',
         params: {

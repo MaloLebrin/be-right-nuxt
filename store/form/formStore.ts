@@ -7,7 +7,12 @@ import {
   defaultFormState,
   formState,
 } from './state'
-import type { BaseAddressCreationForm, BaseEventFormType, BasePhotographerForm } from './types'
+import type {
+  BaseAddressCreationForm,
+  BaseEventFormType,
+  BasePhotographerForm,
+  PhotographerCreatePayload,
+} from './types'
 import { FormEnum } from './types'
 
 export const useFormStore = defineStore('form', {
@@ -17,13 +22,15 @@ export const useFormStore = defineStore('form', {
     getFormState: state => (type: FormEnum) => {
       switch (type) {
         case FormEnum.ADDRESS_FORM:
-          return state.addressForm
+          return state.addressForm as BaseAddressCreationForm
         case FormEnum.EVENT_FORM:
-          return state.eventform
+          return state.eventform as BaseEventFormType
         case FormEnum.PHOTOGRAPHER_FORM:
-          return state.photographerForm
+          return state.photographerForm as PhotographerCreatePayload
       }
     },
+
+    getPhotographerId: state => state.photographerForm.photographerId,
 
     isFormDirty: state => (type: FormEnum) => {
       switch (type) {
@@ -35,6 +42,38 @@ export const useFormStore = defineStore('form', {
           return state.photographerForm.isDirty
       }
     },
+
+    isStepEventValid: state => {
+      const { addressLine, city, country, postalCode } = state.addressForm
+      const { name, start, end } = state.eventform
+      return isTruthy(name)
+        && isTruthy(start)
+        && isTruthy(end)
+        && isTruthy(addressLine)
+        && isTruthy(city)
+        && isTruthy(country)
+        && isTruthy(postalCode)
+    },
+
+    isStepEmployeeValid: state => state.eventform.employeeIds?.length > 0,
+
+    isStepPhotographerValid: state => {
+      const { firstName, lastName, email, photographerId } = state.photographerForm
+      return (
+        (isTruthy(firstName)
+          && isTruthy(lastName)
+          && isTruthy(email))
+        || isTruthy(photographerId))
+    },
+
+    isNewPhotographerValid: state => {
+      const { firstName, lastName, email } = state.photographerForm
+      return isTruthy(firstName)
+        && isTruthy(lastName)
+        && isTruthy(email)
+    },
+
+    isSelectedPhotographerValid: state => isTruthy(state.photographerForm.photographerId),
   },
 
   actions: {

@@ -30,7 +30,6 @@ export function createForm<T>(form: T) {
   return {
     ...form,
     isDirty: false,
-    isValid: false,
   }
 }
 
