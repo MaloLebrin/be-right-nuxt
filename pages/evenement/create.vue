@@ -106,30 +106,23 @@
 </template>
 
 <script setup lang="ts">
-import type { EventTypeCreate, PhotographerCreatePayload, UserType } from '@/types'
+import type { EventTypeCreate } from '@/types'
 import {
-  useAddressStore,
   useAuthStore,
   useEmployeeStore,
-  useEventStore,
   useFormStore,
   useUiStore,
   useUserStore,
 } from '~~/store'
 import PhotographerModal from '~~/components/Photographer/PhotographerModal.vue'
 import { ModalNameEnum } from '~~/types'
-import type { BaseAddressCreationForm } from '~~/store/form/types'
-import { BaseEventFormType, FormEnum } from '~~/store/form/types'
+import type { BaseAddressCreationForm, PhotographerCreatePayload } from '~~/store/form/types'
+import { FormEnum } from '~~/store/form/types'
 
 const route = useRoute()
 const router = useRouter()
 
-const eventStore = useEventStore()
-const { resetCreationForm: resetEventForm } = eventStore
 const userStore = useUserStore()
-const { resetPhotographerForm } = userStore
-const addressStore = useAddressStore()
-const { resetCreationForm: resetAddressForm } = addressStore
 const uiStore = useUiStore()
 const { IncLoading, DecLoading, resetUiModalState } = uiStore
 const employeeStore = useEmployeeStore()
