@@ -1,6 +1,6 @@
-import type { BaseAddressCreationForm, BaseCreationFormType, BasePhotographerForm } from './types'
+import type { BaseAddressCreationForm, BaseEventFormType, BasePhotographerForm } from './types'
 
-export const baseEventCreationForm: BaseCreationFormType = {
+export const baseEventCreationForm: BaseEventFormType = {
   name: '',
   description: '',
   start: new Date(),

@@ -34,19 +34,19 @@ import { Form } from 'vee-validate'
 import {
   useAuthStore,
   useEmployeeStore,
-  useEventStore,
+  useFormStore,
   useUiStore,
   useUserStore,
 } from '~~/store'
 import type { VeeValidateValues } from '~~/types'
 
 const employeeStore = useEmployeeStore()
-const { setCreationFormField } = useEventStore()
 const uiStore = useUiStore()
 const { IncLoading, DecLoading, resetUiModalState } = uiStore
 const authStore = useAuthStore()
 const userStore = useUserStore()
 const router = useRouter()
+const { setEmployeeIds } = useFormStore()
 
 const schema = object({
   employees: array().of(number()).min(1, 'Sélectionnez au moins un destinataire')
@@ -59,7 +59,7 @@ const initialValues = {
 
 async function submit(form: VeeValidateValues) {
   IncLoading()
-  setCreationFormField('employeeIds', form.employees)
+  setEmployeeIds(form.employees)
   router.push({
     name: 'evenement-create',
     query: { step: 'photographer' },

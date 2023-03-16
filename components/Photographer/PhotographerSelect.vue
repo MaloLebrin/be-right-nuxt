@@ -46,7 +46,7 @@ import { number, object } from 'yup'
 import { Form } from 'vee-validate'
 import type { VeeValidateValues } from '@/types'
 import { ModalModeEnum, ModalNameEnum, RoleEnum } from '@/types'
-import { useUiStore, useUserStore } from '~~/store'
+import { useFormStore, useUiStore, useUserStore } from '~~/store'
 
 const emit = defineEmits<{
   (e: 'submitted', photographerId: number): void
@@ -55,6 +55,7 @@ const emit = defineEmits<{
 const uiStore = useUiStore()
 const { setUiModal } = uiStore
 const userStore = useUserStore()
+const { setPhotographerId } = useFormStore()
 
 const schema = object({
   photographerId: number().required('L\'identifiant de l\'utilisateur est requis'),
@@ -64,8 +65,7 @@ interface IForm extends InferType<typeof schema> {}
 
 async function submit(form: VeeValidateValues) {
   const formValues = form as IForm
-  const { setPhotographerFormField } = userStore
-  setPhotographerFormField('photographerId', formValues.photographerId)
+  setPhotographerId(formValues.photographerId)
   emit('submitted', formValues.photographerId)
 }
 

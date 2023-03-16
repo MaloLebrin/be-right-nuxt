@@ -106,6 +106,7 @@ import type { BaseCreationFormType, VeeValidateValues } from '@/types'
 import {
   useAddressStore,
   useEventStore,
+  useFormStore,
   useUiStore,
 } from '~~/store'
 
@@ -123,10 +124,9 @@ const emit = defineEmits<{
 }>()
 
 const eventStore = useEventStore()
-const { setCreationForm: setEventCreationForm } = eventStore
 const uiStore = useUiStore()
 const addressStore = useAddressStore()
-const { setCreationForm: setAddressCreationForm } = addressStore
+const { setAddressForm, setEventForm } = useFormStore()
 
 const router = useRouter()
 
@@ -195,8 +195,8 @@ async function submit(form: VeeValidateValues) {
   }
 
   if (!isEditMode.value) {
-    setEventCreationForm(payload.event as BaseCreationFormType)
-    setAddressCreationForm(payload.address)
+    setEventForm(payload.event as BaseCreationFormType)
+    setAddressForm(payload.address)
     router.push({
       name: 'evenement-create',
       query: { step: 'destinataires' },

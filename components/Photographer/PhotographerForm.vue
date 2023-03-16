@@ -56,7 +56,7 @@ import { Form } from 'vee-validate'
 import type { InferType } from 'yup'
 import { object, string } from 'yup'
 import type { UserType, VeeValidateValues } from '@/types'
-import { useUiStore, useUserStore } from '~~/store'
+import { useFormStore, useUiStore, useUserStore } from '~~/store'
 
 interface IForm extends InferType<typeof schema> {}
 
@@ -77,8 +77,8 @@ const emit = defineEmits<{
 }>()
 
 const uiStore = useUiStore()
-const { setPhotographerForm } = useUserStore()
 const { IncLoading, DecLoading, resetUiModalState } = uiStore
+const { setPhotographerForm } = useFormStore()
 const { patchOne } = userHook()
 const router = useRouter()
 

@@ -10,7 +10,7 @@ import {
 import type { BaseAddressCreationForm, BaseEventFormType, BasePhotographerForm } from './types'
 import { FormEnum } from './types'
 
-export const useUserStore = defineStore('form', {
+export const useFormStore = defineStore('form', {
   state: () => ({ ...formState }),
 
   getters: {
@@ -63,6 +63,14 @@ export const useUserStore = defineStore('form', {
         ...data,
         isDirty: true,
       }
+    },
+
+    setEmployeeIds(ids: number[]) {
+      this.eventform.employeeIds = ids
+    },
+
+    setPhotographerId(id: number) {
+      this.photographerForm.photographerId = id
     },
 
     setPhotographerForm(data: Partial<BasePhotographerForm>) {
