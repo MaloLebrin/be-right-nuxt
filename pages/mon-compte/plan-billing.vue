@@ -1,6 +1,6 @@
 <template>
 <div class="space-y-6 sm:px-6 lg:col-span-9 lg:px-0">
-  <AccountBillingBaseCard
+  <AccountBaseCard
     title="Payment details"
     description="Update your billing information. Please note that updating your location could affect your tax rates."
   >
@@ -118,10 +118,10 @@
         save
       </BaseButton>
     </template>
-  </AccountBillingBaseCard>
+  </AccountBaseCard>
 
   <!-- Plan -->
-  <AccountBillingBaseCard title="Plan">
+  <AccountBaseCard title="Plan">
     <div class="px-4 space-y-6">
       <RadioGroup v-model="selectedPlan">
         <RadioGroupLabel class="sr-only">
@@ -209,9 +209,9 @@
         Save
       </button>
     </template>
-  </AccountBillingBaseCard>
+  </AccountBaseCard>
 
-  <AccountBillingBaseCard title="Billing history">
+  <AccountBaseCard title="Billing history">
     <div class="inline-block min-w-full py-2 align-middle">
       <div class="overflow-hidden border-t border-gray-200">
         <table class="min-w-full divide-y divide-gray-200">
@@ -271,7 +271,7 @@
         </table>
       </div>
     </div>
-  </AccountBillingBaseCard>
+  </AccountBaseCard>
 </div>
 </template>
 
