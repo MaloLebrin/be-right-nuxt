@@ -114,8 +114,8 @@ export default function userHook() {
         return 'Destinataire'
       case RoleEnum.SUPER_USER:
         return 'Super utilisateur'
-      case RoleEnum.COMPANY:
-        return 'Entreprise'
+      case RoleEnum.OWNER:
+        return 'Propriétaire'
       case RoleEnum.PHOTOGRAPHER:
         return 'Photographe'
       case RoleEnum.CUSTOMER:
@@ -209,6 +209,10 @@ export default function userHook() {
     return user?.roles === RoleEnum.ADMIN
   }
 
+  function isUserOwner(user: UserType) {
+    return user?.roles === RoleEnum.OWNER
+  }
+
   return {
     deleteUser,
     fetchAll,
@@ -219,6 +223,7 @@ export default function userHook() {
     getUserfullName,
     isArrayUserType,
     isUserAdmin,
+    isUserOwner,
     isUserType,
     patchOne,
     postPhotographer,

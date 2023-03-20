@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { createActions, createGetters } from '@malolebrin/pinia-entity-store'
 import { uniq } from '@antfu/utils'
+import { useUserStore } from '../user'
 import { companyState } from './state'
 import type { Company } from './types'
 
@@ -9,6 +10,15 @@ export const useCompanyStore = defineStore('company', {
 
   getters: {
     ...createGetters<Company>(companyState),
+
+    getAuthCompany: state => {
+      const userStore = useUserStore()
+      const user = userStore.getAuthUser
+      if (user) {
+        return state.entities.byId[user.companyId]
+      }
+      return null
+    },
   },
 
   actions: {
@@ -23,6 +33,15 @@ export const useCompanyStore = defineStore('company', {
 
     addMany(companies: Company[]) {
       companies.forEach(company => this.addOne(company))
+    },
+
+    updateOneCompany(id: number, data: Partial<Company>) {
+      if (this.entities.byId[id] !== null || this.entities.byId[id] !== undefined) {
+        this.entities.byId[id] = {
+          ...this.entities.byId[id],
+          ...data,
+        }
+      }
     },
 
   },
