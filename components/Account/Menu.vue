@@ -26,15 +26,15 @@ import {
   BellIcon,
   CogIcon,
   CreditCardIcon,
-  KeyIcon,
   UserCircleIcon,
+  UserGroupIcon,
 } from '@heroicons/vue/24/outline'
 
 const subNavigation = [
 
   { label: 'Profile', name: 'mon-compte', icon: UserCircleIcon },
-  { label: 'Account', name: 'mon-compte-parametre', icon: CogIcon },
-  { label: 'Utilisateurs', name: 'mon-compte-utilisateurs', icon: KeyIcon },
+  { label: 'Paramètres', name: 'mon-compte-parametre', icon: CogIcon },
+  { label: 'Utilisateurs', name: 'mon-compte-utilisateurs', icon: UserGroupIcon },
   { label: 'Notifications', name: 'mon-compte-notifications', icon: BellIcon },
   { label: 'Plan & Billing', name: 'mon-compte-plan-billing', icon: CreditCardIcon },
 ]
