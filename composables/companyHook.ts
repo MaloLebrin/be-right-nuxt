@@ -68,13 +68,14 @@ export default function userHook() {
   }
 
   async function addOrRemoveOwner(userId: number) {
+    console.log(userId, '<==== userId')
     try {
       IncLoading()
-      const { data: company } = await $api().patch<Company>(`company/owners/${userId}`, {})
+      // const { data: company } = await $api().patch<Company>(`company/owners/${userId}`, {})
 
-      if (company) {
-        storeCompanyEntities(company)
-      }
+      // if (company) {
+      //   storeCompanyEntities(company)
+      // }
     } catch (error) {
       console.error(error)
       $toast.error('Une erreur est survenue')
