@@ -1,7 +1,7 @@
 <template>
 <div class="w-full h-full px-4 mt-4">
   <Form
-    v-slot="{ meta, isSubmitting, values, errors }"
+    v-slot="{ meta, isSubmitting, errors }"
     :validation-schema="schema"
     :initial-values="initialValues"
     class="grid grid-cols-2 gap-4"
