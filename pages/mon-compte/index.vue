@@ -5,13 +5,17 @@
     description="Vous pouvez modifier vos données personnelles"
   >
     <div class="px-4 mt-6">
-      UserForm
+      <UserForm :user="userStore.getAuthUser" />
     </div>
   </AccountBaseCard>
 </div>
 </template>
 
 <script setup lang="ts">
+import { useUserStore } from '~~/store'
+
+const userStore = useUserStore()
+
 definePageMeta({
   layout: 'account',
   isAuth: true,
