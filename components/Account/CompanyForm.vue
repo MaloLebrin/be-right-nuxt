@@ -56,7 +56,6 @@
 import { object, string } from 'yup'
 import { Form } from 'vee-validate'
 import type { VeeValidateValues } from '@/types'
-import { RoleEnum } from '@/types'
 import type { Company } from '~~/store'
 import { useUiStore } from '~~/store'
 
@@ -74,7 +73,7 @@ const emit = defineEmits<{
 const uiStore = useUiStore()
 const { IncLoading, DecLoading, resetUiModalState } = uiStore
 
-// const { } = companyHook()
+const { patchOne } = companyHook()
 
 const router = useRouter()
 
@@ -92,9 +91,7 @@ async function submit(form: VeeValidateValues) {
   IncLoading()
 
   if (props.company) {
-    // await patchOne(props.company.id, form)
-  } else {
-    // await createNewUser(form)
+    await patchOne(props.company.id, form)
   }
   resetUiModalState()
   router.push({
