@@ -59,8 +59,8 @@
               :title="authStore.isAuthUserOwner ? 'Ajouter un destinataire' : 'Fonctionnalité non disponible'"
               :disabled="isDisabled"
               :is-loading="uiStore.getUIIsLoading"
+              @click="createNewUser"
             >
-              <!-- @click="openAddRecipientModal(group.id)" -->
               <template #icon>
                 <PlusCircleIconOutline />
               </template>
@@ -121,7 +121,7 @@
 <script setup lang="ts">
 import type { UserType } from '~~/store'
 import { useAuthStore, useUiStore, useUserStore } from '~~/store'
-import { RoleEnum } from '~~/types'
+import { ModalModeEnum, ModalNameEnum, RoleEnum } from '~~/types'
 
 interface Props {
   users: UserType[]
@@ -130,6 +130,7 @@ interface Props {
 const props = defineProps<Props>()
 
 const uiStore = useUiStore()
+const { setUiModal } = uiStore
 const authStore = useAuthStore()
 const userStore = useUserStore()
 
@@ -156,4 +157,13 @@ const getButtonTitle = (Role: RoleEnum) => computed(() => {
   }
   return Role === RoleEnum.OWNER ? 'Changer le rôle pour Utilisateur' : 'Changer le rôle pour Propriétaire'
 })
+
+function createNewUser() {
+  setUiModal({
+    modalName: ModalNameEnum.CREATE_USER,
+    modalMode: ModalModeEnum.CREATE,
+    isActive: true,
+    data: {},
+  })
+}
 </script>

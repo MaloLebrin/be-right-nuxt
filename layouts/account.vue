@@ -14,8 +14,17 @@
       </div>
     </PageAuthWrapper>
   </div>
+
+  <AccountCreateUserModal
+    v-if="uiStore.isModalActive(ModalNameEnum.CREATE_USER)"
+    :is-active="uiStore.isModalActive(ModalNameEnum.CREATE_USER)"
+  />
 </main>
 </template>
 
 <script setup lang="ts">
+import { ModalNameEnum } from '~~/types'
+import { useUiStore } from '~~/store'
+
+const uiStore = useUiStore()
 </script>
