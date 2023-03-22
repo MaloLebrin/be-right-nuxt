@@ -13,6 +13,7 @@ export default defineNuxtConfig({
     'nuxt-headlessui',
     '@sidebase/nuxt-pdf',
     '@nuxtjs/eslint-module',
+    '@pinia-plugin-persistedstate/nuxt',
   ],
 
   build: {

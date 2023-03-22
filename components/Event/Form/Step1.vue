@@ -6,7 +6,7 @@
   class="grid max-w-4xl grid-cols-1 gap-6 mt-4 md:grid-cols-3 mb-36"
   @submit="submit"
 >
-  <div class="col-span-2 md:col-span-3">
+  <div class="col-span-3">
     <BaseInput
       label="Nom de l'événement"
       name="name"
@@ -15,7 +15,7 @@
     />
   </div>
 
-  <div class="col-span-3 space-y-2 md:col-span-1">
+  <div class="flex flex-col items-center col-span-3 space-y-2 md:col-span-1">
     <label class="block mb-2 text-sm font-bold text-blue dark:text-gray-100">
       Dates de l'événement&nbsp;*&nbsp;:
     </label>
@@ -59,26 +59,28 @@
     />
   </div>
 
-  <BaseInput
-    label="Code postal"
-    name="postalCode"
-    autocomplete="postalCode"
-    is-required
-  />
+  <div class="grid grid-cols-1 col-span-3 gap-4 md:grid-cols-3">
+    <BaseInput
+      label="Code postal"
+      name="postalCode"
+      autocomplete="postalCode"
+      is-required
+    />
 
-  <BaseInput
-    label="Ville"
-    name="city"
-    autocomplete="city"
-    is-required
-  />
+    <BaseInput
+      label="Ville"
+      name="city"
+      autocomplete="city"
+      is-required
+    />
 
-  <BaseInput
-    label="Pays"
-    name="country"
-    autocomplete="country"
-    is-required
-  />
+    <BaseInput
+      label="Pays"
+      name="country"
+      autocomplete="country"
+      is-required
+    />
+  </div>
 
   <div class="flex items-center justify-center col-span-3 mt-6">
     <BaseButton
@@ -102,10 +104,11 @@ import type { InferType } from 'yup'
 import { date, object, string } from 'yup'
 import { ErrorMessage, Field, Form } from 'vee-validate'
 import { ModalModeEnum } from '@/types'
-import type { BaseCreationFormType, VeeValidateValues } from '@/types'
+import type { VeeValidateValues } from '@/types'
 import {
   useAddressStore,
   useEventStore,
+  useFormStore,
   useUiStore,
 } from '~~/store'
 
@@ -118,15 +121,15 @@ const props = withDefaults(defineProps<Props>(), {
   mode: null,
 })
 
-const emit = defineEmits<{
+defineEmits<{
   (e: 'submitted', eventId: number): void
 }>()
 
 const eventStore = useEventStore()
-const { setCreationForm: setEventCreationForm } = eventStore
 const uiStore = useUiStore()
 const addressStore = useAddressStore()
-const { setCreationForm: setAddressCreationForm } = addressStore
+const formStore = useFormStore()
+const { setAddressForm, setEventForm } = formStore
 
 const router = useRouter()
 
@@ -162,17 +165,17 @@ const schema = object({
 })
 
 const initialValues = {
-  name: event.value?.name || eventStore.getCreationForm.name,
-  description: event.value?.description || eventStore.getCreationForm.description,
+  name: event.value?.name || formStore.eventform.name,
+  description: event.value?.description || formStore.eventform.description,
   period: {
-    start: event.value?.start || eventStore.getCreationForm.start,
-    end: event.value?.end || eventStore.getCreationForm.end,
+    start: event.value?.start || formStore.eventform.start,
+    end: event.value?.end || formStore.eventform.end,
   },
-  addressLine: eventAddress.value?.addressLine || addressStore.getCreationForm.addressLine,
-  addressLine2: eventAddress.value?.addressLine2 || addressStore.getCreationForm.addressLine2,
-  postalCode: eventAddress.value?.postalCode || addressStore.getCreationForm.postalCode,
-  city: eventAddress.value?.city || addressStore.getCreationForm.city,
-  country: eventAddress.value?.country || addressStore.getCreationForm.country || 'France',
+  addressLine: eventAddress.value?.addressLine || formStore.addressForm.addressLine,
+  addressLine2: eventAddress.value?.addressLine2 || formStore.addressForm.addressLine2,
+  postalCode: eventAddress.value?.postalCode || formStore.addressForm.postalCode,
+  city: eventAddress.value?.city || formStore.addressForm.city,
+  country: eventAddress.value?.country || formStore.addressForm.country || 'France',
 }
 
 async function submit(form: VeeValidateValues) {
@@ -195,8 +198,8 @@ async function submit(form: VeeValidateValues) {
   }
 
   if (!isEditMode.value) {
-    setEventCreationForm(payload.event as BaseCreationFormType)
-    setAddressCreationForm(payload.address)
+    setEventForm(payload.event)
+    setAddressForm(payload.address)
     router.push({
       name: 'evenement-create',
       query: { step: 'destinataires' },

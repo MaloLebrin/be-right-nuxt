@@ -28,7 +28,7 @@
     </a>
     <h3
       v-if="getRouteHeaderContent"
-      class="flex items-center space-x-4 text-2xl font-semibold text-gray-800 dark:text-white"
+      class="flex items-center space-x-4 font-semibold text-gray-800 text-normal md:text-2xl dark:text-white"
     >
       <component
         :is="getRouteHeaderContent.icon"
@@ -38,13 +38,13 @@
     </h3>
     <h3
       v-else
-      class="flex items-center space-x-4 text-2xl font-semibold text-gray-800 dark:text-white"
+      class="flex items-center space-x-4 font-semibold text-gray-800 text-normal md:text-2xl dark:text-white"
     >
       <span>{{ getOutsideMenuRouteLabel }}</span>
     </h3>
   </div>
 
-  <div class="flex items-center">
+  <div class="flex items-ceneter">
     <NotificationMenu is-in-header />
 
     <UserMenu
@@ -75,27 +75,43 @@ const getOutsideMenuRouteLabel = computed(() => {
     switch (formatedRouteName) {
       case 'evenement-show-id':
         return 'Détail de l\'événement'
-
       case 'evenement-edit-id':
         return 'Modifier l\'événement'
+      case 'evenement-archives':
+        return 'Événements supprimés'
+      case 'evenement-create':
+        return 'Créer un événement'
+
+      case 'groupe-creation':
+        return 'Créer un groupe'
 
       case 'user-show-id':
         return 'Détail de l\'utilisateur'
-
       case 'user-edit-id':
         return 'Modifier l\'utilisateur'
 
       case 'destinataire-show-id':
         return 'Détail du destinataire'
+      case 'destinataire-create':
+        return 'Créer un destinataire'
+      case 'destinataire-edit-id':
+        return 'Modifier le destinataire'
 
-      case 'mon-compte-show-id':
-        return 'Mon compte'
-
-      case 'mon-compte-edit-id':
-        return 'Modifier le compte'
+      case 'mon-compte-notifications':
+        return 'Gestion des notifications'
+      case 'mon-compte-parametre':
+        return 'Gestion des paramètres'
+      case 'mon-compte-plan-billing':
+        return 'Abonnement et facturation'
+      case 'mon-compte-utilisateurs':
+        return 'Gestions des comptes utilisateurs'
 
       case 'addresse-create':
         return 'Ajouter une adresse'
+      case 'addresse-edit-id':
+        return 'Modifier l\'adresse'
+      case 'address-show-id':
+        return 'Voir l\'adresse'
     }
   }
 })

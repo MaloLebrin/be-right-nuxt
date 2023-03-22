@@ -1,4 +1,4 @@
-import type { BaseEntity, EmployeeType, EventType, UserType, WithoutId } from '@/types'
+import type { BaseEntity } from '@/types'
 
 export interface AddressType extends BaseEntity {
   addressLine: string
@@ -15,9 +15,8 @@ export interface AddressType extends BaseEntity {
 export interface AddressPostPayload {
   address: AddressTypeCreate
   eventId?: number | null
-  userId?: number | null
+  companyId?: number | null
   employeeId?: number | null
 }
 
 export type AddressTypeCreate = Omit<AddressType, 'id' | 'createdAt' | 'deletedAt' | 'updatedAt' | 'lat' | 'lng'>
-export type BaseCreationForm = Omit<AddressTypeCreate, 'userId' | 'eventId' | 'employeeId'>

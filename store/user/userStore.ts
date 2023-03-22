@@ -2,9 +2,8 @@ import { defineStore } from 'pinia'
 import { createActions, createGetters } from '@malolebrin/pinia-entity-store'
 import { uniq } from '@antfu/utils'
 import { useAuthStore } from '../auth/authStore'
-import type { PhotographerCreatePayload, UserType } from './types'
-import { basePhotographerForm, defaultUserState, userState } from './state'
-import { RoleEnum } from '@/types/Roles'
+import type { UserType } from './types'
+import { defaultUserState, userState } from './state'
 
 export const useUserStore = defineStore('user', {
   state: () => ({
@@ -43,11 +42,13 @@ export const useUserStore = defineStore('user', {
       users.forEach(user => this.addOne(user))
     },
 
-    setPhotographerForm(payload: PhotographerCreatePayload) {
-      this.photographerForm = payload
-    },
-    resetPhotographerForm() {
-      this.photographerForm = basePhotographerForm
+    updateOneUser(id: number, data: Partial<UserType>) {
+      if (this.entities.byId[id] !== null || this.entities.byId[id] !== undefined) {
+        this.entities.byId[id] = {
+          ...this.entities.byId[id],
+          ...data,
+        }
+      }
     },
 
     resetState() {
