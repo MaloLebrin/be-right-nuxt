@@ -30,6 +30,10 @@
               </div>
             </div>
           </div>
+          <CheckIconOutline
+            v-if="userStore.getAuthUserId && badge.userIds.includes(userStore.getAuthUserId)"
+            class="w-6 h-6 text-green-500"
+          />
         </div>
       </div>
     </li>
