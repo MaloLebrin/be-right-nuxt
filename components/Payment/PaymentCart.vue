@@ -59,8 +59,6 @@
 </template>
 
 <script setup lang="ts">
-import { RouteNames } from '~~/helpers/routes'
-
 interface Props {
   nbRecipient: number
 }
@@ -71,10 +69,7 @@ withDefaults(defineProps<Props>(), {
 
 const emit = defineEmits(['checkout'])
 
-const router = useRouter()
-
 function checkout() {
-  router.push({ name: RouteNames.PAYMENT_CONFIRM })
   emit('checkout')
 }
 </script>
