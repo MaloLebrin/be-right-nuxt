@@ -22,6 +22,8 @@
 </template>
 
 <script setup lang="ts">
+import { RouteNames } from '~~/helpers/routes'
+
 interface Props {
   currentStepIndex: number
 }
@@ -31,9 +33,9 @@ withDefaults(defineProps<Props>(), {
 })
 
 const steps = [
-  { id: '1', name: 'Nouvel évenement', description: 'Créez la date et le contenu de l\'évenement.', query: 'evenement' },
-  { id: '2', name: 'Destinataires', description: 'Sélectionnez des destinataires.', query: 'destinataires' },
-  { id: '3', name: 'Photographe', description: 'Ajoutez un photographe.', query: 'photographer' },
-  { id: '4', name: 'Fin', description: 'Enregistrement de données.', query: 'paiement' },
+  { id: '1', name: 'Nouvel évenement', description: 'Créez la date et le contenu de l\'évenement.', query: 'evenement', pathName: RouteNames.CREATE_EVENT_STEP_1 },
+  { id: '2', name: 'Destinataires', description: 'Sélectionnez des destinataires.', query: 'destinataires', pathName: RouteNames.CREATE_EVENT_STEP_2 },
+  { id: '3', name: 'Photographe', description: 'Ajoutez un photographe.', query: 'photographer', pathName: RouteNames.CREATE_EVENT_STEP_3 },
+  { id: '4', name: 'Fin', description: 'Enregistrement de données.', query: 'paiement', pathName: RouteNames.CREATE_EVENT_STEP_PAYMENT },
 ]
 </script>

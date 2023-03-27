@@ -111,6 +111,7 @@ import {
   useFormStore,
   useUiStore,
 } from '~~/store'
+import { RouteNames } from '~~/helpers/routes'
 
 interface Props {
   eventId?: number | null
@@ -201,8 +202,7 @@ async function submit(form: VeeValidateValues) {
     setEventForm(payload.event)
     setAddressForm(payload.address)
     router.push({
-      name: 'evenement-create',
-      query: { step: 'destinataires' },
+      name: RouteNames.CREATE_EVENT_STEP_2,
     })
   }
 

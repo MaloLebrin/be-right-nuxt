@@ -40,6 +40,8 @@ import {
 } from '~~/store'
 import type { VeeValidateValues } from '~~/types'
 
+const emit = defineEmits(['submitEmployees'])
+
 const employeeStore = useEmployeeStore()
 const uiStore = useUiStore()
 const { IncLoading, DecLoading, resetUiModalState } = uiStore
@@ -71,10 +73,7 @@ const defaultValues = computed(() => {
 async function submit(form: VeeValidateValues) {
   IncLoading()
   setEmployeeIds(form.employees)
-  router.push({
-    name: 'evenement-create',
-    query: { step: 'photographer' },
-  })
+  emit('submitEmployees')
   DecLoading()
   resetUiModalState()
 }
