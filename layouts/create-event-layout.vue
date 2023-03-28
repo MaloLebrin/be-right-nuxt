@@ -5,7 +5,7 @@
   <div class="w-full lg:ml-64">
     <HeaderDashboard />
     <PageAuthWrapper>
-      <EventFormStepperWrapper :current-step-index="currentStepIndex" />
+      <EventFormStepperWrapper />
 
       <div
         v-if="!haveUserEmployees"
@@ -31,6 +31,7 @@
       v-if="uiStore.isModalActive(ModalNameEnum.ADD_RECIPIENT_TO_EVENT)"
       :is-active="uiStore.isModalActive(ModalNameEnum.ADD_RECIPIENT_TO_EVENT)"
     />
+
     <PhotographerModal
       v-if="uiStore.getUiModalState.isActive
         && uiStore.getUiModalState.modalName === ModalNameEnum.CREATE_PHOTOGRAPHER"
@@ -59,7 +60,6 @@ const companyStore = useCompanyStore()
 const uiStore = useUiStore()
 const { resetUiModalState, IncLoading, DecLoading } = uiStore
 
-const { currentStepIndex } = createEventFormHook()
 const { getPhotographerUserWorkedWith } = userHook()
 const { fetchMany } = employeeHook()
 

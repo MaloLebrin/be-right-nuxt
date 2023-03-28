@@ -183,17 +183,23 @@ const answerStore = useAnswerStore()
 const companyStore = useCompanyStore()
 const addressStore = useAddressStore()
 const userStore = useUserStore()
-const { getEventStatusTranslation } = eventHook()
 
-const event = eventStore.getOne(1)
-const user = userStore.getAuthUser
-const company = companyStore.getOne(event.companyId)
-const address = addressStore.getOne(company.addressId)
-const answers = answerStore.getManyByEventId(event.id)
+const event = computed(() => eventStore.getOne(eventStore.getFirstActive))
+const user = computed(() => userStore.getAuthUser)
+const company = computed(() => companyStore.getOne(event.value?.companyId))
+const address = computed(() => addressStore.getOne(company.value?.addressId))
+const answers = computed(() => answerStore.getManyByEventId(event.value?.id))
 
-const bill = {
-  amount: answers.length * 1,
-}
+const bill = computed(() => ({
+  amount: answers.value.length * 1,
+}))
+
+const { fetchEventWithRelations } = eventHook()
+onMounted(async () => {
+  if (eventStore.getFirstActive) {
+    await fetchEventWithRelations(eventStore.getFirstActive)
+  }
+})
 
 definePageMeta({
   layout: 'auth',

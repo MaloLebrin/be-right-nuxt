@@ -5,6 +5,8 @@ export enum RouteNames {
   CREATE_EVENT_STEP_3 = 'evenement-creer-step3',
   CREATE_EVENT_STEP_PAYMENT = 'evenement-creer-paiement',
 
+  LIST_EVENT = 'evenement',
+
   SHOW_EVENT_ID = 'evenement-show-id',
 
   // PAYMENTS

@@ -84,7 +84,7 @@
 
   <div class="flex items-center justify-center col-span-3 mt-6">
     <BaseButton
-      :disabled="!meta.valid || !meta.dirty"
+      :disabled="!meta.valid"
       :is-loading="uiStore.getUIIsLoading || isSubmitting"
       type="submit"
     >
