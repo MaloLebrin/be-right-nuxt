@@ -56,7 +56,7 @@
 <script setup lang="ts">
 import { object, string } from 'yup'
 import { Form } from 'vee-validate'
-import type { VeeValidateValues } from '@/types'
+import type { ResetPasswordData, VeeValidateValues } from '@/types'
 import { useUiStore } from '~/store/ui/uiStore'
 
 const uiStore = useUiStore()
@@ -84,11 +84,6 @@ function resetState() {
   state.isSuccess = false
 }
 
-interface ResetPasswordData {
-  isSuccess: boolean
-  message: string
-}
-
 async function onSubmit(form: VeeValidateValues) {
   const { $toast, $api } = useNuxtApp()
   IncLoading()
@@ -109,4 +104,6 @@ async function onSubmit(form: VeeValidateValues) {
     DecLoading()
   }
 }
+
+definePageMeta({ layout: 'default' })
 </script>
