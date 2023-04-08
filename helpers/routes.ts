@@ -17,4 +17,5 @@ export enum RouteNames {
 
   // AUTH
   FORGOT_PASSWORD = 'mot-de-passe-oublie',
+  LOGIN = 'login',
 }
