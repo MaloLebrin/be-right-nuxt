@@ -107,7 +107,10 @@ export default function answerHook() {
             updateOneAnswer(id, answer)
           }
 
-          return message
+          return {
+            message,
+            isSuccess,
+          }
         }
       }
     } catch (error) {

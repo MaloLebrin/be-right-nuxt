@@ -60,10 +60,18 @@
       Relancer
     </BaseButton>
   </p>
+
+  <BaseMessage
+    v-if="responseMessage"
+    :type="isGreenMessage ? 'success' : 'danger'"
+  >
+    {{ responseMessage }}
+  </BaseMessage>
 </div>
 </template>
 
 <script setup lang="ts">
+import BaseMessage from '../Base/BaseMessage.vue'
 import type { AnswerType } from '~~/store'
 import { useUiStore } from '~~/store'
 
@@ -83,9 +91,14 @@ const hasBeenAnswered = computed(() =>
 const uiStore = useUiStore()
 const { raiseAnswer } = answerHook()
 const responseMessage = ref<null | string>(null)
+const isGreenMessage = ref(false)
 
 async function raise() {
-  const message = await raiseAnswer(props.answer.id)
-  responseMessage.value = message || null
+  const response = await raiseAnswer(props.answer.id)
+  if (response) {
+    const { message, isSuccess } = response
+    responseMessage.value = message || null
+    isGreenMessage.value = isSuccess
+  }
 }
 </script>
