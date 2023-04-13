@@ -47,8 +47,10 @@
     v-else
     class="flex items-center mt-2 text-sm text-gray-500"
   >
-    <!-- TODO send email to employee again -->
-    <BaseButton disabled>
+    <BaseButton
+      :disabled="uiStore.getUIIsLoading"
+      @click="raise"
+    >
       <template #icon>
         <EnvelopeIconOutline
           class="text-gray-200"
@@ -63,6 +65,7 @@
 
 <script setup lang="ts">
 import type { AnswerType } from '~~/store'
+import { useUiStore } from '~~/store'
 
 interface Props {
   answer: AnswerType
@@ -76,4 +79,13 @@ const hasBeenAnswered = computed(() =>
   && noNull(props.answer.signedAt)
   && noUndefined(props.answer.signedAt),
 )
+
+const uiStore = useUiStore()
+const { raiseAnswer } = answerHook()
+const responseMessage = ref<null | string>(null)
+
+async function raise() {
+  const message = await raiseAnswer(props.answer.id)
+  responseMessage.value = message || null
+}
 </script>
