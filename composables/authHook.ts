@@ -2,10 +2,17 @@
 import type { JWTDecodedType, ValidationRequest } from '@/types'
 import { RoleEnum } from '@/types'
 import {
+  useAddressStore,
+  useAnswerStore,
   useAuthStore,
+  useCompanyStore,
   useEmployeeStore,
   useEventStore,
   useFileStore,
+  useFormStore,
+  useGroupStore,
+  useNotificationsStore,
+  useNotificationsSubscriptionStore,
   useTableStore,
   useUiStore,
   useUserStore,
@@ -14,22 +21,35 @@ import {
 export default function authHook() {
   const { $toast, $api } = useNuxtApp()
 
+  const addressStore = useAddressStore()
+  const answerStore = useAnswerStore()
   const userStore = useUserStore()
+  const companyStore = useCompanyStore()
+  const notificationStore = useNotificationsStore()
+  const notificationSubscriptionStore = useNotificationsSubscriptionStore()
   const employeeStore = useEmployeeStore()
   const eventStore = useEventStore()
   const fileStore = useFileStore()
+  const formStore = useFormStore()
+  const groupStore = useGroupStore()
   const tableStore = useTableStore()
   const uiStore = useUiStore()
   const router = useRouter()
   const { resetAuthState } = useAuthStore()
 
   function logout() {
-    // api.deleteCredentials()
-    // TODO add deletecredentials functions
+    $api().deleteCredentials()
 
+    addressStore.resetState()
+    answerStore.resetState()
+    companyStore.$reset()
     employeeStore.resetState()
     eventStore.resetState()
     fileStore.resetState()
+    formStore.resetState()
+    groupStore.resetState()
+    notificationStore.$reset()
+    notificationSubscriptionStore.$reset()
     tableStore.resetTableState()
     uiStore.resetUIState()
     userStore.resetState()
