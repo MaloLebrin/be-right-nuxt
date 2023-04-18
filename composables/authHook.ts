@@ -1,4 +1,5 @@
 // import { useCookies } from 'vue3-cookies'
+import { useJwt } from '@vueuse/integrations/useJwt'
 import type { JWTDecodedType, ValidationRequest } from '@/types'
 import { RoleEnum } from '@/types'
 import {
@@ -68,17 +69,9 @@ export default function authHook() {
     return data
   }
 
-  function jwtDecode(jwt: any): JWTDecodedType | null {
-    if (typeof jwt !== 'string' && !(jwt instanceof String))
-      return null
-
-    const splitted = jwt.split('.')
-    if (splitted.length < 2)
-      return null
-
-    const obj1 = JSON.parse(window.atob(splitted[0]))
-    const obj2 = JSON.parse(window.atob(splitted[1]))
-    return Object.assign({}, obj1, obj2)
+  function jwtDecode(jwt: Ref<string>) {
+    const { payload } = useJwt(jwt)
+    return payload
   }
 
   function isJWTUserAdmin(user: JWTDecodedType) {
