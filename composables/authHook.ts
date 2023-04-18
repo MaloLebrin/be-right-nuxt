@@ -1,6 +1,7 @@
 // import { useCookies } from 'vue3-cookies'
 import { useJwt } from '@vueuse/integrations/useJwt'
-import type { JWTDecodedType, ValidationRequest } from '@/types'
+import type { JwtPayload } from 'jsonwebtoken'
+import type { ValidationRequest } from '@/types'
 import { RoleEnum } from '@/types'
 import {
   useAddressStore,
@@ -74,7 +75,7 @@ export default function authHook() {
     return payload
   }
 
-  function isJWTUserAdmin(user: JWTDecodedType) {
+  function isJWTUserAdmin(user: JwtPayload) {
     return user?.roles.includes(RoleEnum.ADMIN)
   }
 
