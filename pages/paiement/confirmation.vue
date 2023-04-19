@@ -201,10 +201,11 @@ const address = computed(() => addressStore.getOne(company.value?.addressId))
 const answers = computed(() => answerStore.getManyByEventId(event.value?.id))
 
 const bill = computed(() => ({
-  amount: answers.value.length * 1,
+  amount: answers.value?.length * 1,
 }))
 
 const { fetchEventWithRelations } = eventHook()
+
 onMounted(async () => {
   if (eventStore.getFirstActive) {
     await fetchEventWithRelations(eventStore.getFirstActive)
