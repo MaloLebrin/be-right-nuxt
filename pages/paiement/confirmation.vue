@@ -1,7 +1,7 @@
 <template>
 <div class="h-full bg-gray-50">
   <div
-    v-if="!uiStore.getUIIsLoading"
+    v-if="!uiStore.getUIIsLoading && haveData"
     class="max-w-2xl py-6 mx-auto lg:py-12 sm:px-6 lg:max-w-7xl lg:px-8"
   >
     <div class="px-4 space-y-2 sm:flex sm:items-baseline sm:justify-between sm:space-y-0 sm:px-0">
@@ -63,7 +63,7 @@
 
             <div class="mt-6 lg:col-span-5 lg:mt-0">
               <dl class="grid grid-cols-2 text-sm gap-x-6">
-                <div>
+                <div v-if="address">
                   <dt class="font-medium text-gray-900">
                     Billing address
                   </dt>
@@ -114,7 +114,7 @@
 
       <div class="px-4 py-6 bg-gray-100 sm:rounded-lg sm:px-6 lg:grid lg:grid-cols-12 lg:gap-x-8 lg:px-8 lg:py-8">
         <dl class="grid grid-cols-2 gap-6 text-sm sm:grid-cols-2 md:gap-x-8 lg:col-span-7">
-          <div>
+          <div v-if="address">
             <dt class="font-medium text-gray-900">
               Billing address
             </dt>
@@ -197,12 +197,19 @@ const uiStore = useUiStore()
 const event = computed(() => eventStore.getOne(eventStore.getFirstActive))
 const user = computed(() => userStore.getAuthUser)
 const company = computed(() => companyStore.getOne(event.value?.companyId))
-const address = computed(() => addressStore.getOne(company.value?.addressId))
+
+const address = computed(() => addressStore.getOne(event.value?.addressId) || null)
 const answers = computed(() => answerStore.getManyByEventId(event.value?.id))
 
 const bill = computed(() => ({
   amount: answers.value?.length * 1,
 }))
+
+const haveData = computed(() => event.value
+  && user.value
+  && company.value
+  && answers.value?.length > 0,
+)
 
 const { fetchEventWithRelations } = eventHook()
 
@@ -221,6 +228,6 @@ watch(() => isLeft.value, val => {
 definePageMeta({
   layout: 'auth',
   isAuth: true,
-  middleware: 'guards-middleware',
+  middleware: ['guards-middleware'],
 })
 </script>
