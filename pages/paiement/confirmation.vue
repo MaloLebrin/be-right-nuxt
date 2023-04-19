@@ -1,6 +1,9 @@
 <template>
 <div class="h-full bg-gray-50">
-  <div class="max-w-2xl py-6 mx-auto lg:py-12 sm:px-6 lg:max-w-7xl lg:px-8">
+  <div
+    v-if="!uiStore.getUIIsLoading"
+    class="max-w-2xl py-6 mx-auto lg:py-12 sm:px-6 lg:max-w-7xl lg:px-8"
+  >
     <div class="px-4 space-y-2 sm:flex sm:items-baseline sm:justify-between sm:space-y-0 sm:px-0">
       <div class="flex sm:items-baseline sm:space-x-4">
         <h1 class="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
@@ -164,25 +167,32 @@
       </div>
     </div>
   </div>
+
+  <BaseLoader v-else />
 </div>
 </template>
 
 <script setup lang="ts">
+import { usePageLeave } from '@vueuse/core'
 import EventStatusTag from '~~/components/Event/EventStatusTag.vue'
+import BaseLoader from '~~/components/Base/BaseLoader.vue'
 import { RouteNames } from '~~/helpers/routes'
 import {
   useAddressStore,
   useAnswerStore,
   useCompanyStore,
   useEventStore,
+  useUiStore,
   useUserStore,
 } from '~~/store'
 
+const isLeft = usePageLeave()
 const eventStore = useEventStore()
 const answerStore = useAnswerStore()
 const companyStore = useCompanyStore()
 const addressStore = useAddressStore()
 const userStore = useUserStore()
+const uiStore = useUiStore()
 
 const event = computed(() => eventStore.getOne(eventStore.getFirstActive))
 const user = computed(() => userStore.getAuthUser)
@@ -198,6 +208,12 @@ const { fetchEventWithRelations } = eventHook()
 onMounted(async () => {
   if (eventStore.getFirstActive) {
     await fetchEventWithRelations(eventStore.getFirstActive)
+  }
+})
+
+watch(() => isLeft.value, val => {
+  if (val) {
+    eventStore.resetActive()
   }
 })
 
