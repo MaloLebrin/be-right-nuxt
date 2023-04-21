@@ -18,3 +18,9 @@ export interface ActionResponse {
   message: string
   isSuccess: boolean
 }
+
+export interface ErrorResponse {
+  message: string
+  success: boolean
+  stack: string
+}
