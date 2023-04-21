@@ -12,10 +12,12 @@
 import { useAuthStore } from '~/store'
 
 const authStore = useAuthStore()
-const route = useRoute()
+const router = useRouter()
 
-const { query: { email, token } } = route
+const { query: { email, token } } = router.currentRoute.value
 if (!authStore.getIsLoggedIn && email && token) {
-  console.log(email, '<==== email')
+  router.replace({
+    name: 'answer-error',
+  })
 }
 </script>
