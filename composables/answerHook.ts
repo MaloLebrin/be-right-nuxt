@@ -1,5 +1,5 @@
 import { hasOwnProperty, uniq } from '@antfu/utils'
-import type { ActionResponse } from '~/types/Payload'
+import type { ActionResponse, ErrorResponse, ResponseAnswerSignature } from '~/types/Payload'
 import type { AnswerType, EmployeeType } from '~~/store'
 import { useAnswerStore, useUiStore } from '~~/store'
 
@@ -140,14 +140,39 @@ export default function answerHook() {
     return array?.every(item => isAnswerType(item))
   }
 
+  async function getAnswerForSignature({ email, token }: { email: string; token: string }) {
+    try {
+      if (email && token) {
+        const { success, data } = await $api().post<
+          ErrorResponse | ResponseAnswerSignature>('answer/forSignature', { email, token })
+
+        return {
+          success,
+          data,
+        }
+      }
+      return {
+        success: false,
+        data: {
+          message: 'Paramètres manquants',
+        },
+      }
+    } catch (error) {
+      console.error(error)
+      $toast.error('Une erreur est survenue')
+    }
+  }
+
   return {
     postMany,
     filteringAnswersNotInStore,
     fetchMany,
     fetchManyAnswerForEvent,
     fetchManyAnswerForManyEvent,
+    getAnswerForSignature,
     downloadAnswer,
     raiseAnswer,
     areAnswersType,
   }
 }
+// localhost:3000/answer/check-16?email=malolebrin@icloud.com&token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBsb3llZUlkIjoxOCwiZXZlbnRJZCI6MTEsImVtYWlsIjoibWFsb2xlYnJpbkBpY2xvdWQuY29tIiwiZmlyc3ROYW1lIjoiTWFsbyIsImxhc3ROYW1lIjoiTGVicmluIiwiZnVsbE5hbWUiOiJNYWxvIExlYnJpbiIsInVuaUpXVCI6ImdOWld4V2dYSlpCY2IwcnU5dGdqYVpIMUNUSUYxRnAzSHFLWFRXUmZlNDYwM29nSGVrUlNpNXRGejJ1XzdTbDdkWHJhX0R0eHBmdnZNa0NSd1dZaGRHbnVtUENOLTAzZUxfbjgwTE10VGJKdG9jeUZRTHZxck1GYjFwTFp5YVY1IiwiaWF0IjoxNjgxODQ4MTY3fQ.RrLF_iD_Nicx48OUaCnIJ3x1aZMPlpnJ0VZtpnrwEzY

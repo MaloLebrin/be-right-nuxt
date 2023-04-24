@@ -1,4 +1,5 @@
-import type { RoleEnum } from '.'
+import type { EmployeeType, EventType, RoleEnum } from '.'
+import type { AnswerType } from '~/store/answer/types'
 
 export interface RegisterPayload {
   companyName: string
@@ -24,3 +25,5 @@ export interface ErrorResponse {
   success: boolean
   stack: string
 }
+
+export interface ResponseAnswerSignature { answer: AnswerType; event: EventType; employee: EmployeeType }
