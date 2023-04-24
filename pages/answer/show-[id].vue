@@ -4,7 +4,7 @@
 
   <div
     v-else
-    class="relative overflow-hidden bg-gray-900 h-96 isolate sm:py-32"
+    class="relative overflow-hidden bg-gray-900 min-h-96 isolate sm:py-32"
   >
     <img
       src="https://images.unsplash.com/photo-1516283182395-4b90237bff2e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1172&q=80"
@@ -21,11 +21,21 @@
         </p>
 
         <Form
-          class="mt-4 space-y-4"
+          v-slot="{ meta, isSubmitting, errors }"
+          class="py-4 space-y-4"
+          :validation-schema="schema"
         >
-          <BasePinCodeInput :digit-count="4" />
+          <BasePinCodeInput
+            :digit-count="4"
+            name="twoFactorSecret"
+          />
           <div class="flex justify-center">
-            <BaseButton>
+            <BaseButton
+              :disabled="!meta.valid || !meta.dirty"
+              :is-loading="uiStore.getUIIsLoading || isSubmitting"
+              type="submit"
+              :title="errors.twoFactorSecret || 'Vérifier mon identiter'"
+            >
               Vérifier
             </BaseButton>
           </div>
@@ -45,7 +55,7 @@
       >
         {{ message }}
       </p>
-      <BaseButton>
+      <BaseButton :href="{ name: 'index' }">
         Retour
       </BaseButton>
     </div>
@@ -55,6 +65,7 @@
 
 <script setup lang="ts">
 import { Form } from 'vee-validate'
+import { object, string } from 'yup'
 import BaseButton from '~/components/Base/BaseButton.vue'
 import BasePinCodeInput from '~/components/Base/BasePinCodeInput.vue'
 import BaseLoader from '~/components/Base/BaseLoader.vue'
@@ -82,6 +93,13 @@ const state = reactive<State>({
   answer: null,
   event: null,
   employee: null,
+})
+
+const schema = object({
+  twoFactorSecret: string()
+    .min(4, 'Veuillez remplir les 4 cases')
+    .max(4, 'Vous devez remplir 4 cases')
+    .required('Le code vérification est obligatoire'),
 })
 
 interface Response { answer: AnswerType; event: EventType; employee: EmployeeType }
@@ -117,6 +135,9 @@ onMounted(async () => {
 
 useHead({
   title: 'Signer un document',
+  meta: [
+    { name: 'description', content: 'Nou utilisons un code sécurité pour vérifier votre identité' },
+  ],
 })
 
 definePageMeta({
