@@ -71,7 +71,6 @@ import BaseButton from '~/components/Base/BaseButton.vue'
 import BasePinCodeInput from '~/components/Base/BasePinCodeInput.vue'
 import BaseLoader from '~/components/Base/BaseLoader.vue'
 import BaseMessage from '~/components/Base/BaseMessage.vue'
-import type { AnswerType, EmployeeType, EventType } from '~/store'
 import { useAnswerStore, useEmployeeStore, useEventStore, useUiStore } from '~/store'
 import type { ErrorResponse, ResponseAnswerSignature, VeeValidateValues } from '~/types'
 
@@ -88,16 +87,10 @@ const { getAnswerForSignature } = answerHook()
 
 interface State {
   errorMessages: string[]
-  answer: AnswerType | null
-  event: EventType | null
-  employee: EmployeeType | null
 }
 
 const state = reactive<State>({
   errorMessages: [],
-  answer: null,
-  event: null,
-  employee: null,
 })
 
 const schema = object({
