@@ -63,7 +63,8 @@ function handleKeyDown(event: KeyboardEvent, index: number) {
     digits[index] = null
 
     if (index !== 0 && otpCont.value) {
-      (otpCont.value.children)[index - 1].focus()
+      const input = (otpCont.value.children)[index - 1] as HTMLInputElement
+      input.focus()
     }
 
     return
@@ -75,7 +76,8 @@ function handleKeyDown(event: KeyboardEvent, index: number) {
     digits[index] = event.key.toUpperCase()
 
     if (index !== props.digitCount - 1 && otpCont.value) {
-      (otpCont.value.children)[index + 1].focus()
+      const input = (otpCont.value.children)[index = 1] as HTMLInputElement
+      input.focus()
     }
   }
 
