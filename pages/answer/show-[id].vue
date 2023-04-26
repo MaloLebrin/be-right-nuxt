@@ -1,11 +1,85 @@
 <template>
-<div class="h-full">
+<div class="h-full px-4 md:px-8">
   <BaseLoader v-if="uiStore.getUIIsLoading" />
 
   <div
-    v-else
-    class="sm:py-32"
-  />
+    v-else-if="state.answer && state.employee && state.event"
+    class="grid max-w-2xl grid-cols-1 mx-auto text-base gap-x-8 gap-y-6 lg:mx-0 lg:max-w-none lg:grid-cols-2 lg:items-start lg:gap-y-10"
+  >
+    <h1 class="mt-2 text-3xl font-bold tracking-tight text-center text-gray-900 sm:text-4xl">
+      Autorisation exploitation droit à l'image
+    </h1>
+
+    <div class="text-wrapper">
+      <p>Je soussigné(e) <span class="font-bold">{{ state.employee.firstName }} {{ state.employee.lastName }}</span></p>
+      <p>Demeurant à {{ state.employee.address?.addressLine }}, {{ state.employee.address?.postalCode }}, {{ state.employee.address?.city }}, {{ state.employee.address?.country }}</p>
+      <p>
+        Né(e) le {{ $toFormat(state.employee.bornAt, 'DD/MM/YYYY') }}
+      </p>
+      <p>Agissant en mon nom personnel.</p>
+      <p>Autorise {{ state.event.partner?.firstName }} {{ state.event.partner?.lastName }} à me photographier, le {{ $toFormat(state.event.start, 'DD/MM/YYYY') }} à {{ state.event.company?.address?.city }}</p>
+    </div>
+
+    <div class="text-wrapper">
+      <p>
+        En conséquence de quoi et conformément aux dispositions relatives au droit à l’image, j’autorise <span class="font-bold">{{ state.event.company?.name }}</span> à fixer, reproduire et communiquer au public les photographies prises dans le cadre de la présente.
+      </p>
+    </div>
+
+    <div class="text-wrapper">
+      <p>
+        Les photographies pourront être exploitées et utilisées par <span class="font-bold">{{ state.event.company?.name }}</span> sous toute forme et tous supports*, dans le monde entier (en effet, dès lors qu’il y a une publication sur un réseau social, elle est disponible dans le monde entier), pendant une durée de 8 ans (cela vous protège pour éviter que votre image ne soit utilisée indéfiniment), intégralement ou par extraits et notamment :
+      </p>
+    </div>
+
+    <div class="px-3 md:px-4 text-wrapper">
+      <p class="italic">
+        *Nous entendons tout support audiovisuel et par tous moyens inhérents à ce mode de communication, internet (incluant site web, Intranet, Extranet, Blogs, réseaux sociaux), tous vecteurs de réception confondus (smartphones, tablettes, etc.), médias presse, supports de communication interne, supports promotionnels (PLV, ILV, campagnes d'affichage en tous lieux, toutes dimensions et sur tous supports (urbain, aéroports, gares, transports en commun, etc.), droit d'intégration dans une autre œuvre / œuvre multimédia.
+      </p>
+    </div>
+
+    <div class="text-wrapper">
+      <p>Le bénéficiaire de l’autorisation <span class="font-bold">{{ state.event.company?.name }}</span> s’interdit expressément de procéder à une exploitation des photographies susceptibles de porter atteinte à la vie privée ou à la réputation, et d’utiliser les photographies de la présente, dans tout support à caractère pornographique, raciste, xénophobe ou toute autre exploitation préjudiciable. (Ce paragraphe a également pour objectif de vous protéger des utilisations non désirées de votre image)</p>
+    </div>
+
+    <div class="text-wrapper">
+      <p>
+        Je me reconnais (la personne photographiée) être entièrement rempli de mes droits et je ne pourrai prétendre à aucune rémunération pour l’exploitation des droits visés aux présentes.
+      </p>
+    </div>
+
+    <div class="text-wrapper">
+      <p>
+        Je garantis (la personne photographiée) que je ne suis pas lié(e) par un contrat exclusif relatif à l’utilisation de mon image ou de mon nom.
+      </p>
+    </div>
+
+    <div class="text-wrapper">
+      <p>
+        Pour tout litige né de l’interprétation ou de l’exécution des présentes, il est fait attribution expresse de juridiction aux tribunaux français.
+      </p>
+    </div>
+
+    <div class="text-wrapper">
+      <p>
+        Fait à {{ state.employee.address?.city }}, le <span class="underline">{{ $toFormat(new Date(), 'DD/MM/YYYY') }}</span> en deux exemplaires
+      </p>
+      <div class="flex justify-between mt-2">
+        <div>
+          <p>Nom et prénom de la personne photographiée :</p>
+          <p class="font-bold">
+            {{ state.employee.firstName }} {{ state.employee.lastName }}
+          </p>
+        </div>
+        <div v-if="user">
+          <p>Nom et prénom du représentant {{ state.event.company?.name }} :</p>
+          <p class="font-bold">
+            {{ getUserfullName(user) }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <BaseMessage
     v-if="state.errorMessages?.length > 0"
@@ -23,12 +97,43 @@
       </BaseButton>
     </div>
   </BaseMessage>
+
+  <BaseModal
+    :is-active="state.isPreventModalActive"
+    @close="state.isPreventModalActive = false"
+  >
+    <div class="px-4 py-2 sm:flex sm:items-start">
+      <div class="flex items-center justify-center flex-shrink-0 w-12 h-12 mx-auto bg-red-100 rounded-full sm:mx-0 sm:h-10 sm:w-10">
+        <ExclamationTriangleIconOutline
+          class="w-6 h-6 text-red-600"
+          aria-hidden="true"
+        />
+      </div>
+      <div class="mt-3 space-y-2 text-center sm:mt-0 sm:ml-4 sm:text-left">
+        <DialogTitle
+          as="h3"
+          class="text-lg font-medium leading-6 text-gray-900"
+        >
+          Instructions
+        </DialogTitle>
+        <div class="flex flex-col items-center mt-2 space-y-4">
+          <p>Lisez attentivement ce document avant de répondre.</p>
+          <BaseButton @click="state.isPreventModalActive = false">
+            OK! Merci
+          </BaseButton>
+        </div>
+      </div>
+    </div>
+  </BaseModal>
 </div>
 </template>
 
 <script setup lang="ts">
+import BaseButton from '~/components/Base/BaseButton.vue'
 import BaseLoader from '~/components/Base/BaseLoader.vue'
 import BaseMessage from '~/components/Base/BaseMessage.vue'
+import BaseModal from '~/components/Base/BaseModal.vue'
+import type { AnswerType, EmployeeType, EventType } from '~/store'
 import { useAnswerStore, useEmployeeStore, useEventStore, useUiStore } from '~/store'
 
 const uiStore = useUiStore()
@@ -38,23 +143,35 @@ const answerStore = useAnswerStore()
 const eventStore = useEventStore()
 const employeeStore = useEmployeeStore()
 
+const { isUserOwner, getUserfullName } = userHook()
+
 interface State {
   errorMessages: string[]
+  answer: AnswerType | null
+  event: EventType | null
+  employee: EmployeeType | null
+  isPreventModalActive: boolean
 }
 
 const state = reactive<State>({
   errorMessages: [],
+  answer: null,
+  event: null,
+  employee: null,
+  isPreventModalActive: true,
 })
+
+const user = computed(() => state.event?.company?.users?.find(user => isUserOwner(user)))
 
 onMounted(async () => {
   IncLoading()
   const { params } = route
   const answerId = params?.id
   if (answerId) {
-    const answer = answerStore.getOne(answerId)
-    const event = eventStore.getOne(answer?.eventId)
-    const employee = employeeStore.getOne(answer?.employeeId)
-    if (!answer || !event || !employee) {
+    state.answer = answerStore.getOne(answerId)
+    state.event = eventStore.getOne(state.answer?.eventId)
+    state.employee = employeeStore.getOne(state.answer?.employeeId)
+    if (!state.answer || !state.event || !state.employee) {
       state.errorMessages.push('Données manquantes')
     }
   } else {
@@ -74,5 +191,9 @@ definePageMeta({
   layout: 'employee',
 })
 </script>
-// FIXME Remove this comments answer/forSignature  OYJRE
-<!-- -show-16?email=malolebrin@icloud.com&token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBsb3llZUlkIjoxOCwiZXZlbnRJZCI6MTEsImVtYWlsIjoibWFsb2xlYnJpbkBpY2xvdWQuY29tIiwiZmlyc3ROYW1lIjoiTWFsbyIsImxhc3ROYW1lIjoiTGVicmluIiwiZnVsbE5hbWUiOiJNYWxvIExlYnJpbiIsInVuaUpXVCI6ImdOWld4V2dYSlpCY2IwcnU5dGdqYVpIMUNUSUYxRnAzSHFLWFRXUmZlNDYwM29nSGVrUlNpNXRGejJ1XzdTbDdkWHJhX0R0eHBmdnZNa0NSd1dZaGRHbnVtUENOLTAzZUxfbjgwTE10VGJKdG9jeUZRTHZxck1GYjFwTFp5YVY1IiwiaWF0IjoxNjgxODQ4MTY3fQ.RrLF_iD_Nicx48OUaCnIJ3x1aZMPlpnJ0VZtpnrwEzY -->
+
+<style scoped>
+.text-wrapper {
+  @apply text-sm md:text-base lg:col-span-2 lg:col-start-1 lg:row-start-1 lg:mx-auto lg:grid lg:w-full lg:max-w-7xl lg:grid-cols-2 lg:gap-x-8 lg:px-8
+}
+</style>
