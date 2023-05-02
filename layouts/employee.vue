@@ -1,5 +1,5 @@
 <template>
-<main>
+<main class="min-h-screen">
   <LayoutsHeader />
   <div class="h-full bg-white">
     <slot />

@@ -4,7 +4,7 @@
 
   <div
     v-else-if="state.answer && state.employee && state.event"
-    class="grid max-w-2xl grid-cols-1 mx-auto text-base gap-x-8 gap-y-6 lg:mx-0 lg:max-w-none lg:grid-cols-2 lg:items-start lg:gap-y-10"
+    class="grid max-w-2xl grid-cols-1 mx-auto mb-4 text-base gap-x-8 gap-y-6 lg:mx-0 lg:max-w-none lg:grid-cols-2 lg:items-start lg:gap-y-10"
   >
     <h1 class="mt-2 text-3xl font-bold tracking-tight text-center text-gray-900 sm:text-4xl">
       Autorisation exploitation droit à l'image
@@ -79,6 +79,11 @@
         </div>
       </div>
     </div>
+    <div class="flex justify-center">
+      <BaseButton @click="state.isFormModalActive = true">
+        Répondre
+      </BaseButton>
+    </div>
   </div>
 
   <BaseMessage
@@ -99,8 +104,9 @@
   </BaseMessage>
 
   <BaseModal
+    v-if="state.isPreventModalActive"
     :is-active="state.isPreventModalActive"
-    @close="state.isPreventModalActive = false"
+    @close="closePreventModal"
   >
     <div class="px-4 py-2 sm:flex sm:items-start">
       <div class="flex items-center justify-center flex-shrink-0 w-12 h-12 mx-auto bg-red-100 rounded-full sm:mx-0 sm:h-10 sm:w-10">
@@ -118,9 +124,75 @@
         </DialogTitle>
         <div class="flex flex-col items-center mt-2 space-y-4">
           <p>Lisez attentivement ce document avant de répondre.</p>
-          <BaseButton @click="state.isPreventModalActive = false">
+          <BaseButton @click="closePreventModal">
             OK! Merci
           </BaseButton>
+        </div>
+      </div>
+    </div>
+  </BaseModal>
+
+  <BaseModal
+    v-if="state.isFormModalActive"
+    :is-active="state.isFormModalActive"
+    @close="closeFormModal"
+  >
+    <div class="px-4 py-2 sm:flex sm:items-start">
+      <div class="flex items-center justify-center flex-shrink-0 w-12 h-12 mx-auto bg-blue-100 rounded-full sm:mx-0 sm:h-10 sm:w-10">
+        <ExclamationTriangleIconOutline
+          class="w-6 h-6 text-blue-600"
+          aria-hidden="true"
+        />
+      </div>
+      <div class="mt-3 space-y-2 text-center sm:mt-0 sm:ml-4 sm:text-left">
+        <DialogTitle
+          as="h3"
+          class="text-lg font-medium leading-6 text-gray-900"
+        >
+          Souhaitez vous accepter le droit à l'image?
+        </DialogTitle>
+        <div class="flex flex-col items-center mt-2 space-y-4">
+          <Form
+            v-slot="{ meta, values }"
+            :validation-schema="schema"
+            :initial-values="{ hasSigned: null, reason: null }"
+            class="space-y-2"
+          >
+            <p class="text-gray-600">
+              Acceptez vous l'autorisation d'exploitation de droit à l'image ?
+            </p>
+            <div class="inline-flex py-4 space-x-4">
+              <BaseRadio
+                id="hasSigned-true"
+                :value="true"
+                name="hasSigned"
+              >
+                J'accepte
+              </BaseRadio>
+              <BaseRadio
+                id="hasSigned-false"
+                :value="false"
+                name="hasSigned"
+              >
+                Je refuse
+              </BaseRadio>
+            </div>
+
+            <BaseTextarea
+              v-if="values.hasSigned === false"
+              label="Pourquoi ?"
+              name="reason"
+            />
+            <div class="flex justify-center">
+              <BaseButton
+                type="submit"
+                :disabled="!meta.dirty || !meta.valid"
+                :is-loading="uiStore.getUIIsLoading"
+              >
+                {{ values.hasSigned ? 'Accepter' : 'Refuser' }}
+              </BaseButton>
+            </div>
+          </Form>
         </div>
       </div>
     </div>
@@ -129,10 +201,14 @@
 </template>
 
 <script setup lang="ts">
+import { Form } from 'vee-validate'
+import { boolean, object, string } from 'yup'
 import BaseButton from '~/components/Base/BaseButton.vue'
+import BaseRadio from '~/components/Base/BaseRadio.vue'
 import BaseLoader from '~/components/Base/BaseLoader.vue'
 import BaseMessage from '~/components/Base/BaseMessage.vue'
 import BaseModal from '~/components/Base/BaseModal.vue'
+import BaseTextarea from '~/components/Base/BaseTextarea.vue'
 import type { AnswerType, EmployeeType, EventType } from '~/store'
 import { useAnswerStore, useEmployeeStore, useEventStore, useUiStore } from '~/store'
 
@@ -151,6 +227,7 @@ interface State {
   event: EventType | null
   employee: EmployeeType | null
   isPreventModalActive: boolean
+  isFormModalActive: boolean
 }
 
 const state = reactive<State>({
@@ -159,9 +236,28 @@ const state = reactive<State>({
   event: null,
   employee: null,
   isPreventModalActive: true,
+  isFormModalActive: false,
 })
 
 const user = computed(() => state.event?.company?.users?.find(user => isUserOwner(user)))
+
+const schema = object({
+  hasSigned: boolean().required('Vous devez répondre'),
+  reason: string().nullable(),
+})
+
+async function submitAnswer() {
+  closePreventModal()
+  closeFormModal()
+}
+
+function closePreventModal() {
+  state.isPreventModalActive = false
+}
+
+function closeFormModal() {
+  state.isFormModalActive = false
+}
 
 onMounted(async () => {
   IncLoading()
