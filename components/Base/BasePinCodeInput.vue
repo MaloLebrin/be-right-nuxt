@@ -84,19 +84,36 @@ function isDigitsFull() {
       return false
     }
   }
-
   return true
 }
 
 function handleKeyDown(event: KeyboardEvent, index: number, handleChange: any) {
-  if (event.key !== 'Tab'
-        && event.key !== 'ArrowRight'
-        && event.key !== 'ArrowLeft'
-  ) {
+  if (!['Tab', 'ArrowRight', 'ArrowLeft'].includes(event.key)) {
     event.preventDefault()
   }
 
-  if (event.key === 'Backspace') {
+  if (['Tab', 'ArrowRight', 'ArrowLeft', 'Shift'].includes(event.key) && otpCont.value) {
+    digits[index] = null
+    if (event.key === 'Shift' || isLastCase(index))
+      return
+    if (['Tab', 'ArrowRight'].includes(event.key)) {
+      if (event.key === 'Tab') {
+        const input = (otpCont.value.children)[index] as HTMLInputElement
+        input.focus()
+        return
+      }
+      const input = (otpCont.value.children)[index + 1] as HTMLInputElement
+      input.focus()
+      return
+    }
+    if (event.key === 'ArrowLeft' && index !== 0) {
+      const input = (otpCont.value.children)[index - 1] as HTMLInputElement
+      input.focus()
+      return
+    }
+  }
+
+  if (['Backspace', 'Delete', 'ArrowLeft'].includes(event.key)) {
     digits[index] = null
 
     if (index !== 0 && otpCont.value) {
@@ -122,6 +139,10 @@ function handleKeyDown(event: KeyboardEvent, index: number, handleChange: any) {
     emit('update:otp', digits.join(''))
   }
   handleChange(digits.join(''))
+}
+
+function isLastCase(index: number) {
+  return index === (props.digitCount - 1)
 }
 
 function getBorderClasses(errors: string[], meta: FieldMeta<unknown>) {

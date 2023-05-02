@@ -94,7 +94,7 @@ const state = reactive<State>({
 
 const schema = object({
   twoFactorCode: string()
-    .matches(/^[a-zA-Z0-9]+$/)
+    .matches(/^[a-zA-Z0-9]+$/, 'Le code doit avoir 5 caractères de chiffres et/ou de lettres')
     .min(5, 'Veuillez remplir les 5 cases')
     .max(5, 'Vous devez remplir 5 cases')
     .required('Le code vérification est obligatoire'),
