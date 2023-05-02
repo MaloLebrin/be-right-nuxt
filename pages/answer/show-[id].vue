@@ -4,7 +4,7 @@
 
   <div
     v-else-if="state.answer && state.employee && state.event"
-    class="grid max-w-2xl grid-cols-1 mx-auto mb-4 text-base gap-x-8 gap-y-6 lg:mx-0 lg:max-w-none lg:grid-cols-2 lg:items-start lg:gap-y-10"
+    class="grid max-w-2xl grid-cols-1 mx-auto text-base gap-x-8 gap-y-6 lg:mx-0 lg:max-w-none lg:grid-cols-2 lg:items-start lg:gap-y-10"
   >
     <h1 class="mt-2 text-3xl font-bold tracking-tight text-center text-gray-900 sm:text-4xl">
       Autorisation exploitation droit à l'image

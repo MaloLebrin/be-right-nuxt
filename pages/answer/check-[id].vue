@@ -4,14 +4,12 @@
 
   <div
     v-else
-    class="relative overflow-hidden bg-gray-900 min-h-96 isolate sm:py-32"
+    class="h-full md:mb-0 md:min-h-full
+      bg-fixed bg-center bg-no-repeat bg-cover bg-[url('../../public/static/check-mobile.webp')]
+      xl:bg-[url('../../public/static/check-landscap.webp')]
+    "
   >
-    <img
-      src="https://images.unsplash.com/photo-1516283182395-4b90237bff2e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1172&q=80"
-      alt=""
-      class="absolute inset-0 object-cover w-full h-full -z-10 backdrop-grayscale bg-red"
-    >
-    <div class="h-full px-6 pt-10 mx-auto max-w-7xl lg:px-8 backdrop-grayscale bg-black/40">
+    <div class="h-full px-6 pt-10 mx-auto py-14 sm:py-48 xl:py-52 backdrop-grayscale bg-black/40 xl:flex xl:justify-center">
       <div class="max-w-2xl mx-auto lg:mx-0">
         <h1 class="text-4xl font-bold tracking-tight text-center text-white sm:text-6xl">
           Vous avez un document à signer
@@ -22,13 +20,14 @@
 
         <Form
           v-slot="{ meta, isSubmitting, errors }"
-          class="py-4 space-y-4"
+          class="flex flex-col items-center py-4 mx-auto space-y-4"
           :validation-schema="schema"
           @submit="checkDoubleAuth"
         >
           <BasePinCodeInput
             :digit-count="5"
             name="twoFactorCode"
+            wrapper-classes="mx-auto"
           />
           <div class="flex justify-center">
             <BaseButton
