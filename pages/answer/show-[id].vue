@@ -4,7 +4,7 @@
 
   <div
     v-else-if="state.answer && state.employee && state.event"
-    class="grid max-w-2xl grid-cols-1 mx-auto text-base gap-x-8 gap-y-6 lg:mx-0 lg:max-w-none lg:grid-cols-2 lg:items-start lg:gap-y-10"
+    class="my-6 space-y-6 text-base lg:space-y-8 lg:mx-0 lg:max-w-none"
   >
     <h1 class="mt-2 text-3xl font-bold tracking-tight text-center text-gray-900 sm:text-4xl">
       Autorisation exploitation droit à l'image
@@ -32,7 +32,7 @@
       </p>
     </div>
 
-    <div class="px-3 md:px-4 text-wrapper">
+    <div class="px-3 md:px-4 lg:px-8 text-wrapper">
       <p class="italic">
         *Nous entendons tout support audiovisuel et par tous moyens inhérents à ce mode de communication, internet (incluant site web, Intranet, Extranet, Blogs, réseaux sociaux), tous vecteurs de réception confondus (smartphones, tablettes, etc.), médias presse, supports de communication interne, supports promotionnels (PLV, ILV, campagnes d'affichage en tous lieux, toutes dimensions et sur tous supports (urbain, aéroports, gares, transports en commun, etc.), droit d'intégration dans une autre œuvre / œuvre multimédia.
       </p>
@@ -290,6 +290,6 @@ definePageMeta({
 
 <style scoped>
 .text-wrapper {
-  @apply text-sm md:text-base lg:col-span-2 lg:col-start-1 lg:row-start-1 lg:mx-auto lg:grid lg:w-full lg:max-w-7xl lg:grid-cols-2 lg:gap-x-8 lg:px-8
+  @apply text-sm md:text-base lg:mx-auto lg:max-w-5xl lg:text-left
 }
 </style>
