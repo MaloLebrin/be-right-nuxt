@@ -157,6 +157,7 @@
             :validation-schema="schema"
             :initial-values="{ hasSigned: null, reason: null }"
             class="space-y-2"
+            @submit="submitAnswer"
           >
             <p class="text-gray-600">
               Acceptez vous l'autorisation d'exploitation de droit à l'image ?
@@ -215,6 +216,7 @@ import { useAnswerStore, useEmployeeStore, useEventStore, useUiStore } from '~/s
 const uiStore = useUiStore()
 const { IncLoading, DecLoading } = uiStore
 const route = useRoute()
+const router = useRouter()
 const answerStore = useAnswerStore()
 const eventStore = useEventStore()
 const employeeStore = useEmployeeStore()
@@ -249,6 +251,9 @@ const schema = object({
 async function submitAnswer() {
   closePreventModal()
   closeFormModal()
+  router.push({
+    name: 'answer-merci',
+  })
 }
 
 function closePreventModal() {
