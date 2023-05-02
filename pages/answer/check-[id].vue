@@ -3,7 +3,7 @@
   <BaseLoader v-if="uiStore.getUIIsLoading" />
 
   <div
-    v-else
+    v-else-if="state.errorMessages?.length === 0"
     class="h-full md:mb-0 md:min-h-full
       bg-fixed bg-center bg-no-repeat bg-cover bg-[url('../../public/static/check-mobile.webp')]
       xl:bg-[url('../../public/static/check-landscap.webp')]
@@ -45,7 +45,7 @@
   </div>
 
   <BaseMessage
-    v-if="state.errorMessages?.length > 0"
+    v-else
     type="danger"
   >
     <div class="space-y-4">
@@ -120,6 +120,9 @@ async function checkDoubleAuth(form: VeeValidateValues) {
         params: {
           id: paramters.id,
         },
+        query: {
+          ...route.query,
+        },
       })
     }
   } catch (error) {
@@ -148,9 +151,15 @@ onMounted(async () => {
       }
       if (data) {
         const result = data as ResponseAnswerSignature
-        employeeStore.addMany([result.employee])
-        answerStore.addMany([result.answer])
-        eventStore.addMany([result.event])
+        if (result.employee) {
+          employeeStore.addMany([result.employee])
+        }
+        if (result.answer) {
+          answerStore.addMany([result.answer])
+        }
+        if (result.event) {
+          eventStore.addMany([result.event])
+        }
       }
     }
   }
@@ -168,5 +177,3 @@ definePageMeta({
   layout: 'employee',
 })
 </script>
-// FIXME Remove this comments answer/forSignature  OYJRE
-<!-- -check-16?email=malolebrin@icloud.com&token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBsb3llZUlkIjoxOCwiZXZlbnRJZCI6MTEsImVtYWlsIjoibWFsb2xlYnJpbkBpY2xvdWQuY29tIiwiZmlyc3ROYW1lIjoiTWFsbyIsImxhc3ROYW1lIjoiTGVicmluIiwiZnVsbE5hbWUiOiJNYWxvIExlYnJpbiIsInVuaUpXVCI6ImdOWld4V2dYSlpCY2IwcnU5dGdqYVpIMUNUSUYxRnAzSHFLWFRXUmZlNDYwM29nSGVrUlNpNXRGejJ1XzdTbDdkWHJhX0R0eHBmdnZNa0NSd1dZaGRHbnVtUENOLTAzZUxfbjgwTE10VGJKdG9jeUZRTHZxck1GYjFwTFp5YVY1IiwiaWF0IjoxNjgxODQ4MTY3fQ.RrLF_iD_Nicx48OUaCnIJ3x1aZMPlpnJ0VZtpnrwEzY -->

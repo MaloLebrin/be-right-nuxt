@@ -46,7 +46,7 @@
     />
   </div>
   <div class="overflow-hidden">
-    <div class="px-6 pb-32 mx-auto max-w-7xl pt-36 sm:pt-60 lg:px-8 lg:pt-32">
+    <div class="px-6 pt-24 pb-32 mx-auto max-w-7xl sm:pt-60 lg:px-8 lg:pt-32">
       <div class="max-w-2xl mx-auto gap-x-14 lg:mx-0 lg:flex lg:max-w-none lg:items-center">
         <div class="w-full max-w-xl lg:shrink-0 xl:max-w-2xl">
           <h1 class="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
@@ -98,6 +98,8 @@
 </template>
 
 <script setup lang="ts">
+import AnswerThankYouImage from '~/components/Answer/ThankYou/Image.vue'
+
 useHead({
   title: 'Merci pour votre réponse',
   meta: [

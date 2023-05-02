@@ -163,15 +163,54 @@ export default function answerHook() {
     }
   }
 
+  async function updateAnswerForEmployee({
+    answerId,
+    hasSigned,
+    email,
+    token,
+    reason,
+  }: {
+    answerId: number
+    hasSigned: boolean
+    email: string
+    token: string
+    reason?: string
+  }) {
+    IncLoading()
+    try {
+      if (answerId && email && token && noNull(hasSigned) && noUndefined(hasSigned)) {
+        const { data: answer } = await $api().patch<AnswerType>(`answer/signed/${answerId}`, {
+          token,
+          hasSigned,
+          email,
+          reason,
+        })
+
+        if (answer) {
+          if (answerStore.isAlreadyInStore(answer.id)) {
+            updateOneAnswer(answer.id, answer)
+          } else {
+            addMany([answer])
+          }
+        }
+      }
+    } catch (error) {
+      console.error(error)
+      $toast.error('Une erreur est survenue')
+    }
+    DecLoading()
+  }
+
   return {
-    postMany,
-    filteringAnswersNotInStore,
+    areAnswersType,
+    downloadAnswer,
     fetchMany,
     fetchManyAnswerForEvent,
     fetchManyAnswerForManyEvent,
+    filteringAnswersNotInStore,
     getAnswerForSignature,
-    downloadAnswer,
+    postMany,
     raiseAnswer,
-    areAnswersType,
+    updateAnswerForEmployee,
   }
 }

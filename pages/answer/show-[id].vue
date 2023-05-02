@@ -212,6 +212,7 @@ import BaseModal from '~/components/Base/BaseModal.vue'
 import BaseTextarea from '~/components/Base/BaseTextarea.vue'
 import type { AnswerType, EmployeeType, EventType } from '~/store'
 import { useAnswerStore, useEmployeeStore, useEventStore, useUiStore } from '~/store'
+import type { VeeValidateValues } from '~/types'
 
 const uiStore = useUiStore()
 const { IncLoading, DecLoading } = uiStore
@@ -222,6 +223,7 @@ const eventStore = useEventStore()
 const employeeStore = useEmployeeStore()
 
 const { isUserOwner, getUserfullName } = userHook()
+const { updateAnswerForEmployee } = answerHook()
 
 interface State {
   errorMessages: string[]
@@ -248,10 +250,27 @@ const schema = object({
   reason: string().nullable(),
 })
 
-async function submitAnswer() {
+async function submitAnswer(form: VeeValidateValues) {
+  const { query } = route
+  const params = route.params as Record<string, number>
+  const answerId = params.id as number
+
+  if (!query.token || !query.email || !answerId) {
+    state.errorMessages.push(' Email ou Identifiant de la réponse manquante veuiller cliquer sur le lien envoyé par email')
+    return
+  }
+
+  await updateAnswerForEmployee({
+    answerId,
+    token: query.token as string,
+    email: query.email as string,
+    hasSigned: form.hasSigned,
+    reason: form.reason || undefined,
+  })
+
   closePreventModal()
   closeFormModal()
-  router.push({
+  router.replace({
     name: 'answer-merci',
   })
 }
@@ -266,7 +285,7 @@ function closeFormModal() {
 
 onMounted(async () => {
   IncLoading()
-  const { params } = route
+  const params = route.params as Record<string, number>
   const answerId = params?.id
   if (answerId) {
     state.answer = answerStore.getOne(answerId)
