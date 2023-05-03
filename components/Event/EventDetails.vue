@@ -24,7 +24,10 @@
             Destinataires
           </h2>
 
-          <BaseButton disabled>
+          <BaseButton
+            disabled
+            title="Cette fonctionnalité n'est pas encore disponible"
+          >
             <template #icon>
               <ArrowDownTrayIconOutline
                 aria-hidden="true"

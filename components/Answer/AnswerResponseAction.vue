@@ -24,14 +24,10 @@
     </p>
 
     <BaseButton
+      v-if="$getApiUrl"
       :color="answer.hasSigned ? 'green' : 'red'"
       class="ml-4"
-      :href="{
-        name: 'evenement-answer-download-id',
-        params: {
-          id: answer.id,
-        },
-      }"
+      :href="`${$getApiUrl}answer/download/${answer.id}`"
     >
       <template #icon>
         <ArrowDownTrayIconOutline
@@ -71,6 +67,7 @@
 </template>
 
 <script setup lang="ts">
+import BaseButton from '../Base/BaseButton.vue'
 import BaseMessage from '../Base/BaseMessage.vue'
 import type { AnswerType } from '~~/store'
 import { useUiStore } from '~~/store'
