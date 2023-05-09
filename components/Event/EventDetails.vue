@@ -25,8 +25,9 @@
           </h2>
 
           <BaseButton
-            disabled
-            title="Cette fonctionnalité n'est pas encore disponible"
+            :disabled="!answerStore.canAnswersBeDownload(event.id)"
+            :title="!answerStore.canAnswersBeDownload(event.id) ? 'Aucune réponse n\'est pas encore disponible' : 'Télécharger toutes les réponses'"
+            :href="`${$getApiUrl}answer/download/?ids=${answersQueryIds}`"
           >
             <template #icon>
               <ArrowDownTrayIconOutline
@@ -121,6 +122,7 @@ const answerStore = useAnswerStore()
 const event = computed(() => eventStore.getOne(props.eventId))
 
 const answers = computed(() => answerStore.getManyByEventId(props.eventId))
+const answersQueryIds = computed(() => answers.value.map(answer => answer.id)?.join(','))
 
 const employees = computed(() => {
   const employeesIds = answers.value.map(answer => answer.employeeId)

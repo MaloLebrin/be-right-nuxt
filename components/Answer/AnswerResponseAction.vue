@@ -27,7 +27,7 @@
       v-if="$getApiUrl"
       :color="answer.hasSigned ? 'green' : 'red'"
       class="ml-4"
-      :href="`${$getApiUrl}answer/download/${answer.id}`"
+      :href="`${$getApiUrl}answer/download/?ids=${answer.id}`"
     >
       <template #icon>
         <ArrowDownTrayIconOutline
