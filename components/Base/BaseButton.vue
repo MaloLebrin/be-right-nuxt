@@ -130,7 +130,7 @@ const props = withDefaults(defineProps<Props>(), {
   variant: 'default',
   href: null,
   isLoading: false,
-  title: 'Cliquez'
+  title: 'Cliquez',
 })
 
 const emit = defineEmits<{
