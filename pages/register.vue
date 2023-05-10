@@ -96,12 +96,15 @@
     </div>
   </Form>
 
-  <div class="items-center hidden md:flex">
-    <img
+  <div class="hidden md:items-center md:flex">
+    <nuxt-img
       class="hidden object-cover w-2/3 max-w-5xl shadow-2xl TranslateUpAnimation cursor-none md:block"
       src="/static/camera.webp"
-      alt="camera picture"
-    >
+      width="1577"
+      height="1920"
+      sizes="xs:200px md:500px lg:1024"
+      alt="Objectif d'appareil photo"
+    />
   </div>
 </div>
 </template>
