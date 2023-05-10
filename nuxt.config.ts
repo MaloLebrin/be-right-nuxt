@@ -27,7 +27,7 @@ export default defineNuxtConfig({
       siteUrl: 'https://be-right.co/',
       siteName: 'Be Right',
       siteDescription: 'Gérez enfin le droit à l\'image de vos clients facilement !',
-      language: 'fr_FR',
+      language: 'fr',
     },
   },
 
