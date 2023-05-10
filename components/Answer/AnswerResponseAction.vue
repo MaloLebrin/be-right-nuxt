@@ -24,9 +24,10 @@
     </p>
 
     <BaseButton
-      v-if="$getApiUrl"
-      :color="answer.hasSigned ? 'green' : 'red'"
+      v-if="$getApiUrl && answer.hasSigned"
+      color="green"
       class="ml-4"
+      :is-loading="uiStore.getUIIsLoading"
       :href="`${$getApiUrl}answer/download/?ids=${answer.id}`"
     >
       <template #icon>
@@ -40,11 +41,12 @@
   </template>
 
   <p
-    v-else
+    v-else-if="canAnswerBeRaise(answer)"
     class="flex items-center mt-2 text-sm text-gray-500"
   >
     <BaseButton
       :disabled="uiStore.getUIIsLoading"
+      :is-loading="uiStore.getUIIsLoading"
       @click="raise"
     >
       <template #icon>
@@ -86,7 +88,7 @@ const hasBeenAnswered = computed(() =>
 )
 
 const uiStore = useUiStore()
-const { raiseAnswer } = answerHook()
+const { canAnswerBeRaise, raiseAnswer } = answerHook()
 const responseMessage = ref<null | string>(null)
 const isGreenMessage = ref(false)
 

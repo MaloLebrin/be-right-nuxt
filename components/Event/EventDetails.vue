@@ -62,7 +62,7 @@
                 }}</span>
               </div>
             </Tab>
-            <Tab
+            <!-- <Tab
               v-slot="{ selected }"
               :disabled="files.length === 0"
             >
@@ -79,7 +79,7 @@
                   files.length
                 }}</span>
               </div>
-            </Tab>
+            </Tab> -->
           </TabList>
           <TabPanels>
             <TabPanel>
@@ -88,9 +88,9 @@
                 :employees="employees"
               />
             </TabPanel>
-            <TabPanel>
+            <!-- <TabPanel>
               <EventDetailsTabFiles :files="files" />
-            </TabPanel>
+            </TabPanel> -->
           </TabPanels>
         </TabGroup>
       </div>
@@ -104,7 +104,7 @@ import {
   useAnswerStore,
   useEmployeeStore,
   useEventStore,
-  useFileStore,
+  // useFileStore,
 } from '~~/store'
 
 interface Props {
@@ -114,9 +114,9 @@ interface Props {
 const props = defineProps<Props>()
 
 const eventStore = useEventStore()
-const { isNotPersonnalFile } = fileHook()
+// const { isNotPersonnalFile } = fileHook()
 const employeeStore = useEmployeeStore()
-const fileStore = useFileStore()
+// const fileStore = useFileStore()
 const answerStore = useAnswerStore()
 
 const event = computed(() => eventStore.getOne(props.eventId))
@@ -129,7 +129,7 @@ const employees = computed(() => {
   return employeeStore.getWhereArray(emp => employeesIds.includes(emp.id))
 })
 
-const files = computed(() =>
-  fileStore.getWhereArray(file => isNotPersonnalFile(file) && file.eventId === props.eventId),
-)
+// const files = computed(() =>
+//   fileStore.getWhereArray(file => isNotPersonnalFile(file) && file.eventId === props.eventId),
+// )
 </script>
