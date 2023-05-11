@@ -56,7 +56,8 @@
 <script setup lang="ts">
 import { object, string } from 'yup'
 import { Form } from 'vee-validate'
-import type { ResetPasswordData, VeeValidateValues } from '@/types'
+import type { VeeValidateValues } from '@/types'
+import type { ResetPasswordData } from '@/types/auth'
 import { useUiStore } from '~/store/ui/uiStore'
 
 const uiStore = useUiStore()

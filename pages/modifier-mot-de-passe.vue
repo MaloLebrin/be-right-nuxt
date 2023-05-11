@@ -57,7 +57,8 @@
 <script setup lang="ts">
 import { Form } from 'vee-validate'
 import { object, ref as reference, string } from 'yup'
-import type { ResetPasswordData, VeeValidateValues } from '@/types'
+import type { VeeValidateValues } from '@/types'
+import type { ResetPasswordData } from '@/types/auth'
 import { useUiStore } from '~/store/ui/uiStore'
 import { RouteNames } from '~/helpers/routes'
 import { passwordRegex } from '~/helpers/regex'
