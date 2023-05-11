@@ -28,6 +28,7 @@
       color="green"
       class="ml-4"
       :is-loading="uiStore.getUIIsLoading"
+      title="Télécharger"
       :href="`${$getApiUrl}answer/download/?ids=${answer.id}`"
     >
       <template #icon>
@@ -47,6 +48,7 @@
     <BaseButton
       :disabled="uiStore.getUIIsLoading"
       :is-loading="uiStore.getUIIsLoading"
+      title="Relancer"
       @click="raise"
     >
       <template #icon>
