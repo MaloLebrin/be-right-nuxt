@@ -55,6 +55,7 @@
 </template>
 
 <script setup lang="ts">
+import type { RoutesNamedLocations } from '~/.nuxt/typed-router/__routes'
 import { useAuthStore } from '~~/store'
 
 const authStore = useAuthStore()
@@ -62,8 +63,8 @@ const { logout } = authHook()
 
 const getLinkPath = computed(() => {
   if (!authStore.getIsLoggedIn) {
-    return { name: 'login' }
+    return { name: 'login' } as RoutesNamedLocations
   }
-  return { name: 'evenement' }
+  return { name: 'evenement' } as RoutesNamedLocations
 })
 </script>
