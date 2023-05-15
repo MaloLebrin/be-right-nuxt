@@ -16,7 +16,6 @@ import {
 } from '~~/store'
 
 const tableStore = useTableStore()
-const { setFilters } = useTableStore()
 const uiStore = useUiStore()
 const { IncLoading, DecLoading } = uiStore
 const userStore = useUserStore()

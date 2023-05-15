@@ -47,7 +47,6 @@ const uiStore = useUiStore()
 const { IncLoading, DecLoading, resetUiModalState } = uiStore
 const authStore = useAuthStore()
 const userStore = useUserStore()
-const router = useRouter()
 const formStore = useFormStore()
 const { setEmployeeIds } = formStore
 

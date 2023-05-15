@@ -154,7 +154,7 @@ const {
 const { IncLoading, DecLoading } = useUiStore()
 const employeeStore = useEmployeeStore()
 const tableStore = useTableStore()
-const { setFilters, setSearch } = tableStore
+const { setSearch } = tableStore
 const { fetchAll, getEmployeeFullname } = employeeHook()
 
 const query = ref('')
