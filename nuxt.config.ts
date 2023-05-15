@@ -2,6 +2,7 @@ import Components from 'unplugin-vue-components/vite'
 import { HeadlessUiResolver } from 'unplugin-vue-components/resolvers'
 import { visualizer } from 'rollup-plugin-visualizer'
 import { type PluginOption } from 'vite'
+import colors from 'tailwindcss/colors'
 
 export default defineNuxtConfig({
   app: {
@@ -27,13 +28,9 @@ export default defineNuxtConfig({
       siteUrl: 'https://be-right.co/',
       siteName: 'Be Right',
       siteDescription: 'Gérez enfin le droit à l\'image de vos clients facilement !',
-      language: 'fr_FR',
+      language: 'fr',
     },
   },
-
-  // schemaOrg: {
-  //   host: 'https://be-right.co',
-  // },
 
   extends: [
     'nuxt-seo-kit',
@@ -52,6 +49,23 @@ export default defineNuxtConfig({
     'nuxt-typed-router',
     '@nuxtjs/html-validator',
     'nuxt-schema-org',
+    '@nuxt/image-edge',
+    ['nuxt-purgecss', {
+      enabled: true, // Always enable purgecss
+      safelist: [
+        ...(Object.keys(colors).reduce((acc: string[], name) => {
+          acc.push(`bg-${name}-50`)
+          acc.push(`bg-${name}-100`)
+          acc.push(`text-${name}-500`)
+          acc.push(`text-${name}-700`)
+          acc.push(`border-${name}-500`)
+          acc.push(`border-${name}-700`)
+          return acc
+        }, [])),
+        'bg-gray-800',
+        'text-white',
+      ],
+    }],
   ],
 
   build: {
