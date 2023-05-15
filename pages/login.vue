@@ -74,12 +74,12 @@ import type { Company } from '~~/store'
 import { useAuthStore, useUiStore } from '~~/store'
 import { RouteNames } from '~/helpers/routes'
 
+const uiStore = useUiStore()
 const { storeUsersEntities, getUserfullName } = userHook()
 const { storeCompanyEntities } = companyHook()
 const { jwtDecode } = authHook()
-const { IncLoading, DecLoading } = useUiStore()
+const { IncLoading, DecLoading } = uiStore
 const { setJWTasUser, setToken } = useAuthStore()
-const uiStore = useUiStore()
 const router = useRouter()
 
 interface IForm extends VeeValidateValues {
@@ -126,7 +126,7 @@ async function submitLogin(form: VeeValidateValues) {
     }
   } catch (error) {
     console.error(error)
-    $toast.error('Une erreur est survenue')
+    $toast.danger('Une erreur est survenue')
   }
   DecLoading()
 }
