@@ -21,8 +21,10 @@
       <div class="flex-1 min-w-0">
         <NuxtLink
           v-if="employeeCreator.id"
-          :to="{ name: 'user-show-id', params: { id: employeeCreator.id } }"
           class="focus:outline-none"
+          to="/"
+          aria-disabled="true"
+          disabled
         >
           <span
             class="absolute inset-0"

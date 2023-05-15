@@ -1,7 +1,7 @@
 <template>
 <PageAuthWrapper>
   <EventDetails
-    v-if="!uiStore.isLoading"
+    v-if="!uiStore.isLoading && eventId"
     :event-id="eventId"
   />
 

@@ -80,6 +80,7 @@ const hasAtLeastOneNotRead = computed(() => notifications.value.some(notif => !n
 const newNotificationNb = computed(() => notifications.value.filter(notif => !notif.readAt)?.length)
 const areAllRead = computed(() =>
   notifications.value.every(notif => noNull(notif.readAt) && noUndefined(notif.readAt)))
+
 const getEventNotif = (notif: NotificationType) => computed(() => {
   if (notif.eventNotification?.eventId) {
     return eventStore.getOne(notif.eventNotification?.eventId)

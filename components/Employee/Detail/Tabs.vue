@@ -40,13 +40,13 @@
     as="div"
     class="px-8 py-2"
   >
-    <TabPanel>
+    <TabPanel v-if="employee?.id">
       <EmployeeEventList
         :events="employeeEvents"
         :employee-id="employee?.id"
       />
     </TabPanel>
-    <TabPanel>
+    <TabPanel v-if="employee?.id">
       <BaseLoader
         v-if="uiStore.getUIIsLoading"
         class="mt-14"

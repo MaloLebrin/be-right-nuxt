@@ -1,73 +1,24 @@
 import {
   ArchiveBoxIcon,
   BellAlertIcon,
-  ChartPieIcon,
-  ExclamationCircleIcon,
   HomeIcon,
   ListBulletIcon,
   PlusIcon,
-  UserGroupIcon,
   UsersIcon,
 } from '@heroicons/vue/24/outline'
+import type { FunctionalComponent, HTMLAttributes, VNodeProps } from 'nuxt/dist/app/compat/capi'
 import { RouteNames } from './routes'
+import type { RoutesNamesList } from '~/.nuxt/typed-router/__routes'
 
-export const MENU_ITEMS = [
-  {
-    label: 'Événements',
-    icon: HomeIcon,
-    linkName: 'evenement',
-    isAdmin: true,
-  },
-  {
-    label: 'Utilisateurs',
-    icon: UserGroupIcon,
-    linkName: 'user',
-    isAdmin: true,
-  },
-  {
-    label: 'Destinataires',
-    icon: UsersIcon,
-    linkName: 'destinataire',
-    isAdmin: true,
-  },
-  // {
-  //   label: 'Fichiers',
-  //   icon: FolderOpenIcon,
-  //   // linkName: 'files',
-  //   isAdmin: true,
-  // },
-  {
-    label: 'Bugs et Problèmes',
-    icon: ExclamationCircleIcon,
-    linkName: 'bug',
-    isAdmin: true,
-  },
-  {
-    label: 'Newsletter Statistiques',
-    icon: ChartPieIcon,
-    linkName: 'newsletter',
-    isAdmin: true,
-  },
-  {
-    label: 'Créer un événement',
-    icon: PlusIcon,
-    linkName: RouteNames.CREATE_EVENT_STEP_1,
-    isAdmin: true,
-  },
-  {
-    label: 'Créer un destinataire',
-    icon: PlusIcon,
-    linkName: RouteNames.EMPLOYEE_CREATE,
-    isAdmin: true,
-  },
-  // {
-  //   label: 'Créer un nouveau fichier',
-  //   icon: FolderPlusIcon,
-  //   // linkName: 'files.create',
-  //   isAdmin: true,
-  // },
+interface MenuItem {
+  label: string
+  linkName: RoutesNamesList
+  isAdmin?: boolean
+  isAuth?: boolean
+  icon: FunctionalComponent<HTMLAttributes & VNodeProps, {}, any>
+}
 
-  // user
+export const MENU_ITEMS: MenuItem[] = [
   {
     label: 'Événements',
     icon: HomeIcon,
@@ -116,10 +67,4 @@ export const MENU_ITEMS = [
     linkName: 'groupe-creation',
     isAdmin: false,
   },
-  // {
-  //   label: 'Créer un nouveau fichier',
-  //   icon: FolderPlusIcon,
-  //   // linkName: 'user.files.create-model',
-  //   isAdmin: false,
-  // },
 ]

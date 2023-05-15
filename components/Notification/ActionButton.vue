@@ -42,7 +42,7 @@
       </div>
       <div class="px-1 py-1">
         <MenuItem v-slot="{ active }">
-          <NuxtLink
+          <button
             class="flex items-center w-full px-2 py-2 text-sm rounded-md cursor-pointer group"
             :class="[
               active ? 'bg-purple-300 text-purple-800' : 'text-gray-900',
@@ -54,7 +54,7 @@
               aria-hidden="true"
             />
             Marquer comme lue
-          </NuxtLink>
+          </button>
         </MenuItem>
       </div>
     </MenuItems>

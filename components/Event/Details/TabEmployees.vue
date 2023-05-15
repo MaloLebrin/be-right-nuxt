@@ -37,11 +37,11 @@
                 <span class="truncate">{{ employee.phone }}</span>
               </p>
             </div>
-            <div
-              v-if="getAnswerForEmployee(employee.id).value?.createdAt"
-              class=""
-            >
-              <AnswerResponseAction :answer="getAnswerForEmployee(employee.id).value" />
+            <div>
+              <AnswerResponseAction
+                v-if="getAnswerForEmployee(employee.id).value"
+                :answer="getAnswerForEmployee(employee.id).value!"
+              />
             </div>
           </div>
         </div>

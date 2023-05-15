@@ -19,6 +19,7 @@
     </div>
 
     <NotificationActionButton
+      v-if="notification.eventNotification?.eventId"
       :event-id="notification.eventNotification?.eventId"
       :notification-id="notification.id"
     />
@@ -31,7 +32,7 @@ import type { EventType, NotificationType } from '~~/store'
 
 interface Props {
   notification: NotificationType
-  event: EventType
+  event?: EventType
 }
 
 defineProps<Props>()

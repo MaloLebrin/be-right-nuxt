@@ -9,7 +9,7 @@
       :class="[$route.name === item.name ? 'bg-gray-50 text-orange-600 hover:bg-white' : 'text-gray-900 hover:bg-gray-50 hover:text-gray-900']"
       :aria-current="$route.name === item.name ? 'page' : undefined"
     >
-      <component
+      <Component
         :is="item.icon"
         class="flex-shrink-0 w-6 h-6 mr-3 -ml-1"
         :class="[$route.name === item.name ? 'text-orange-500' : 'text-gray-400 group-hover:text-gray-500']"
@@ -30,9 +30,15 @@ import {
   UserCircleIcon,
   UserGroupIcon,
 } from '@heroicons/vue/24/outline'
+import type { FunctionalComponent, HTMLAttributes, VNodeProps } from 'nuxt/dist/app/compat/capi'
 
-const subNavigation = [
+interface Navigation {
+  label: string
+  name: 'mon-compte' | 'mon-compte-parametre' | 'mon-compte-utilisateurs' | 'mon-compte-notifications' | 'mon-compte-plan-billing' | 'mon-compte-badges'
+  icon: FunctionalComponent<HTMLAttributes & VNodeProps, {}, any>
+}
 
+const subNavigation: Navigation[] = [
   { label: 'Profile', name: 'mon-compte', icon: UserCircleIcon },
   { label: 'Paramètres', name: 'mon-compte-parametre', icon: CogIcon },
   { label: 'Utilisateurs', name: 'mon-compte-utilisateurs', icon: UserGroupIcon },

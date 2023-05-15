@@ -10,6 +10,7 @@
   </AccountBaseCard>
 
   <AccountBaseCard
+    v-if="companyStore.getAuthCompany"
     title="Mon entreprise"
     description="Vous pouvez modifier vos données entreprise"
   >

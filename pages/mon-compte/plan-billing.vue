@@ -212,7 +212,10 @@
   </AccountBaseCard>
 
   <AccountBaseCard title="Historique de paiement">
-    <PaymentList :payments="payments" />
+    <PaymentList
+      v-if="payments"
+      :payments="payments"
+    />
   </AccountBaseCard>
 </div>
 </template>
@@ -236,7 +239,6 @@ const plans = [
   { name: 'Enterprise', priceMonthly: 249, priceYearly: 2490, limit: 'Unlimited active job postings' },
 ]
 const payments = [
-
   {
     id: 1,
     date: '1/1/2020',
@@ -245,7 +247,7 @@ const payments = [
     amount: 'CA$109.00',
     href: '#',
   },
-]
+] as any
 
 const selectedPlan = ref(plans[1])
 const annualBillingEnabled = ref(true)

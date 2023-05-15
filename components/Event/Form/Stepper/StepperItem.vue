@@ -98,7 +98,7 @@ interface Props {
     name: string
     description: string
     query: string
-    pathName: string
+    pathName: 'evenement-creer' | 'evenement-creer-step2' | 'evenement-creer-step3' | 'evenement-creer-paiement'
   }
   stepIdx: number
   stepsLength: number
