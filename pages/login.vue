@@ -82,11 +82,6 @@ const { IncLoading, DecLoading } = uiStore
 const { setJWTasUser, setToken } = useAuthStore()
 const router = useRouter()
 
-interface IForm extends VeeValidateValues {
-  email: string
-  password: string
-}
-
 const schema = object({
   email: string().email('vous devez entrer in email valide').required('L\'adresse email est requise'),
   password: string().required('Le mot de passe est requis'),
