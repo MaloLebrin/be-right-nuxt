@@ -39,6 +39,19 @@
       </TabPanel>
       <TabPanel>
         <EventFormGroupList />
+        <div class="flex justify-center">
+          <BaseButton
+            :disabled="!formStore.isStepEmployeeValid"
+            :is-loading="uiStore.getUIIsLoading"
+            title="Passez à la suite"
+            @click="submit"
+          >
+            <template #icon>
+              <ArrowDownOnSquareIconOutline />
+            </template>
+            Enregistrer
+          </BaseButton>
+        </div>
       </TabPanel>
     </TabPanels>
   </TabGroup>
@@ -91,12 +104,13 @@
 </template>
 
 <script setup lang="ts">
-import { useEmployeeStore, useFormStore, useGroupStore } from '~/store'
+import { useEmployeeStore, useFormStore, useGroupStore, useUiStore } from '~/store'
 import { RouteNames } from '~~/helpers/routes'
 
 const router = useRouter()
 const query = ref('')
 const employeeStore = useEmployeeStore()
+const uiStore = useUiStore()
 const formStore = useFormStore()
 const groupStore = useGroupStore()
 const { setEmployeeIds } = formStore
