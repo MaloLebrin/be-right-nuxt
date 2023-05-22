@@ -21,7 +21,7 @@
         <p>Plusieurs informations n'ont pas été complétées sur votre compte&nbsp;: </p>
         <ul class="w-full space-y-2 list-disc">
           <li
-            v-for="(info, index) in missingInfos"
+            v-for="(info, index) in getMissingsInfos"
             :key="index"
             class="flex items-center justify-between"
           >
@@ -35,6 +35,16 @@
             </NuxtLink>
           </li>
         </ul>
+        <label id="missingInfo">
+          <input
+            type="checkbox"
+            aria-labelledby="missingInfo"
+            class="w-4 h-4 -mt-2 text-indigo-600 border-gray-300 rounded left-4 focus:ring-indigo-600"
+            :checked="!flag"
+            @change="toggleFlag"
+          >
+          <span class="ml-2">Ne plus demander</span>
+        </label>
       </div>
     </div>
   </div>
@@ -42,23 +52,34 @@
 </template>
 
 <script setup lang="ts">
-import type { MissingInfos } from '~/store/company/types'
-
-interface Props {
-  isActive: boolean
-  missingInfos: MissingInfos[]
-}
-
-withDefaults(defineProps<Props>(), {
-  isActive: false,
-  missingInfos: () => [],
-})
+import { useStorage } from '@vueuse/core'
 
 const emit = defineEmits<{
   (e: 'close'): void
 }>()
 
+const { getMissingsInfos } = companyHook()
+
+const flag = useStorage('isMissingModalInfoActive', true)
+const isOpen = ref(false)
+
+const isActive = computed(() => {
+  if (isOpen.value)
+    return isOpen.value
+  if (flag.value) {
+    isOpen.value = getMissingsInfos.value.length > 0
+    return isOpen.value
+  }
+  return flag.value
+},
+)
+
 function close() {
+  isOpen.value = false
   emit('close')
+}
+
+function toggleFlag() {
+  flag.value = !flag.value
 }
 </script>

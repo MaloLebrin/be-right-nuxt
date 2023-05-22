@@ -32,17 +32,11 @@
     :group-id="uiStore.getUiModalState.data?.groupId"
   />
 
-  <UserMissingInfoModal
-    v-if="isMissingInfoModalActive && getMissingsInfos"
-    :is-active="isMissingInfoModalActive"
-    :missing-infos="getMissingsInfos"
-    @close="isMissingInfoModalActive = false"
-  />
+  <UserMissingInfoModal v-if="getMissingsInfos" />
 </main>
 </template>
 
 <script setup lang="ts">
-import type { MissingInfos } from '~~/store'
 import { useEventStore, useUiStore } from '~~/store'
 import { ModalNameEnum } from '~~/types'
 
@@ -51,8 +45,6 @@ const { resetUiModalState } = uiStore
 const eventStore = useEventStore()
 const { fetchUserNotificationsAndRelations } = notificationHook()
 const { getMissingsInfos } = companyHook()
-
-const isMissingInfoModalActive = ref(getMissingsInfos.value.length > 0 || false)
 
 const isModalActive = (modalName: ModalNameEnum) => computed(() =>
   uiStore.getUiModalState.isActive
