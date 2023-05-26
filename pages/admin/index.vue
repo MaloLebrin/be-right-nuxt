@@ -67,23 +67,6 @@
           <p class="text-2xl font-semibold text-gray-900">
             {{ state.answers.total }}
           </p>
-          <!-- <p
-            class="flex items-baseline ml-2 text-sm font-semibold"
-            :class="[item.changeType === 'increase' ? 'text-green-600' : 'text-red-600']"
-          >
-            <ArrowUpIcon
-              v-if="item.changeType === 'increase'"
-              class="self-center flex-shrink-0 w-5 h-5 text-green-500"
-              aria-hidden="true"
-            />
-            <ArrowDownIcon
-              v-else
-              class="self-center flex-shrink-0 w-5 h-5 text-red-500"
-              aria-hidden="true"
-            />
-            <span class="sr-only"> {{ item.changeType === 'increase' ? 'Increased' : 'Decreased' }} by </span>
-            {{ item.change }}
-          </p> -->
           <div class="absolute inset-x-0 bottom-0 px-4 py-4 bg-gray-50 sm:px-6">
             <div class="text-sm">
               <a
@@ -255,6 +238,6 @@ definePageMeta({
   layout: 'auth',
   isAuth: true,
   isAdmin: true,
-  middleware: ['admin-guards-middleware'],
+  middleware: ['guards-middleware'],
 })
 </script>
