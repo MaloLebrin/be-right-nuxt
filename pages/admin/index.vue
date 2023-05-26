@@ -1,9 +1,18 @@
 <template>
 <PageAuthWrapper>
   <div class="px-4 py-4 space-y-4">
-    <h3 class="text-base font-semibold leading-6 text-gray-900">
-      Cette Année
-    </h3>
+    <div class="flex items-center justify-between">
+      <h3 class="text-base font-semibold leading-6 text-gray-900">
+        Cette Année
+      </h3>
+
+      <BaseButton
+        :disabled="uiStore.getUIIsLoading"
+        @click="refresh"
+      >
+        Rafraichir
+      </BaseButton>
+    </div>
 
     <dl
       v-if="state"
@@ -45,7 +54,6 @@
       >
         <dt>
           <div class="absolute p-3 bg-indigo-500 rounded-md">
-            <!-- <chat-bubble-bottom-center- -->
             <ChatBubbleBottomCenterIcon
               class="w-6 h-6 text-white"
               aria-hidden="true"
@@ -92,7 +100,6 @@
       >
         <dt>
           <div class="absolute p-3 bg-indigo-500 rounded-md">
-            <!-- <chat-bubble-bottom-center- -->
             <UsersIcon
               class="w-6 h-6 text-white"
               aria-hidden="true"
@@ -141,12 +148,13 @@
 
       <TabPanels class="mt-2">
         <TabPanel
-          v-for="item in Object(state)"
-          :key="item"
+          v-for="(item, index) in Object.values(state)"
+          :key="index"
           class="p-3 bg-white rounded-xl ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2"
         >
+          <BaseLoader v-if="uiStore.getUIIsLoading" />
           <dl
-            v-if="item"
+            v-else-if="item"
             class="grid grid-cols-1 gap-5 mt-5 sm:grid-cols-3"
           >
             <div
@@ -157,12 +165,20 @@
               <dt class="text-sm font-medium text-gray-500 capitalize truncate">
                 {{ key }}
               </dt>
-              <dd class="mt-1 text-3xl font-semibold tracking-tight text-gray-900">
-                {{ value }}
+              <dd class="flex items-baseline justify-between mt-1 text-3xl font-semibold tracking-tight text-gray-900">
+                <p>
+                  {{ value }}
+                  <span
+                    v-if="key !== 'total'"
+                    class="text-sm"
+                  >/&nbsp;{{ item.total }}</span>
+                </p>
                 <span
                   v-if="key !== 'total'"
-                  class="text-sm"
-                >/&nbsp;{{ item.total }}</span>
+                  class="ml-2 text-sm font-semibold text-green-600"
+                >
+                  {{ Math.round((value * 100) / item.total) }}%
+                </span>
               </dd>
             </div>
           </dl>
@@ -175,6 +191,8 @@
 
 <script setup lang="ts">
 import { ChatBubbleBottomCenterIcon, UsersIcon } from '@heroicons/vue/24/outline'
+import BaseButton from '~/components/Base/BaseButton.vue'
+import BaseLoader from '~/components/Base/BaseLoader.vue'
 import PageAuthWrapper from '~/components/Page/PageAuthWrapper.vue'
 import { useUiStore } from '~/store'
 
@@ -213,7 +231,7 @@ interface Stats {
   }
 }
 
-onMounted(async () => {
+async function refresh() {
   IncLoading()
   const { data, success } = await $api().get<Stats>('admin/stats')
 
@@ -227,6 +245,10 @@ onMounted(async () => {
   state.companies = data?.companies
 
   DecLoading()
+}
+
+onMounted(async () => {
+  await refresh()
 })
 
 definePageMeta({
