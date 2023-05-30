@@ -4,10 +4,10 @@
     ref="signaturePad"
     class="border border-red-500"
     width="100%"
-    height="500px"
+    :height="height"
   />
 
-  <div class="flex items-center justify-center space-x-4">
+  <div class="space-y-2 md:flex md:items-center md:justify-center md:space-x-4 md:space-y-0">
     <BaseButton
       :disabled="!signaturePad"
       :is-loading="uiStore.getUIIsLoading"
@@ -28,7 +28,7 @@
       <template #icon>
         <ArrowDownOnSquareIconOutline />
       </template>
-      Enregistrer
+      {{ saveButtonLabel }}
     </BaseButton>
   </div>
 </div>
@@ -41,6 +41,14 @@ import BaseButton from '~~/components/Base/BaseButton.vue'
 
 const props = defineProps({
   signature: String,
+  height: {
+    type: String,
+    default: () => '500px',
+  },
+  saveButtonLabel: {
+    type: String,
+    default: 'Enregistrer',
+  },
 })
 
 const emit = defineEmits(['save', 'delete'])
@@ -49,11 +57,8 @@ const uiStore = useUiStore()
 const signaturePad = ref(null)
 
 onMounted(() => {
-  console.log(props.signature, '<=== props.signature')
   if (props.signature && signaturePad.value) {
     signaturePad.value.fromDataURL(props.signature)
-
-    console.log(signaturePad.value.isEmpty(), '<===isempty ')
   }
 })
 
