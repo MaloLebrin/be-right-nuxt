@@ -4,6 +4,7 @@ import type {
   PaginatedResponse,
   UserType,
 } from '@/types'
+import type { Company } from '~~/store'
 import {
   useNotificationsSubscriptionStore,
   useUiStore,
@@ -194,6 +195,22 @@ export default function userHook() {
     }
   }
 
+  async function postUserSignature(base64Signature: string, userId: number) {
+    IncLoading()
+    try {
+      const { data, success } = await $api().patch<{ user: UserType; company: Company }>(`user/signature/${userId}`, { signature: base64Signature })
+      if (data && success) {
+        const { user } = data
+        storeUsersEntities(user)
+        $toast.success('Signature enregistrée avec succès')
+      }
+    } catch (error: any) {
+      $toast.danger(error.error as string)
+      console.error(error)
+    }
+    DecLoading()
+  }
+
   return {
     deleteUser,
     fetchAll,
@@ -208,6 +225,7 @@ export default function userHook() {
     isUserType,
     patchOne,
     postPhotographer,
+    postUserSignature,
     storeUsersEntities,
   }
 }
