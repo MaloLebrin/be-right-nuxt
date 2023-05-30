@@ -19,6 +19,22 @@ export default function userHook() {
 
   const { IncLoading, DecLoading } = useUiStore()
 
+  function isUserType(user: any): user is UserType {
+    return hasOwnProperty(user, 'id') && hasOwnProperty(user, 'token')
+  }
+
+  function isArrayUserType(users: any[]): users is UserType[] {
+    return users?.every(isUserType)
+  }
+
+  function isUserAdmin(user: UserType) {
+    return user?.roles === RoleEnum.ADMIN
+  }
+
+  function isUserOwner(user: UserType) {
+    return user?.roles === RoleEnum.OWNER
+  }
+
   async function fetchOne(userId: number) {
     try {
       IncLoading()
@@ -150,14 +166,6 @@ export default function userHook() {
     DecLoading()
   }
 
-  function isUserType(user: any): user is UserType {
-    return hasOwnProperty(user, 'id') && hasOwnProperty(user, 'token')
-  }
-
-  function isArrayUserType(users: any[]): users is UserType[] {
-    return users?.every(isUserType)
-  }
-
   async function postPhotographer(photographer: PhotographerCreatePayload) {
     try {
       const { data } = await $api().post<UserType>('user/photographer', photographer)
@@ -184,14 +192,6 @@ export default function userHook() {
       $toast.danger(error.error as string)
       console.error(error)
     }
-  }
-
-  function isUserAdmin(user: UserType) {
-    return user?.roles === RoleEnum.ADMIN
-  }
-
-  function isUserOwner(user: UserType) {
-    return user?.roles === RoleEnum.OWNER
   }
 
   return {
