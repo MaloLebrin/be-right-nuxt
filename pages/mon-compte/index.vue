@@ -10,6 +10,7 @@
   </AccountBaseCard>
 
   <AccountBaseCard
+    v-if="companyStore.getAuthCompany"
     title="Mon entreprise"
     description="Vous pouvez modifier vos données entreprise"
   >
@@ -26,10 +27,22 @@
       <AddressForm :address="companyAddress" />
     </div>
   </AccountBaseCard>
+
+  <AccountBaseCard
+    title="Votre Signature"
+    description="Vous pouvez ajouter votre signature par default."
+  >
+    <div class="px-4 mt-6">
+      <SignatureForm :signature="userStore.getAuthUser.signature" />
+    </div>
+  </AccountBaseCard>
 </div>
 </template>
 
 <script setup lang="ts">
+import SignatureForm from '~~/components/Signature/SignatureForm.vue';
+import AccountBaseCard from '~~/components/Account/BaseCard.vue'
+import AccountCompanyForm from '~~/components/Account/CompanyForm.vue'
 import { useAddressStore, useCompanyStore, useUiStore, useUserStore } from '~~/store'
 
 const userStore = useUserStore()
