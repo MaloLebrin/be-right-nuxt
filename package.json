@@ -26,7 +26,7 @@
     "jwt-decode": "^3.1.2",
     "pinia": "^2.0.33",
     "rollup-plugin-visualizer": "^5.9.0",
-    "tailvue": "^0.1.68",
+    "tailvue": "^1.0.0",
     "v-calendar": "3.0.3",
     "vee-validate": "^4.8.1",
     "vue-signature-pad": "^3.0.2",
