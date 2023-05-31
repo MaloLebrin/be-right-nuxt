@@ -86,6 +86,9 @@
 <script setup lang="ts">
 import { object, string } from 'yup'
 import { Form } from 'vee-validate'
+import BaseButton from '../Base/BaseButton.vue'
+import BaseSelect from '../Base/BaseSelect.vue'
+import BaseOption from '../Base/BaseOption.vue'
 import type { UserType, VeeValidateValues } from '@/types'
 import { RoleEnum } from '@/types'
 import { useUiStore } from '~~/store'
