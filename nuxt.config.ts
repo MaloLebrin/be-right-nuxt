@@ -28,6 +28,16 @@ export default defineNuxtConfig({
     },
   },
 
+  image: {
+    dir: 'public',
+    provider: 'netlify',
+    domains: [
+      'https://images.unsplash.com',
+      'https://source.unsplash.com',
+      'https://be-right.co/',
+    ],
+  },
+
   runtimeConfig: {
     public: {
       siteUrl: 'https://be-right.co/',
@@ -106,5 +116,4 @@ export default defineNuxtConfig({
       visualizer() as PluginOption,
     ],
   },
-
 })

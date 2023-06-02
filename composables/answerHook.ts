@@ -197,11 +197,19 @@ export default function answerHook() {
   }
 
   function canAnswerBeRaise(answer: AnswerType): boolean {
+    const now = dayjs().subtract(5, 'day')
     if (answer.mailSendAt) {
-      const now = dayjs().subtract(5, 'day')
       return dayjs(answer.mailSendAt).isBefore(now)
     }
+
+    if (answer.createdAt) {
+      return dayjs(answer.createdAt).isBefore(now)
+    }
     return true
+  }
+
+  function isAnswerSigned(answer: AnswerType): boolean {
+    return answer.signedAt !== null && answer.signedAt !== undefined
   }
 
   return {
@@ -212,6 +220,7 @@ export default function answerHook() {
     fetchManyAnswerForManyEvent,
     filteringAnswersNotInStore,
     getAnswerForSignature,
+    isAnswerSigned,
     postMany,
     raiseAnswer,
     updateAnswerForEmployee,
