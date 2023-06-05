@@ -21,25 +21,25 @@ export const ADMIN_MENU_ITEMS = [
   {
     label: 'Utilisateurs',
     icon: UserGroupIcon,
-    linkName: 'user',
+    linkName: 'admin-user',
     isAdmin: true,
   },
-  {
-    label: 'Destinataires',
-    icon: UsersIcon,
-    linkName: 'destinataire',
-    isAdmin: true,
-  },
+  // {
+  //   label: 'Destinataires',
+  //   icon: UsersIcon,
+  //   linkName: 'admin-destinataire',
+  //   isAdmin: true,
+  // },
   {
     label: 'Bugs et Problèmes',
     icon: ExclamationCircleIcon,
-    linkName: 'bug',
+    linkName: 'admin-bug',
     isAdmin: true,
   },
   {
     label: 'Newsletter Statistiques',
     icon: ChartPieIcon,
-    linkName: 'newsletter',
+    linkName: 'admin-newsletter',
     isAdmin: true,
   },
   {
