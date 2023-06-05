@@ -1,6 +1,9 @@
 <template>
 <div class="w-full max-w-md mx-auto space-y-2 bg-white rounded-2xl">
-  <Disclosure v-slot="{ open }">
+  <Disclosure
+    v-slot="{ open }"
+    default-open
+  >
     <DisclosureButton
       class="flex justify-between w-full px-4 py-2 text-sm font-medium text-left text-purple-900 bg-purple-100 rounded-lg hover:bg-purple-200 focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75"
     >
