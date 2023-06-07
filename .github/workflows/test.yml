@@ -7,7 +7,7 @@ env:
   NODE_ENV: prod
 
 jobs:
-  test:
+  StyleGuides_checks:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
