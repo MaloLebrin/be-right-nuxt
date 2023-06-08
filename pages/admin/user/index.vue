@@ -1,55 +1,53 @@
 <template>
 <PageAuthWrapper>
-  <PageAuthWrapper>
-    <div class="h-full px-4 mt-4 sm:px-6 lg:px-8">
-      <div class=" sm:flex-col lg:flex-row lg:items-center">
-        <BaseInputSearch
-          id="user-search"
-          v-model="state.search"
-          @update:search-query="searchEntity"
-        />
-
-        <div class="flex items-center justify-between">
-          <UserTableFilters @setFilter="setUserRoleFilter" />
-
-          <BaseButton
-            :is-loading="uiStore.getUIIsLoading"
-            :disabled="uiStore.getUIIsLoading"
-            @click="resetFilters"
-          >
-            Reset Filters
-          </BaseButton>
-        </div>
-      </div>
-
-      <BaseLoader
-        v-if="uiStore.getUIIsLoading || !state.isDirty"
-        class="mt-10"
+  <div class="h-full px-4 mt-4 sm:px-6 lg:px-8">
+    <div class=" sm:flex-col lg:flex-row lg:items-center">
+      <BaseInputSearch
+        id="user-search"
+        v-model="state.search"
+        @update:search-query="searchEntity"
       />
 
-      <BaseTable v-else>
-        <template #header>
-          <UserTableHeader />
-        </template>
+      <div class="flex items-center justify-between">
+        <UserTableFilters @setFilter="setUserRoleFilter" />
 
-        <template #default>
-          <UserTableItem
-            v-for="user in state.items"
-            :key="user.id"
-            :user="user"
-          />
-        </template>
-
-        <template #footer>
-          <BasePagination
-            :total-pages="state.totalPages"
-            :current-page="state.currentPage"
-          />
-        </template>
-      </BaseTable>
+        <BaseButton
+          :is-loading="uiStore.getUIIsLoading"
+          :disabled="uiStore.getUIIsLoading"
+          @click="resetFilters"
+        >
+          Reset Filters
+        </BaseButton>
+      </div>
     </div>
-  </PageAuthWrapper>
-</pageauthwrapper>
+
+    <BaseLoader
+      v-if="uiStore.getUIIsLoading || !state.isDirty"
+      class="mt-10"
+    />
+
+    <BaseTable v-else>
+      <template #header>
+        <UserTableHeader />
+      </template>
+
+      <template #default>
+        <UserTableItem
+          v-for="user in state.items"
+          :key="user.id"
+          :user="user"
+        />
+      </template>
+
+      <template #footer>
+        <BasePagination
+          :total-pages="state.totalPages"
+          :current-page="state.currentPage"
+        />
+      </template>
+    </BaseTable>
+  </div>
+</PageAuthWrapper>
 </template>
 
 <script setup lang="ts">
