@@ -106,7 +106,7 @@ const isDeleted = computed(() => noNull(props.user.deletedAt) && noUndefined(pro
 function addEmployeeToUser() {
   setUiModal({
     isActive: true,
-    modalName: ModalNameEnum.ADD_EMPLOYEE,
+    modalName: ModalNameEnum.ADD_EMPLOYEE_USER,
     modalMode: ModalModeEnum.CREATE,
     data: {
       userId: props.user.id,

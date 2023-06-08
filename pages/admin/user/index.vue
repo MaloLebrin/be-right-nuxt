@@ -47,6 +47,12 @@
       </template>
     </BaseTable>
   </div>
+
+  <AddEmployeeToUserModal
+    v-if="userId && isModalActive(ModalNameEnum.ADD_EMPLOYEE_USER).value"
+    :is-active="(noNull(userId) && noUndefined(userId)) && isModalActive(ModalNameEnum.ADD_EMPLOYEE_USER).value"
+    :user-id="userId"
+  />
 </PageAuthWrapper>
 </template>
 
@@ -59,11 +65,15 @@ import BaseTable from '~/components/Base/BaseTable.vue'
 import UserTableItem from '~~/components/User/Table/Item.vue'
 import UserTableHeader from '~~/components/User/Table/Header.vue'
 import type { UserType } from '~~/store'
-import { useUiStore } from '~~/store'
+import { useUiStore, useUserStore } from '~~/store'
+import { ModalNameEnum } from '~/types'
 import type { RoleEnum } from '~/types'
 import BaseInputSearch from '~/components/Base/BaseInputSearch.vue'
+import AddEmployeeToUserModal from '~/components/User/AddEmployeeToUserModal.vue'
 
 const uiStore = useUiStore()
+const userStore = useUserStore()
+const { addMany } = userStore
 
 const { fetchMany } = companyHook()
 
@@ -79,6 +89,21 @@ const {
   setFilter,
   searchEntity,
 } = tableHook<UserType>('admin/user', fetchRelations)
+
+watch(() => state.items, () => {
+  addMany(state.items.filter(user => !userStore.isAlreadyInStore(user.id)))
+})
+
+const isModalActive = (modalName: ModalNameEnum) => computed(() =>
+  uiStore.getUiModalState.isActive
+  && uiStore.getUiModalState.modalName === modalName
+  && !uiStore.getUiModalState.isLoading)
+
+const userId = computed(() => {
+  if (uiStore.getUiModalState.data && uiStore.getUiModalState.data.userId) {
+    return userStore.entities.byId[uiStore.getUiModalState.data.userId].id
+  }
+})
 
 function setUserRoleFilter(roles: RoleEnum | undefined) {
   if (roles) {
