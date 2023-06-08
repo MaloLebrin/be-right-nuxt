@@ -3,16 +3,11 @@
   <PageAuthWrapper>
     <div class="h-full px-4 mt-4 sm:px-6 lg:px-8">
       <div class=" sm:flex-col lg:flex-row lg:items-center">
-        <div class="w-full mb-4 sm:flex-auto">
-          <input
-            v-model="state.search"
-            class="block w-full px-4 py-2 text-gray-800 border border-gray-300 rounded-md shadow-md appearance-none focus:ring-purple-500 focus:border-purple-500 sm:text-sm"
-            :class="[{ 'cursor-not-allowed border-gray-500 bg-gray-200 opacity-40': uiStore.getUIIsLoading }]"
-            type="text"
-            placeholder="Recherchez"
-            @keyup="searchEntity"
-          >
-        </div>
+        <BaseInputSearch
+          id="user-search"
+          v-model="state.search"
+          @update:search-query="searchEntity"
+        />
 
         <div class="flex items-center justify-between">
           <UserTableFilters @setFilter="setUserRoleFilter" />
@@ -68,6 +63,7 @@ import UserTableHeader from '~~/components/User/Table/Header.vue'
 import type { UserType } from '~~/store'
 import { useUiStore } from '~~/store'
 import type { RoleEnum } from '~/types'
+import BaseInputSearch from '~/components/Base/BaseInputSearch.vue'
 
 const uiStore = useUiStore()
 
