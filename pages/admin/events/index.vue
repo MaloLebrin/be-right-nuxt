@@ -30,30 +30,29 @@
       </div>
     </div>
 
-    <BaseTable>
+    <div
+      v-if="state.items.length <= 0"
+      class="flex items-center py-4 pl-4 pr-3 space-x-2 text-sm font-medium text-gray-900 truncate whitespace-nowrap sm:pl-6"
+    >
+      <p>Aucun événement enregistré!</p>
+      <BaseButton :href="{ name: RouteNames.CREATE_EVENT_STEP_1 }">
+        Créer un événement
+      </BaseButton>
+    </div>
+
+    <BaseLoader v-else-if="uiStore.getUIIsLoading" />
+
+    <BaseTable v-else>
       <template #header>
         <EventTableHeader />
       </template>
 
       <template #default>
-        <div
-          v-if="state.items.length <= 0"
-          class="flex items-center py-4 pl-4 pr-3 space-x-2 text-sm font-medium text-gray-900 truncate whitespace-nowrap sm:pl-6"
-        >
-          <p>Aucun événement enregistré!</p>
-          <BaseButton :href="{ name: RouteNames.CREATE_EVENT_STEP_1 }">
-            Créer un événement
-          </BaseButton>
-        </div>
-
-        <BaseLoader v-else-if="uiStore.getUIIsLoading" />
-        <template v-else>
-          <EventItem
-            v-for="event in state.items"
-            :key="event.id"
-            :event="event"
-          />
-        </template>
+        <EventItem
+          v-for="event in state.items"
+          :key="event.id"
+          :event="event"
+        />
       </template>
 
       <template #footer>

@@ -13,21 +13,21 @@ export default function tableHook<T>(baseUrl: string, onFetched?: ((items: T[]) 
     currentPage: number
     limit: number
     total: number
-    isDirty: boolean
     search: string
     timeout: number
     filters: Record<string, string | string[]> | null
     totalPages: number
+    order: Record<string, 'ASC' | 'DESC'> | null
   }>({
     search: '',
     timeout: 0,
-    isDirty: false,
     items: [],
     currentPage: 0,
     limit: 1,
     total: 0,
     filters: null,
     totalPages: 0,
+    order: null,
   })
 
   onMounted(() => {
@@ -36,9 +36,7 @@ export default function tableHook<T>(baseUrl: string, onFetched?: ((items: T[]) 
     watch(() => [query.value, $router.currentRoute.value.query], async () => {
       await fetchTable()
     })
-    // watch(() => [route.value.query.page, state.orderDir, state.orderBy, state.filters], async () => {
-    //   await fetchTable()
-    // })
+
     // Watch filters separately
     watch(() => state.filters, async () => {
       await fetchTable()
@@ -59,6 +57,7 @@ export default function tableHook<T>(baseUrl: string, onFetched?: ((items: T[]) 
     if (state.search) {
       url += `&search=${state.search}`
     }
+
     if (state.filters) {
       url += `&${Object.keys(state.filters)
         .map(field => {
@@ -79,21 +78,19 @@ export default function tableHook<T>(baseUrl: string, onFetched?: ((items: T[]) 
     const { data } = await $api().get<PaginatedResponse<T>>(url)
 
     if (data) {
-      const { currentPage, data: items, limit, total, totalPages } = data
+      const { currentPage, data: items, limit, total, totalPages, order } = data
       state.currentPage = currentPage || 0
-      state.items = items
+      state.items = items as any[] // FIXME better typing
       state.limit = limit || 20
       state.total = total || 0
       state.totalPages = totalPages || 0
-
-      // if (state.items.length > 0) {
-      //   await fetchManyAnswerForManyEvent(state.items.map(event => event.id))
-      // }
+      state.order = order
 
       if (onFetched) {
-        await onFetched(state.items)
+        await onFetched(state.items as T[])
       }
     }
+
     DecLoading()
   }
 
