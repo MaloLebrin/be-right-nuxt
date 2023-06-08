@@ -33,7 +33,7 @@ export default function tableHook<T>(baseUrl: string, onFetched?: ((items: T[]) 
   onMounted(() => {
     fetchTable()
     // Only watch when mounted to give consumers a chance to change defaults, add filters etc.
-    watch(() => [query.value, $router.currentRoute.value.query], async () => {
+    watch(() => [$router.currentRoute.value.query], async () => {
       await fetchTable()
     })
 
