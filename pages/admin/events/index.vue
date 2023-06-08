@@ -7,7 +7,6 @@
           v-model="state.search"
           class="block w-full px-4 py-2 text-gray-800 border border-gray-300 rounded-md shadow-md appearance-none focus:ring-purple-500 focus:border-purple-500 sm:text-sm"
           :class="[{ 'cursor-not-allowed border-gray-500 bg-gray-200 opacity-40': uiStore.getUIIsLoading }]"
-          :disabled="uiStore.getUIIsLoading"
           type="text"
           placeholder="Recherchez"
           @keyup="searchEntity"
