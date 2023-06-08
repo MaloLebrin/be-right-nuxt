@@ -27,8 +27,13 @@
       </div>
     </div>
 
+    <BaseLoader
+      v-if="uiStore.getUIIsLoading || !state.isDirty"
+      class="mt-10"
+    />
+
     <div
-      v-if="state.items.length <= 0"
+      v-else-if="state.items.length <= 0"
       class="flex items-center py-4 pl-4 pr-3 space-x-2 text-sm font-medium text-gray-900 truncate whitespace-nowrap sm:pl-6"
     >
       <p>Aucun événement enregistré!</p>
@@ -36,8 +41,6 @@
         Créer un événement
       </BaseButton>
     </div>
-
-    <BaseLoader v-else-if="uiStore.getUIIsLoading" />
 
     <BaseTable v-else>
       <template #header>

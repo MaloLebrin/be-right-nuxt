@@ -9,6 +9,7 @@ export default function tableHook<T>(baseUrl: string, onFetched?: ((items: T[]) 
   const query = ref('')
 
   const state = reactive<{
+    isDirty: boolean
     items: T[]
     currentPage: number
     limit: number
@@ -19,6 +20,7 @@ export default function tableHook<T>(baseUrl: string, onFetched?: ((items: T[]) 
     totalPages: number
     order: Record<string, 'ASC' | 'DESC'> | null
   }>({
+    isDirty: false,
     search: '',
     timeout: 0,
     items: [],
@@ -45,6 +47,9 @@ export default function tableHook<T>(baseUrl: string, onFetched?: ((items: T[]) 
 
   async function fetchTable() {
     IncLoading()
+    if (!state.isDirty) {
+      state.isDirty = true
+    }
 
     if ($router.currentRoute.value.query) {
       state.currentPage = parseInt($router.currentRoute.value.query?.page?.toString() || '1')
