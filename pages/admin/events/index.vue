@@ -1,10 +1,7 @@
 <template>
 <PageAuthWrapper>
   <div class="h-full px-4 mt-4 sm:px-6 lg:px-8">
-    <div
-      v-if="authStore.isAuthUserAdmin"
-      class=" sm:flex-col lg:flex-row lg:items-center"
-    >
+    <div class=" sm:flex-col lg:flex-row lg:items-center">
       <div class="w-full mb-4 sm:flex-auto">
         <input
           v-model="state.search"
@@ -77,9 +74,8 @@ import EventTableHeader from '~~/components/Event/Table/Header.vue'
 import EventTableFilters from '~~/components/Event/Table/Filters.vue'
 import { RouteNames } from '~~/helpers/routes'
 import type { EventStatusEnum, EventType } from '~~/store'
-import { useAuthStore, useUiStore } from '~~/store'
+import { useUiStore } from '~~/store'
 
-const authStore = useAuthStore()
 const uiStore = useUiStore()
 const { fetchManyAnswerForManyEvent } = answerHook()
 
