@@ -56,7 +56,7 @@
       </template>
 
       <template #footer>
-        <EventTablePagination
+        <BasePagination
           :total-pages="state.totalPages"
           :current-page="state.currentPage"
         />
@@ -69,12 +69,12 @@
 <script setup lang="ts">
 import PageAuthWrapper from '~/components/Page/PageAuthWrapper.vue'
 import BaseButton from '~/components/Base/BaseButton.vue'
+import BasePagination from '~/components/Base/BasePagination.vue'
 import EventItem from '~/components/Event/Table/EventItem.vue'
 import BaseLoader from '~/components/Base/BaseLoader.vue'
 import BaseTable from '~/components/Base/BaseTable.vue'
 import EventTableHeader from '~~/components/Event/Table/Header.vue'
 import EventTableFilters from '~~/components/Event/Table/Filters.vue'
-import EventTablePagination from '~~/components/Event/Table/Pagination.vue'
 import { RouteNames } from '~~/helpers/routes'
 import type { EventStatusEnum, EventType } from '~~/store'
 import { useAuthStore, useUiStore } from '~~/store'
