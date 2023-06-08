@@ -1,0 +1,138 @@
+import { useUiStore } from '~/store/ui'
+import type { PaginatedResponse } from '~/types/globals'
+
+export default function tableHook<T>(baseUrl: string, onFetched?: ((items: T[]) => Promise<void>)) {
+  const { $api, $router } = useNuxtApp()
+  const uiStore = useUiStore()
+  const { DecLoading, IncLoading } = uiStore
+
+  const query = ref('')
+
+  const state = reactive<{
+    items: T[]
+    currentPage: number
+    limit: number
+    total: number
+    isDirty: boolean
+    search: string
+    timeout: number
+    filters: Record<string, string | string[]> | null
+    totalPages: number
+  }>({
+    search: '',
+    timeout: 0,
+    isDirty: false,
+    items: [],
+    currentPage: 0,
+    limit: 1,
+    total: 0,
+    filters: null,
+    totalPages: 0,
+  })
+
+  onMounted(() => {
+    fetchTable()
+    // Only watch when mounted to give consumers a chance to change defaults, add filters etc.
+    watch(() => [query.value, $router.currentRoute.value.query], async () => {
+      await fetchTable()
+    })
+    // watch(() => [route.value.query.page, state.orderDir, state.orderBy, state.filters], async () => {
+    //   await fetchTable()
+    // })
+    // Watch filters separately
+    watch(() => state.filters, async () => {
+      await fetchTable()
+    }, { deep: true })
+  })
+
+  async function fetchTable() {
+    IncLoading()
+
+    if ($router.currentRoute.value.query) {
+      state.currentPage = parseInt($router.currentRoute.value.query?.page?.toString() || '1')
+      state.limit = parseInt($router.currentRoute.value.query?.limit?.toString() || '20')
+      state.search = $router.currentRoute.value.query?.search?.toString() || ''
+    }
+
+    let url = `${baseUrl}/?limit=${state.limit}&page=${state.currentPage}`
+
+    if (state.search) {
+      url += `&search=${state.search}`
+    }
+    if (state.filters) {
+      url += `&${Object.keys(state.filters)
+        .map(field => {
+          let value = state.filters![field]
+          if (Array.isArray(value)) {
+            value = value.join(',')
+          }
+          // Don't create empty filters.
+          if (value.length) {
+            return `filters[${field}]=${value}`
+          }
+          return null
+        })
+        .filter((filter: string | null) => filter !== null)
+        .join('&')}`
+    }
+
+    const { data } = await $api().get<PaginatedResponse<T>>(url)
+
+    if (data) {
+      const { currentPage, data: items, limit, total, totalPages } = data
+      state.currentPage = currentPage || 0
+      state.items = items
+      state.limit = limit || 20
+      state.total = total || 0
+      state.totalPages = totalPages || 0
+
+      // if (state.items.length > 0) {
+      //   await fetchManyAnswerForManyEvent(state.items.map(event => event.id))
+      // }
+
+      if (onFetched) {
+        await onFetched(state.items)
+      }
+    }
+    DecLoading()
+  }
+
+  function resetFilters() {
+    state.filters = null
+    $router.push({
+      name: $router.currentRoute.value.name!,
+      query: {
+        page: 1,
+        search: '',
+        limit: 20,
+      },
+    })
+  }
+
+  function setFilter(value: Record<string, string | string[]>) {
+    state.filters = value
+  }
+
+  function searchEntity() {
+    clearTimeout(state.timeout)
+    state.timeout = window.setTimeout(() => {
+      query.value = state.search
+      $router.push({
+        name: $router.currentRoute.value.name!,
+        query: {
+          ...$router.currentRoute.value.query,
+          search: query.value,
+        },
+      })
+    }, 500)
+  }
+
+  return {
+    resetFilters,
+    setFilter,
+    searchEntity,
+    fetchTable,
+    state,
+    query,
+  }
+}
