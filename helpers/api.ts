@@ -129,7 +129,7 @@ export class FetchWrapper implements ApiMethods {
         const error = err as NuxtError
 
         const { message, statusCode } = error
-        $toast.danger(message)
+        $toast?.danger(message)
         return {
           success: false,
           status: statusCode,

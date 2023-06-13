@@ -32,7 +32,7 @@
           :class="[
             active ? 'bg-purple-100 text-purple-800' : 'text-gray-900',
           ]"
-          :to="{ name: 'admin-user-show-id', params: { id: props.user.id } }"
+          :to="{ name: 'admin-admin-user-show-id', params: { id: props.user.id } }"
           :data-cy="`user-${props.user.id}-show-link`"
         >
           <PencilSquareIconOutline
