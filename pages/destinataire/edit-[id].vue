@@ -32,7 +32,7 @@ import { useAddressStore, useEmployeeStore } from '~~/store'
 const route = useRoute()
 const employeeStore = useEmployeeStore()
 const addressStore = useAddressStore()
-const { fetchOne: fetchOneEmployee } = employeeHook()
+const { fetchOne: fetchOneEmployee, getEmployeeFullname } = employeeHook()
 const { fetchOne: fetchOneAddress } = addressHook()
 
 const employeeId = route.name === 'destinataire-edit-id' && parseInt(route.params.id.toString())
@@ -55,6 +55,12 @@ onMounted(async () => {
   if (employee.value?.addressId) {
     await fetchOneAddress(employee.value?.addressId)
   }
+})
+
+useHead({
+  title: employeeStore.isAlreadyInStore(employeeId)
+    ? `Modifier ${getEmployeeFullname(employeeStore.getOne(employeeId))}`
+    : 'Modifier un destinataire',
 })
 
 definePageMeta({
