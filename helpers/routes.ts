@@ -21,4 +21,6 @@ export enum RouteNames {
 
   // ADMIN
   ADMIN_EVENTS = 'admin-events',
+  ADMIN_EMPLOYEES = 'admin-destinataires',
+  ADMIN_EMPLOYEE_SHOW = 'admin-destinataires-show-id',
 }
