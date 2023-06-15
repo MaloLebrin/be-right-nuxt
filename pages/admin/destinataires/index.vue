@@ -1,24 +1,16 @@
 <template>
 <PageAuthWrapper>
   <div class="h-full px-4 mt-4 sm:px-6 lg:px-8">
-    <div class=" sm:flex-col lg:flex-row lg:items-center">
+    <div class="flex items-center space-x-2">
       <BaseInputSearch
-        id="user-search"
+        id="employee-search"
         v-model="state.search"
+        class="mt-3"
         @update:search-query="searchEntity"
       />
-
-      <div class="flex items-center justify-between">
-        <UserTableFilters @setFilter="setUserRoleFilter" />
-
-        <BaseButton
-          :is-loading="uiStore.getUIIsLoading"
-          :disabled="uiStore.getUIIsLoading"
-          @click="resetFilters"
-        >
-          Reset Filters
-        </BaseButton>
-      </div>
+      <BaseButton @click="resetFilters">
+        Reset
+      </BaseButton>
     </div>
 
     <BaseLoader
@@ -28,14 +20,14 @@
 
     <BaseTable v-else>
       <template #header>
-        <UserTableHeader />
+        <EmployeeTableHeader />
       </template>
 
       <template #default>
-        <UserTableItem
-          v-for="user in state.items"
-          :key="user.id"
-          :user="user"
+        <EmployeeTableItem
+          v-for="employee in state.items"
+          :key="employee.id"
+          :employee="employee"
         />
       </template>
 
@@ -51,37 +43,37 @@
 </template>
 
 <script setup lang="ts">
+import { uniq } from '@antfu/utils'
 import PageAuthWrapper from '~/components/Page/PageAuthWrapper.vue'
-import BaseButton from '~/components/Base/BaseButton.vue'
 import BasePagination from '~/components/Base/BasePagination.vue'
 import BaseLoader from '~/components/Base/BaseLoader.vue'
 import BaseTable from '~/components/Base/BaseTable.vue'
-import UserTableItem from '~~/components/User/Table/Item.vue'
-import UserTableHeader from '~~/components/User/Table/Header.vue'
-import type { UserType } from '~~/store'
-import { useUiStore, useUserStore } from '~~/store'
-import type { RoleEnum } from '~/types'
+import EmployeeTableItem from '~~/components/Employee/Table/Item.vue'
+import EmployeeTableHeader from '~~/components/Employee/Table/Header.vue'
+import type { EmployeeType } from '~~/store'
+import { useEmployeeStore, useUiStore } from '~~/store'
 import BaseInputSearch from '~/components/Base/BaseInputSearch.vue'
+import BaseButton from '~/components/Base/BaseButton.vue'
 
 const uiStore = useUiStore()
-const userStore = useUserStore()
-const { addMany } = userStore
+const employeeStore = useEmployeeStore()
+const { addMany } = employeeStore
+const { fetchMany } = companyHook()
 
-async function fetchRelations(items: UserType[]) {
+async function fetchRelations(items: EmployeeType[]) {
   if (items.length > 0) {
-    // await fetchMany(items.map(item => item.companyId))
+    await fetchMany(uniq(items.map(item => item.companyId)))
   }
 }
 
 const {
   state,
   resetFilters,
-  setFilter,
   searchEntity,
-} = tableHook<UserType>('employee/', fetchRelations)
+} = tableHook<EmployeeType>('employee', fetchRelations)
 
 watch(() => state.items, () => {
-  addMany(state.items.filter(user => !userStore.isAlreadyInStore(user.id)))
+  addMany(state.items.filter(user => !employeeStore.isAlreadyInStore(user.id)))
 })
 
 // const isModalActive = (modalName: ModalNameEnum) => computed(() =>
@@ -94,14 +86,6 @@ watch(() => state.items, () => {
 //     return userStore.entities.byId[uiStore.getUiModalState.data.userId].id
 //   }
 // })
-
-function setUserRoleFilter(roles: RoleEnum | undefined) {
-  if (roles) {
-    setFilter({ roles })
-  } else {
-    state.filters = null
-  }
-}
 
 definePageMeta({
   layout: 'auth',
