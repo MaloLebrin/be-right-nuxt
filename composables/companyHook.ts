@@ -10,7 +10,7 @@ import {
   useUserStore,
 } from '~~/store'
 
-export default function userHook() {
+export default function companyHook() {
   const { $toast, $api } = useNuxtApp()
 
   const addressStore = useAddressStore()
@@ -85,6 +85,7 @@ export default function userHook() {
     if (company && isCompanyType(company)) {
       storeCompanyEntities(company)
     }
+    DecLoading()
   }
 
   async function fetchMany(userIds: number[]) {

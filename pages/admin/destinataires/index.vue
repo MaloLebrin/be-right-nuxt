@@ -1,11 +1,10 @@
 <template>
 <PageAuthWrapper>
-  <div class="h-full px-4 mt-4 sm:px-6 lg:px-8">
-    <div class="flex items-center space-x-2">
+  <div class="h-full px-4 my-4 sm:px-6 lg:px-8">
+    <div class="flex items-start space-x-2">
       <BaseInputSearch
         id="employee-search"
         v-model="state.search"
-        class="mt-3"
         @update:search-query="searchEntity"
       />
       <BaseButton @click="resetFilters">

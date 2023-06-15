@@ -25,6 +25,12 @@
           active ? 'bg-purple-100 text-purple-800' : 'text-gray-900',
         ]"
         :data-cy="`employee-${props.employee.id}-show-link`"
+        :to="{
+          name: RouteNames.ADMIN_EMPLOYEE_SHOW,
+          params: {
+            id: employee.id,
+          },
+        }"
       >
         <PencilSquareIconOutline
           class="w-5 h-5 mr-2 text-violet-800"
@@ -62,6 +68,7 @@ import type { EmployeeType } from '@/types'
 
 // import { ModalModeEnum, ModalNameEnum } from '@/types'
 import { useUiStore } from '~~/store'
+import { RouteNames } from '~/helpers/routes'
 
 interface Props {
   employee: EmployeeType
