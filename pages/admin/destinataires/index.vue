@@ -53,11 +53,11 @@ import BaseLoader from '~/components/Base/BaseLoader.vue'
 import BaseTable from '~/components/Base/BaseTable.vue'
 import EmployeeTableItem from '~~/components/Employee/Table/Item.vue'
 import EmployeeTableHeader from '~~/components/Employee/Table/Header.vue'
-import type { EmployeeType } from '~~/store'
-import { useEmployeeStore, useUiStore } from '~~/store'
 import BaseInputSearch from '~/components/Base/BaseInputSearch.vue'
 import BaseButton from '~/components/Base/BaseButton.vue'
 import BaseLimitSelector from '~/components/Base/BaseLimitSelector.vue'
+import type { EmployeeType } from '~~/store'
+import { useEmployeeStore, useUiStore } from '~~/store'
 
 const uiStore = useUiStore()
 const employeeStore = useEmployeeStore()
