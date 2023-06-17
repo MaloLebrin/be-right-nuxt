@@ -4,7 +4,7 @@
 >
   <div class="relative w-18 md:w-20">
     <ListboxButton
-      class="relative w-full py-2 pl-3 pr-10 text-left bg-white rounded-lg shadow-md cursor-pointer focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm"
+      class="relative w-full py-2 pl-3 pr-10 text-left bg-white border rounded-lg shadow-md cursor-pointer border-amber-500 focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm"
     >
       <span class="block truncate">{{ selectedLimit }}</span>
       <span
@@ -18,7 +18,7 @@
     </ListboxButton>
 
     <ListboxOptions
-      class="absolute z-50 w-full py-1 mt-1 overflow-auto text-base bg-white rounded-md shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
+      class="absolute z-50 w-full mt-1 overflow-auto text-base bg-white rounded-md shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
     >
       <ListboxOption
         v-for="limit in limits"
