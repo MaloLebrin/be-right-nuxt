@@ -1,6 +1,6 @@
 <template>
 <PageAuthWrapper>
-  <div class="px-4 py-2 mx-auto mb-8 space-y-1 lg:px-8">
+  <div class="max-w-md px-4 py-2 mx-auto mt-4 mb-8 space-y-4 md:max-w-lg lg:max-w-2xl lg:px-8">
     <BaseCard
       v-if="employee"
       class="space-y-2"

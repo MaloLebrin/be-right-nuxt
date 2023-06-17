@@ -86,7 +86,7 @@ const limits = [
 const selectedLimit = ref(props.defaultLimit)
 
 const getSetLimit = computed({
-  get: () => props.defaultLimit,
+  get: () => selectedLimit.value,
   set: val => {
     emit('update:limit', val)
     selectedLimit.value = val
