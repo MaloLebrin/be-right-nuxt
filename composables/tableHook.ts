@@ -17,7 +17,7 @@ export default function tableHook<T>(baseUrl: string, onFetched?: ((items: T[]) 
     timeout: 0,
     items: [],
     currentPage: 0,
-    limit: 1,
+    limit: 20,
     total: 0,
     filters: null,
     totalPages: 0,
@@ -122,12 +122,24 @@ export default function tableHook<T>(baseUrl: string, onFetched?: ((items: T[]) 
     }, 500)
   }
 
+  function updateLimit(limit: number) {
+    // state.limit = limit
+    $router.push({
+      name: $router.currentRoute.value.name!,
+      query: {
+        ...$router.currentRoute.value.query,
+        limit,
+      },
+    })
+  }
+
   return {
-    resetFilters,
-    setFilter,
-    searchEntity,
     fetchTable,
-    state,
     query,
+    resetFilters,
+    searchEntity,
+    setFilter,
+    state,
+    updateLimit,
   }
 }
