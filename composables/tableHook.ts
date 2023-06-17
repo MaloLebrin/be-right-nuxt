@@ -123,7 +123,6 @@ export default function tableHook<T>(baseUrl: string, onFetched?: ((items: T[]) 
   }
 
   function updateLimit(limit: number) {
-    // state.limit = limit
     $router.push({
       name: $router.currentRoute.value.name!,
       query: {
