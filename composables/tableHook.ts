@@ -29,7 +29,7 @@ export default function tableHook<T>(baseUrl: string, onFetched?: ((items: T[]) 
     // Only watch when mounted to give consumers a chance to change defaults, add filters etc.
     watch(() => [$router.currentRoute.value.query], async () => {
       await fetchTable()
-    })
+    }, { deep: true })
 
     // Watch filters separately
     watch(() => state.filters, async () => {
@@ -45,8 +45,8 @@ export default function tableHook<T>(baseUrl: string, onFetched?: ((items: T[]) 
       }
 
       if ($router.currentRoute.value.query) {
-        state.currentPage = parseInt($router.currentRoute.value.query?.page?.toString() || '1')
-        state.limit = parseInt($router.currentRoute.value.query?.limit?.toString() || '20')
+        state.currentPage = parseInt($router.currentRoute.value.query?.page?.toString() || state.currentPage.toString())
+        state.limit = parseInt($router.currentRoute.value.query?.limit?.toString() || state.limit.toString())
         state.search = $router.currentRoute.value.query?.search?.toString() || ''
       }
 
