@@ -83,7 +83,6 @@ export default function authHook() {
   async function logWithToken(token: string) {
     const { data } = await $api().post<{ user: UserType; company: Company }>('user/token', { token })
     if (data) {
-      console.log(data, '<==== data')
       const { user, company } = data
 
       if (company) {

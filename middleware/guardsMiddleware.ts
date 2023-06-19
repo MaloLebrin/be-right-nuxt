@@ -20,7 +20,6 @@ export default defineNuxtRouteMiddleware(async to => {
   }
 
   if (to.meta.isAdmin && !authStore.isAuthUserAdmin) {
-    $toast?.denied('Vous n\'êtes pas Administrateur')
     return redirectToLogin()
   }
 })
