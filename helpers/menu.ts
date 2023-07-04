@@ -2,8 +2,6 @@ import {
   ArchiveBoxIcon,
   BellAlertIcon,
   CalendarDaysIcon,
-  ChartPieIcon,
-  ExclamationCircleIcon,
   HomeIcon,
   ListBulletIcon,
   PlusIcon,
@@ -35,18 +33,6 @@ export const ADMIN_MENU_ITEMS = [
     label: 'Destinataires',
     icon: UsersIcon,
     linkName: 'admin-destinataires',
-    isAdmin: true,
-  },
-  {
-    label: 'Bugs et Problèmes',
-    icon: ExclamationCircleIcon,
-    linkName: 'admin-bug',
-    isAdmin: true,
-  },
-  {
-    label: 'Newsletter Statistiques',
-    icon: ChartPieIcon,
-    linkName: 'admin-newsletter',
     isAdmin: true,
   },
   {
