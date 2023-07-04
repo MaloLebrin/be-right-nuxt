@@ -33,7 +33,7 @@
     "yup": "^1.0.2"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "0.39.0",
+    "@antfu/eslint-config": "0.39.7",
     "@antfu/utils": "^0.7.2",
     "@headlessui/vue": "^1.7.12",
     "@nuxt/devtools": "^0.6.4",
