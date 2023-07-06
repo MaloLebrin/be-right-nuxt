@@ -2,7 +2,7 @@ describe('Home spec', () => {
   it('load landing page', () => {
     cy.visit('http://localhost:3000/')
     cy.get('h1').should('exist')
-    cy.get('h1').contains('comment ça marche')
+    cy.get('h1').contains('Gérez enfin le droit à l\'image de vos clients facilement !')
     cy.get('header').should('exist')
     cy.get('footer').should('exist')
   })
@@ -25,6 +25,4 @@ describe('Home spec', () => {
 
     cy.get('button[type=submit]').should('be.enabled')
   })
-
-  // TODO test submission
 })
