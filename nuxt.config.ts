@@ -5,6 +5,9 @@ import { type PluginOption } from 'vite'
 import colors from 'tailwindcss/colors'
 
 export default defineNuxtConfig({
+  devtools: {
+    enabled: import.meta.env.DEV,
+  },
   app: {
     pageTransition: {
       name: 'page',
