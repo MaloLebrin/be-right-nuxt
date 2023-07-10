@@ -76,7 +76,7 @@
         </div>
 
         <MenuItems
-          class="absolute right-0 w-56 mt-2 bg-white divide-y divide-gray-100 rounded-md shadow-lg dark:bg-blue-dark_bold ring-1 ring-black ring-opacity-5 focus:outline-none"
+          class="absolute right-0 z-20 mt-2 bg-white divide-y divide-gray-100 rounded-md shadow-lg dark:bg-blue-dark_bold ring-1 ring-black ring-opacity-5 focus:outline-none"
         >
           <div class="px-1 py-1">
             <MenuItem
