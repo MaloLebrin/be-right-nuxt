@@ -69,6 +69,9 @@ interface IForm extends InferType<typeof schema> {}
 
 interface Props {
   address?: AddressType | null
+  companyId?: number
+  eventId?: number
+  employeeId?: number
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -81,7 +84,7 @@ const emit = defineEmits<{
 
 const uiStore = useUiStore()
 const { IncLoading, DecLoading, resetUiModalState } = uiStore
-const { patchOne: patchOneAddress } = addressHook()
+const { patchOne: patchOneAddress, postOne } = addressHook()
 
 const schema = object({
   addressLine: string().required('L\'adresse est requise'),
@@ -110,6 +113,19 @@ async function submit(form: VeeValidateValues) {
       postalCode: formValues.postalCode,
       city: formValues.city,
       country: formValues.country,
+    })
+  } else {
+    await postOne({
+      address: {
+        addressLine: formValues.addressLine,
+        addressLine2: formValues.addressLine2,
+        postalCode: formValues.postalCode,
+        city: formValues.city,
+        country: formValues.country,
+      },
+      eventId: props.eventId,
+      companyId: props.companyId,
+      employeeId: props.employeeId,
     })
   }
   emit('submitted')
