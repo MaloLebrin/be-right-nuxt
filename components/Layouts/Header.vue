@@ -76,55 +76,53 @@
         </div>
 
         <MenuItems
-          class="absolute right-0 z-20 mt-2 bg-white divide-y divide-gray-100 rounded-md shadow-lg dark:bg-blue-dark_bold ring-1 ring-black ring-opacity-5 focus:outline-none"
+          class="absolute right-0 z-20 mt-2 bg-white rounded-md shadow-lg dark:bg-blue-dark_bold ring-1 ring-black ring-opacity-5 focus:outline-none"
         >
-          <div class="px-1 py-1">
-            <MenuItem
-              as="li"
-              class="flex items-center w-full px-2 py-2 text-sm rounded-md group"
+          <MenuItem
+            as="li"
+            class="flex items-center w-full px-2 py-2 text-sm rounded-md group"
+          >
+            <a
+              href="#Solution"
+              class="px-3 py-2 text-sm font-medium text-black rounded-md hover:text-white dark:text-white"
             >
-              <a
-                href="#Solution"
-                class="px-3 py-2 text-sm font-medium text-black rounded-md hover:text-white dark:text-white"
-              >
-                Solutions
-              </a>
-            </MenuItem>
-            <MenuItem
-              as="li"
-              class="flex items-center w-full px-2 py-2 text-sm rounded-md group"
+              Solutions
+            </a>
+          </MenuItem>
+          <MenuItem
+            as="li"
+            class="flex items-center w-full px-2 py-2 text-sm rounded-md group"
+          >
+            <a
+              href="#Pricings"
+              class="px-3 py-2 text-sm font-medium text-black rounded-md hover:text-white dark:text-white"
             >
-              <a
-                href="#Pricings"
-                class="px-3 py-2 text-sm font-medium text-black rounded-md hover:text-white dark:text-white"
-              >
-                Tarifs
-              </a>
-            </MenuItem>
-            <MenuItem
-              as="li"
-              class="flex items-center w-full px-2 py-2 text-sm rounded-md group"
+              Tarifs
+            </a>
+          </MenuItem>
+          <MenuItem
+            as="li"
+            class="flex items-center w-full px-2 py-2 text-sm rounded-md group"
+          >
+            <BaseButton
+              :href="getButtonPath"
+              :title="authStore.getIsLoggedIn ? 'Mon compte' : 'Commencer'"
             >
-              <BaseButton
-                :href="getButtonPath"
-                :title="authStore.getIsLoggedIn ? 'Mon compte' : 'Commencer'"
-              >
-                {{ authStore.getIsLoggedIn ? 'Mon compte' : 'Commencer' }}
-              </BaseButton>
-            </MenuItem>
-            <MenuItem
-              v-if="!authStore.getIsLoggedIn"
-              as="li"
-              class="flex items-center w-full px-2 py-2 text-sm rounded-md group"
+              {{ authStore.getIsLoggedIn ? 'Mon compte' : 'Commencer' }}
+            </BaseButton>
+          </MenuItem>
+          <MenuItem
+            v-if="!authStore.getIsLoggedIn"
+            as="li"
+            class="flex items-center w-full px-2 py-2 text-sm rounded-md group"
+          >
+            <NuxtLink
+              :to="{ name: 'login' }"
+              class="px-3 py-2 text-sm font-medium text-black rounded-md hover:text-white dark:text-white"
             >
-              <NuxtLink
-                :to="{ name: 'login' }"
-                class="px-3 py-2 text-sm font-medium text-black rounded-md hover:text-white dark:text-white"
-              >
-                Se connecter
-              </NuxtLink>
-            </MenuItem>
-          </div>
+              Se connecter
+            </NuxtLink>
+          </MenuItem>
         </MenuItems>
       </Menu>
     </div>
