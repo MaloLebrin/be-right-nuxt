@@ -48,31 +48,47 @@
       </BaseButton>
     </div>
 
-    <BaseTable v-else>
-      <template #header>
-        <EventTableHeader />
-      </template>
+    <template v-else>
+      <BaseTable v-if="$isNotMobile">
+        <template #header>
+          <EventTableHeader />
+        </template>
 
-      <template #default>
-        <EventItem
+        <template #default>
+          <template>
+            <EventItem
+              v-for="event in state.items"
+              :key="event.id"
+              :event="event"
+            />
+          </template>
+        </template>
+
+        <template #footer>
+          <BasePagination
+            :total-pages="state.totalPages"
+            :current-page="state.currentPage"
+          />
+        </template>
+      </BaseTable>
+
+      <ul
+        v-else
+        class="mt-4 space-y-2"
+      >
+        <EventItemMobile
           v-for="event in state.items"
           :key="event.id"
           :event="event"
         />
-      </template>
-
-      <template #footer>
-        <BasePagination
-          :total-pages="state.totalPages"
-          :current-page="state.currentPage"
-        />
-      </template>
-    </BaseTable>
+      </ul>
+    </template>
   </div>
 </PageAuthWrapper>
 </template>
 
 <script setup lang="ts">
+import EventItemMobile from '~/components/Event/EventItemMobile.vue'
 import PageAuthWrapper from '~/components/Page/PageAuthWrapper.vue'
 import BaseButton from '~/components/Base/BaseButton.vue'
 import BasePagination from '~/components/Base/BasePagination.vue'
@@ -87,6 +103,7 @@ import type { EventStatusEnum, EventType } from '~~/store'
 import { useUiStore } from '~~/store'
 
 const uiStore = useUiStore()
+const { $isNotMobile } = useNuxtApp()
 const { fetchManyAnswerForManyEvent } = answerHook()
 
 async function fetchRelations(items: EventType[]) {
