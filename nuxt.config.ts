@@ -81,10 +81,7 @@ export default defineNuxtConfig({
     ],
   },
 
-  plugins: [
-    '~/plugins/global.ts',
-    '~/plugins/tooltip.ts',
-  ],
+  plugins: ['~/plugins/global.ts', '~/plugins/serverInit.server.ts', '~/plugins/tooltip.ts'],
 
   vite: {
     plugins: [
