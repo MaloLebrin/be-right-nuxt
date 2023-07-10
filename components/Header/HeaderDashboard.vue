@@ -27,7 +27,7 @@
       <span>Retour</span>
     </a>
     <h3
-      v-if="getRouteHeaderContent"
+      v-if="getRouteHeaderContent && $isNotMobile"
       class="flex items-center space-x-4 font-semibold text-gray-800 text-normal md:text-2xl dark:text-white"
     >
       <component
@@ -64,6 +64,8 @@ import { useUiStore } from '~~/store'
 const router = useRouter()
 const route = useRoute()
 const { toggleDrawer } = useUiStore()
+
+const { $isNotMobile } = useNuxtApp()
 
 const getRouteHeaderContent = computed(() =>
   MENU_ITEMS.find(item => item.linkName === route.name),
