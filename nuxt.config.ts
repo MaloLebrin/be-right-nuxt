@@ -82,7 +82,8 @@ export default defineNuxtConfig({
   },
 
   plugins: [
-    { src: '~/plugins/serverInit.server.ts', ssr: true, mode: 'server' },
+    '~/plugins/global.ts',
+    '~/plugins/tooltip.ts',
   ],
 
   vite: {
