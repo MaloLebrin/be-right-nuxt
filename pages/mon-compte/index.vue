@@ -30,7 +30,22 @@
     description="Vous pouvez modifier l'adresse de l'entreprise"
   >
     <div class="px-4 mt-6">
-      <AddressForm :address="companyAddress" />
+      <AddressForm
+        :address="companyAddress"
+        :company-id="companyStore.getAuthCompany?.id"
+      />
+    </div>
+  </AccountBaseCard>
+
+  <AccountBaseCard
+    title="Votre Signature"
+    description="Vous pouvez ajouter votre signature par default."
+  >
+    <div class="px-4 mt-6">
+      <SignatureForm
+        :signature="userStore.getAuthUser?.signature || undefined"
+        @save="saveUserSignature"
+      />
     </div>
   </AccountBaseCard>
 
@@ -51,6 +66,7 @@
 <script setup lang="ts">
 import SignatureForm from '~~/components/Signature/SignatureForm.vue'
 import UserForm from '~/components/User/UserForm.vue'
+import AddressForm from '~/components/address/AddressForm.vue'
 import AccountBaseCard from '~~/components/Account/BaseCard.vue'
 import AccountCompanyForm from '~~/components/Account/CompanyForm.vue'
 import { useAddressStore, useCompanyStore, useUiStore, useUserStore } from '~~/store'
