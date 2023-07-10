@@ -3,7 +3,7 @@
   v-slot="{ meta, isSubmitting }"
   :validation-schema="schema"
   :initial-values="initialValues"
-  class="container mx-auto md:grid md:gap-12 md:mt-16 md:grid-cols-2"
+  class="container grid grid-cols-1 gap-12 py-6 mx-auto md:grid-cols-2"
   @submit="submitregister"
 >
   <div class="flex flex-col mx-auto space-y-12 md:max-w-1/2">
@@ -97,14 +97,24 @@
     </div>
   </div>
 
-  <nuxt-img
+  <img
+    v-if="$isTouch || $isDesktop"
     class="hidden object-cover max-w-5xl shadow-2xl lg:w-2/3 md:max-w-full md:block TranslateUpAnimation cursor-none"
-    src="/static/camera.webp"
+    src="https://images.unsplash.com/photo-1492146433370-dea32142adc3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80"
     width="1577"
     height="1920"
     sizes="xs:200px md:500px lg:1024"
     alt="Objectif d'appareil photo"
-  />
+  >
+  <!-- <nuxt-img
+    v-if="$isTouch || $isDesktop"
+    class="hidden object-cover max-w-5xl shadow-2xl lg:w-2/3 md:max-w-full md:block TranslateUpAnimation cursor-none"
+    src="https://images.unsplash.com/photo-1492146433370-dea32142adc3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80"
+    width="1577"
+    height="1920"
+    sizes="xs:200px md:500px lg:1024"
+    alt="Objectif d'appareil photo"
+  /> -->
 </Form>
 </template>
 
@@ -116,12 +126,14 @@ import { RoleEnum } from '@/types'
 import type { Company } from '~~/store'
 import { useAuthStore, useUiStore } from '~~/store'
 import { passwordRegex } from '~/helpers/regex'
+import newsletterHook from '~/composables/newsletterHook'
 
 const { $toast, $api } = useNuxtApp()
 const router = useRouter()
-const { checkMailIsAlreadyExist, jwtDecode } = authHook()
+const { checkMailIsAlreadyExist, jwtDecode, getCookie } = authHook()
 const { storeUsersEntities, getUserfullName } = userHook()
 const { storeCompanyEntities } = companyHook()
+const { addToContactList } = newsletterHook()
 const { setJWTasUser } = useAuthStore()
 const uiStore = useUiStore()
 const { IncLoading, DecLoading } = uiStore
@@ -152,42 +164,56 @@ const initialValues = {
 
 async function submitregister(form: VeeValidateValues) {
   IncLoading()
-  const cookieToken = useCookie('userToken')
+  const cookieToken = getCookie()
 
   const isEmailExist = await checkMailIsAlreadyExist(form.email)
 
   if (isEmailExist && !isEmailExist.success) {
     $toast.danger(isEmailExist.message)
   } else {
-    try {
-      const { data } = await $api().post<{ user: UserType; company: Company }>('auth/signup', form)
+    const { data } = await $api().post<{ user: UserType; company: Company }>('auth/signup', form)
 
-      if (data) {
-        const { user, company } = data
+    if (data) {
+      const { user, company } = data
 
-        if (company) {
-          storeCompanyEntities(company)
-        }
-
-        if (user) {
-          storeUsersEntities(user, false)
-          cookieToken.value = user.token
-          const decode = jwtDecode(ref(user.token))
-          $api().setCredentials(user.token)
-
-          if (decode.value) {
-            setJWTasUser(decode.value)
-          }
-          $toast.success(`Heureux de vous revoir ${getUserfullName(user)}`)
-          router.replace({
-            name: 'evenement',
-          })
-        }
+      if (company) {
+        storeCompanyEntities(company)
       }
-    } catch (error) {
-      $toast.danger('Une erreur est survenue')
+
+      if (user) {
+        $api().setCredentials(user.token)
+
+        await addToContactList({
+          email: user.email,
+          name: getUserfullName(user),
+        })
+
+        storeUsersEntities(user, false)
+        cookieToken.value = user.token
+        const decode = jwtDecode(ref(user.token))
+
+        if (decode.value) {
+          setJWTasUser(decode.value)
+        }
+        $toast.success(`Heureux de vous revoir ${getUserfullName(user)}`)
+        router.replace({
+          name: 'evenement',
+        })
+      }
     }
   }
   DecLoading()
 }
+
+useHead({
+  title: 'S\'inscrire',
+  meta: [
+    { name: 'description', content: 'Inscrivez vous pour gérer vos droits à l\'image' },
+    { property: 'og:title', content: 'Inscription' },
+    { property: 'og:description', content: 'Inscrivez vous pour gérer vos droits à l\'image' },
+    { property: 'og:type', content: 'website' },
+    { property: 'og:url', content: 'https://be-right.co/register' },
+    { property: 'og:locale', content: 'fr_FR' },
+  ],
+})
 </script>

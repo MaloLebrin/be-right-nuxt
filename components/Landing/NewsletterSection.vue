@@ -44,11 +44,15 @@
 <script setup lang="ts">
 import { object, string } from 'yup'
 import { Form } from 'vee-validate'
+import BaseButton from '../Base/BaseButton.vue'
+import BaseInput from '../Base/BaseInput.vue'
+import BaseMessage from '../Base/BaseMessage.vue'
 import { useUiStore } from '~~/store'
+import newsletterHook from '~/composables/newsletterHook'
 
-const { newsletterSignup } = newsletterHook()
 const uiStore = useUiStore()
 const { IncLoading, DecLoading } = uiStore
+const { addToContactList } = newsletterHook()
 
 const isSuccess = ref(false)
 
@@ -59,14 +63,16 @@ const schema = object({
 async function submit(form: any) {
   const { $toast } = useNuxtApp()
   IncLoading()
-  await newsletterSignup({
+  const response = await addToContactList({
     email: form.email,
-    firstName: null,
-    lastName: null,
-    companyName: null,
   })
-  isSuccess.value = true
-  $toast.success('Merci pour votre inscription!')
+
+  isSuccess.value = response?.status === 201
+  if (isSuccess.value) {
+    $toast.success('Merci pour votre inscription!')
+  } else {
+    $toast.denied('Une erreur est survenue!')
+  }
   DecLoading()
 }
 </script>

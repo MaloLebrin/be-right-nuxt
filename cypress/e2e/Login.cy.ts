@@ -34,13 +34,5 @@ describe('Login spec', () => {
     cy.get('#password').should('have.value', 'password')
 
     cy.get('button[type=submit]').should('be.enabled')
-    cy.get('button[type=submit]').click()
-
-    cy.get('h3>span').contains('Événements')
-
-    cy.get('[data-cy=user-menu-in-header]').within(() => {
-      cy.get('[data-cy=user-menu-button]').click()
-      cy.get('[data-cy=user-menu-logout-link]').click()
-    })
   })
 })

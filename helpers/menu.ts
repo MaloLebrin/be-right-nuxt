@@ -1,8 +1,7 @@
 import {
   ArchiveBoxIcon,
   BellAlertIcon,
-  ChartPieIcon,
-  ExclamationCircleIcon,
+  CalendarDaysIcon,
   HomeIcon,
   ListBulletIcon,
   PlusIcon,
@@ -11,41 +10,29 @@ import {
 } from '@heroicons/vue/24/outline'
 import { RouteNames } from './routes'
 
-export const MENU_ITEMS = [
+export const ADMIN_MENU_ITEMS = [
   {
-    label: 'Événements',
+    label: 'Dashboard',
     icon: HomeIcon,
-    linkName: 'evenement',
+    linkName: 'admin',
+    isAdmin: true,
+  },
+  {
+    label: 'Tous les événements',
+    icon: CalendarDaysIcon,
+    linkName: 'admin-events',
     isAdmin: true,
   },
   {
     label: 'Utilisateurs',
     icon: UserGroupIcon,
-    linkName: 'user',
+    linkName: 'admin-user',
     isAdmin: true,
   },
   {
     label: 'Destinataires',
     icon: UsersIcon,
-    linkName: 'destinataire',
-    isAdmin: true,
-  },
-  // {
-  //   label: 'Fichiers',
-  //   icon: FolderOpenIcon,
-  //   // linkName: 'files',
-  //   isAdmin: true,
-  // },
-  {
-    label: 'Bugs et Problèmes',
-    icon: ExclamationCircleIcon,
-    linkName: 'bug',
-    isAdmin: true,
-  },
-  {
-    label: 'Newsletter Statistiques',
-    icon: ChartPieIcon,
-    linkName: 'newsletter',
+    linkName: 'admin-destinataires',
     isAdmin: true,
   },
   {
@@ -54,22 +41,11 @@ export const MENU_ITEMS = [
     linkName: RouteNames.CREATE_EVENT_STEP_1,
     isAdmin: true,
   },
-  {
-    label: 'Créer un destinataire',
-    icon: PlusIcon,
-    linkName: RouteNames.EMPLOYEE_CREATE,
-    isAdmin: true,
-  },
-  // {
-  //   label: 'Créer un nouveau fichier',
-  //   icon: FolderPlusIcon,
-  //   // linkName: 'files.create',
-  //   isAdmin: true,
-  // },
+]
 
-  // user
+export const MENU_ITEMS = [
   {
-    label: 'Événements',
+    label: 'Mes événements',
     icon: HomeIcon,
     linkName: 'evenement',
     isAdmin: false,
@@ -116,10 +92,4 @@ export const MENU_ITEMS = [
     linkName: 'groupe-creation',
     isAdmin: false,
   },
-  // {
-  //   label: 'Créer un nouveau fichier',
-  //   icon: FolderPlusIcon,
-  //   // linkName: 'user.files.create-model',
-  //   isAdmin: false,
-  // },
 ]

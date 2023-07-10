@@ -1,9 +1,9 @@
 import { hasOwnProperty } from '@antfu/utils'
 import { RoleEnum } from '@/types'
 import type {
-  PaginatedResponse,
   UserType,
 } from '@/types'
+import type { Company } from '~~/store'
 import {
   useNotificationsSubscriptionStore,
   useUiStore,
@@ -19,17 +19,43 @@ export default function userHook() {
 
   const { IncLoading, DecLoading } = useUiStore()
 
-  async function fetchOne(userId: number) {
-    try {
-      IncLoading()
-      const { data: user } = await $api().get<UserType>(`user/${userId}`)
+  function isUserType(user: any): user is UserType {
+    return hasOwnProperty(user, 'id') && hasOwnProperty(user, 'token')
+  }
 
-      if (user) {
-        storeUsersEntities(user, false)
-      }
-    } catch (error) {
-      console.error(error)
-      $toast.danger('Une erreur est survenue')
+  function isArrayUserType(users: any[]): users is UserType[] {
+    return users?.every(isUserType)
+  }
+
+  function isUserAdmin(user: UserType) {
+    return user?.roles === RoleEnum.ADMIN
+  }
+
+  function isUserOwner(user: UserType) {
+    return user?.roles === RoleEnum.OWNER
+  }
+
+  function filteredUsers(list: UserType[], query: Ref<string>): UserType[] {
+    return query.value === ''
+      ? list
+      : list.filter(person =>
+        person.lastName
+          .toLowerCase()
+          .replace(/\s+/g, '')
+          .includes(query.value.toLowerCase().replace(/\s+/g, ''))
+        || person.firstName
+          .toLowerCase()
+          .replace(/\s+/g, '')
+          .includes(query.value.toLowerCase().replace(/\s+/g, '')),
+      )
+  }
+
+  async function fetchOne(userId: number) {
+    IncLoading()
+    const { data: user } = await $api().get<UserType>(`user/${userId}`)
+
+    if (user && isUserType(user)) {
+      storeUsersEntities(user, false)
     }
   }
 
@@ -55,49 +81,20 @@ export default function userHook() {
     }
   }
 
-  async function fetchAll(url?: string) {
-    IncLoading()
-    try {
-      let finalUrl = 'user'
-      if (url) {
-        finalUrl += `${url}`
-      }
-      const { data } = await $api().get<PaginatedResponse<UserType>>(finalUrl)
-
-      if (data && isArrayUserType(data.data)) {
-        userStore.addMany(data.data)
-      }
-    } catch (error) {
-      $toast.danger('Une erreur est survenue')
-      console.error(error)
-    }
-    DecLoading()
-  }
-
   async function deleteUser(id: number) {
-    try {
-      IncLoading()
-      await $api().delete(`user/${id}`)
-      userStore.deleteOne(id)
-      $toast.success('Utilisateurs à été supprimé avec succès')
-    } catch (error) {
-      $toast.danger('Une erreur est survenue')
-      console.error(error)
-    }
+    IncLoading()
+    await $api().delete(`user/${id}`)
+    userStore.deleteOne(id)
+    $toast.success('Utilisateurs à été supprimé avec succès')
     DecLoading()
   }
 
   async function patchOne(id: number, user: UserType) {
     IncLoading()
-    try {
-      const { data } = await $api().patch<UserType>(`user/${id}`, { user })
-      if (data && isUserType(data)) {
-        userStore.updateOneUser(id, data)
-        $toast.success('Utilisateur à été modifié avec succès')
-      }
-    } catch (error) {
-      $toast.danger('Une erreur est survenue')
-      console.error(error)
+    const { data } = await $api().patch<UserType>(`user/${id}`, { user })
+    if (data && isUserType(data)) {
+      userStore.updateOneUser(id, data)
+      $toast.success('Utilisateur à été modifié avec succès')
     }
     DecLoading()
   }
@@ -116,8 +113,9 @@ export default function userHook() {
         return 'Propriétaire'
       case RoleEnum.PHOTOGRAPHER:
         return 'Photographe'
-      case RoleEnum.CUSTOMER:
-        return 'Client'
+
+      default:
+        return 'Utilisateur'
     }
   }
 
@@ -132,73 +130,53 @@ export default function userHook() {
 
   async function fetchMany(ids: number[]) {
     IncLoading()
-    try {
-      if (ids.length > 0) {
-        const { data: users } = await $api().get<UserType[]>(`user/many/?ids=${ids.join(',')}`)
+    if (ids.length > 0) {
+      const { data: users } = await $api().get<UserType[]>(`user/many/?ids=${ids.join(',')}`)
 
-        if (users && users.length > 0 && isArrayUserType(users)) {
-          const missingsUsers = users.filter(user => !userStore.isAlreadyInStore(user.id))
-          if (missingsUsers.length > 0) {
-            userStore.addMany(missingsUsers)
-          }
+      if (users && users.length > 0 && isArrayUserType(users)) {
+        const missingsUsers = users.filter(user => !userStore.isAlreadyInStore(user.id))
+        if (missingsUsers.length > 0) {
+          userStore.addMany(missingsUsers)
         }
       }
-    } catch (error) {
-      $toast.danger('Une erreur est survenue')
-      console.error(error)
     }
     DecLoading()
   }
 
-  function isUserType(user: any): user is UserType {
-    return hasOwnProperty(user, 'id') && hasOwnProperty(user, 'token')
-  }
-
-  function isArrayUserType(users: any[]): users is UserType[] {
-    return users?.every(isUserType)
-  }
-
   async function postPhotographer(photographer: PhotographerCreatePayload) {
-    try {
-      const { data } = await $api().post<UserType>('user/photographer', photographer)
-      if (data && isUserType(data)) {
-        userStore.addOne(data)
-        return data
-      }
-    } catch (error) {
-      $toast.danger('Une erreur est survenue')
-      console.error(error)
+    const { data } = await $api().post<UserType>('user/photographer', photographer)
+    if (data && isUserType(data)) {
+      userStore.addOne(data)
+      return data
     }
   }
 
   async function getPhotographerUserWorkedWith() {
-    try {
-      const { data, success } = await $api().get<UserType[]>('user/partners')
-      if (data && success) {
-        const partners = data.filter(user => !userStore.isAlreadyInStore(user.id))
-        userStore.addMany(partners)
-        return partners
-      }
-      return []
-    } catch (error: any) {
-      $toast.danger(error.error as string)
-      console.error(error)
+    const { data, success } = await $api().get<UserType[]>('user/partners')
+    if (data && isArrayUserType(data) && success) {
+      const partners = data.filter(user => !userStore.isAlreadyInStore(user.id))
+      userStore.addMany(partners)
+      return partners
     }
+    return []
   }
 
-  function isUserAdmin(user: UserType) {
-    return user?.roles === RoleEnum.ADMIN
-  }
-
-  function isUserOwner(user: UserType) {
-    return user?.roles === RoleEnum.OWNER
+  async function postUserSignature(base64Signature: string, userId: number) {
+    IncLoading()
+    const { data, success } = await $api().patch<{ user: UserType; company: Company }>(`user/signature/${userId}`, { signature: base64Signature })
+    if (data && success && isUserType(data)) {
+      const { user } = data
+      storeUsersEntities(user)
+      $toast.success('Signature enregistrée avec succès')
+    }
+    DecLoading()
   }
 
   return {
     deleteUser,
-    fetchAll,
     fetchMany,
     fetchOne,
+    filteredUsers,
     getPhotographerUserWorkedWith,
     getRoleTranslation,
     getUserfullName,
@@ -208,6 +186,7 @@ export default function userHook() {
     isUserType,
     patchOne,
     postPhotographer,
+    postUserSignature,
     storeUsersEntities,
   }
 }

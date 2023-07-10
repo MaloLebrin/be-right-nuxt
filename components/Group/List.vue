@@ -7,9 +7,11 @@
       :key="group.id"
       as="div"
       class="z-20 rounded-md shadow-md"
+      :default-open="defaultOpenGroupId === group.id"
     >
       <DisclosureButton
         class="z-20 flex justify-between w-full px-4 py-2 text-sm font-medium text-left text-red-900 bg-red-100 rounded-lg hover:bg-red-200 focus:outline-none focus-visible:ring focus-visible:ring-red-500 focus-visible:ring-opacity-75"
+        @click="setGroupIdParams(group.id)"
       >
         <span>{{ group.name }}</span>
         <ChevronUpIconOutline
@@ -17,37 +19,41 @@
           class="w-5 h-5 text-red-500"
         />
       </DisclosureButton>
-      <transition
-        enter-active-class="transition ease-out duration-250"
-        enter-from-class="transform scale-95 opacity-0"
-        enter-to-class="transform scale-100 opacity-100"
-        leave-active-class="transition duration-150 ease-out"
-        leave-from-class="transform scale-100 opacity-100"
-        leave-to-class="transform scale-95 opacity-0"
-      >
-        <DisclosurePanel class="py-4 text-sm text-gray-500">
-          <GroupDetailHeader
-            class="-mt-4"
-            :group="group"
-            :nb-employee="group.employeeIds.length"
-          />
+      <DisclosurePanel class="py-4 text-sm text-gray-500">
+        <GroupDetailHeader
+          class="-mt-4"
+          :group="group"
+          :nb-employee="group.employeeIds.length"
+        />
 
-          <GroupEmployeeList :group="group" />
-        </DisclosurePanel>
-      </transition>
+        <GroupEmployeeList :group="group" />
+      </DisclosurePanel>
     </Disclosure>
   </div>
 </div>
 </template>
 
 <script setup lang="ts">
+import GroupDetailHeader from '~~/components/Group/Detail/header.vue'
+import GroupEmployeeList from '~~/components/Group/Employee/List.vue'
 import type { Group } from '~~/store'
 
 interface Props {
   groups: Group[]
+  defaultOpenGroupId?: number
 }
 
 withDefaults(defineProps<Props>(), {
   groups: () => [],
 })
+
+const { $router } = useNuxtApp()
+
+function setGroupIdParams(groupId: number) {
+  $router.push({
+    query: {
+      groupId,
+    },
+  })
+}
 </script>

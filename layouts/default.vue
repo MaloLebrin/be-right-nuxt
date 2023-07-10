@@ -1,9 +1,9 @@
 <template>
-<main>
+<div class="min-h-screen">
   <LayoutsHeader />
-  <div class="min-h-screen bg-white dark:bg-blue-dark">
+  <main class="bg-white dark:bg-blue-dark">
     <slot />
-  </div>
+  </main>
   <LayoutsFooter />
-</main>
+</div>
 </template>

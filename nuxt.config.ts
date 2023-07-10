@@ -5,6 +5,9 @@ import { type PluginOption } from 'vite'
 import colors from 'tailwindcss/colors'
 
 export default defineNuxtConfig({
+  devtools: {
+    enabled: import.meta.env.DEV,
+  },
   app: {
     pageTransition: {
       name: 'page',
@@ -17,15 +20,25 @@ export default defineNuxtConfig({
         lang: 'fr',
       },
       link: [
-        { rel: 'apple-touch-icon', sizes: '76x76', href: 'static/apple-touch-icon.png' },
-        { rel: 'icon', type: 'image/png', sizes: '32x32', href: 'static/favicon-32x32.png' },
-        { rel: 'icon', type: 'image/png', sizes: '16x16', href: 'static/favicon-16x16.png' },
+        { rel: 'apple-touch-icon', sizes: '76x76', href: 'apple-touch-icon.png' },
+        { rel: 'icon', type: 'image/png', sizes: '32x32', href: 'favicon-32x32.png' },
+        { rel: 'icon', type: 'image/png', sizes: '16x16', href: 'favicon-16x16.png' },
       ],
     },
     layoutTransition: {
       mode: 'out-in',
       name: 'layout',
     },
+  },
+
+  image: {
+    dir: 'public',
+    provider: 'netlify',
+    domains: [
+      'https://images.unsplash.com',
+      'https://source.unsplash.com',
+      'https://be-right.co/',
+    ],
   },
 
   runtimeConfig: {
@@ -48,11 +61,10 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     '@nuxtjs/tailwindcss',
     'nuxt-headlessui',
-    '@sidebase/nuxt-pdf',
-    '@nuxtjs/eslint-module',
+    // '@nuxtjs/eslint-module',
     '@pinia-plugin-persistedstate/nuxt',
     'nuxt-typed-router',
-    '@nuxtjs/html-validator',
+    // '@nuxtjs/html-validator',
     'nuxt-schema-org',
     '@nuxt/image-edge',
     ['nuxt-purgecss', {
@@ -75,13 +87,20 @@ export default defineNuxtConfig({
     '@tailvue/nuxt',
   ],
 
+  piniaPersistedstate: {
+    cookieOptions: {
+      sameSite: 'strict',
+    },
+    storage: 'localStorage',
+  },
+
   build: {
     transpile: [
       'v-calendar',
     ],
   },
 
-  plugins: ['~/plugins/global.ts', '~/plugins/serverInit.server.ts', '~/plugins/tooltip.ts'],
+  plugins: ['~/plugins/global.ts', '~/plugins/tooltip.ts'],
 
   vite: {
     plugins: [
@@ -102,9 +121,7 @@ export default defineNuxtConfig({
         include: [/\.vue$/, /\.vue\?vue/],
         extensions: ['vue'],
       }),
-
       visualizer() as PluginOption,
     ],
   },
-
 })

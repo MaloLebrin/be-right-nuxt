@@ -37,6 +37,10 @@ export interface PaginatedResponse<T> {
   data: T[]
   limit: number | null
   total: number | null
+  totalPages: number | null
+  order: Record<keyof T, 'ASC' | 'DESC'>
 }
 
 export type WithoutId<T> = Omit<T, 'id'>
+
+export type InputEventTarget = Event & { target: HTMLInputElement }

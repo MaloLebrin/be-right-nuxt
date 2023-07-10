@@ -1,5 +1,5 @@
-import { hasOwnProperty } from '@antfu/utils'
-import type { Company, CreateNewUserPayload, UserType } from '~~/store'
+import { hasOwnProperty, uniq } from '@antfu/utils'
+import type { Company, CreateNewUserPayload, MissingInfos, UserType } from '~~/store'
 import {
   useAddressStore,
   useCompanyStore,
@@ -10,7 +10,7 @@ import {
   useUserStore,
 } from '~~/store'
 
-export default function userHook() {
+export default function companyHook() {
   const { $toast, $api } = useNuxtApp()
 
   const addressStore = useAddressStore()
@@ -67,73 +67,6 @@ export default function userHook() {
     }
   }
 
-  async function fetchOne(companyId: number) {
-    try {
-      IncLoading()
-      const { data: company } = await $api().get<Company>(`company/${companyId}`)
-
-      if (company) {
-        storeCompanyEntities(company)
-      }
-    } catch (error) {
-      console.error(error)
-      $toast.danger('Une erreur est survenue')
-    }
-  }
-
-  async function addOrRemoveOwner(userId: number) {
-    try {
-      IncLoading()
-      const { data } = await $api().patch<{ user: UserType; company: Company }>(`company/owners/${userId}`, {})
-
-      if (data) {
-        const { user, company } = data
-        if (company) {
-          storeCompanyEntities(company)
-          userStore.updateOneUser(user.id, user)
-        }
-      }
-    } catch (error) {
-      console.error(error)
-      $toast.danger('Une erreur est survenue')
-    }
-    DecLoading()
-  }
-
-  async function createNewUser(payload: CreateNewUserPayload) {
-    try {
-      IncLoading()
-      const { data } = await $api().post<{ user: UserType; company: Company }>('user', payload)
-
-      if (data) {
-        const { user, company } = data
-        if (user) {
-          userStore.addOne(user)
-          companyStore.updateOneCompany(company.id, company)
-        }
-      }
-    } catch (error) {
-      console.error(error)
-      $toast.danger('Une erreur est survenue')
-    }
-    DecLoading()
-  }
-
-  async function patchOne(companyId: number, company: Partial<Company>) {
-    IncLoading()
-    try {
-      const { data } = await $api().patch<Company>(`company/${companyId}`, { company })
-      if (isCompanyType(data)) {
-        updateOneCompany(companyId, data)
-        $toast.success('Entreprise mise à jours')
-      }
-    } catch (error) {
-      console.error(error)
-      $toast.danger('Une erreur est survenue')
-    }
-    DecLoading()
-  }
-
   function isCompanyType(arg: any): arg is Company {
     return hasOwnProperty(arg, 'subscriptionLabel')
       && hasOwnProperty(arg, 'siret')
@@ -141,10 +74,146 @@ export default function userHook() {
       && hasOwnProperty(arg, 'subscriptionId')
   }
 
+  function areCompaniesTypes(args: unknown[]): args is Company[] {
+    return args.every(arg => isCompanyType(arg))
+  }
+
+  async function fetchOne(companyId: number) {
+    IncLoading()
+    const { data: company } = await $api().get<Company>(`company/${companyId}`)
+
+    if (company && isCompanyType(company)) {
+      storeCompanyEntities(company)
+    }
+    DecLoading()
+  }
+
+  async function fetchMany(userIds: number[]) {
+    IncLoading()
+    if (userIds.length > 0) {
+      const { data } = await $api().get<Company[]>(`company/manyByIds?ids=${uniq(userIds).join(',')}`)
+
+      if (data && data.length > 0 && areCompaniesTypes(data)) {
+        const missingCompanies = data.filter(user => !companyStore.isAlreadyInStore(user.id))
+
+        if (missingCompanies.length > 0) {
+          companyStore.addMany(missingCompanies)
+        }
+      }
+    }
+    DecLoading()
+  }
+
+  async function addOrRemoveOwner(userId: number) {
+    IncLoading()
+    const { data } = await $api().patch<{ user: UserType; company: Company }>(`company/owners/${userId}`, {})
+
+    if (data) {
+      const { user, company } = data
+      if (company && isCompanyType(company)) {
+        storeCompanyEntities(company)
+        userStore.updateOneUser(user.id, user)
+      }
+    }
+    DecLoading()
+  }
+
+  async function createNewUser(payload: CreateNewUserPayload) {
+    IncLoading()
+    const { data } = await $api().post<{ user: UserType; company: Company }>('user', payload)
+
+    if (data) {
+      const { user, company } = data
+      if (user && isCompanyType(company)) {
+        userStore.addOne(user)
+        companyStore.updateOneCompany(company.id, company)
+      }
+    }
+    DecLoading()
+  }
+
+  async function patchOne(companyId: number, company: Partial<Company>) {
+    IncLoading()
+    const { data } = await $api().patch<Company>(`company/${companyId}`, { company })
+    if (isCompanyType(data)) {
+      updateOneCompany(companyId, data)
+      $toast.success('Entreprise mise à jours')
+    }
+    DecLoading()
+  }
+
+  const getMissingsInfos: ComputedRef<MissingInfos[]> = computed(() => {
+    const currentUser = userStore.getAuthUser
+    if (currentUser) {
+      const missingInfos = []
+      const currentCompany = companyStore.getOne(currentUser.companyId)
+      if (currentCompany) {
+        if (!currentCompany.addressId) {
+          missingInfos.push({
+            label: 'addresse de l\'entreprise',
+            link: {
+              name: 'mon-compte',
+            },
+          })
+        }
+
+        if (!currentCompany.siret) {
+          missingInfos.push({
+            label: 'Le siret de l\'entreprise',
+            link: {
+              name: 'mon-compte',
+            },
+          })
+        }
+
+        if (currentUser.notificationSubscriptionIds?.length < 1) {
+          missingInfos.push({
+            label: 'Configuration des notifications',
+            link: {
+              name: 'mon-compte-notifications',
+            },
+          })
+        }
+
+        if (currentCompany.employeeIds?.length === 0) {
+          missingInfos.push({
+            label: 'Créer vos premiers destinataires',
+            link: {
+              name: 'destinataire-create',
+            },
+          })
+        }
+
+        if (currentCompany.groupIds?.length === 0) {
+          missingInfos.push({
+            label: 'Créer vos premiers groupes de diffusions',
+            link: {
+              name: 'groupe-creation',
+            },
+          })
+        }
+
+        if (!currentUser.signature) {
+          missingInfos.push({
+            label: 'Créer votre signature par défault',
+            link: {
+              name: 'mon-compte',
+            },
+          })
+        }
+        return missingInfos
+      }
+      return []
+    }
+    return []
+  })
+
   return {
     addOrRemoveOwner,
     createNewUser,
     fetchOne,
+    fetchMany,
+    getMissingsInfos,
     isCompanyType,
     patchOne,
     storeCompanyEntities,

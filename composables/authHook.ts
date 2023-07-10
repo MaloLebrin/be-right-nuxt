@@ -1,8 +1,8 @@
-// import { useCookies } from 'vue3-cookies'
 import { useJwt } from '@vueuse/integrations/useJwt'
 import type { JwtPayload } from 'jsonwebtoken'
-import type { ValidationRequest } from '@/types'
+import type { UserType, ValidationRequest } from '@/types'
 import { RoleEnum } from '@/types'
+import type { Company } from '~~/store'
 import {
   useAddressStore,
   useAnswerStore,
@@ -37,10 +37,15 @@ export default function authHook() {
   const tableStore = useTableStore()
   const uiStore = useUiStore()
   const router = useRouter()
-  const { resetAuthState } = useAuthStore()
+  const { resetAuthState, setJWTasUser, setToken } = useAuthStore()
+  const { storeUsersEntities } = userHook()
+  const { storeCompanyEntities } = companyHook()
 
   function logout() {
+    const cookieToken = useCookie('userToken')
+    cookieToken.value = null
     $api().deleteCredentials()
+    router.replace({ name: 'index' })
 
     addressStore.resetState()
     answerStore.resetState()
@@ -58,11 +63,7 @@ export default function authHook() {
 
     resetAuthState()
 
-    const cookieToken = useCookie('userToken')
-    cookieToken.value = null
-
-    router.replace({ name: 'index' })
-    $toast.success('Vous êtes déconnecté')
+    $toast?.success('Vous êtes déconnecté')
   }
 
   async function checkMailIsAlreadyExist(email: string) {
@@ -79,10 +80,39 @@ export default function authHook() {
     return user?.roles.includes(RoleEnum.ADMIN)
   }
 
+  async function logWithToken(token: string) {
+    const { data } = await $api().post<{ user: UserType; company: Company }>('user/token', { token })
+    if (data) {
+      const { user, company } = data
+
+      if (company) {
+        storeCompanyEntities(company)
+      }
+
+      if (user && user.token) {
+        setToken(user.token)
+        storeUsersEntities(user, false)
+
+        const decoded = jwtDecode(ref(user.token))
+
+        if (decoded.value) {
+          setJWTasUser(decoded.value)
+          return decoded.value
+        }
+      }
+    }
+  }
+
+  function getCookie() {
+    return useCookie('userToken', { secure: true, sameSite: true, path: '', maxAge: 2592000 })
+  }
+
   return {
     checkMailIsAlreadyExist,
+    getCookie,
     isJWTUserAdmin,
     jwtDecode,
     logout,
+    logWithToken,
   }
 }
