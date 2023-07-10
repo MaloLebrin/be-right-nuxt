@@ -9,7 +9,10 @@
         <EventStatusTag :status="event.status" />
       </div>
       <div class="flex flex-col mt-1 sm:flex-row sm:flex-wrap sm:mt-0 sm:space-x-8">
-        <div class="flex items-center mt-2 text-sm text-gray-500">
+        <div
+          v-if="eventAddress"
+          class="flex items-center mt-2 text-sm text-gray-500"
+        >
           <MapPinIconOutline
             class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400"
             aria-hidden="true"
@@ -25,10 +28,8 @@
         </div>
       </div>
     </div>
-    <div
-      class="flex flex-col items-center justify-center mt-5 space-y-4"
-    >
-      <div class="flex flex-col items-center justify-center mt-5 space-y-4 md:flex-row md:space-y-0 md:space-x-4 xl:mt-0 xl:ml-4">
+    <div class="flex flex-col items-center justify-center mt-0 space-y-4 md:mt-5">
+      <div class="flex items-center justify-center mt-5 space-x-4 md:space-y-4 :mdflex-col md:flex-row xl:mt-0 xl:ml-4">
         <BaseButton
           :href="{
             name: 'evenement-edit-id',

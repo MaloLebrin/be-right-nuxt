@@ -15,6 +15,7 @@ export default defineNuxtPlugin(() => {
   const isMobile = breakpoints.smaller('md')
   const isTouch = breakpoints.between('sm', 'lg')
   const isDesktop = breakpoints.greater('md')
+  const isNotMobile = breakpoints.greater('sm')
 
   return {
     provide: {
@@ -27,6 +28,7 @@ export default defineNuxtPlugin(() => {
       isMobile,
       isTouch,
       isDesktop,
+      isNotMobile,
 
       api: () => {
         const api = new FetchWrapper({
