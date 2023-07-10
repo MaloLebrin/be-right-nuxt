@@ -41,13 +41,13 @@ export default function eventHook() {
   function getEventStatusColor(status: EventStatusEnum) {
     switch (status) {
       case EventStatusEnum.PENDING:
-        return 'text-orange'
+        return 'text-orange-500'
       case EventStatusEnum.CREATE:
-        return 'dark:text-white-break text-black'
+        return 'text-black'
       case EventStatusEnum.CLOSED:
         return 'text-gray-500'
       case EventStatusEnum.COMPLETED:
-        return 'text-green'
+        return 'text-green-500'
       default:
         return 'text-gray-500'
     }
