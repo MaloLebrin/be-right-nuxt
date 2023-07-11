@@ -132,14 +132,28 @@ export default function tableHook<T>(baseUrl: string, onFetched?: ((items: T[]) 
     })
   }
 
+  function resetState() {
+    state.isDirty = false
+    state.search = ''
+    state.timeout = 0
+    state.items = []
+    state.currentPage = 1
+    state.limit = 20
+    state.total = 0
+    state.filters = null
+    state.totalPages = 0
+    state.order = null
+  }
+
   onUnmounted(() => {
-    resetFilters()
+    resetState()
   })
 
   return {
     fetchTable,
     query,
     resetFilters,
+    resetState,
     searchEntity,
     setFilter,
     state,
