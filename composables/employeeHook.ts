@@ -1,5 +1,5 @@
 import { hasOwnProperty } from '@antfu/utils'
-import type { AddressType, EmployeeType, FileType, PaginatedResponse } from '@/types'
+import type { AddressType, EmployeeType, FileType } from '@/types'
 import { isArrayOfNumbers } from '~~/utils'
 import {
   useAddressStore,
@@ -135,21 +135,6 @@ export default function employeeHook() {
     DecLoading()
   }
 
-  async function fetchAll(url?: string) {
-    IncLoading()
-    // TODO replace by paginated  request
-    let finalUrl = 'employee'
-    if (url) {
-      finalUrl += `${url}`
-    }
-
-    const { data } = await $api().get<PaginatedResponse<EmployeeType>>(`${finalUrl}`)
-    if (data) {
-      storeEmployeeRelationsEntities(data.data)
-    }
-    DecLoading()
-  }
-
   async function deleteOne(id: number) {
     IncLoading()
     await $api().delete(`employee/${id}`)
@@ -240,7 +225,6 @@ export default function employeeHook() {
   return {
     areEmployeeTypes,
     deleteOne,
-    fetchAll,
     fetchAllByUserId,
     fetchOne,
     fetchMany,

@@ -78,7 +78,7 @@ export default function tableHook<T>(baseUrl: string, onFetched?: ((items: T[]) 
       if (data) {
         const { currentPage, data: items, limit, total, totalPages, order } = data
         state.currentPage = currentPage || 0
-        state.items = items as any[] // FIXME better typing
+        state.items = items as any[]
         state.limit = limit || 20
         state.total = total || 0
         state.totalPages = totalPages || 0
