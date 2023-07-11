@@ -86,6 +86,7 @@ const { fetchMany } = companyHook()
 
 async function fetchRelations(items: UserType[]) {
   if (items.length > 0) {
+    addMany(items.filter(user => !userStore.isAlreadyInStore(user.id)))
     await fetchMany(items.map(item => item.companyId))
   }
 }
@@ -97,10 +98,6 @@ const {
   state,
   updateLimit,
 } = tableHook<UserType>('admin/user', fetchRelations)
-
-watch(() => state.items, () => {
-  addMany(state.items.filter(user => !userStore.isAlreadyInStore(user.id)))
-})
 
 const isModalActive = (modalName: ModalNameEnum) => computed(() =>
   uiStore.getUiModalState.isActive
