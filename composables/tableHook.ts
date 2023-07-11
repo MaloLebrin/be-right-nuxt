@@ -132,6 +132,10 @@ export default function tableHook<T>(baseUrl: string, onFetched?: ((items: T[]) 
     })
   }
 
+  onUnmounted(() => {
+    resetFilters()
+  })
+
   return {
     fetchTable,
     query,

@@ -48,18 +48,6 @@
       />
     </div>
   </AccountBaseCard>
-
-  <AccountBaseCard
-    title="Votre Signature"
-    description="Vous pouvez ajouter votre signature par default."
-  >
-    <div class="px-4 mt-6">
-      <SignatureForm
-        :signature="userStore.getAuthUser?.signature || undefined"
-        @save="saveUserSignature"
-      />
-    </div>
-  </AccountBaseCard>
 </div>
 </template>
 
