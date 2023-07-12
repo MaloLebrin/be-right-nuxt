@@ -55,13 +55,11 @@
         </template>
 
         <template #default>
-          <template>
-            <EventItem
-              v-for="event in state.items"
-              :key="event.id"
-              :event="event"
-            />
-          </template>
+          <EventItem
+            v-for="event in state.items"
+            :key="event.id"
+            :event="event"
+          />
         </template>
 
         <template #footer>
