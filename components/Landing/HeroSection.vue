@@ -24,7 +24,7 @@
     </div>
 
     <div
-      v-if="$isDesktop || $isTouch"
+      v-if="$isNotMobile"
       class="absolute inset-0 z-0 bg-transparent md:shadow-xl sm:z-50 sm:rounded-lg md:static"
     >
       <img
@@ -47,3 +47,7 @@
   </div>
 </section>
 </template>
+
+<script setup lang="ts">
+const { $isNotMobile } = useNuxtApp()
+</script>
