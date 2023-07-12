@@ -6,7 +6,7 @@
   <p class="text-sm text-gray-500">
     Êtes-vous sûr de vouloir archiver cet événement ?
   </p>
-  <div class="mt-5 sm:space-x-8 sm:mt-4 sm:flex sm:items-center sm:justify-center">
+  <div class="flex items-center justify-center mt-4 space-x-8">
     <BaseButton
       color="red"
       :is-loading="uiStore.getUIIsLoading"

@@ -7,7 +7,7 @@
 
   <ul
     v-else
-    class="mt-4 space-y-2"
+    class="mx-2 mt-4 space-y-2"
   >
     <template v-if="events.length > 0">
       <EventItemMobile
@@ -38,6 +38,7 @@ import BaseMessage from '~/components/Base/BaseMessage.vue'
 import BaseLoader from '~/components/Base/BaseLoader.vue'
 import PageAuthWrapper from '~/components/Page/PageAuthWrapper.vue'
 import BaseButton from '~/components/Base/BaseButton.vue'
+import EventItemMobile from '~/components/Event/EventItemMobile.vue'
 import {
   useEventStore,
   useUiStore,
