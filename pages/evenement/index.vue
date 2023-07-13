@@ -55,13 +55,11 @@
         </template>
 
         <template #default>
-          <template>
-            <EventItem
-              v-for="event in state.items"
-              :key="event.id"
-              :event="event"
-            />
-          </template>
+          <EventItem
+            v-for="event in state.items"
+            :key="event.id"
+            :event="event"
+          />
         </template>
 
         <template #footer>
@@ -100,14 +98,17 @@ import EventTableHeader from '~~/components/Event/Table/Header.vue'
 import EventTableFilters from '~~/components/Event/Table/Filters.vue'
 import { RouteNames } from '~~/helpers/routes'
 import type { EventStatusEnum, EventType } from '~~/store'
-import { useUiStore } from '~~/store'
+import { useEventStore, useUiStore } from '~~/store'
 
 const uiStore = useUiStore()
+const eventStore = useEventStore()
+const { addMany } = eventStore
 const { $isNotMobile } = useNuxtApp()
 const { fetchManyAnswerForManyEvent } = answerHook()
 
 async function fetchRelations(items: EventType[]) {
   if (items.length > 0) {
+    addMany(items.filter(event => !eventStore.isAlreadyInStore(event.id)))
     await fetchManyAnswerForManyEvent(items.map(item => item.id))
   }
 }
