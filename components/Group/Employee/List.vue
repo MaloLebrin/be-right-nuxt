@@ -22,7 +22,7 @@
             <tr>
               <th
                 scope="col"
-                class="relative px-7 sm:w-12 sm:px-6"
+                class="relative w-10 md:px-7 sm:w-12 sm:px-6"
               >
                 <input
                   type="checkbox"
@@ -35,31 +35,33 @@
               </th>
               <th
                 scope="col"
-                class="min-w-[12rem] py-3.5 pr-3 text-left text-sm font-semibold text-gray-900"
+                class="min-w-[12rem] w-1/4 py-3.5 md:pr-3 text-left text-sm font-semibold text-gray-900"
               >
                 Nom
               </th>
               <th
                 scope="col"
-                class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                class="w-2/4 md:w-1/4 px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
               >
                 Email
               </th>
+              <template v-if="$isNotMobile">
+                <th
+                  scope="col"
+                  class="px-3 py-3.5 text-sm font-semibold text-gray-900 text-center"
+                >
+                  Nb de groupes
+                </th>
+                <th
+                  scope="col"
+                  class="px-3 py-3.5 text-sm font-semibold text-gray-900 text-center"
+                >
+                  Nb de événements
+                </th>
+              </template>
               <th
                 scope="col"
-                class="px-3 py-3.5 text-sm font-semibold text-gray-900 text-center"
-              >
-                Nb de groupes
-              </th>
-              <th
-                scope="col"
-                class="px-3 py-3.5 text-sm font-semibold text-gray-900 text-center"
-              >
-                Nb de événements
-              </th>
-              <th
-                scope="col"
-                class="relative flex justify-end pr-2"
+                class="relative flex justify-end w-12 pr-2"
               >
                 <BaseButton
                   color="green"
@@ -80,7 +82,7 @@
               :key="person.email"
               :class="[selectedPeople.includes(person.id) && 'bg-gray-50']"
             >
-              <td class="relative px-7 sm:w-12 sm:px-6">
+              <td class="relative md:px-7 sm:w-12 sm:px-6">
                 <div
                   v-if="selectedPeople.includes(person.id)"
                   class="absolute inset-y-0 left-0 w-0.5 bg-indigo-600"
@@ -94,25 +96,29 @@
                 >
               </td>
               <td
-                class="py-4 pr-3 text-sm font-medium whitespace-nowrap"
+                class="py-4 pr-3 text-sm font-medium truncate whitespace-nowrap"
                 :class="[selectedPeople.includes(person.id) ? 'text-indigo-600' : 'text-gray-900']"
               >
                 {{ getEmployeeFullname(person) }}
               </td>
-              <td class="px-3 py-4 text-sm text-gray-500 whitespace-nowrap">
+              <td class="px-3 py-4 text-sm text-gray-500 truncate whitespace-nowrap">
                 {{ person.email }}
               </td>
-              <td class="px-3 py-4 text-sm text-center text-gray-500 whitespace-nowrap">
-                {{ person.groupIds?.length }}
-              </td>
-              <td class="px-3 py-4 text-sm text-center text-gray-500 whitespace-nowrap">
-                {{ person.answersIds?.length }}
-              </td>
-              <td class="py-4 pl-3 pr-2 text-sm font-medium text-right whitespace-nowrap sm:pr-3">
+
+              <template v-if="$isNotMobile">
+                <td class="px-3 py-4 text-sm text-center text-gray-500 whitespace-nowrap">
+                  {{ person.groupIds?.length }}
+                </td>
+                <td class="px-3 py-4 text-sm text-center text-gray-500 whitespace-nowrap">
+                  {{ person.answersIds?.length }}
+                </td>
+              </template>
+
+              <td class="py-4 pr-4 text-sm font-medium text-right md:pl-3 whitespace-nowrap sm:pr-3">
                 <NuxtLink
                   :to="{ name: 'destinataire', query: { id: person.id } }"
                   :disabled="uiStore.getUIIsLoading"
-                  class="text-indigo-600 cursor-pointer hover:text-indigo-900"
+                  class="text-indigo-600 underline cursor-pointer hover:text-indigo-900"
                 >
                   Voir<span class="sr-only">, {{ getEmployeeFullname(person) }}</span>
                 </NuxtLink>
@@ -139,6 +145,7 @@ const props = defineProps<Props>()
 const employeeStore = useEmployeeStore()
 const uiStore = useUiStore()
 
+const { $isNotMobile } = useNuxtApp()
 const { getEmployeeFullname } = employeeHook()
 const { removeRecipients, openAddRecipientModal } = groupHook()
 
