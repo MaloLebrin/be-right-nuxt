@@ -35,6 +35,7 @@
       <BaseButton
         :disabled="!meta.valid || !meta.dirty || isSubmitting"
         :is-loading="uiStore.getUIIsLoading || isSubmitting"
+        data-test-id="login-submit-button"
         type="submit"
       >
         Se Connecter
