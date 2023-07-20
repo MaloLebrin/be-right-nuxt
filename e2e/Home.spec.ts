@@ -12,28 +12,35 @@ test('Load landing page', async ({ page }) => {
   await expect(page.getByTestId('pricings-home-link-header')).toBeVisible()
 })
 
-test('Newletter input have validation', async ({ page }) => {
-  const button = page.getByRole('button', {
-    name: 'Prévenez-moi',
-  })
+test('click on links redirect on right page with section solution', async ({ page }) => {
+  const solutionsLink = page.getByTestId('solutions-home-link-header')
+  await expect(solutionsLink).toBeVisible()
+  await solutionsLink.click()
+  await expect(page).toHaveURL('http://localhost:3000/#Solution')
+})
 
-  await button.isVisible()
+test('click on links redirect on right page with section pricings', async ({ page }) => {
+  const pricingsLink = page.getByTestId('pricings-home-link-header')
+  await expect(pricingsLink).toBeVisible()
+  await pricingsLink.click()
+  await expect(page).toHaveURL('http://localhost:3000/#Pricings')
+})
+
+test('click on links redirect on right page login', async ({ page }) => {
+  const commencerLink = page.getByTestId('commencer-home-button')
+  await expect(commencerLink).toBeVisible()
+  await commencerLink.click()
+  await expect(page).toHaveURL('http://localhost:3000/login')
+})
+
+test('Newletter input have validation', async ({ page }) => {
+  const button = page.getByTestId('newletter-submit-button')
+
+  await expect(button).toBeVisible()
+  await expect(button).toBeDisabled()
 
   const input = page.getByLabel('email')
   await input.fill('albus@poudlard.com')
   await expect(input).toHaveValue('albus@poudlard.com')
-  // await expect(button).toBeDisabled()
-  // await expect(button).toBeVisible()
-  // await page.getByRole('button', {
-  //   name: 'Prévenez-moi',
-  // }).isDisabled()
-
-  // cy.get('button[type=submit]').should('exist')
-  // cy.get('button[type=submit]').should('be.disabled')
-
-  // cy.get('#email').should('exist')
-  // cy.get('#email').type('albus@poudlard.com')
-  // cy.get('#email').should('have.value', 'albus@poudlard.com')
-
-  // cy.get('button[type=submit]').should('be.enabled')
+  await expect(button).toBeEnabled()
 })
