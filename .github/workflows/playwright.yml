@@ -29,8 +29,11 @@ jobs:
     - name: Install Playwright Browsers
       run: pnpm exec playwright install --with-deps
 
+    - name: 🏗 Build
+      run: pnpm run build
+
     - name: Run Playwright tests
-      run: pnpm exec playwright test
+      run: pnpm exec runHeaded
 
     - uses: actions/upload-artifact@v3
       if: always()
