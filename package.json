@@ -49,6 +49,7 @@
     "@vueuse/core": "^10.0.2",
     "@vueuse/nuxt": "^10.0.2",
     "autoprefixer": "^10.4.14",
+    "dayjs-nuxt": "^1.1.2",
     "eslint": "^8.36.0",
     "nuxt": "3.6.3",
     "nuxt-headlessui": "^1.1.1",
