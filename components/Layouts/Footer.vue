@@ -1,11 +1,10 @@
 <template>
-<footer class="z-50 w-full shadow-3xl dark:bg-blue-dark_bold DarkModeAnimation">
+<footer class="z-50 w-full border-t shadow-3xl dark:bg-blue-dark_bold DarkModeAnimation md:border-t-0">
   <div class="grid grid-cols-1 md:grid-cols-2">
     <div
       class="flex flex-col items-center justify-between w-full h-full py-6 mx-auto mb-6 text-black bg-white dark:text-white dark:bg-blue-dark_bold"
     >
-      <LogoSimpleLogo class="mb-4 md:mb-10" />
-      <!-- <DarkModeToggle /> -->
+      <SimpleLogo class="mb-4 md:mb-10" />
       {{ `© Be Right ${new Date().getFullYear()}` }}
     </div>
     <div class="flex-1 py-6 text-center bg-gray-800 dark:bg-transparent">
@@ -55,6 +54,7 @@
 </template>
 
 <script setup lang="ts">
+import SimpleLogo from '~~/components/Logo/SimpleLogo.vue'
 import { useAuthStore } from '~~/store'
 
 const authStore = useAuthStore()

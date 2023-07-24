@@ -8,7 +8,7 @@
         <div class="items-center justify-between flex-1 hidden md:flex sm:justify-start">
           <div class="items-center flex-shrink-0 md:flex">
             <NuxtLink to="/">
-              <LogoSimpleLogo />
+              <SimpleLogo />
             </NuxtLink>
           </div>
           <div class="ml-auto lg:flex lg:items-stretch lg:justify-end">
@@ -134,6 +134,8 @@
 </template>
 
 <script setup lang="ts">
+import SimpleLogo from '~~/components/Logo/SimpleLogo.vue'
+import BaseButton from '~~/components/Base/BaseButton.vue'
 import { useAuthStore } from '~~/store'
 
 const authStore = useAuthStore()
