@@ -8,13 +8,14 @@
         <div class="items-center justify-between flex-1 hidden md:flex sm:justify-start">
           <div class="items-center flex-shrink-0 md:flex">
             <NuxtLink to="/">
-              <LogoSimpleLogo />
+              <SimpleLogo />
             </NuxtLink>
           </div>
           <div class="ml-auto lg:flex lg:items-stretch lg:justify-end">
             <div class="flex space-x-4">
               <a
                 href="#Solution"
+                data-test-id="solutions-home-link-header"
                 class="px-3 py-2 text-sm font-medium rounded-md text-blue dark:text-white dark:hover:text-red-light hover:text-red-light"
               >
                 Solutions
@@ -22,6 +23,7 @@
 
               <a
                 href="#Pricings"
+                data-test-id="pricings-home-link-header"
                 class="px-3 py-2 text-sm font-medium rounded-md text-blue dark:text-white dark:hover:text-red-light hover:text-red-light"
               >
                 Tarifs
@@ -29,6 +31,7 @@
 
               <BaseButton
                 :href="getButtonPath"
+                :data-test-id="authStore.getIsLoggedIn ? 'mon-compte-home-button' : 'commencer-home-button'"
               >
                 {{ authStore.getIsLoggedIn ? 'Mon compte' : 'Commencer' }}
               </BaseButton>
@@ -131,6 +134,8 @@
 </template>
 
 <script setup lang="ts">
+import SimpleLogo from '~~/components/Logo/SimpleLogo.vue'
+import BaseButton from '~~/components/Base/BaseButton.vue'
 import { useAuthStore } from '~~/store'
 
 const authStore = useAuthStore()

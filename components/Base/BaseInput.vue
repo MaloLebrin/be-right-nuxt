@@ -6,12 +6,12 @@
   :class="`flex flex-col w-full space-y-4 ${wrapperClasses}`"
 >
   <label
-    v-if="label"
+    v-show="label"
     class="block text-sm font-bold text-blue dark:text-gray-100"
     :for="name"
   >
     <!-- Don't insert a line break here, would add a space between the label and the * that we don't want -->
-    {{ label }}<span v-if="isRequired">*</span>
+    {{ label || name }}<span v-if="isRequired">*</span>
   </label>
   <div class="relative">
     <input

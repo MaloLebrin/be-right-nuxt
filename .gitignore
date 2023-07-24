@@ -13,3 +13,6 @@ cypress/videos
 cypress/screenshots
 cypress/downloads
 stats.html
+/test-results/
+/playwright-report/
+/playwright/.cache/
