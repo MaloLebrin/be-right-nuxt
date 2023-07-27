@@ -1,13 +1,13 @@
 <template>
-<div class="flex flex-col items-center max-w-4xl">
-  <div class="w-full max-w-4xl p-2 mx-auto space-y-6 bg-white rounded-2xl">
+<div class="flex flex-col items-center md:max-w-4xl">
+  <div class="w-full mx-auto space-y-6 bg-white md:p-2 md:max-w-4xl rounded-2xl">
     <Disclosure
       v-for="group in groups"
       v-slot="{ open }"
       :key="group.id"
       as="div"
       class="z-20 rounded-md shadow-md"
-      :default-open="defaultOpenGroupId === group.id"
+      :default-open="defaultOpenGroupId === group.id || groups[0].id === group.id"
     >
       <DisclosureButton
         class="z-20 flex justify-between w-full px-4 py-2 text-sm font-medium text-left text-red-900 bg-red-100 rounded-lg hover:bg-red-200 focus:outline-none focus-visible:ring focus-visible:ring-red-500 focus-visible:ring-opacity-75"

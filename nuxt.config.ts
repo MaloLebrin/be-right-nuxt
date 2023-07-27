@@ -85,7 +85,15 @@ export default defineNuxtConfig({
       ],
     }],
     '@tailvue/nuxt',
+    'dayjs-nuxt',
   ],
+
+  dayjs: {
+    locales: ['en', 'fr'],
+    plugins: ['relativeTime', 'utc', 'timezone'],
+    defaultLocale: 'fr',
+    defaultTimezone: 'Paris/France',
+  },
 
   piniaPersistedstate: {
     cookieOptions: {

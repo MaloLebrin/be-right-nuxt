@@ -28,6 +28,7 @@ declare module '@vue/runtime-core' {
     ChevronLeftIconOutline: typeof import('@heroicons/vue/24/outline/esm/ChevronLeftIcon')['default']
     ChevronRightIconOutline: typeof import('@heroicons/vue/24/outline/esm/ChevronRightIcon')['default']
     ChevronUpDownIconOutline: typeof import('@heroicons/vue/24/outline/esm/ChevronUpDownIcon')['default']
+    ChevronUpDownIconSolid: typeof import('@heroicons/vue/24/solid/esm/ChevronUpDownIcon')['default']
     ChevronUpIconOutline: typeof import('@heroicons/vue/24/outline/esm/ChevronUpIcon')['default']
     Combobox: typeof import('@headlessui/vue')['Combobox']
     ComboboxButton: typeof import('@headlessui/vue')['ComboboxButton']

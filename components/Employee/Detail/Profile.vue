@@ -2,7 +2,7 @@
 <article v-if="employee">
   <!-- Profile header -->
   <div>
-    <div>
+    <div v-if="$isNotMobile">
       <img
         class="object-cover w-full h-56"
         src="https://images.unsplash.com/photo-1460132011327-1bcd44f7ae20?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8N3x8cGhvdG9ncmFwaGVyc3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=900&q=60"
@@ -183,6 +183,7 @@ const authStore = useAuthStore()
 const userStore = useUserStore()
 const addressStore = useAddressStore()
 const { setUiModal } = useUiStore()
+const { $isNotMobile } = useNuxtApp()
 
 const employeeCreator = computed(() => {
   if (authStore.isAuthUserAdmin && props.employee?.companyId) {

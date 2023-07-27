@@ -78,7 +78,7 @@ export default function tableHook<T>(baseUrl: string, onFetched?: ((items: T[]) 
       if (data) {
         const { currentPage, data: items, limit, total, totalPages, order } = data
         state.currentPage = currentPage || 0
-        state.items = items as any[] // FIXME better typing
+        state.items = items as any[]
         state.limit = limit || 20
         state.total = total || 0
         state.totalPages = totalPages || 0
@@ -132,10 +132,28 @@ export default function tableHook<T>(baseUrl: string, onFetched?: ((items: T[]) 
     })
   }
 
+  function resetState() {
+    state.isDirty = false
+    state.search = ''
+    state.timeout = 0
+    state.items = []
+    state.currentPage = 1
+    state.limit = 20
+    state.total = 0
+    state.filters = null
+    state.totalPages = 0
+    state.order = null
+  }
+
+  onUnmounted(() => {
+    resetState()
+  })
+
   return {
     fetchTable,
     query,
     resetFilters,
+    resetState,
     searchEntity,
     setFilter,
     state,

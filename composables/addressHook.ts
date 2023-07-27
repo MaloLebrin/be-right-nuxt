@@ -1,12 +1,13 @@
 import { hasOwnProperty } from '@antfu/utils'
 import type { AddressPostPayload, AddressType, WithoutId } from '@/types'
-import { useAddressStore, useUiStore } from '~~/store'
+import { useAddressStore, useCompanyStore, useUiStore } from '~~/store'
 
 export default function addressHook() {
   const { $toast, $api } = useNuxtApp()
 
   const { IncLoading, DecLoading } = useUiStore()
   const addressStore = useAddressStore()
+  const { updateOneCompany } = useCompanyStore()
   const { updateOneAddress, addOne, addMany } = addressStore
 
   async function fetchOne(id: number) {
@@ -35,6 +36,12 @@ export default function addressHook() {
     const { data: address } = await $api().post<AddressType>('address/', payload as unknown as WithoutId<AddressType>)
     if (address && isAddressType(address)) {
       addOne(address)
+    }
+
+    if (payload.companyId) {
+      updateOneCompany(payload.companyId, {
+        addressId: address?.id,
+      })
     }
     DecLoading()
   }
