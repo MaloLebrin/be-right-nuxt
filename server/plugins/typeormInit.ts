@@ -1,7 +1,9 @@
-import AppSource from '../config/dataSource'
+import AppSource from '../../typeorm/config/dataSource'
 
 export default defineNitroPlugin(async () => {
   await AppSource.initialize()
 
-  console.log(AppSource.isInitialized, '<==== AppSource.isInitialized')
+  if (AppSource.isInitialized) {
+    console.info('🎉 App source is initialized 🎉')
+  }
 })

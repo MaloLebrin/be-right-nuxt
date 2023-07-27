@@ -1,4 +1,4 @@
-// import { entities } from './src/entity'
+import { entities } from '../entities/index'
 
 export const dataBaseConfig = {
   production: {
@@ -9,7 +9,7 @@ export const dataBaseConfig = {
     logging: false,
     ssl: true,
     entities: [
-      // ...entities,
+      ...entities,
     ],
     migrations: [
       './src/migrations/**/*.js',
@@ -36,7 +36,7 @@ export const dataBaseConfig = {
     logging: false,
     entities: [
       // `${__dirname}/../**/*.entity{.ts,.js}`,
-      // ...entities,
+      ...entities,
     ],
     migrations: [
       './src/migrations/**/*.js',
@@ -63,7 +63,7 @@ export const dataBaseConfig = {
     logging: false,
     entities: [
       // `${__dirname}/../**/*.entity{.ts,.js}`,
-      // ...entities,
+      ...entities,
     ],
     migrations: [
       './src/migrations/**/*.js',
