@@ -27,6 +27,5 @@ export function createAppSource() {
 }
 
 const AppSource = createAppSource()
-AppSource.initialize()
 
 export default AppSource
