@@ -81,7 +81,7 @@
 <script setup lang="ts">
 import { object, string } from 'yup'
 import { Form } from 'vee-validate'
-import type { UserType, VeeValidateValues, WithoutId } from '@/types'
+import type { UserType, VeeValidateValues } from '@/types'
 import type { Company } from '~~/store'
 import { useAuthStore, useUiStore } from '~~/store'
 import { RouteNames } from '~/helpers/routes'
@@ -110,9 +110,21 @@ const { $toast, $api } = useNuxtApp()
 async function submitLogin(form: VeeValidateValues) {
   const cookieToken = getCookie()
   IncLoading()
-  const { data } = await $api().post<{ user: UserType; company: Company }>('user/login', form as WithoutId<UserType>)
-  if (data) {
-    const { user, company } = data
+
+  const { data, error } = await useFetch<{ user: UserType; company: Company }>('/api/auth/Login', {
+    method: 'POST',
+    body: {
+      email: form.email,
+      password: form.password,
+    },
+  })
+
+  if (error.value) {
+    $toast.danger(error.value.toString())
+  }
+
+  if (data.value) {
+    const { user, company } = data.value
     if (user?.token && company) {
       $api().setCredentials(user.token)
 

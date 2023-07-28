@@ -6,8 +6,9 @@ export default defineEventHandler(async event => {
   const { email, password } = await readBody<{ email: string; password: string }>(event)
 
   if (!email || !password) {
-    throw createError('missings parameters')
+    return sendError(event, createError({ statusCode: 422, message: 'Paramètres manquants' }))
   }
+
   const user = await prismaClient.user_entity.findFirstOrThrow({
     where: {
       email,
@@ -29,8 +30,7 @@ export default defineEventHandler(async event => {
   const passwordHashed = generateHash(user.salt, password)
 
   if (user.password !== passwordHashed) {
-    // TODO create error sender
-    throw createError('Identifiant et/ou mot de passe incorrect')
+    return sendError(event, createError({ statusCode: 401, message: 'Email ou mot de passe invalide' }))
   }
 
   const userToSend = await prismaClient.user_entity.findFirst({
