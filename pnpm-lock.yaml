@@ -23,6 +23,9 @@ dependencies:
   '@vueuse/integrations':
     specifier: ^10.0.2
     version: 10.2.1(jwt-decode@3.1.2)(vue@3.3.4)
+  crypto-js:
+    specifier: ^4.1.1
+    version: 4.1.1
   jwt-decode:
     specifier: ^3.1.2
     version: 3.1.2
@@ -88,6 +91,9 @@ devDependencies:
   '@tailvue/nuxt':
     specifier: ^1.0.0
     version: 1.0.0(tailvue@0.1.68)
+  '@types/crypto-js':
+    specifier: ^4.1.1
+    version: 4.1.1
   '@types/jsonwebtoken':
     specifier: ^9.0.1
     version: 9.0.2
@@ -2170,6 +2176,10 @@ packages:
       minimatch: 9.0.2
     dev: true
 
+  /@types/crypto-js@4.1.1:
+    resolution: {integrity: sha512-BG7fQKZ689HIoc5h+6D2Dgq1fABRa0RbBWKBd9SP/MVRVXROflpm5fhwyATX5duFmbStzyzyycPB8qUYKDH3NA==}
+    dev: true
+
   /@types/eslint-scope@3.7.4:
     resolution: {integrity: sha512-9K4zoImiZc3HlIp6AVUDE4CWYx22a+lhSZMYNpbjW04+YF0KWj4pJXnEMjdnFTiQibFFmElcsasJXDbdI/EPhA==}
     dependencies:
@@ -3877,6 +3887,10 @@ packages:
       shebang-command: 2.0.0
       which: 2.0.2
     dev: true
+
+  /crypto-js@4.1.1:
+    resolution: {integrity: sha512-o2JlM7ydqd3Qk9CA0L4NL6mTzU2sdx96a+oOfPu8Mkl/PK51vSyoi8/rQ8NknZtk44vq15lmhAj9CIAGwgeWKw==}
+    dev: false
 
   /css-background-parser@0.1.0:
     resolution: {integrity: sha512-2EZLisiZQ+7m4wwur/qiYJRniHX4K5Tc9w93MT3AS0WS1u5kaZ4FKXlOTBhOjc+CgEgPiGY+fX1yWD8UwpEqUA==}
