@@ -1,0 +1,469 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model address_entity {
+  id              Int              @id(map: "PK_9caf3f954ed5bc66e3fa35eb7e9") @default(autoincrement())
+  createdAt       DateTime         @default(now()) @db.Timestamp(6)
+  updatedAt       DateTime         @default(now()) @db.Timestamp(6)
+  deletedAt       DateTime?        @db.Timestamp(6)
+  addressLine     String           @db.VarChar
+  addressLine2    String?          @db.VarChar
+  postalCode      String           @db.VarChar
+  city            String           @db.VarChar
+  subdivision     String?          @db.VarChar
+  subdivision2    String?          @db.VarChar
+  country         String           @default("France") @db.VarChar
+  lat             Float?
+  lng             Float?
+  company_entity  company_entity?
+  employee_entity employee_entity?
+  event_entity    event_entity?
+}
+
+model answer_entity {
+  id                        Int                         @id(map: "PK_3158283e703015676d2e7c7d862") @default(autoincrement())
+  createdAt                 DateTime                    @default(now()) @db.Timestamp(6)
+  updatedAt                 DateTime                    @default(now()) @db.Timestamp(6)
+  deletedAt                 DateTime?                   @db.Timestamp(6)
+  hasSigned                 Boolean?
+  signedAt                  DateTime?                   @db.Timestamp(6)
+  reason                    String?                     @db.VarChar
+  token                     String                      @unique(map: "UQ_0c67a26f07427a7496abd388894") @db.VarChar
+  twoFactorCode             String                      @unique(map: "UQ_91161f2bb7c51b7f24b021e2d8f") @db.VarChar
+  twoFactorSecret           String?                     @unique(map: "UQ_113534a9dfe9df2c72d56749013") @db.VarChar
+  mailSendAt                DateTime?                   @db.Timestamp(6)
+  signature                 String?                     @db.VarChar
+  employeeId                Int?
+  eventId                   Int?
+  employee_entity           employee_entity?            @relation(fields: [employeeId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_2befa7ef74a13ea7c20907012ba")
+  event_entity              event_entity?               @relation(fields: [eventId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_3be822b77b221c55ab570656f99")
+  event_notification_entity event_notification_entity[]
+  mail_entity               mail_entity[]
+
+  @@unique([eventId, employeeId, twoFactorCode], map: "UNIQ_EVENT_EMPLOYEE_TWOFACTORCODE")
+}
+
+model badge_entity {
+  id                              Int                               @id(map: "PK_28ffd25351866d5e5305c9b1785") @default(autoincrement())
+  createdAt                       DateTime                          @default(now()) @db.Timestamp(6)
+  updatedAt                       DateTime                          @default(now()) @db.Timestamp(6)
+  deletedAt                       DateTime?                         @db.Timestamp(6)
+  name                            badge_entity_name_enum
+  slug                            String                            @unique(map: "UQ_a8a971e98be0baa9900cab5be9c") @db.VarChar
+  label                           badge_entity_label_enum
+  icon                            String                            @db.VarChar
+  user_entity_badges_badge_entity user_entity_badges_badge_entity[]
+}
+
+model bug_report_entity {
+  id              Int                           @id(map: "PK_29ea30c331eff461e5fe88d0992") @default(autoincrement())
+  createdAt       DateTime                      @default(now()) @db.Timestamp(6)
+  updatedAt       DateTime                      @default(now()) @db.Timestamp(6)
+  deletedAt       DateTime?                     @db.Timestamp(6)
+  name            String                        @db.VarChar
+  type            bug_report_entity_type_enum?
+  status          bug_report_entity_status_enum @default(open)
+  url             String?                       @db.VarChar
+  description     String                        @db.VarChar
+  fileId          Int?
+  createdByUserId Int?
+  user_entity     user_entity?                  @relation(fields: [createdByUserId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_63e88b3225de232dea3941dc2a2")
+  file_entity     file_entity?                  @relation(fields: [fileId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_69ca8f745183de83bfbaaf40259")
+}
+
+model company_entity {
+  id                  Int                                    @id(map: "PK_ad727d0b2b2f9bc3f78fff1b19a") @default(autoincrement())
+  createdAt           DateTime                               @default(now()) @db.Timestamp(6)
+  updatedAt           DateTime                               @default(now()) @db.Timestamp(6)
+  deletedAt           DateTime?                              @db.Timestamp(6)
+  name                String?                                @db.VarChar
+  siret               String?                                @db.VarChar
+  subscriptionLabel   company_entity_subscriptionlabel_enum? @default(BASIC)
+  addressId           Int?                                   @unique(map: "REL_3f2c9dc595a1f821a8d9414d0f")
+  subscriptionId      Int?                                   @unique(map: "REL_4ed9b69bda5f16dcdcc5bac8c9")
+  address_entity      address_entity?                        @relation(fields: [addressId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_3f2c9dc595a1f821a8d9414d0fb")
+  subscription_entity subscription_entity?                   @relation(fields: [subscriptionId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_4ed9b69bda5f16dcdcc5bac8c9a")
+  employee_entity     employee_entity[]
+  event_entity        event_entity[]
+  file_entity         file_entity[]
+  group_entity        group_entity[]
+  user_entity         user_entity[]
+}
+
+model employee_entity {
+  id                                     Int                                      @id(map: "PK_c82a9a0a7c05a72def0c72a68ab") @default(autoincrement())
+  createdAt                              DateTime                                 @default(now()) @db.Timestamp(6)
+  updatedAt                              DateTime                                 @default(now()) @db.Timestamp(6)
+  deletedAt                              DateTime?                                @db.Timestamp(6)
+  email                                  String                                   @unique(map: "UQ_a6fac314449165b52f413e56a0c") @db.VarChar
+  firstName                              String?                                  @db.VarChar(100)
+  lastName                               String?                                  @db.VarChar(100)
+  phone                                  String?                                  @db.VarChar
+  slug                                   String?                                  @unique(map: "UQ_f93db8b1ec4f9615ee69d838652") @db.VarChar
+  signature                              String?                                  @db.VarChar
+  addressId                              Int?                                     @unique(map: "REL_efe2306efa6c193aa5bf0ab941")
+  companyId                              Int?
+  answer_entity                          answer_entity[]
+  company_entity                         company_entity?                          @relation(fields: [companyId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_cf772a49f3f0d18fb19584a5fd1")
+  address_entity                         address_entity?                          @relation(fields: [addressId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_efe2306efa6c193aa5bf0ab9411")
+  event_notification_entity              event_notification_entity[]
+  file_entity                            file_entity[]
+  group_entity_employees_employee_entity group_entity_employees_employee_entity[]
+
+  @@unique([firstName, lastName, email], map: "IDX_3bb1a2a6ff67f638406d7caeef")
+}
+
+model event_entity {
+  id                        Int                         @id(map: "PK_c5675e66b601bd4d0882054a430") @default(autoincrement())
+  createdAt                 DateTime                    @default(now()) @db.Timestamp(6)
+  updatedAt                 DateTime                    @default(now()) @db.Timestamp(6)
+  deletedAt                 DateTime?                   @db.Timestamp(6)
+  name                      String                      @db.VarChar
+  start                     DateTime                    @db.Timestamp(6)
+  end                       DateTime                    @db.Timestamp(6)
+  description               String?                     @db.VarChar
+  status                    event_entity_status_enum    @default(CREATE)
+  signatureCount            Int                         @default(0)
+  totalSignatureNeeded      Int                         @default(0)
+  partnerId                 Int?
+  companyId                 Int?
+  addressId                 Int?                        @unique(map: "REL_a7d13c3c7b3c22aab6730aac3e")
+  answer_entity             answer_entity[]
+  user_entity               user_entity?                @relation(fields: [partnerId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_1c059f0a6d566bc352edfa64277")
+  company_entity            company_entity?             @relation(fields: [companyId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_a7b6072712c099c7dd477f7bd4f")
+  address_entity            address_entity?             @relation(fields: [addressId], references: [id], onUpdate: NoAction, map: "FK_a7d13c3c7b3c22aab6730aac3ef")
+  event_notification_entity event_notification_entity[]
+  file_entity               file_entity[]
+}
+
+model event_notification_entity {
+  id                  Int                                 @id(map: "PK_e24b6aa1ee3f48f281faf53e6ee") @default(autoincrement())
+  createdAt           DateTime                            @default(now()) @db.Timestamp(6)
+  updatedAt           DateTime                            @default(now()) @db.Timestamp(6)
+  deletedAt           DateTime?                           @db.Timestamp(6)
+  name                event_notification_entity_name_enum
+  eventId             Int?
+  answerId            Int?
+  employeeId          Int?
+  employee_entity     employee_entity?                    @relation(fields: [employeeId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_2f5e27498788e125ee49bd55f16")
+  answer_entity       answer_entity?                      @relation(fields: [answerId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_b8a84573da582d5f1b3ee6e8c7c")
+  event_entity        event_entity?                       @relation(fields: [eventId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_f78e3a9de3ee9906e18f035a8ab")
+  notification_entity notification_entity[]
+
+  @@unique([name, answerId], map: "UNIQ_ANSWER_NAME")
+  @@unique([name, employeeId], map: "UNIQ_EMPLOYEE_NAME")
+  @@unique([name, eventId], map: "UNIQ_EVENT_NAME")
+}
+
+model file_entity {
+  id                Int                   @id(map: "PK_d8375e0b2592310864d2b4974b2") @default(autoincrement())
+  createdAt         DateTime              @default(now()) @db.Timestamp(6)
+  updatedAt         DateTime              @default(now()) @db.Timestamp(6)
+  deletedAt         DateTime?             @db.Timestamp(6)
+  name              String                @db.VarChar
+  fileName          String                @db.VarChar
+  mimeType          String                @db.VarChar
+  size              Int
+  type              file_entity_type_enum @default(IMAGE_RIGHT)
+  description       String?               @db.VarChar
+  public_id         String                @db.VarChar
+  signature         String                @db.VarChar
+  width             Int
+  height            Int
+  format            String                @db.VarChar
+  url               String                @db.VarChar
+  secure_url        String                @db.VarChar
+  original_filename String                @db.VarChar
+  eventId           Int?
+  employeeId        Int?
+  companyId         Int?
+  bug_report_entity bug_report_entity[]
+  event_entity      event_entity?         @relation(fields: [eventId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_997d2f76f0573a633867d1ee30f")
+  employee_entity   employee_entity?      @relation(fields: [employeeId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_9cc12a319b0a12546a4aff1f821")
+  company_entity    company_entity?       @relation(fields: [companyId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_ca23933716b976a90d89be9f91e")
+  user_entity       user_entity?
+}
+
+model group_entity {
+  id                                     Int                                      @id(map: "PK_d074114199e1996b57b04ac77ba") @default(autoincrement())
+  createdAt                              DateTime                                 @default(now()) @db.Timestamp(6)
+  updatedAt                              DateTime                                 @default(now()) @db.Timestamp(6)
+  deletedAt                              DateTime?                                @db.Timestamp(6)
+  name                                   String                                   @db.VarChar
+  description                            String?                                  @db.VarChar
+  companyId                              Int?
+  company_entity                         company_entity?                          @relation(fields: [companyId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_08304785671bcf6466e8013ee6f")
+  group_entity_employees_employee_entity group_entity_employees_employee_entity[]
+}
+
+model group_entity_employees_employee_entity {
+  groupEntityId    Int
+  employeeEntityId Int
+  group_entity     group_entity    @relation(fields: [groupEntityId], references: [id], onDelete: Cascade, map: "FK_2254b6a6c11d453c8c9826b5eed")
+  employee_entity  employee_entity @relation(fields: [employeeEntityId], references: [id], onDelete: Cascade, map: "FK_2ea96fb84a1efcefef5fccf2f6b")
+
+  @@id([groupEntityId, employeeEntityId], map: "PK_35564096ec73ed7625464a90b8e")
+  @@index([groupEntityId], map: "IDX_2254b6a6c11d453c8c9826b5ee")
+  @@index([employeeEntityId], map: "IDX_2ea96fb84a1efcefef5fccf2f6")
+}
+
+model mail_entity {
+  id            Int            @id(map: "PK_1ab03baf72eac1058ed23745d5c") @default(autoincrement())
+  createdAt     DateTime       @default(now()) @db.Timestamp(6)
+  updatedAt     DateTime       @default(now()) @db.Timestamp(6)
+  deletedAt     DateTime?      @db.Timestamp(6)
+  messageId     String         @unique(map: "UQ_8b3a6274a281e7256690089cd86") @db.VarChar
+  messageUuid   String         @unique(map: "UQ_97d399802762e24336232fe8367") @db.VarChar
+  messageHref   String         @db.VarChar
+  answerId      Int?
+  answer_entity answer_entity? @relation(fields: [answerId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_bf0cea4f9659a580f81b4f72b2e")
+}
+
+model migration_entity {
+  id        Int       @id(map: "PK_b1339584ad1d08a467a286367cd") @default(autoincrement())
+  createdAt DateTime  @default(now()) @db.Timestamp(6)
+  updatedAt DateTime  @default(now()) @db.Timestamp(6)
+  deletedAt DateTime? @db.Timestamp(6)
+  name      String    @db.VarChar
+  version   Int
+
+  @@unique([name, version], map: "UNIQ_MIGRATION_NAME_VERSION")
+}
+
+model notification_entity {
+  id                              Int                              @id(map: "PK_112676de71a3a708b914daed289") @default(autoincrement())
+  createdAt                       DateTime                         @default(now()) @db.Timestamp(6)
+  updatedAt                       DateTime                         @default(now()) @db.Timestamp(6)
+  deletedAt                       DateTime?                        @db.Timestamp(6)
+  type                            notification_entity_type_enum
+  title                           String?                          @db.VarChar
+  description                     String?                          @db.VarChar
+  readAt                          DateTime?                        @db.Timestamp(6)
+  subscriberId                    Int?
+  eventNotificationId             Int?
+  event_notification_entity       event_notification_entity?       @relation(fields: [eventNotificationId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_8eda571364cfc6255c414b9455f")
+  notification_subcription_entity notification_subcription_entity? @relation(fields: [subscriberId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_8fcec74cfb3aaa09062abee52c8")
+}
+
+model notification_subcription_entity {
+  id                  Int                                       @id(map: "PK_f71a1b8a37901851d4dae5bfef7") @default(autoincrement())
+  createdAt           DateTime                                  @default(now()) @db.Timestamp(6)
+  updatedAt           DateTime                                  @default(now()) @db.Timestamp(6)
+  deletedAt           DateTime?                                 @db.Timestamp(6)
+  type                notification_subcription_entity_type_enum
+  createdByUserId     Int?
+  notification_entity notification_entity[]
+  user_entity         user_entity?                              @relation(fields: [createdByUserId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_591c565e6d5982df8a0d110e62e")
+
+  @@unique([type, createdByUserId], map: "UNIQ_NOTIFSUB_TYPE_USER")
+}
+
+model payment_entity {
+  id                  Int                  @id(map: "PK_6c397c81035bd5b42d16ef3bc70") @default(autoincrement())
+  createdAt           DateTime             @default(now()) @db.Timestamp(6)
+  updatedAt           DateTime             @default(now()) @db.Timestamp(6)
+  deletedAt           DateTime?            @db.Timestamp(6)
+  amount              Int                  @default(0)
+  currency            String               @default("eur") @db.VarChar
+  submittedAt         DateTime?            @db.Timestamp(6)
+  executedAt          DateTime?            @db.Timestamp(6)
+  subscriptionId      Int?                 @unique(map: "REL_04ee08eebdbcbb7c4e0c47076f")
+  subscription_entity subscription_entity? @relation(fields: [subscriptionId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_04ee08eebdbcbb7c4e0c47076fe")
+}
+
+model session_entity {
+  id                Int          @id(map: "PK_897bc09b92e1a7ef6b30cba4786") @default(autoincrement())
+  createdAt         DateTime     @default(now()) @db.Timestamp(6)
+  updatedAt         DateTime     @default(now()) @db.Timestamp(6)
+  deletedAt         DateTime?    @db.Timestamp(6)
+  loggedAt          DateTime?    @db.Timestamp(6)
+  passwordUpdatedAt DateTime?    @db.Timestamp(6)
+  saltUpdatedAt     DateTime?    @db.Timestamp(6)
+  user_entity       user_entity?
+}
+
+model subscription_entity {
+  id             Int                           @id(map: "PK_a98819993766819c043b332748d") @default(autoincrement())
+  createdAt      DateTime                      @default(now()) @db.Timestamp(6)
+  updatedAt      DateTime                      @default(now()) @db.Timestamp(6)
+  deletedAt      DateTime?                     @db.Timestamp(6)
+  type           subscription_entity_type_enum @default(BASIC)
+  expireAt       DateTime?                     @db.Timestamp(6)
+  company_entity company_entity?
+  payment_entity payment_entity?
+}
+
+model user_entity {
+  id                              Int                               @id(map: "PK_b54f8ea623b17094db7667d8206") @default(autoincrement())
+  createdAt                       DateTime                          @default(now()) @db.Timestamp(6)
+  updatedAt                       DateTime                          @default(now()) @db.Timestamp(6)
+  deletedAt                       DateTime?                         @db.Timestamp(6)
+  email                           String                            @unique(map: "UQ_415c35b9b3b6fe45a3b065030f5") @db.VarChar
+  firstName                       String?                           @db.VarChar(100)
+  lastName                        String?                           @db.VarChar(100)
+  password                        String?                           @db.VarChar
+  salt                            String                            @unique(map: "UQ_469acb88916f01e3f43ec91524f") @db.VarChar
+  token                           String                            @unique(map: "UQ_22775d30030b9787d889d896415") @db.VarChar
+  twoFactorRecoveryCode           String?                           @unique(map: "UQ_67282938e6c709f2f3e3f34cadd") @db.VarChar
+  twoFactorSecret                 String?                           @unique(map: "UQ_a4dc81f12d82559c7de7eda1c5c") @db.VarChar
+  apiKey                          String?                           @unique(map: "UQ_2069453127eca2ff3a9e4878e9a") @db.VarChar
+  loggedAt                        DateTime?                         @db.Timestamp(6)
+  passwordUpdatedAt               DateTime?                         @db.Timestamp(6)
+  saltUpdatedAt                   DateTime?                         @db.Timestamp(6)
+  signature                       String?                           @db.VarChar
+  roles                           user_entity_roles_enum            @default(USER)
+  sessionId                       Int?                              @unique(map: "REL_715216267405f61aae9cc8cb73")
+  profilePictureId                Int?                              @unique(map: "REL_cb3427a08540c75cf4028b464b")
+  companyId                       Int?
+  stripeCustomerId                String?                           @unique(map: "UQ_f76972e45362afdd19988270cc6") @db.VarChar
+  bug_report_entity               bug_report_entity[]
+  event_entity                    event_entity[]
+  notification_subcription_entity notification_subcription_entity[]
+  session_entity                  session_entity?                   @relation(fields: [sessionId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_715216267405f61aae9cc8cb73f")
+  file_entity                     file_entity?                      @relation(fields: [profilePictureId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_cb3427a08540c75cf4028b464b0")
+  company_entity                  company_entity?                   @relation(fields: [companyId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_d78ff9c278b60cd0cc82907d2d4")
+  user_entity_badges_badge_entity user_entity_badges_badge_entity[]
+
+  @@unique([firstName, lastName, email], map: "IDX_7fe5a4566809da3e289d0325c3")
+}
+
+model user_entity_badges_badge_entity {
+  userEntityId  Int
+  badgeEntityId Int
+  user_entity   user_entity  @relation(fields: [userEntityId], references: [id], onDelete: Cascade, map: "FK_7f9dd4c45c21a87a7b436a93074")
+  badge_entity  badge_entity @relation(fields: [badgeEntityId], references: [id], onDelete: Cascade, map: "FK_cef8db8f23ff26100f64195080a")
+
+  @@id([userEntityId, badgeEntityId], map: "PK_d2e0d648efc5c400d1fd7ebdca4")
+  @@index([userEntityId], map: "IDX_7f9dd4c45c21a87a7b436a9307")
+  @@index([badgeEntityId], map: "IDX_cef8db8f23ff26100f64195080")
+}
+
+enum badge_entity_label_enum {
+  Supprimer_10_destinataires        @map("Supprimer 10 destinataires")
+  Supprimer_50_destinataires        @map("Supprimer 50 destinataires")
+  Supprimer_25_destinataires        @map("Supprimer 25 destinataires")
+  Cr_er_10_destinataires            @map("Créer 10 destinataires")
+  Cr_er_25_destinataires            @map("Créer 25 destinataires")
+  Cr_er_50_destinataires            @map("Créer 50 destinataires")
+  Supprimer_10__v_nements           @map("Supprimer 10 événements")
+  Supprimer_25__v_nements           @map("Supprimer 25 événements")
+  Supprimer_50__v_nements           @map("Supprimer 50 événements")
+  Cr_er_10__v_nements               @map("Créer 10 événements")
+  Cr_er_25__v_nements               @map("Créer 25 événements")
+  Cr_er_50__v_nements               @map("Créer 50 événements")
+  Compl_ter_10__v_nements           @map("Compléter 10 événements")
+  Compl_ter_25__v_nements           @map("Compléter 25 événements")
+  Compl_ter_50__v_nements           @map("Compléter 50 événements")
+  Souscrire___un_abonnement_BASIC   @map("Souscrire à un abonnement BASIC")
+  Souscrire___un_abonnement_MEDIUM  @map("Souscrire à un abonnement MEDIUM")
+  Souscrire___un_abonnement_PREMIUM @map("Souscrire à un abonnement PREMIUM")
+}
+
+enum badge_entity_name_enum {
+  DELETE_10_RECIPIENTS
+  DELETE_50_RECIPIENTS
+  DELETE_25_RECIPIENTS
+  CREATE_10_RECIPIENTS
+  CREATE_25_RECIPIENTS
+  CREATE_50_RECIPIENTS
+  DELETE_10_EVENTS
+  DELETE_25_EVENTS
+  DELETE_50_EVENTS
+  CREATE_10_EVENTS
+  CREATE_25_EVENTS
+  CREATE_50_EVENTS
+  COMPLETED_10_EVENTS
+  COMPLETED_25_EVENTS
+  COMPLETED_50_EVENTS
+  BASIC_SUBSCRIPTION
+  MEDIUM_SUBSCRIPTION
+  PREMIUM_SUBSCRIPTION
+}
+
+enum bug_report_entity_status_enum {
+  open
+  in_progress
+  resolved
+  will_not_fix
+}
+
+enum bug_report_entity_type_enum {
+  bug
+  feature_request
+}
+
+enum company_entity_subscriptionlabel_enum {
+  PREMIUM
+  MEDIUM
+  BASIC
+}
+
+enum event_entity_status_enum {
+  CREATE
+  PENDING
+  COMPLETED
+  CLOSED
+}
+
+enum event_notification_entity_name_enum {
+  ANSWER_RESPONSE_ACCEPTED
+  ANSWER_RESPONSE_REFUSED
+  ANSWER_RESPONSE
+  EVENT_CREATED
+  EVENT_COMPLETED
+  EVENT_PENDING
+  EVENT_CLOSED
+  EMPLOYEE_CREATED
+}
+
+enum file_entity_type_enum {
+  MODEL
+  IMAGE_RIGHT
+  LOGO
+  BUG_REPORT
+  PROFILE_PICTURE
+}
+
+enum notification_entity_type_enum {
+  ANSWER_RESPONSE_ACCEPTED
+  ANSWER_RESPONSE_REFUSED
+  ANSWER_RESPONSE
+  EVENT_CREATED
+  EVENT_COMPLETED
+  EVENT_PENDING
+  EVENT_CLOSED
+  EMPLOYEE_CREATED
+}
+
+enum notification_subcription_entity_type_enum {
+  ANSWER_RESPONSE_ACCEPTED
+  ANSWER_RESPONSE_REFUSED
+  ANSWER_RESPONSE
+  EVENT_CREATED
+  EVENT_COMPLETED
+  EVENT_PENDING
+  EVENT_CLOSED
+  EMPLOYEE_CREATED
+}
+
+enum subscription_entity_type_enum {
+  PREMIUM
+  MEDIUM
+  BASIC
+}
+
+enum user_entity_roles_enum {
+  ADMIN
+  SUPER_USER
+  PHOTOGRAPHER
+  EMPLOYEE
+  DEVELOPER
+  USER
+  OWNER
+}
