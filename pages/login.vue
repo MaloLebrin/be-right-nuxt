@@ -81,6 +81,8 @@
 <script setup lang="ts">
 import { object, string } from 'yup'
 import { Form } from 'vee-validate'
+import BaseButton from '~~/components/Base/BaseButton.vue'
+import BaseInput from '~~/components/Base/BaseInput.vue'
 import type { UserType, VeeValidateValues } from '@/types'
 import type { Company } from '~~/store'
 import { useAuthStore, useUiStore } from '~~/store'
