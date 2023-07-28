@@ -130,7 +130,7 @@ import newsletterHook from '~/composables/newsletterHook'
 
 const { $toast, $api } = useNuxtApp()
 const router = useRouter()
-const { checkMailIsAlreadyExist, jwtDecode, getCookie } = authHook()
+const { jwtDecode, getCookie } = authHook()
 const { storeUsersEntities, getUserfullName } = userHook()
 const { storeCompanyEntities } = companyHook()
 const { addToContactList } = newsletterHook()
@@ -166,15 +166,29 @@ async function submitregister(form: VeeValidateValues) {
   IncLoading()
   const cookieToken = getCookie()
 
-  const isEmailExist = await checkMailIsAlreadyExist(form.email)
+  const { data: isEmailExist } = await useFetch<{ success: boolean; message: string }>('/api/user/isEmailExist', {
+    method: 'POST',
+    body: {
+      email: form.email,
+    },
+  })
 
-  if (isEmailExist && !isEmailExist.success) {
-    $toast.danger(isEmailExist.message)
+  if (isEmailExist.value && !isEmailExist.value.success) {
+    $toast.danger(isEmailExist.value.message)
   } else {
-    const { data } = await $api().post<{ user: UserType; company: Company }>('auth/signup', form)
+    const { data, error } = await useFetch<{ user: UserType; company: Company }>('/api/auth/Register', {
+      method: 'POST',
+      body: {
+        ...form,
+      },
+    })
 
-    if (data) {
-      const { user, company } = data
+    if (error.value) {
+      $toast.danger(error.value.toString())
+    }
+
+    if (data.value) {
+      const { user, company } = data.value
 
       if (company) {
         storeCompanyEntities(company)
@@ -195,7 +209,7 @@ async function submitregister(form: VeeValidateValues) {
         if (decode.value) {
           setJWTasUser(decode.value)
         }
-        $toast.success(`Heureux de vous revoir ${getUserfullName(user)}`)
+        $toast.success(`Bienvenue ${getUserfullName(user)}`)
         router.replace({
           name: 'evenement',
         })

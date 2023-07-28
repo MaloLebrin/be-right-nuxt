@@ -1,6 +1,6 @@
 import type { UserWithCompany } from 'types/entities/User'
 import { generateHash } from '../../utils/userHelper'
-import { prismaClient } from '../../database/client'
+import { UserRepository } from '../../database/client'
 
 export default defineEventHandler(async event => {
   const { email, password } = await readBody<{ email: string; password: string }>(event)
@@ -9,7 +9,7 @@ export default defineEventHandler(async event => {
     return sendError(event, createError({ statusCode: 422, message: 'Paramètres manquants' }))
   }
 
-  const user = await prismaClient.user_entity.findFirstOrThrow({
+  const user = await UserRepository.findFirstOrThrow({
     where: {
       email,
     },
@@ -33,7 +33,7 @@ export default defineEventHandler(async event => {
     return sendError(event, createError({ statusCode: 401, message: 'Email ou mot de passe invalide' }))
   }
 
-  const userToSend = await prismaClient.user_entity.findFirst({
+  const userToSend = await UserRepository.findFirst({
     where: { email },
     include: {
       session_entity: true,
