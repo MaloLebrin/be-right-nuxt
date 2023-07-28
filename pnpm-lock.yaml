@@ -17,6 +17,9 @@ dependencies:
   '@popperjs/core':
     specifier: ^2.11.6
     version: 2.11.8
+  '@prisma/client':
+    specifier: ^5.0.0
+    version: 5.0.0(prisma@5.0.0)
   '@vueuse/integrations':
     specifier: ^10.0.2
     version: 10.2.1(jwt-decode@3.1.2)(vue@3.3.4)
@@ -29,6 +32,9 @@ dependencies:
   pinia:
     specifier: ^2.0.33
     version: 2.1.4(typescript@5.1.6)(vue@3.3.4)
+  prisma:
+    specifier: ^5.0.0
+    version: 5.0.0
   rollup-plugin-visualizer:
     specifier: ^5.9.0
     version: 5.9.2(rollup@3.25.3)
@@ -1411,11 +1417,11 @@ packages:
       - supports-color
     dev: true
 
-  /@nuxt/kit-edge@3.7.0-28169798.2e6c4519:
-    resolution: {integrity: sha512-G/B0U2RBQrt0iWFc4ZpcboMV3wRbvGSUb+ejdSEgKA8b+DrRpA4pSr12O3Rape1eBIYUesw0RN6seEcmADIX4w==}
+  /@nuxt/kit-edge@3.7.0-28173454.9741f267:
+    resolution: {integrity: sha512-6X6qLA0/Lo/FOLxmTfXROPr9K9KNnzmqXcyOHVOfALlnC+YGRYKu2IN26QbWmaWosCP4ypckfe0l48s6pq2TgA==}
     engines: {node: ^14.18.0 || >=16.10.0}
     dependencies:
-      '@nuxt/schema': /@nuxt/schema-edge@3.7.0-28169798.2e6c4519
+      '@nuxt/schema': /@nuxt/schema-edge@3.7.0-28173454.9741f267
       c12: 1.4.2
       consola: 3.2.3
       defu: 6.1.2
@@ -1583,10 +1589,11 @@ packages:
       - webpack
     dev: true
 
-  /@nuxt/schema-edge@3.7.0-28169798.2e6c4519:
-    resolution: {integrity: sha512-Dl+FvNOnVgmahlCCZPPtWx+qKAEjm2Dr5uFAgpgzz2r9ualKDR3Zs9E7tNn/NS4nbDhUuNTKeS8jAM4EDmkoNA==}
+  /@nuxt/schema-edge@3.7.0-28173454.9741f267:
+    resolution: {integrity: sha512-MCrcDPtrH/Lky/an1K6lcJUqC1fHfS8HEjl9HdCwGA11qqUHqc0q8tCNqgmNqaXHS2Wlb87qPdwn7yy8mNbCog==}
     engines: {node: ^14.18.0 || >=16.10.0}
     dependencies:
+      '@nuxt/ui-templates': 1.2.1
       defu: 6.1.2
       hookable: 5.5.3
       pathe: 1.1.1
@@ -1724,6 +1731,10 @@ packages:
 
   /@nuxt/ui-templates@1.2.0:
     resolution: {integrity: sha512-MSZza7dxccNb/p7nuzGF8/m4POaFpHzVhNdR7f4xahOpH7Ja02lFeYR+rHtoHIJC0yym4qriqv0mQ+Qf/R61bQ==}
+    dev: true
+
+  /@nuxt/ui-templates@1.2.1:
+    resolution: {integrity: sha512-Nt1nTkPsji/X8z/BCqUgb8uADs+kT0FZboVDwyCdMlCgjEQKrAZUlunKXGywa6ssz4/RohGmvuB1cFre6dSKXQ==}
     dev: true
 
   /@nuxt/vite-builder@3.6.3(@types/node@20.3.2)(eslint@8.43.0)(typescript@5.1.6)(vue@3.3.4):
@@ -1904,6 +1915,29 @@ packages:
 
   /@popperjs/core@2.11.8:
     resolution: {integrity: sha512-P1st0aksCrn9sGZhp8GMYwBnQsbvAWsZAX44oXNNvLHGqAOcoVxmjZiohstwQ7SqKnbR47akdNi+uleWD8+g6A==}
+    dev: false
+
+  /@prisma/client@5.0.0(prisma@5.0.0):
+    resolution: {integrity: sha512-XlO5ELNAQ7rV4cXIDJUNBEgdLwX3pjtt9Q/RHqDpGf43szpNJx2hJnggfFs7TKNx0cOFsl6KJCSfqr5duEU/bQ==}
+    engines: {node: '>=16.13'}
+    requiresBuild: true
+    peerDependencies:
+      prisma: '*'
+    peerDependenciesMeta:
+      prisma:
+        optional: true
+    dependencies:
+      '@prisma/engines-version': 4.17.0-26.6b0aef69b7cdfc787f822ecd7cdc76d5f1991584
+      prisma: 5.0.0
+    dev: false
+
+  /@prisma/engines-version@4.17.0-26.6b0aef69b7cdfc787f822ecd7cdc76d5f1991584:
+    resolution: {integrity: sha512-HHiUF6NixsldsP3JROq07TYBLEjXFKr6PdH8H4gK/XAoTmIplOJBCgrIUMrsRAnEuGyRoRLXKXWUb943+PFoKQ==}
+    dev: false
+
+  /@prisma/engines@5.0.0:
+    resolution: {integrity: sha512-kyT/8fd0OpWmhAU5YnY7eP31brW1q1YrTGoblWrhQJDiN/1K+Z8S1kylcmtjqx5wsUGcP1HBWutayA/jtyt+sg==}
+    requiresBuild: true
     dev: false
 
   /@rollup/plugin-alias@5.0.0(rollup@3.25.3):
@@ -2105,7 +2139,7 @@ packages:
     peerDependencies:
       tailvue: workspace:*
     dependencies:
-      '@nuxt/kit': /@nuxt/kit-edge@3.7.0-28169798.2e6c4519
+      '@nuxt/kit': /@nuxt/kit-edge@3.7.0-28173454.9741f267
       pathe: 0.2.0
       tailvue: 0.1.68(vue@3.3.4)
     transitivePeerDependencies:
@@ -8616,6 +8650,15 @@ packages:
     resolution: {integrity: sha512-Rk753HI8f4uivXi4ZCIYdhmG1V+WKzvRMg/X+M42a6t7D07RcmopXJMDNk6N++7Bl75URRGsb40ruvg7Hcp2wQ==}
     engines: {node: ^14.13.1 || >=16.0.0}
     dev: true
+
+  /prisma@5.0.0:
+    resolution: {integrity: sha512-KYWk83Fhi1FH59jSpavAYTt2eoMVW9YKgu8ci0kuUnt6Dup5Qy47pcB4/TLmiPAbhGrxxSz7gsSnJcCmkyPANA==}
+    engines: {node: '>=16.13'}
+    hasBin: true
+    requiresBuild: true
+    dependencies:
+      '@prisma/engines': 5.0.0
+    dev: false
 
   /proc-log@3.0.0:
     resolution: {integrity: sha512-++Vn7NS4Xf9NacaU9Xq3URUuqZETPsf8L4j5/ckhaRYsfPeRyzGw+iDjFhV/Jr3uNmTvvddEJFWh5R1gRgUH8A==}
