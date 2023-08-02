@@ -110,8 +110,14 @@ export class FetchWrapper implements ApiMethods {
 
       let data = null
 
-      if (config.method !== FetchMethods.DELETE) {
+      console.log(response, '<==== response')
+
+      if (config.method !== FetchMethods.DELETE || !isFileRequest) {
         data = await response.json() as unknown as T
+      }
+
+      if (isFileRequest) {
+        data = response.body
       }
 
       if (this.isError(data)) {
@@ -154,10 +160,10 @@ export class FetchWrapper implements ApiMethods {
     return `${this.baseUrl}${path}`
   }
 
-  async get<T>(path: string): Promise<FetchWrapperResponse<T>> {
+  async get<T>(path: string, isFileRequest?: boolean): Promise<FetchWrapperResponse<T>> {
     return this.http<T>(this.getPath(path), {
       method: FetchMethods.GET,
-    })
+    }, isFileRequest)
   }
 
   async post<T>(path: string, data?: any, isFileRequest?: boolean): Promise<FetchWrapperResponse<T>> {

@@ -29,7 +29,7 @@
       class="ml-4"
       :is-loading="uiStore.getUIIsLoading"
       title="Télécharger"
-      :href="`${$getApiUrl}answer/download/?ids=${answer.id}`"
+      @click="downloadAnswer(answer.id)"
     >
       <template #icon>
         <ArrowDownTrayIconOutline
@@ -39,6 +39,22 @@
       </template>
       Télécharger
     </BaseButton>
+    <!-- <BaseButton
+      v-if="$getApiUrl && answer.hasSigned"
+      color="green"
+      class="ml-4"
+      :is-loading="uiStore.getUIIsLoading"
+      title="Télécharger"
+      :href="`${$getApiUrl}answer/download/?ids=${answer.id}`"
+    >
+      <template #icon>
+        <ArrowDownTrayIconOutline
+          class="text-white"
+          aria-hidden="true"
+        />
+      </template>
+      Télécharger
+    </BaseButton> -->
   </template>
 
   <p
@@ -73,6 +89,7 @@
 <script setup lang="ts">
 import BaseButton from '../Base/BaseButton.vue'
 import BaseMessage from '../Base/BaseMessage.vue'
+import downloadHook from '~~/composables/downloadHook'
 import type { AnswerType } from '~~/store'
 import { useUiStore } from '~~/store'
 
@@ -93,6 +110,8 @@ const uiStore = useUiStore()
 const { raiseAnswer } = answerHook()
 const responseMessage = ref<null | string>(null)
 const isGreenMessage = ref(false)
+
+const { downloadAnswer } = downloadHook()
 
 async function raise() {
   const response = await raiseAnswer(props.answer.id)

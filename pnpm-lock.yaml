@@ -82,6 +82,9 @@ devDependencies:
   '@tailvue/nuxt':
     specifier: ^1.0.0
     version: 1.0.0(tailvue@0.1.68)
+  '@types/file-saver':
+    specifier: ^2.0.5
+    version: 2.0.5
   '@types/jsonwebtoken':
     specifier: ^9.0.4
     version: 9.0.4
@@ -5604,6 +5607,10 @@ packages:
     dependencies:
       flat-cache: 3.1.1
     dev: true
+
+  /file-saver@2.0.5:
+    resolution: {integrity: sha512-P9bmyZ3h/PRG+Nzga+rbdI4OEpNDzAVyy74uVO9ATgzLK6VtAsYybF/+TOCvrc0MO793d6+42lLyZTw7/ArVzA==}
+    dev: false
 
   /file-type@3.9.0:
     resolution: {integrity: sha512-RLoqTXE8/vPmMuTI88DAzhMYC99I8BWv7zYP4A1puo5HIjEJ5EX48ighy4ZyKMG9EDXxBgW6e++cn7d1xuFghA==}
