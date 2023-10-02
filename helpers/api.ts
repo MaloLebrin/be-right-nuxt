@@ -1,7 +1,7 @@
 import { hasOwnProperty } from '@antfu/utils'
 import type { NuxtError } from 'nuxt/app'
 
-enum FetchMethods {
+export enum FetchMethods {
   GET = 'get',
   POST = 'post',
   PUT = 'put',
@@ -110,14 +110,8 @@ export class FetchWrapper implements ApiMethods {
 
       let data = null
 
-      console.log(response, '<==== response')
-
       if (config.method !== FetchMethods.DELETE || !isFileRequest) {
         data = await response.json() as unknown as T
-      }
-
-      if (isFileRequest) {
-        data = response.body
       }
 
       if (this.isError(data)) {

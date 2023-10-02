@@ -57,7 +57,12 @@ import UserForm from '~/components/User/UserForm.vue'
 import AddressForm from '~/components/address/AddressForm.vue'
 import AccountBaseCard from '~~/components/Account/BaseCard.vue'
 import AccountCompanyForm from '~~/components/Account/CompanyForm.vue'
-import { useAddressStore, useCompanyStore, useUiStore, useUserStore } from '~~/store'
+import {
+  useAddressStore,
+  useCompanyStore,
+  useUiStore,
+  useUserStore,
+} from '~~/store'
 
 const userStore = useUserStore()
 const companyStore = useCompanyStore()
