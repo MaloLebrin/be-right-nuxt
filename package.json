@@ -28,7 +28,7 @@
     "pinia": "^2.1.6",
     "rollup-plugin-visualizer": "^5.9.2",
     "tailvue": "^0.1.68",
-    "v-calendar": "3.0.3",
+    "v-calendar": "3.1.2",
     "vee-validate": "^4.11.1",
     "vue-signature-pad": "^3.0.2",
     "yup": "^1.2.0"
