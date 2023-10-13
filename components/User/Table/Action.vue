@@ -55,14 +55,16 @@
     </MenuItem>
 
     <MenuItem
-      v-if="!isDeleted"
       v-slot="{ active }"
     >
       <NuxtLink
+        v-if="!isDeleted"
         class="flex items-center w-full px-3 py-3 text-sm rounded-md cursor-pointer group"
         :class="[
           active ? 'bg-red-100 text-red-500' : 'text-gray-900',
         ]"
+        title="fonctionalité non disponible"
+        disabled
         @click="deleteUser"
       >
         <ArchiveBoxIconOutline
@@ -71,6 +73,21 @@
         />
         Archiver
       </NuxtLink>
+      <button
+        v-else
+        class="flex items-center w-full px-3 py-3 text-sm rounded-md cursor-pointer group"
+        :class="[
+          active ? 'bg-red-100 text-red-500' : 'text-gray-900',
+        ]"
+        title="fonctionalité non disponible"
+        disabled
+      >
+        <PlusCircleIconOutline
+          class="w-5 h-5 mr-2 text-violet-800"
+          aria-hidden="true"
+        />
+        Restaurer
+      </button>
     </MenuItem>
   </MenuItems>
 </Menu>

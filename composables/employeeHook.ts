@@ -143,6 +143,14 @@ export default function employeeHook() {
     DecLoading()
   }
 
+  async function deleteOneForEver(id: number) {
+    IncLoading()
+    await $api().delete(`admin/employee/deleteForEver/${id}`)
+    employeeStore.deleteOneEmployee(id)
+    $toast.success('Destinataire supprimé définitivement avec succès')
+    DecLoading()
+  }
+
   async function patchOne(id: number, payload: EmployeeType) {
     IncLoading()
     const { data } = await $api().patch<EmployeeType>(`employee/${id}`, payload)
@@ -225,6 +233,7 @@ export default function employeeHook() {
   return {
     areEmployeeTypes,
     deleteOne,
+    deleteOneForEver,
     fetchAllByUserId,
     fetchOne,
     fetchMany,
