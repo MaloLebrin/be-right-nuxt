@@ -20,7 +20,7 @@
   "dependencies": {
     "@heroicons/vue": "^2.0.18",
     "@malolebrin/pinia-entity-store": "^0.2.4",
-    "@pinia/nuxt": "^0.4.11",
+    "@pinia/nuxt": "^0.5.0",
     "@popperjs/core": "^2.11.8",
     "@vueuse/integrations": "^10.3.0",
     "jwt-decode": "^3.1.2",
