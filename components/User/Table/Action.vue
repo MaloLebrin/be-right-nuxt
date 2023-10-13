@@ -24,7 +24,7 @@
         :class="[
           active ? 'bg-purple-100 text-purple-800' : 'text-gray-900',
         ]"
-        :to="{ name: 'admin-admin-user-show-id', params: { id: props.user.id } }"
+        :to="{ name: 'admin-user-show-id', params: { id: props.user.id } }"
         :data-cy="`user-${props.user.id}-show-link`"
       >
         <PencilSquareIconOutline
@@ -111,7 +111,7 @@ function deleteUser() {
     modalName: ModalNameEnum.USER_ADMIN,
     modalMode: ModalModeEnum.DELETE,
     data: {
-      event: props.user,
+      user: props.user,
     },
   })
 }
