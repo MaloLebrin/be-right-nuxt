@@ -79,8 +79,8 @@
         :class="[
           active ? 'bg-red-100 text-red-500' : 'text-gray-900',
         ]"
-        title="fonctionalité non disponible"
-        disabled
+        :disabled="uiStore.getUIIsLoading"
+        @click="restoreUser(user.id)"
       >
         <PlusCircleIconOutline
           class="w-5 h-5 mr-2 text-violet-800"
@@ -108,6 +108,7 @@ const props = defineProps<Props>()
 
 const uiStore = useUiStore()
 const { setUiModal } = uiStore
+const { restoreUser } = userHook()
 
 const isDeleted = computed(() => noNull(props.user.deletedAt) && noUndefined(props.user.deletedAt))
 
