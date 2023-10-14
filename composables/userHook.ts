@@ -172,6 +172,19 @@ export default function userHook() {
     DecLoading()
   }
 
+  async function restoreUser(userId: number) {
+    IncLoading()
+    const { data } = await $api().get<UserType>(`admin/user/restore/${userId}`)
+    if (data) {
+      if (userStore.isAlreadyInStore(userId)) {
+        userStore.updateOneUser(userId, data)
+      } else {
+        userStore.addMany([data])
+      }
+    }
+    DecLoading()
+  }
+
   return {
     deleteUser,
     fetchMany,
@@ -187,6 +200,7 @@ export default function userHook() {
     patchOne,
     postPhotographer,
     postUserSignature,
+    restoreUser,
     storeUsersEntities,
   }
 }

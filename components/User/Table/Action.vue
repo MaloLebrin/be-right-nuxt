@@ -24,7 +24,7 @@
         :class="[
           active ? 'bg-purple-100 text-purple-800' : 'text-gray-900',
         ]"
-        :to="{ name: 'admin-admin-user-show-id', params: { id: props.user.id } }"
+        :to="{ name: 'admin-user-show-id', params: { id: props.user.id } }"
         :data-cy="`user-${props.user.id}-show-link`"
       >
         <PencilSquareIconOutline
@@ -55,14 +55,16 @@
     </MenuItem>
 
     <MenuItem
-      v-if="!isDeleted"
       v-slot="{ active }"
     >
       <NuxtLink
+        v-if="!isDeleted"
         class="flex items-center w-full px-3 py-3 text-sm rounded-md cursor-pointer group"
         :class="[
           active ? 'bg-red-100 text-red-500' : 'text-gray-900',
         ]"
+        title="fonctionalité non disponible"
+        disabled
         @click="deleteUser"
       >
         <ArchiveBoxIconOutline
@@ -71,6 +73,21 @@
         />
         Archiver
       </NuxtLink>
+      <button
+        v-else
+        class="flex items-center w-full px-3 py-3 text-sm rounded-md cursor-pointer group"
+        :class="[
+          active ? 'bg-red-100 text-red-500' : 'text-gray-900',
+        ]"
+        :disabled="uiStore.getUIIsLoading"
+        @click="restoreUser(user.id)"
+      >
+        <PlusCircleIconOutline
+          class="w-5 h-5 mr-2 text-violet-800"
+          aria-hidden="true"
+        />
+        Restaurer
+      </button>
     </MenuItem>
   </MenuItems>
 </Menu>
@@ -91,6 +108,7 @@ const props = defineProps<Props>()
 
 const uiStore = useUiStore()
 const { setUiModal } = uiStore
+const { restoreUser } = userHook()
 
 const isDeleted = computed(() => noNull(props.user.deletedAt) && noUndefined(props.user.deletedAt))
 
@@ -111,7 +129,7 @@ function deleteUser() {
     modalName: ModalNameEnum.USER_ADMIN,
     modalMode: ModalModeEnum.DELETE,
     data: {
-      event: props.user,
+      user: props.user,
     },
   })
 }

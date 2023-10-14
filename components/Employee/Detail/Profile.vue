@@ -44,6 +44,18 @@
               </template>
               Supprimer
             </BaseButton>
+            <BaseButton
+              v-if="authStore.isAuthUserAdmin"
+              color="red"
+              @click="deleteOneForEvetEmployee"
+            >
+              <template #icon>
+                <TrashIconOutline
+                  aria-hidden="true"
+                />
+              </template>
+              Supprimer Définitvement
+            </BaseButton>
           </div>
         </div>
       </div>
@@ -200,6 +212,17 @@ function deleteOneEmployee() {
   setUiModal({
     isActive: true,
     modalName: ModalNameEnum.DELETE_EMPLOYEE,
+    modalMode: ModalModeEnum.DELETE,
+    data: {
+      employee: props.employee,
+    },
+  })
+}
+
+function deleteOneForEvetEmployee() {
+  setUiModal({
+    isActive: true,
+    modalName: ModalNameEnum.DELETE_EMPLOYEE_FOR_EVER,
     modalMode: ModalModeEnum.DELETE,
     data: {
       employee: props.employee,

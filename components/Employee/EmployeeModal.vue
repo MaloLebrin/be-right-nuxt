@@ -13,7 +13,7 @@
       :is-loading="uiStore.getUIIsLoading"
       @click="deleteEmployee"
     >
-      Supprimer
+      Supprimer {{ isForEver && 'définitivement' }}
     </BaseButton>
     <BaseButton @click="close">
       Annuler
@@ -32,6 +32,7 @@ interface Props {
   employee?: EmployeeType
   eventId?: number
   userId?: number
+  isForEver?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -49,14 +50,18 @@ const emit = defineEmits<{
 
 const uiStore = useUiStore()
 const { IncLoading, DecLoading, resetUiModalState } = uiStore
-const { deleteOne, getEmployeeFullname } = employeeHook()
+const { deleteOne, deleteOneForEver, getEmployeeFullname } = employeeHook()
 
 async function deleteEmployee() {
   if (uiStore.getUiModalState && uiStore.getUiModalData?.employee) {
     IncLoading()
     const id = uiStore.getUiModalData.employee.id
     if (id) {
-      await deleteOne(id)
+      if (props.isForEver) {
+        await deleteOneForEver(id)
+      } else {
+        await deleteOne(id)
+      }
     }
     DecLoading()
     close()

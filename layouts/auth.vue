@@ -18,6 +18,15 @@
       :is-active="isModalActive(ModalNameEnum.DELETE_EMPLOYEE).value"
       :mode="uiStore.getUiModalState.modalMode"
       :event-id="eventID"
+      :is-for-ever="isModalActive(ModalNameEnum.DELETE_EMPLOYEE_FOR_EVER).value"
+      @close="CloseResetModalState"
+    />
+    <EmployeeModal
+      v-if="isModalActive(ModalNameEnum.DELETE_EMPLOYEE_FOR_EVER).value"
+      :is-active="isModalActive(ModalNameEnum.DELETE_EMPLOYEE_FOR_EVER).value"
+      :mode="uiStore.getUiModalState.modalMode"
+      :event-id="eventID"
+      :is-for-ever="isModalActive(ModalNameEnum.DELETE_EMPLOYEE_FOR_EVER).value"
       @close="CloseResetModalState"
     />
 

@@ -109,6 +109,7 @@ import {
 const authStore = useAuthStore()
 const employeeStore = useEmployeeStore()
 const route = useRoute()
+const router = useRouter()
 const { filteredEmployees } = employeeHook()
 
 const employees = computed(() => alphabetical(employeeStore.getAllArray) as EmployeeType[])
@@ -151,6 +152,11 @@ function setActiveEmployee(employee: EmployeeType) {
   state.isActiveEmployeeDirty = true
   state.activeEmployee = employee.id
   state.isLoading = false
+  router.push({
+    query: {
+      id: employee.id,
+    }
+  })
 }
 
 const getGeneralText = computed(() => {
