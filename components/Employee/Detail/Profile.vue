@@ -34,6 +34,7 @@
               Modifier
             </BaseButton>
             <BaseButton
+              v-show="!noNullUndefined(employee.deletedAt)"
               color="red"
               @click="deleteOneEmployee"
             >
