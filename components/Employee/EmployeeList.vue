@@ -155,7 +155,7 @@ function setActiveEmployee(employee: EmployeeType) {
   router.push({
     query: {
       id: employee.id,
-    }
+    },
   })
 }
 

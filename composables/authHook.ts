@@ -42,7 +42,7 @@ export default function authHook() {
   const { storeCompanyEntities } = companyHook()
 
   async function logout() {
-    await logoutRequest()
+    await $api().post<ActionResponse>('auth/logout', { })
     const cookieToken = useCookie('userToken')
     cookieToken.value = null
     $api().deleteCredentials()
@@ -105,10 +105,6 @@ export default function authHook() {
 
   function getCookie() {
     return useCookie('userToken', { secure: true, sameSite: true, path: '', maxAge: 2592000 })
-  }
-
-  async function logoutRequest() {
-    await $api().post<ActionResponse>('auth/logout', { })
   }
 
   return {
