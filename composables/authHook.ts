@@ -1,6 +1,6 @@
 import { useJwt } from '@vueuse/integrations/useJwt'
 import type { JwtPayload } from 'jsonwebtoken'
-import type { UserType, ValidationRequest } from '@/types'
+import type { ActionResponse, UserType, ValidationRequest } from '@/types'
 import { RoleEnum } from '@/types'
 import type { Company } from '~~/store'
 import {
@@ -41,7 +41,8 @@ export default function authHook() {
   const { storeUsersEntities } = userHook()
   const { storeCompanyEntities } = companyHook()
 
-  function logout() {
+  async function logout() {
+    await $api().post<ActionResponse>('auth/logout', { })
     const cookieToken = useCookie('userToken')
     cookieToken.value = null
     $api().deleteCredentials()
@@ -62,7 +63,6 @@ export default function authHook() {
     userStore.resetState()
 
     resetAuthState()
-
     $toast?.success('Vous êtes déconnecté')
   }
 

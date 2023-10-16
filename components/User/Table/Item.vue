@@ -1,5 +1,5 @@
 <template>
-<tr>
+<tr :class="{ 'bg-red-100': noNullUndefined(user.deletedAt) }">
   <td class="py-2 text-sm font-medium text-gray-900 truncate whitespace-nowrap sm:pl-6">
     {{ user.id }}
   </td>

@@ -41,3 +41,7 @@ export function noUndefined<T>(v: T | undefined): v is Exclude<T, undefined> {
 export function isTruthy<T>(v: T) {
   return noNull(v) && noNull(v) && v !== ''
 }
+
+export function noNullUndefined<T>(v: T | undefined | null): v is Exclude<T, undefined | null> {
+  return v !== undefined && v !== null
+}
