@@ -57,6 +57,7 @@ export default function userHook() {
     if (user && isUserType(user)) {
       storeUsersEntities(user, false)
     }
+    DecLoading()
   }
 
   /**

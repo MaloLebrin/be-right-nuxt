@@ -82,12 +82,12 @@ const uiStore = useUiStore()
 const userStore = useUserStore()
 const { addMany } = userStore
 
-const { fetchMany } = companyHook()
+const { fetchMany: fetchManyCompanies } = companyHook()
 
 async function fetchRelations(items: UserType[]) {
   if (items.length > 0) {
     addMany(items.filter(user => !userStore.isAlreadyInStore(user.id)))
-    await fetchMany(items.map(item => item.companyId))
+    await fetchManyCompanies(items.map(item => item.companyId))
   }
 }
 
