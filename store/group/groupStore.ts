@@ -32,5 +32,25 @@ export const useGroupStore = defineStore('group', {
       this.$state = defaultGroupState()
     },
 
+    updateOneGroup(id: number, data: Partial<Group>) {
+      if (this.entities.byId[id] !== null || this.entities.byId[id] !== undefined) {
+        this.entities.byId[id] = {
+          ...this.entities.byId[id],
+          ...data,
+        }
+      }
+    },
+
+    updateManyGroups(groups: Group[]) {
+      groups.forEach(group => {
+        if (this.entities.byId[group.id] !== null || this.entities.byId[group.id] !== undefined) {
+          this.entities.byId[group.id] = {
+            ...this.entities.byId[group.id],
+            ...group,
+          }
+        }
+      })
+    },
+
   },
 })

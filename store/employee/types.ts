@@ -37,3 +37,9 @@ export type EmployeeFormType = Omit<EmployeeType, 'id' | 'createdAt' | 'updatedA
 export type EmployeeTypeOmitRelations = Omit<EmployeeType, 'createdAt' | 'updatedAt' | 'files' | 'answers' | 'address' | 'event' | 'company'>
 
 export interface EmployeeState extends State<EmployeeType> { }
+
+export interface EmployeeDeleteRequest {
+  employee: EmployeeType
+  groups: Group[]
+  company: Company
+}
