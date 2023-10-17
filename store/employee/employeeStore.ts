@@ -42,6 +42,15 @@ export const useEmployeeStore = defineStore('employees', {
       })
     },
 
+    updateManyEmployees(employees: EmployeeType[]) {
+      employees.forEach(group => {
+        this.entities.byId[group.id] = {
+          ...this.entities.byId[group.id],
+          ...group,
+        }
+      })
+    },
+
     resetState() {
       this.$state = defaultEmployeeState()
     },

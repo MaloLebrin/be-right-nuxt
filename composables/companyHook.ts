@@ -142,6 +142,17 @@ export default function companyHook() {
     DecLoading()
   }
 
+  async function refetchOneCompany(companyId: number) {
+    IncLoading()
+    const { data } = await $api().get<Company>(`company/${companyId}`)
+
+    if (isCompanyType(data)) {
+      updateOneCompany(companyId, data)
+      $toast.success('Entreprise mise à jours')
+    }
+    DecLoading()
+  }
+
   const getMissingsInfos: ComputedRef<MissingInfos[]> = computed(() => {
     const currentUser = userStore.getAuthUser
     if (currentUser) {
@@ -216,6 +227,7 @@ export default function companyHook() {
     getMissingsInfos,
     isCompanyType,
     patchOne,
+    refetchOneCompany,
     storeCompanyEntities,
   }
 }

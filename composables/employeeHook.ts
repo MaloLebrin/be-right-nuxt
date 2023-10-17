@@ -1,11 +1,13 @@
 import { hasOwnProperty } from '@antfu/utils'
-import type { AddressType, EmployeeType, FileType } from '@/types'
+import type { AddressType, EmployeeDeleteRequest, EmployeeType, FileType } from '@/types'
 import { isArrayOfNumbers } from '~~/utils'
+
 import {
   useAddressStore,
   useCompanyStore,
   useEmployeeStore,
   useFileStore,
+  useGroupStore,
   useUiStore,
 } from '~~/store'
 
@@ -18,6 +20,7 @@ export default function employeeHook() {
   const { IncLoading, DecLoading } = useUiStore()
   const addressStore = useAddressStore()
   const { addMany: addManyAddresses } = addressStore
+  const groupStore = useGroupStore()
   const { filteringFilesNotInStore } = fileHook()
   const { isAddressType } = addressHook()
 
@@ -137,7 +140,13 @@ export default function employeeHook() {
 
   async function deleteOne(id: number) {
     IncLoading()
-    await $api().delete(`employee/${id}`)
+    const { data } = await $api().delete<EmployeeDeleteRequest>(`employee/${id}`)
+    if (data) {
+      const { groups, company } = data
+      companyStore.updateOneCompany(company.id, company)
+      groupStore.updateManyGroups(groups)
+    }
+
     employeeStore.deleteOneEmployee(id)
     $toast.success('Destinataire supprimé avec succès')
     DecLoading()
@@ -145,7 +154,14 @@ export default function employeeHook() {
 
   async function deleteOneForEver(id: number) {
     IncLoading()
-    await $api().delete(`admin/employee/deleteForEver/${id}`)
+    const { data } = await $api().delete<EmployeeDeleteRequest>(`admin/employee/deleteForEver/${id}`)
+
+    if (data) {
+      const { groups, company } = data
+      companyStore.updateOneCompany(company.id, company)
+      groupStore.updateManyGroups(groups)
+    }
+
     employeeStore.deleteOneEmployee(id)
     $toast.success('Destinataire supprimé définitivement avec succès')
     DecLoading()
