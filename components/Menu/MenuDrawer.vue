@@ -100,6 +100,6 @@ const { closeDrawer } = uiStore
 
 <style scoped>
 .active-nuxt-link {
-    @apply bg-gray-900 text-white
+    @apply bg-gray-900 text-white focus:text-gray-200
   }
 </style>
