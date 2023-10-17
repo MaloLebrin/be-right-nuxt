@@ -61,7 +61,7 @@
               </template>
               <th
                 scope="col"
-                class="relative flex justify-end w-12 pr-2"
+                class="relative flex justify-end w-12 pr-2 md:pr-0 md:h-full md:w-full"
               >
                 <BaseButton
                   color="green"
@@ -114,7 +114,7 @@
                 </td>
               </template>
 
-              <td class="py-4 pr-4 text-sm font-medium text-right md:pl-3 whitespace-nowrap sm:pr-3">
+              <td class="flex items-end justify-end py-4 pr-4 text-sm font-medium text-right md:pl-3 whitespace-nowrap sm:pr-3">
                 <NuxtLink
                   :to="{ name: 'destinataire', query: { id: person.id } }"
                   :disabled="uiStore.getUIIsLoading"
