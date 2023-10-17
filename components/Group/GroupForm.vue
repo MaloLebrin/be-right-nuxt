@@ -41,17 +41,20 @@
     </RadioGroup>
   </div>
 
-  <EmployeeComboboxSelector
-    v-if="selected === 'list'"
-    name="employeeIds"
-    :default-values="employeeStore.getAllArray"
-    value-key="id"
-    wrapper-classes="md:col-span-2"
-    is-required
-  />
+  <div
+    v-show="selected === 'list'"
+    class="md:col-span-2"
+  >
+    <EmployeeComboboxSelector
+      name="employeeIds"
+      :default-values="employeeStore.getAllArray"
+      value-key="id"
+      is-required
+    />
+  </div>
 
   <BaseInputFileButton
-    v-if="selected === 'csv'"
+    v-show="selected === 'csv'"
     name="file"
     class="md:col-span-2"
   />
@@ -83,6 +86,7 @@ import { Form } from 'vee-validate'
 import { array, number, object, string } from 'yup'
 import { useEmployeeStore, useUiStore, useUserStore } from '~~/store'
 import type { VeeValidateValues } from '~~/types'
+import EmployeeComboboxSelector from '~~/components/Employee/EmployeeComboboxSelector.vue'
 
 interface Props {
   isDebug?: boolean

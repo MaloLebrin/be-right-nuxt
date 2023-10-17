@@ -13,7 +13,7 @@
       :is-loading="uiStore.getUIIsLoading"
       @click="deleteEmployee"
     >
-      Supprimer {{ isForEver && 'définitivement' }}
+      Supprimer <span v-show="isForEver">définitivement</span>
     </BaseButton>
     <BaseButton @click="close">
       Annuler

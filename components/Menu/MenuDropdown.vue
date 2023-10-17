@@ -19,12 +19,12 @@
         :key="index"
         :to="{ name: item.linkName }"
         exact-active-class="active-nuxt-link"
-        class="flex items-center px-2 py-2 text-sm font-medium text-gray-600 rounded-md group dark:text-gray-300 hover:bg-gray-700 hover:text-white"
+        class="flex items-center px-2 py-2 text-sm font-medium text-gray-600 rounded-md group hover:bg-gray-700 hover:text-white focus:text-gray-200"
         @click="closeDrawer"
       >
         <component
           :is="item.icon"
-          class="flex-shrink-0 w-6 h-6 mr-3 text-gray-600 dark:text-gray-400 group-hover:text-gray-300"
+          class="flex-shrink-0 w-6 h-6 mr-3 text-gray-600 group-hover:text-gray-300 focus:text-gray-200"
           aria-hidden="true"
         />
         {{ item.label }}
@@ -48,12 +48,12 @@
         :key="index"
         :to="{ name: item.linkName }"
         exact-active-class="active-nuxt-link"
-        class="flex items-center px-2 py-2 text-sm font-medium text-gray-600 rounded-md group dark:text-gray-300 hover:bg-gray-700 hover:text-white"
+        class="flex items-center px-2 py-2 text-sm font-medium text-gray-600 rounded-md group hover:bg-gray-600 hover:text-white"
         @click="closeDrawer"
       >
         <component
           :is="item.icon"
-          class="flex-shrink-0 w-6 h-6 mr-3 text-gray-600 dark:text-gray-400 group-hover:text-gray-300"
+          class="flex-shrink-0 w-6 h-6 mr-3 text-gray-600 group-hover:text-gray-300"
           aria-hidden="true"
         />
         {{ item.label }}

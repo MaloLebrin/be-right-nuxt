@@ -44,5 +44,14 @@ export const useCompanyStore = defineStore('company', {
       }
     },
 
+    removeEmployeeIdCompany({ companyId, employeeId }: { companyId: number; employeeId: number }) {
+      const company = this.getOne(companyId)
+      if (company) {
+        this.updateOneCompany(companyId, {
+          ...company,
+          employeeIds: company.employeeIds.filter(id => id !== employeeId),
+        })
+      }
+    },
   },
 })

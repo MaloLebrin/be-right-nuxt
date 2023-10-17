@@ -82,17 +82,7 @@
       v-if="authStore.isAuthUserAdmin"
       class="space-y-2 md:col-span-2"
     >
-      <template v-if="state.isDirty">
-        <UserCombobox
-          is-required
-          :default-values="state.items"
-          name="userId"
-          label="Id de l'utilisateur"
-          value-key="id"
-          is-multiple
-          @search="setSearchEntity"
-        />
-      </template>
+      <EmployeeUserCombobox />
     </div>
 
     <div
@@ -130,8 +120,8 @@ import { number, object, string } from 'yup'
 import { Form } from 'vee-validate'
 import BaseButton from '../Base/BaseButton.vue'
 import BaseInput from '../Base/BaseInput.vue'
-import UserCombobox from '../User/UserCombobox.vue'
-import type { AddressType, EmployeeType, UserType, VeeValidateValues } from '@/types'
+import EmployeeUserCombobox from '~~/components/Employee/EmployeeUserCombobox.vue'
+import type { AddressType, EmployeeType, VeeValidateValues } from '@/types'
 import { ModalModeEnum } from '@/types'
 import { useAuthStore, useEmployeeStore, useUiStore, useUserStore } from '~~/store'
 
@@ -165,16 +155,6 @@ const {
   postManyForEvent,
   postOneAdminForUser,
 } = employeeHook()
-
-const {
-  state,
-  searchEntity,
-} = tableHook<UserType>('admin/user')
-
-function setSearchEntity(str: string) {
-  state.search = str
-  searchEntity()
-}
 
 const router = useRouter()
 

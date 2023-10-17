@@ -1,6 +1,6 @@
 import { hasOwnProperty, uniq } from '@antfu/utils'
-import type { Group, GroupCreationPayload } from '~~/store'
-import { ModalModeEnum, ModalNameEnum, useEmployeeStore, useUiStore } from '~~/store'
+import type { Company, EmployeeType, Group, GroupCreationPayload } from '~~/store'
+import { ModalModeEnum, ModalNameEnum, useCompanyStore, useEmployeeStore, useUiStore } from '~~/store'
 import { useGroupStore } from '~~/store/group/groupStore'
 
 export default function groupHook() {
@@ -9,13 +9,25 @@ export default function groupHook() {
   const { IncLoading, DecLoading, setUiModal } = useUiStore()
   const groupStore = useGroupStore()
   const employeeStore = useEmployeeStore()
+  const companyStore = useCompanyStore()
   const { fetchMany: fetchManyEmployees } = employeeHook()
 
   const { addMany, removeOne } = groupStore
 
   async function deleteGroup(id: number) {
     IncLoading()
-    await $api().delete(`group/${id}`)
+    const { data } = await $api().delete<{
+      employees: EmployeeType[]
+      company: Company
+      group: Group
+    }>(`group/${id}`)
+
+    if (data) {
+      const { company, employees } = data
+      employeeStore.updateManyEmployees(employees)
+      companyStore.updateOneCompany(company.id, company)
+    }
+
     removeOne(id)
     $toast.success('Groupe à été supprimé avec succès')
     DecLoading()
