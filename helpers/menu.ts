@@ -6,6 +6,7 @@ import {
   ListBulletIcon,
   PlusIcon,
   UserGroupIcon,
+  UserMinusIcon,
   UsersIcon,
 } from '@heroicons/vue/24/outline'
 import { RouteNames } from './routes'
@@ -61,6 +62,12 @@ export const MENU_ITEMS = [
     icon: UsersIcon,
     linkName: 'destinataire',
     isAdmin: false,
+  },
+  {
+    label: 'Destinataires supprimés',
+    icon: UserMinusIcon,
+    linkName: 'destinataire-supprimes',
+    isAdmin: true,
   },
   {
     label: 'Groupes de diffusion',
