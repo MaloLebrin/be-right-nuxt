@@ -1,6 +1,6 @@
 <template>
 <PageAuthWrapper>
-  <EmployeeList />
+  <EmployeeList :employees="employeeStore.getAllArray" />
 </PageAuthWrapper>
 </template>
 
