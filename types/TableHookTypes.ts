@@ -9,6 +9,7 @@ export interface TableHookState<T> {
   filters: Record<string, string | string[]> | null
   totalPages: number
   order: Record<string, 'ASC' | 'DESC'> | null
+  withDeleted: boolean
 }
 
 export type TableHook = typeof tableHook
