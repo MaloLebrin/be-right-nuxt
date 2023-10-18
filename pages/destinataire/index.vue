@@ -1,6 +1,6 @@
 <template>
 <PageAuthWrapper>
-  <EmployeeList />
+  <EmployeeList :employees="employeeStore.getAllArray" />
 </PageAuthWrapper>
 </template>
 
@@ -10,6 +10,8 @@ import {
   useEmployeeStore,
   useUiStore,
 } from '~~/store'
+import PageAuthWrapper from '~~/components/Page/PageAuthWrapper.vue'
+import EmployeeList from '~~/components/Employee/EmployeeList.vue'
 
 const uiStore = useUiStore()
 const { IncLoading, DecLoading } = uiStore

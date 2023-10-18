@@ -106,13 +106,21 @@ import {
   useEmployeeStore,
 } from '~~/store'
 
+interface Props {
+  employees: EmployeeType[]
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  employees: () => [],
+})
+
 const authStore = useAuthStore()
 const employeeStore = useEmployeeStore()
 const route = useRoute()
 const router = useRouter()
 const { filteredEmployees } = employeeHook()
 
-const employees = computed(() => alphabetical(employeeStore.getAllArray) as EmployeeType[])
+const employees = computed(() => alphabetical(props.employees) as EmployeeType[])
 
 const query = ref('')
 const state = reactive({

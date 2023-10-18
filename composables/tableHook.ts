@@ -1,3 +1,4 @@
+import { parseBoolean } from '~~/utils/basics'
 import { useAuthStore } from '~/store'
 import { useUiStore } from '~/store/ui'
 import type { TableHookState } from '~/types/TableHookTypes'
@@ -22,6 +23,7 @@ export default function tableHook<T>(baseUrl: string, onFetched?: ((items: T[]) 
     filters: null,
     totalPages: 0,
     order: null,
+    withDeleted: false,
   })
 
   onMounted(() => {
@@ -44,10 +46,12 @@ export default function tableHook<T>(baseUrl: string, onFetched?: ((items: T[]) 
         state.isDirty = true
       }
 
-      if ($router.currentRoute.value.query) {
-        state.currentPage = parseInt($router.currentRoute.value.query?.page?.toString() || state.currentPage.toString())
-        state.limit = parseInt($router.currentRoute.value.query?.limit?.toString() || state.limit.toString())
-        state.search = $router.currentRoute.value.query?.search?.toString() || ''
+      const currentRoute = $router.currentRoute.value
+      if (currentRoute.query) {
+        state.currentPage = parseInt(currentRoute.query?.page?.toString() || state.currentPage.toString())
+        state.limit = parseInt(currentRoute.query?.limit?.toString() || state.limit.toString())
+        state.search = currentRoute.query?.search?.toString() || ''
+        state.withDeleted = parseBoolean(currentRoute.query?.withDeleted?.toString() || 'false') || false
       }
 
       let url = `${baseUrl}/?limit=${state.limit}&page=${state.currentPage}`
@@ -71,6 +75,10 @@ export default function tableHook<T>(baseUrl: string, onFetched?: ((items: T[]) 
           })
           .filter((filter: string | null) => filter !== null)
           .join('&')}`
+      }
+
+      if (state.withDeleted) {
+        url += '&withDeleted=true'
       }
 
       const { data } = await $api().get<PaginatedResponse<T>>(url)
@@ -122,6 +130,16 @@ export default function tableHook<T>(baseUrl: string, onFetched?: ((items: T[]) 
     }, 500)
   }
 
+  function udpateWithDeleted(withDeleted: boolean) {
+    $router.push({
+      name: $router.currentRoute.value.name!,
+      query: {
+        ...$router.currentRoute.value.query,
+        withDeleted: withDeleted.toString(),
+      },
+    })
+  }
+
   function updateLimit(limit: number) {
     $router.push({
       name: $router.currentRoute.value.name!,
@@ -158,5 +176,6 @@ export default function tableHook<T>(baseUrl: string, onFetched?: ((items: T[]) 
     setFilter,
     state,
     updateLimit,
+    udpateWithDeleted,
   }
 }

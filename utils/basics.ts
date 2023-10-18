@@ -43,5 +43,17 @@ export function isTruthy<T>(v: T) {
 }
 
 export function noNullUndefined<T>(v: T | undefined | null): v is Exclude<T, undefined | null> {
-  return v !== undefined && v !== null
+  return noUndefined(v) && noNull(v)
+}
+
+export function parseBoolean(v: string) {
+  switch (v) {
+    case 'false':
+      return false
+    case 'true':
+      return true
+
+    default:
+      return undefined
+  }
 }

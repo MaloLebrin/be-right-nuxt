@@ -27,20 +27,16 @@
       <span>Retour</span>
     </a>
     <h3
-      v-if="getRouteHeaderContent && $isNotMobile"
       class="flex items-center space-x-4 font-semibold text-gray-800 text-normal md:text-2xl dark:text-white"
     >
-      <component
-        :is="getRouteHeaderContent.icon"
-        class="h-6 rounded-lg dark:bg-red"
-      />
-      <span>{{ getRouteHeaderContent.label }}</span>
-    </h3>
-    <h3
-      v-else
-      class="flex items-center space-x-4 font-semibold text-gray-800 text-normal md:text-2xl dark:text-white"
-    >
-      <span>{{ getOutsideMenuRouteLabel }}</span>
+      <template v-if="getRouteHeaderContent && $isNotMobile">
+        <component
+          :is="getRouteHeaderContent.icon"
+          class="h-6 rounded-lg dark:bg-red"
+        />
+        <span>{{ getRouteHeaderContent.label }}</span>
+      </template>
+      <span v-else-if="getOutsideMenuRouteLabel">{{ getOutsideMenuRouteLabel }}</span>
     </h3>
   </div>
 
