@@ -250,6 +250,21 @@ export default function employeeHook() {
     return null
   }
 
+  async function restoreEmployee(employeeId: number) {
+    IncLoading()
+    const { data } = await $api().get<EmployeeType>(`employee/restore/${employeeId}`)
+
+    if (data && isEmployeeType(data)) {
+      if (employeeStore.isAlreadyInStore(employeeId)) {
+        employeeStore.updateOne(employeeId, data)
+      } else {
+        employeeStore.addMany([data])
+      }
+      $toast.success('Destinataire restauré avec succès')
+    }
+    DecLoading()
+  }
+
   return {
     areEmployeeTypes,
     deleteOne,
@@ -266,6 +281,7 @@ export default function employeeHook() {
     postManyForEvent,
     postOne,
     postOneAdminForUser,
+    restoreEmployee,
     storeEmployeeRelationsEntities,
   }
 }

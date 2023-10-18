@@ -31,7 +31,26 @@
           v-for="employee in state.items"
           :key="employee.id"
           :employee="employee"
-        />
+        >
+          <template #actions>
+            <NuxtLink
+              class="flex items-center px-3 py-3 text-sm text-purple-800 bg-purple-100 rounded-md group"
+              :data-cy="`employee-${employee.id}-show-link`"
+              :to="{
+                name: RouteNames.ADMIN_EMPLOYEE_SHOW,
+                params: {
+                  id: employee.id,
+                },
+              }"
+            >
+              <PencilSquareIconOutline
+                class="w-5 h-5 mr-2 text-violet-800"
+                aria-hidden="true"
+              />
+              Voir
+            </NuxtLink>
+          </template>
+        </EmployeeTableItem>
       </template>
 
       <template #footer>
@@ -47,6 +66,7 @@
 
 <script setup lang="ts">
 import { uniq } from '@antfu/utils'
+import { RouteNames } from '~/helpers/routes'
 import PageAuthWrapper from '~/components/Page/PageAuthWrapper.vue'
 import BasePagination from '~/components/Base/BasePagination.vue'
 import BaseLoader from '~/components/Base/BaseLoader.vue'
