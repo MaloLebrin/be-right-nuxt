@@ -231,6 +231,10 @@ export default function employeeHook() {
         || person.firstName
           .toLowerCase()
           .replace(/\s+/g, '')
+          .includes(query.value.toLowerCase().replace(/\s+/g, ''))
+        || person.email
+          .toLowerCase()
+          .replace(/\s+/g, '')
           .includes(query.value.toLowerCase().replace(/\s+/g, '')),
       )
   }
