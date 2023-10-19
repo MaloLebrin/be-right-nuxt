@@ -68,7 +68,7 @@ import { ModalNameEnum } from '~~/types'
 const uiStore = useUiStore()
 const { resetUiModalState } = uiStore
 const eventStore = useEventStore()
-const { fetchUserNotificationsAndRelations } = notificationHook()
+const { fetchUserNotificationsAndRelations, scheduleNotifications } = notificationHook()
 
 const isModalActive = (modalName: ModalNameEnum) => computed(() =>
   uiStore.getUiModalState.isActive
@@ -87,5 +87,7 @@ function CloseResetModalState() {
 
 onMounted(async () => {
   await fetchUserNotificationsAndRelations()
+
+  await scheduleNotifications()
 })
 </script>

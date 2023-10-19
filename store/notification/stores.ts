@@ -59,8 +59,10 @@ export const useNotificationsStore = defineStore('notification', {
 
     addMany(notifs: NotificationType[]) {
       notifs.forEach(notif => {
+        if (!this.entities.byId[notif.id]) {
+          this.entities.allIds.push(notif.id)
+        }
         this.entities.byId[notif.id] = { ...notif, $isDirty: false }
-        this.entities.allIds.push(notif.id)
       })
     },
 
