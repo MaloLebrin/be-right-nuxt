@@ -39,8 +39,8 @@ dependencies:
     specifier: 3.0.3
     version: 3.0.3(@popperjs/core@2.11.8)(vue@3.3.4)
   vee-validate:
-    specifier: ^4.8.1
-    version: 4.10.2(vue@3.3.4)
+    specifier: ^4.11.8
+    version: 4.11.8(vue@3.3.4)
   vue-signature-pad:
     specifier: ^3.0.2
     version: 3.0.2(vue@3.3.4)
@@ -10259,9 +10259,9 @@ packages:
     resolution: {integrity: sha512-RAH822pAdBgcNMAfWnCBU3CFZcfZ/i1eZjwFU/dsLKumyuuP3niueg2UAukXYF0E2AAoc82ZSSf9J0WQBinzHA==}
     engines: {node: '>=12.20'}
 
-  /type-fest@3.12.0:
-    resolution: {integrity: sha512-qj9wWsnFvVEMUDbESiilKeXeHL7FwwiFcogfhfyjmvT968RXSvnl23f1JOClTHYItsi7o501C/7qVllscUP3oA==}
-    engines: {node: '>=14.16'}
+  /type-fest@4.5.0:
+    resolution: {integrity: sha512-diLQivFzddJl4ylL3jxSkEc39Tpw7o1QeEHIPxVwryDK2lpB7Nqhzhuo6v5/Ls08Z0yPSAhsyAWlv1/H0ciNmw==}
+    engines: {node: '>=16'}
     dev: false
 
   /type-is@1.6.18:
@@ -10692,13 +10692,13 @@ packages:
     engines: {node: '>= 0.8'}
     dev: true
 
-  /vee-validate@4.10.2(vue@3.3.4):
-    resolution: {integrity: sha512-J2we1IjIvEKSC32ECw1HWgwwyqDIsrUnhGhZWgrvHeNp6m+pHY5C6PrdSDy1Ly4NcDNNO5XGMNvRZnurIKIdEg==}
+  /vee-validate@4.11.8(vue@3.3.4):
+    resolution: {integrity: sha512-ZuVpw0axWYBM3aVTD/bm94hcWHumqeUgNjptOqfBT0gyqyHaGYCrm0tSD/0bygEbWUDwEPJOQaEKaUGM82j8TQ==}
     peerDependencies:
       vue: ^3.3.4
     dependencies:
       '@vue/devtools-api': 6.5.0
-      type-fest: 3.12.0
+      type-fest: 4.5.0
       vue: 3.3.4
     dev: false
 
