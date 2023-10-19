@@ -11,8 +11,8 @@
 </template>
 
 <script setup lang="ts">
-import type { UserType } from 'store/user/types'
 import UserCombobox from '../User/UserCombobox.vue'
+import type { UserType } from '~~/store/user/types'
 
 const {
   state,
