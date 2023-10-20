@@ -231,6 +231,10 @@ export default function employeeHook() {
         || person.firstName
           .toLowerCase()
           .replace(/\s+/g, '')
+          .includes(query.value.toLowerCase().replace(/\s+/g, ''))
+        || person.email
+          .toLowerCase()
+          .replace(/\s+/g, '')
           .includes(query.value.toLowerCase().replace(/\s+/g, '')),
       )
   }
@@ -244,6 +248,21 @@ export default function employeeHook() {
       $toast.success('Destinataire créé avec succès')
     }
     return null
+  }
+
+  async function restoreEmployee(employeeId: number) {
+    IncLoading()
+    const { data } = await $api().get<EmployeeType>(`employee/restore/${employeeId}`)
+
+    if (data && isEmployeeType(data)) {
+      if (employeeStore.isAlreadyInStore(employeeId)) {
+        employeeStore.updateOne(employeeId, data)
+      } else {
+        employeeStore.addMany([data])
+      }
+      $toast.success('Destinataire restauré avec succès')
+    }
+    DecLoading()
   }
 
   return {
@@ -262,6 +281,7 @@ export default function employeeHook() {
     postManyForEvent,
     postOne,
     postOneAdminForUser,
+    restoreEmployee,
     storeEmployeeRelationsEntities,
   }
 }

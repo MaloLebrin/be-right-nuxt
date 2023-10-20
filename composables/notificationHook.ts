@@ -145,6 +145,12 @@ export default function notificationHook() {
     }
   }
 
+  async function scheduleNotifications() {
+    setInterval(async () => {
+      await fetchUserNotifications()
+    }, 900000)
+  }
+
   return {
     areNotificationTypes,
     fetchUserNotifications,
@@ -152,5 +158,6 @@ export default function notificationHook() {
     getDateDisplayedNotification,
     getTranslationNotificationType,
     patchAsRead,
+    scheduleNotifications,
   }
 }
