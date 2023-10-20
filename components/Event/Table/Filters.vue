@@ -19,13 +19,8 @@
           as="label"
           class="cursor-pointer"
         >
-          <RadioGroupLabel
-            as="label"
-            class="cursor-pointer"
-          >
-            <EventStatusTag :status="status" />
-          </RadioGroupLabel>
-        </div>
+          <EventStatusTag :status="status" />
+        </RadioGroupLabel>
       </RadioGroupOption>
     </div>
   </RadioGroup>
