@@ -22,6 +22,22 @@
           <EventStatusTag :status="status" />
         </RadioGroupLabel>
       </RadioGroupOption>
+      <RadioGroupOption
+        v-slot="{ active, checked }"
+        as="div"
+        :name="null"
+        value=""
+      >
+        <div
+          class="flex items-center justify-center px-2 py-2 text-sm font-medium uppercase border rounded-md cursor-pointer focus:outline-none sm:flex-1"
+          :class="[active ? 'ring-2 ring-offset-2 ring-indigo-500' : '',
+                   checked ? 'bg-indigo-600 border-transparent text-white hover:bg-indigo-700' : 'bg-white border-gray-200 text-gray-900 hover:bg-gray-50']"
+        >
+          <RadioGroupLabel as="label">
+            tout
+          </RadioGroupLabel>
+        </div>
+      </RadioGroupOption>
     </div>
   </RadioGroup>
   <Listbox
