@@ -107,7 +107,7 @@ function setEventStatusFilter(status: EventStatusEnum | undefined) {
 }
 
 definePageMeta({
-  layout: 'admin',
+  layout: 'auth',
   isAuth: true,
   isAdmin: true,
   middleware: ['guards-middleware'],
