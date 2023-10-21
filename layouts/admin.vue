@@ -29,6 +29,4 @@ const isModalActive = (modalName: ModalNameEnum) => computed(() =>
   uiStore.getUiModalState.isActive
   && uiStore.getUiModalState.modalName === modalName
   && !uiStore.getUiModalState.isLoading)
-
-console.log(isModalActive(ModalNameEnum.USER_ADMIN).value, '<==== isModalActive(ModalNameEnum.USER_ADMIN).value')
 </script>
