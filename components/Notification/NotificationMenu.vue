@@ -29,7 +29,6 @@
           v-for="notif in notifications"
           :key="notif.id"
           :notification="notif"
-          :event="getEventNotif(notif).value"
         />
       </template>
       <div v-else>
@@ -51,8 +50,9 @@
 </template>
 
 <script setup lang="ts">
-import type { NotificationType } from '~~/store'
-import { useEventStore, useNotificationsStore } from '~~/store'
+import NotificationListItem from '~~/components/Notification/ListItem.vue'
+import NotificationBellBubbleIcon from '~~/components/Notification/BellBubbleIcon.vue'
+import { useNotificationsStore } from '~~/store'
 
 interface Props {
   isInHeader?: boolean
@@ -63,19 +63,14 @@ withDefaults(defineProps<Props>(), {
 })
 
 const notificationStore = useNotificationsStore()
-const eventStore = useEventStore()
+
 const { patchAsRead } = notificationHook()
 
 const notifications = computed(() => notificationStore.getAllSorted)
 const hasAtLeastOneNotRead = computed(() => notifications.value.some(notif => !notif.readAt))
 const newNotificationNb = computed(() => notifications.value.filter(notif => !notif.readAt)?.length)
 const areAllRead = computed(() =>
-  notifications.value.every(notif => noNull(notif.readAt) && noUndefined(notif.readAt)))
-const getEventNotif = (notif: NotificationType) => computed(() => {
-  if (notif.eventNotification?.eventId) {
-    return eventStore.getOne(notif.eventNotification?.eventId)
-  }
-})
+  notifications.value.every(notif => noNullUndefined(notif.readAt)))
 
 async function markAllAsRead() {
   const noReadNotificationIds = notifications.value
