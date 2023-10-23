@@ -139,6 +139,12 @@ export default function notificationHook() {
         await fetchManyAnswers(uniq(missingAnswerIds))
       }
 
+      answerStore.getAllArray.forEach(answer => {
+        if (!eventStore.isAlreadyInStore(answer.eventId) && answer.eventId) {
+          missingEventIds.push(answer.eventId)
+        }
+      })
+
       if (missingEventIds.length > 0) {
         await fetchManyEvents(uniq(missingEventIds))
       }
@@ -148,6 +154,7 @@ export default function notificationHook() {
   async function scheduleNotifications() {
     setInterval(async () => {
       await fetchUserNotifications()
+      // 15 minutes
     }, 900000)
   }
 

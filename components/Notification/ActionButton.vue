@@ -15,7 +15,10 @@
 
   <MenuItems class="absolute right-0 z-10 w-56 mt-2 overflow-visible origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
     <div class="px-1 py-1">
-      <MenuItem v-slot="{ active }">
+      <MenuItem
+        v-if="props.eventId"
+        v-slot="{ active }"
+      >
         <NuxtLink
           class="flex items-center w-full px-2 py-2 text-sm rounded-md cursor-pointer group"
           :class="[
@@ -57,7 +60,7 @@
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
 
 interface Props {
-  eventId: number
+  eventId?: number | null
   notificationId: number
 }
 
