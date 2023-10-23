@@ -18,11 +18,13 @@ import {
 
 const { IncLoading, DecLoading } = useUiStore()
 const { fetchUserNotificationsAndRelations } = notificationHook()
+const { fetchSubscriptions } = notificationSubscriptionHook()
 
 const notificationStore = useNotificationsStore()
 
 onMounted(async () => {
   IncLoading()
+  await fetchSubscriptions()
   await fetchUserNotificationsAndRelations()
   DecLoading()
 })
