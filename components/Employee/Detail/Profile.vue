@@ -227,6 +227,7 @@ function deleteOneForEvetEmployee() {
     modalMode: ModalModeEnum.DELETE,
     data: {
       employee: props.employee,
+      forEver: true,
     },
   })
 }

@@ -63,9 +63,7 @@
         :class="[
           active ? 'bg-red-100 text-red-500' : 'text-gray-900',
         ]"
-        title="fonctionalité non disponible"
-        disabled
-        @click="deleteUser"
+        @click="deleteUser(false)"
       >
         <ArchiveBoxIconOutline
           class="w-5 h-5 mr-2 text-red-500"
@@ -89,6 +87,22 @@
         Restaurer
       </button>
     </MenuItem>
+    <MenuItem v-slot="{ active }">
+      <NuxtLink
+        v-if="!isDeleted"
+        class="flex items-center w-full px-3 py-3 text-sm rounded-md cursor-pointer group"
+        :class="[
+          active ? 'bg-red-100 text-red-500' : 'text-gray-900',
+        ]"
+        @click="deleteUser(true)"
+      >
+        <TrashIconOutline
+          class="w-5 h-5 mr-2 text-red-500"
+          aria-hidden="true"
+        />
+        Supprimer définitivement
+      </NuxtLink>
+    </MenuItem>
   </MenuItems>
 </Menu>
 </template>
@@ -110,7 +124,7 @@ const uiStore = useUiStore()
 const { setUiModal } = uiStore
 const { restoreUser } = userHook()
 
-const isDeleted = computed(() => noNull(props.user.deletedAt) && noUndefined(props.user.deletedAt))
+const isDeleted = computed(() => noNullUndefined(props.user.deletedAt))
 
 function addEmployeeToUser() {
   setUiModal({
@@ -123,13 +137,14 @@ function addEmployeeToUser() {
   })
 }
 
-function deleteUser() {
+function deleteUser(isForEver?: boolean) {
   setUiModal({
     isActive: true,
     modalName: ModalNameEnum.USER_ADMIN,
     modalMode: ModalModeEnum.DELETE,
     data: {
       user: props.user,
+      forEver: isForEver || false,
     },
   })
 }

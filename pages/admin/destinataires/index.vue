@@ -110,7 +110,7 @@ const {
 // })
 
 definePageMeta({
-  layout: 'auth',
+  layout: 'admin',
   isAuth: true,
   isAdmin: true,
   middleware: ['guards-middleware'],

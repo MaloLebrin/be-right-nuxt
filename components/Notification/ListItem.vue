@@ -5,8 +5,8 @@
   <div class="flex justify-between w-full p-2">
     <div class="flex items-center">
       <div
-        v-if="!notification.readAt"
-        class="w-2 h-2 mr-2 bg-purple-500 rounded-full"
+        class="w-2 h-2 mr-2 rounded-full"
+        :class="{ 'bg-purple-500': !notification.readAt }"
       />
       <div>
         <p class="text-sm">
@@ -19,7 +19,7 @@
     </div>
 
     <NotificationActionButton
-      :event-id="notification.eventNotification?.eventId"
+      :event-id="getEventIdNotif"
       :notification-id="notification.id"
     />
   </div>
@@ -27,16 +27,32 @@
 </template>
 
 <script setup lang="ts">
-import type { EventType, NotificationType } from '~~/store'
+import type { NotificationType } from '~~/store'
+import NotificationActionButton from '~~/components/Notification/ActionButton.vue'
+import { useAnswerStore } from '~~/store'
 
 interface Props {
   notification: NotificationType
-  event: EventType
 }
 
-defineProps<Props>()
+const props = defineProps<Props>()
 
 const {
   getDateDisplayedNotification,
 } = notificationHook()
+
+const answerStore = useAnswerStore()
+
+const getEventIdNotif = computed(() => {
+  let eventId: undefined | null | number
+  if (props.notification?.eventNotification?.eventId) {
+    eventId = props.notification?.eventNotification?.eventId
+  }
+  if (props.notification?.eventNotification?.answerId) {
+    const answer = answerStore.getOne(props.notification?.eventNotification?.answerId)
+    eventId = answer?.eventId
+  }
+
+  return eventId
+})
 </script>

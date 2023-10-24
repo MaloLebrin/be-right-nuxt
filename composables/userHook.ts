@@ -1,10 +1,12 @@
 import { hasOwnProperty } from '@antfu/utils'
 import { RoleEnum } from '@/types'
 import type {
+  ActionResponse,
   UserType,
 } from '@/types'
 import type { Company } from '~~/store'
 import {
+  useCompanyStore,
   useNotificationsSubscriptionStore,
   useUiStore,
   useUserStore,
@@ -15,6 +17,7 @@ export default function userHook() {
   const { $toast, $api } = useNuxtApp()
 
   const userStore = useUserStore()
+  const companyStore = useCompanyStore()
   const notificationSubscriptionStore = useNotificationsSubscriptionStore()
 
   const { IncLoading, DecLoading } = useUiStore()
@@ -186,8 +189,20 @@ export default function userHook() {
     DecLoading()
   }
 
+  async function deleteForEver(userId: number) {
+    IncLoading()
+    const { data } = await $api().delete<ActionResponse>(`admin/user/deleteForEver/${userId}`)
+    const user = userStore.getOne(userId)
+    if (user && data?.isSuccess) {
+      userStore.deleteOne(userId)
+      companyStore.deleteOne(user.companyId)
+    }
+    DecLoading()
+  }
+
   return {
     deleteUser,
+    deleteForEver,
     fetchMany,
     fetchOne,
     filteredUsers,
