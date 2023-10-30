@@ -27,6 +27,8 @@
 <script setup lang="ts">
 import type { NotificationType } from '~~/store'
 import { useAnswerStore, useEventStore } from '~~/store'
+import NotificationTableHeader from '~~/components/Notification/table/Header.vue'
+import NotificationTableItem from '~~/components/Notification/table/item.vue'
 
 interface Props {
   notifications: NotificationType[]
