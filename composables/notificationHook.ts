@@ -31,7 +31,10 @@ export default function notificationHook() {
   const { fetchMany: fetchManyEvents } = eventHook()
 
   function areNotificationTypes(args: unknown[]): args is NotificationType[] {
-    return args.every(arg =>
+    if (!args || !isArray(args)) {
+      return false
+    }
+    return args?.every(arg =>
       hasOwnProperty(arg, 'type')
       && hasOwnProperty(arg, 'title')
       && hasOwnProperty(arg, 'subscriberId')
