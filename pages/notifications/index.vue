@@ -15,6 +15,9 @@ import {
   useNotificationsStore,
   useUiStore,
 } from '~~/store'
+import NotificationSubscriptionForm from '~~/components/Notification/subscription/Form.vue'
+import NotificationTableList from '~~/components/Notification/table/List.vue'
+import PageAuthWrapper from '~/components/Page/PageAuthWrapper.vue'
 
 const { IncLoading, DecLoading } = useUiStore()
 const { fetchUserNotificationsAndRelations } = notificationHook()
