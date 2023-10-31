@@ -12,6 +12,7 @@ export interface UserType extends BaseEntity {
 
   apiKey: string
   roles: RoleEnum
+  notificationToken: string
 
   profilePicture: string | null
   notificationSubscriptions?: NotificationSubscriptionType[]
