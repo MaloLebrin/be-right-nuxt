@@ -131,7 +131,17 @@ const state = reactive({
 
 onMounted(() => {
   if (route.query.id) {
-    state.activeEmployee = parseInt(route.query.id.toString()) || employees.value[0]?.id
+    const employeeId = parseInt(route.query.id.toString())
+    if (employeeStore.getOne(employeeId)) {
+      state.activeEmployee = employeeId
+    } else {
+      state.activeEmployee = employees.value[0]?.id
+      router.push({
+        query: {
+          id: state.activeEmployee,
+        },
+      })
+    }
   }
 })
 
