@@ -1,12 +1,14 @@
 <template>
 <PageAuthWrapper>
-  Edit User
+  show user n° {{ $route.params.id }} account
 </PageAuthWrapper>
 </template>
 
 <script setup lang="ts">
+import PageAuthWrapper from '~~/components/Page/PageAuthWrapper.vue'
+
 definePageMeta({
-  layout: 'admin',
+  layout: 'admin-user',
   isAuth: true,
   isAdmin: true,
   middleware: ['guards-middleware', 'fetch-user-middleware'],
