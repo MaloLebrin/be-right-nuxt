@@ -84,13 +84,14 @@ const route = useRoute()
 
 let defaultFilterValue = {}
 
-if (route.query['filters[company.id]']) {
+if (route.query['andFilters[company.id]']) {
   defaultFilterValue = {
-    filters: {
-      'company.id': route.query['filters[company.id]']?.toString(),
+    andFilters: {
+      'company.id': route.query['andFilters[company.id]']?.toString(),
     },
   }
 }
+
 const {
   resetFilters,
   searchEntity,

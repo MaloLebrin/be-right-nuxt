@@ -1,7 +1,7 @@
 import { parseBoolean } from '~~/utils/basics'
 import { useAuthStore } from '~/store'
 import { useUiStore } from '~/store/ui'
-import type { TableHookState } from '~/types/TableHookTypes'
+import type { FilterTypes, TableHookState } from '~/types/TableHookTypes'
 import type { PaginatedResponse } from '~/types/globals'
 
 export default function tableHook<T>(baseUrl: string, onFetched?: ((items: T[]) => Promise<void>), defaultState?: Partial<TableHookState<T>>) {
@@ -21,6 +21,7 @@ export default function tableHook<T>(baseUrl: string, onFetched?: ((items: T[]) 
     limit: 20,
     total: 0,
     filters: defaultState?.filters || null,
+    andFilters: defaultState?.andFilters || null,
     totalPages: 0,
     order: defaultState?.order || null,
     withDeleted: defaultState?.withDeleted || false,
@@ -64,8 +65,16 @@ export default function tableHook<T>(baseUrl: string, onFetched?: ((items: T[]) 
         url += `&${currentRoute.query.filters}`
       }
 
+      if (currentRoute.query?.andFilters) {
+        url += `&${currentRoute.query.andFilters}`
+      }
+
       if (state.filters) {
-        url += `&${composeFilter(state.filters)}`
+        url += `&${composeFilter(state.filters, 'filters')}`
+      }
+
+      if (state.andFilters) {
+        url += `&${composeFilter(state.andFilters, 'andFilters')}`
       }
 
       if (state.withDeleted) {
@@ -154,7 +163,7 @@ export default function tableHook<T>(baseUrl: string, onFetched?: ((items: T[]) 
     state.order = null
   }
 
-  function composeFilter(filterParams: Record<string, string | string[]>) {
+  function composeFilter(filterParams: Record<string, string | string[]>, filterType: FilterTypes) {
     return Object.keys(filterParams)
       .map(field => {
         let value = filterParams![field]
@@ -162,12 +171,9 @@ export default function tableHook<T>(baseUrl: string, onFetched?: ((items: T[]) 
         if (Array.isArray(value)) {
           value = value.join(',')
         }
-        // else if (typeof value === 'object') {
-        //   composeFilter(value)
-        // }
         // Don't create empty filters.
         if (value.length) {
-          return `filters[${field}]=${value}`
+          return `${filterType}[${field}]=${value}`
         }
         return null
       })

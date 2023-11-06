@@ -28,7 +28,7 @@
           name: 'admin-user-show-id-account',
           params: { id: props.user.id },
           query: {
-            'filters[company.id]': props.user.companyId,
+            'andFilters[company.id]': props.user.companyId,
           },
         }"
         :data-cy="`user-${props.user.id}-show-link`"
