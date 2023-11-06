@@ -34,25 +34,27 @@
 </template>
 
 <script setup lang="ts">
+import { RouteNames } from '~~/helpers/routes'
+
 const menu = [
   {
     label: 'Profile',
-    name: 'admin-user-show-id-account',
+    name: RouteNames.ADMIN_USER_SHOW_ACCOUNT,
     disabled: false,
   },
   {
     label: 'Événements',
-    name: 'admin-user-show-id-evenements',
+    name: RouteNames.ADMIN_USER_SHOW_EVENTS,
     disabled: false,
   },
   {
     label: 'Destinataires',
-    name: 'admin-user-show-id-destinataires',
+    name: RouteNames.ADMIN_USER_SHOW_EMPLOYEES,
     disabled: false,
   },
   {
     label: 'Settings',
-    name: 'admin-user-show-id-account',
+    name: RouteNames.ADMIN_USER_SHOW_SETTINGS,
     disabled: true,
   },
 ]

@@ -84,7 +84,7 @@ const getOutsideMenuRouteLabel = computed(() => {
       case 'groupe-creation':
         return 'Créer un groupe'
 
-      case 'admin-user-show-id-account':
+      case RouteNames.ADMIN_USER_SHOW_ACCOUNT:
         return 'Détail de l\'utilisateur'
       case 'user-edit-id':
         return 'Modifier l\'utilisateur'
