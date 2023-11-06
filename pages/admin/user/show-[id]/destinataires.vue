@@ -80,12 +80,27 @@ import BaseLimitSelector from '~/components/Base/BaseLimitSelector.vue'
 
 const uiStore = useUiStore()
 
+const route = useRoute()
+
+let defaultFilterValue = {}
+
+if (route.query['filters[company.id]']) {
+  defaultFilterValue = {
+    filters: {
+      'company.id': route.query['filters[company.id]']?.toString(),
+    },
+  }
+}
 const {
   resetFilters,
   searchEntity,
   state,
   updateLimit,
-} = tableHook<EmployeeType>('employee')
+} = tableHook<EmployeeType>(
+  'employee',
+  undefined,
+  defaultFilterValue,
+)
 
 definePageMeta({
   layout: 'admin-user',
