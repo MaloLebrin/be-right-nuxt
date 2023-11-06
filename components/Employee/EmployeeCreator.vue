@@ -21,7 +21,7 @@
       <div class="flex-1 min-w-0">
         <NuxtLink
           v-if="employeeCreator.id"
-          :to="{ name: 'admin-user-show-id', params: { id: employeeCreator.id } }"
+          :to="{ name: 'admin-user-show-id-account', params: { id: employeeCreator.id } }"
           class="focus:outline-none"
         >
           <span
