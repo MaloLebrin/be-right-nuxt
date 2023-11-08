@@ -13,6 +13,4 @@ export interface TableHookState<T> {
   withDeleted: boolean
 }
 
-export type FilterTypes = 'filters' | 'andFilters'
-
 export type TableHook = typeof tableHook

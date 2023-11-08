@@ -1,7 +1,7 @@
 import { parseBoolean } from '~~/utils/basics'
 import { useAuthStore } from '~/store'
 import { useUiStore } from '~/store/ui'
-import type { FilterTypes, TableHookState } from '~/types/TableHookTypes'
+import type { TableHookState } from '~/types/TableHookTypes'
 import type { PaginatedResponse } from '~/types/globals'
 
 export default function tableHook<T>(baseUrl: string, onFetched?: ((items: T[]) => Promise<void>), defaultState?: Partial<TableHookState<T>>) {
@@ -163,7 +163,7 @@ export default function tableHook<T>(baseUrl: string, onFetched?: ((items: T[]) 
     state.order = null
   }
 
-  function composeFilter(filterParams: Record<string, string | string[]>, filterType: FilterTypes) {
+  function composeFilter(filterParams: Record<string, string | string[]>, filterType: 'filters' | 'andFilters') {
     return Object.keys(filterParams)
       .map(field => {
         let value = filterParams![field]
