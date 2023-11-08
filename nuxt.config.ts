@@ -61,10 +61,9 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     '@nuxtjs/tailwindcss',
     'nuxt-headlessui',
-    // '@nuxtjs/eslint-module',
+    'nuxt-vitest',
     '@pinia-plugin-persistedstate/nuxt',
     'nuxt-typed-router',
-    // '@nuxtjs/html-validator',
     'nuxt-schema-org',
     '@nuxt/image-edge',
     ['nuxt-purgecss', {
