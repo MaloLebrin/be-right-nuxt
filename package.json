@@ -15,7 +15,11 @@
     "type:check": "nuxi typecheck",
     "test:e2e:run": "start-server-and-test preview http://localhost:3000 cy:run",
     "test:e2e:dev": "start-server-and-test dev http://localhost:3000 e2e:run",
-    "runHeaded": "node .output/server/index.mjs & playwright test"
+    "runHeaded": "node .output/server/index.mjs & playwright test",
+    "test:unit": "vitest",
+    "test:jsdom": "VITEST_DOM_ENV=jsdom pnpm test:unit --run",
+    "test:happy-dom": "VITEST_DOM_ENV=happy-dom pnpm test:unit --run",
+    "test": "pnpm test:happy-dom && pnpm test:jsdom"
   },
   "dependencies": {
     "@heroicons/vue": "^2.0.16",
