@@ -21,7 +21,10 @@
       <div class="flex-1 min-w-0">
         <NuxtLink
           v-if="employeeCreator.id"
-          :to="{ name: 'admin-user-show-id', params: { id: employeeCreator.id } }"
+          :to="{
+            name: RouteNames.ADMIN_USER_SHOW_ACCOUNT,
+            params: { id: employeeCreator.id },
+          }"
           class="focus:outline-none"
         >
           <span
@@ -43,6 +46,7 @@
 
 <script setup lang="ts">
 import type { UserType } from '@/types'
+import { RouteNames } from '~~/helpers/routes'
 
 interface Props {
   employeeCreator: UserType

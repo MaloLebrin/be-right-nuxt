@@ -24,7 +24,13 @@
         :class="[
           active ? 'bg-purple-100 text-purple-800' : 'text-gray-900',
         ]"
-        :to="{ name: 'admin-user-show-id', params: { id: props.user.id } }"
+        :to="{
+          name: RouteNames.ADMIN_USER_SHOW_ACCOUNT,
+          params: { id: props.user.id },
+          query: {
+            'andFilters[company.id]': props.user.companyId,
+          },
+        }"
         :data-cy="`user-${props.user.id}-show-link`"
       >
         <PencilSquareIconOutline
@@ -112,6 +118,7 @@ import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
 import type { UserType } from '@/types'
 import { ModalModeEnum, ModalNameEnum } from '@/types'
 import { useUiStore } from '~~/store'
+import { RouteNames } from '~~/helpers/routes'
 
 interface Props {
   user: UserType

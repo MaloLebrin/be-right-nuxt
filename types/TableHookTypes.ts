@@ -7,6 +7,7 @@ export interface TableHookState<T> {
   search: string
   timeout: number
   filters: Record<string, string | string[]> | null
+  andFilters: Record<string, string | string[]> | null
   totalPages: number
   order: Record<string, 'ASC' | 'DESC'> | null
   withDeleted: boolean

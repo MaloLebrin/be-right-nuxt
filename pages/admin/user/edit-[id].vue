@@ -9,6 +9,6 @@ definePageMeta({
   layout: 'admin',
   isAuth: true,
   isAdmin: true,
-  middleware: ['guards-middleware'],
+  middleware: ['guards-middleware', 'fetch-user-middleware'],
 })
 </script>
