@@ -59,7 +59,10 @@ const { getUserfullName, postUserSignature } = userHook()
 
 const route = useRoute()
 
-const user = computed(() => userStore.getOne(parseInt(route.params.id.toString())))
+const user = computed(() => {
+  const params = route.params as Record<'id', string>
+  return userStore.getOne(parseInt(params.id))
+})
 const company = computed(() => companyStore.getOne(user.value?.companyId))
 const companyAddress = computed(() => addressStore.getOne(company.value?.addressId))
 
