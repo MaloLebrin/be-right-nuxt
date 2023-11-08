@@ -18,94 +18,23 @@
       v-if="state"
       class="grid grid-cols-1 gap-5 mt-5 sm:grid-cols-2 lg:grid-cols-3"
     >
-      <div
-        v-if="state.events"
-        class="relative px-4 pt-5 pb-12 overflow-hidden bg-white rounded-lg shadow sm:px-6 sm:pt-6"
-      >
-        <dt>
-          <div class="absolute p-3 bg-indigo-500 rounded-md">
-            <CalendarDaysIconOutline
-              class="w-6 h-6 text-white"
-              aria-hidden="true"
-            />
-          </div>
-          <p class="ml-16 text-sm font-medium text-gray-500 truncate">
-            Événements
-          </p>
-        </dt>
-        <dd class="flex items-baseline pb-6 ml-16 sm:pb-7">
-          <p class="text-2xl font-semibold text-gray-900">
-            {{ state.events.total }}
-          </p>
-          <div class="absolute inset-x-0 bottom-0 px-4 py-4 bg-gray-50 sm:px-6">
-            <div class="text-sm">
-              <a
-                href="#"
-                class="font-medium text-indigo-600 hover:text-indigo-500"
-              >View all<span class="sr-only"> événements stats</span></a>
-            </div>
-          </div>
-        </dd>
-      </div>
-
-      <div
-        v-if="state.answers"
-        class="relative px-4 pt-5 pb-12 overflow-hidden bg-white rounded-lg shadow sm:px-6 sm:pt-6"
-      >
-        <dt>
-          <div class="absolute p-3 bg-indigo-500 rounded-md">
-            <ChatBubbleBottomCenterIcon
-              class="w-6 h-6 text-white"
-              aria-hidden="true"
-            />
-          </div>
-          <p class="ml-16 text-sm font-medium text-gray-500 truncate">
-            Réponses
-          </p>
-        </dt>
-        <dd class="flex items-baseline pb-6 ml-16 sm:pb-7">
-          <p class="text-2xl font-semibold text-gray-900">
-            {{ state.answers.total }}
-          </p>
-          <div class="absolute inset-x-0 bottom-0 px-4 py-4 bg-gray-50 sm:px-6">
-            <div class="text-sm">
-              <a
-                href="#"
-                class="font-medium text-indigo-600 hover:text-indigo-500"
-              >View all<span class="sr-only"> Réponses stats</span></a>
-            </div>
-          </div>
-        </dd>
-      </div>
-      <div
-        v-if="state.users"
-        class="relative px-4 pt-5 pb-12 overflow-hidden bg-white rounded-lg shadow sm:px-6 sm:pt-6"
-      >
-        <dt>
-          <div class="absolute p-3 bg-indigo-500 rounded-md">
-            <UsersIcon
-              class="w-6 h-6 text-white"
-              aria-hidden="true"
-            />
-          </div>
-          <p class="ml-16 text-sm font-medium text-gray-500 truncate">
-            Utilisateurs
-          </p>
-        </dt>
-        <dd class="flex items-baseline pb-6 ml-16 sm:pb-7">
-          <p class="text-2xl font-semibold text-gray-900">
-            {{ state.users.total }}
-          </p>
-          <div class="absolute inset-x-0 bottom-0 px-4 py-4 bg-gray-50 sm:px-6">
-            <div class="text-sm">
-              <a
-                href="#"
-                class="font-medium text-indigo-600 hover:text-indigo-500"
-              >View all<span class="sr-only"> Utilisateursstats</span></a>
-            </div>
-          </div>
-        </dd>
-      </div>
+      <StatsAbstractCard
+        :icon="CalendarDaysIcon"
+        title="Événements"
+        :count="state.events?.total || 0"
+        link="admin-events"
+      />
+      <StatsAbstractCard
+        :icon="ChatBubbleBottomCenterIcon"
+        title="Réponses"
+        :count="state.answers?.total || 0"
+      />
+      <StatsAbstractCard
+        :icon="UsersIcon"
+        title="Utilisateurs"
+        :count="state.users?.total || 0"
+        link="admin-user"
+      />
     </dl>
 
     <TabGroup as="div">
@@ -173,7 +102,12 @@
 </template>
 
 <script setup lang="ts">
-import { ChatBubbleBottomCenterIcon, UsersIcon } from '@heroicons/vue/24/outline'
+import {
+  CalendarDaysIcon,
+  ChatBubbleBottomCenterIcon,
+  UsersIcon,
+} from '@heroicons/vue/24/outline'
+import StatsAbstractCard from '~~/components/Stats/StatsAbstractCard.vue'
 import BaseButton from '~/components/Base/BaseButton.vue'
 import BaseLoader from '~/components/Base/BaseLoader.vue'
 import PageAuthWrapper from '~/components/Page/PageAuthWrapper.vue'

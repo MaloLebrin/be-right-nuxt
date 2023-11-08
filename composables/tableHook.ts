@@ -4,7 +4,7 @@ import { useUiStore } from '~/store/ui'
 import type { TableHookState } from '~/types/TableHookTypes'
 import type { PaginatedResponse } from '~/types/globals'
 
-export default function tableHook<T>(baseUrl: string, onFetched?: ((items: T[]) => Promise<void>)) {
+export default function tableHook<T>(baseUrl: string, onFetched?: ((items: T[]) => Promise<void>), defaultState?: Partial<TableHookState<T>>) {
   const { $api, $router } = useNuxtApp()
   const uiStore = useUiStore()
   const { DecLoading, IncLoading } = uiStore
@@ -14,16 +14,17 @@ export default function tableHook<T>(baseUrl: string, onFetched?: ((items: T[]) 
 
   const state = reactive<TableHookState<T>>({
     isDirty: false,
-    search: '',
+    search: defaultState?.search || '',
     timeout: 0,
     items: [],
     currentPage: 1,
     limit: 20,
     total: 0,
-    filters: null,
+    filters: defaultState?.filters || null,
+    andFilters: defaultState?.andFilters || null,
     totalPages: 0,
-    order: null,
-    withDeleted: false,
+    order: defaultState?.order || null,
+    withDeleted: defaultState?.withDeleted || false,
   })
 
   onMounted(() => {
@@ -60,21 +61,20 @@ export default function tableHook<T>(baseUrl: string, onFetched?: ((items: T[]) 
         url += `&search=${state.search}`
       }
 
+      if (currentRoute.query?.filters) {
+        url += `&${currentRoute.query.filters}`
+      }
+
+      if (currentRoute.query?.andFilters) {
+        url += `&${currentRoute.query.andFilters}`
+      }
+
       if (state.filters) {
-        url += `&${Object.keys(state.filters)
-          .map(field => {
-            let value = state.filters![field]
-            if (Array.isArray(value)) {
-              value = value.join(',')
-            }
-            // Don't create empty filters.
-            if (value.length) {
-              return `filters[${field}]=${value}`
-            }
-            return null
-          })
-          .filter((filter: string | null) => filter !== null)
-          .join('&')}`
+        url += `&${composeFilter(state.filters, 'filters')}`
+      }
+
+      if (state.andFilters) {
+        url += `&${composeFilter(state.andFilters, 'andFilters')}`
       }
 
       if (state.withDeleted) {
@@ -161,6 +161,24 @@ export default function tableHook<T>(baseUrl: string, onFetched?: ((items: T[]) 
     state.filters = null
     state.totalPages = 0
     state.order = null
+  }
+
+  function composeFilter(filterParams: Record<string, string | string[]>, filterType: 'filters' | 'andFilters') {
+    return Object.keys(filterParams)
+      .map(field => {
+        let value = filterParams![field]
+
+        if (Array.isArray(value)) {
+          value = value.join(',')
+        }
+        // Don't create empty filters.
+        if (value.length) {
+          return `${filterType}[${field}]=${value}`
+        }
+        return null
+      })
+      .filter((filter: string | null) => filter !== null)
+      .join('&')
   }
 
   onUnmounted(() => {
