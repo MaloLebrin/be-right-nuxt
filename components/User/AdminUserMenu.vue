@@ -1,5 +1,5 @@
 <template>
-<nav class="flex overflow-x-auto border-b border-white/5">
+<nav class="flex mt-1 overflow-x-auto md:mt-2">
   <ul
     role="list"
     class="flex flex-none min-w-full px-4 text-sm font-semibold leading-6 text-gray-400 sm:px-6 lg:px-8"
@@ -17,7 +17,7 @@
             },
             query: $route.query,
           }"
-          class="flex items-center p-3 text-sm font-medium rounded-md group"
+          class="flex items-center p-3 text-sm font-medium border border-transparent rounded-md group hover:bg-orange-200"
           :class="[
             $route.name === item.name ? 'bg-gray-50 text-orange-600 hover:bg-white' : 'text-gray-900 hover:bg-gray-50 hover:text-gray-900',
             { 'cursor-not-allowed opacity-50': item.disabled },
