@@ -19,7 +19,8 @@
     "test:unit": "vitest",
     "test:jsdom": "VITEST_DOM_ENV=jsdom pnpm test:unit --run",
     "test:happy-dom": "VITEST_DOM_ENV=happy-dom pnpm test:unit --run",
-    "test": "pnpm test:happy-dom && pnpm test:jsdom"
+    "test": "pnpm test:happy-dom && pnpm test:jsdom",
+    "test:watch": "vitest --watch"
   },
   "dependencies": {
     "@heroicons/vue": "^2.0.16",
