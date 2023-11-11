@@ -40,6 +40,9 @@ jobs:
       - name: ☑️ Type checking
         run: nr type:check
 
+      - name: ✅ Tests
+        run: nr test
+
   Build:
     runs-on: ${{ matrix.os }}
     strategy:
