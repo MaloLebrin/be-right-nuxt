@@ -1,7 +1,7 @@
 <template>
 <div class="w-full h-full px-4 mt-4">
   <Form
-    v-slot="{ meta, isSubmitting, errors }"
+    v-slot="{ meta, isSubmitting, errors, setFieldValue, values }"
     :validation-schema="schema"
     :initial-values="initialValues"
     class="grid grid-cols-2 gap-4"
@@ -23,14 +23,33 @@
       is-required
     />
 
-    <BaseInput
-      class="col-span-2"
-      label="Adresse email"
-      name="email"
-      type="email"
-      autocomplete="email"
-      is-required
-    />
+    <div>
+      <BaseInput
+        label="Adresse email"
+        name="email"
+        type="email"
+        autocomplete="email"
+        is-required
+      />
+
+      <div
+        v-if="hasSuggestion"
+        class="flex flex-wrap flex-1 py-1 space-x-2"
+      >
+        <p
+          v-for="suggest in multipleEmailSuggestions({
+            firstName: values.firstName,
+            lastName: values.lastName,
+            email: userStore.getAuthUser?.email || '',
+          })"
+          :key="suggest"
+          class="text-sm text-gray-500 hover:text-orange-500 hover:cursor-pointer hover:underline"
+          @click="setFieldValue('email', suggest)"
+        >
+          {{ suggest }}
+        </p>
+      </div>
+    </div>
 
     <BaseInput
       label="Téléphone"
@@ -131,6 +150,7 @@ interface Props {
   eventId?: number
   userId?: number
   isDebug?: boolean
+  hasSuggestion?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
