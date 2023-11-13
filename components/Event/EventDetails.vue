@@ -24,10 +24,14 @@
             Destinataires
           </h2>
 
+          <a
+            ref="downloadFiles"
+          />
           <BaseButton
-            :disabled="!answerStore.canAnswersBeDownload(event.id)"
+            :disabled="!answerStore.canAnswersBeDownload(event.id) || uiStore.getUIIsLoading"
+            :is-loading="uiStore.getUIIsLoading"
             :title="!answerStore.canAnswersBeDownload(event.id) ? 'Aucune réponse n\'est pas encore disponible' : 'Télécharger toutes les réponses'"
-            :href="`${$getApiUrl}answer/download/?ids=${answersQueryIds}`"
+            @click="download(answers.map(answer => answer.id))"
           >
             <template #icon>
               <ArrowDownTrayIconOutline
@@ -79,10 +83,12 @@
 </template>
 
 <script setup lang="ts">
+import type { AnchorHTMLAttributes } from 'nuxt/dist/app/compat/capi'
 import {
   useAnswerStore,
   useEmployeeStore,
   useEventStore,
+  useUiStore,
 } from '~~/store'
 
 interface Props {
@@ -94,12 +100,14 @@ const props = defineProps<Props>()
 const eventStore = useEventStore()
 const employeeStore = useEmployeeStore()
 const answerStore = useAnswerStore()
+const uiStore = useUiStore()
+const { IncLoading, DecLoading } = uiStore
 const { isAnswerSigned } = answerHook()
+const { downloadAnswers } = downloadHook()
 
 const event = computed(() => eventStore.getOne(props.eventId))
 
 const answers = computed(() => answerStore.getManyByEventId(props.eventId))
-const answersQueryIds = computed(() => answers.value.map(answer => answer.id)?.join(','))
 
 const employees = computed(() => {
   const employeesIds = answers.value
@@ -108,4 +116,18 @@ const employees = computed(() => {
     return isAnswerSigned(answers.value.find(answer => answer.employeeId === a.id)!) ? 1 : isAnswerSigned(answers.value.find(answer => answer.employeeId === b.id)!) ? 1 : -1
   })
 })
+
+const downloadFiles = ref<AnchorHTMLAttributes | null>(null)
+
+async function download(ids: number[]) {
+  IncLoading()
+
+  const data = await downloadAnswers(ids)
+  if (downloadFiles.value && data) {
+    downloadFiles.value.href = `data:application/pdf;base64,${data.content}`
+    downloadFiles.value.download = data.fileName
+    downloadFiles.value.click()
+  }
+  DecLoading()
+}
 </script>

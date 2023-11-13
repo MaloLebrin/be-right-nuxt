@@ -29,7 +29,7 @@
       class="ml-4"
       :is-loading="uiStore.getUIIsLoading"
       title="Télécharger"
-      :href="`${$getApiUrl}answer/download/?ids=${answer.id}`"
+      @click="download(answer.id)"
     >
       <template #icon>
         <ArrowDownTrayIconOutline
@@ -39,6 +39,9 @@
       </template>
       Télécharger
     </BaseButton>
+    <a
+      ref="downloadFile"
+    />
   </template>
 
   <p
@@ -71,6 +74,7 @@
 </template>
 
 <script setup lang="ts">
+import type { AnchorHTMLAttributes } from 'nuxt/dist/app/compat/capi'
 import BaseButton from '../Base/BaseButton.vue'
 import BaseMessage from '../Base/BaseMessage.vue'
 import type { AnswerType } from '~~/store'
@@ -90,9 +94,25 @@ const hasBeenAnswered = computed(() =>
 )
 
 const uiStore = useUiStore()
+const { IncLoading, DecLoading } = uiStore
 const { raiseAnswer } = answerHook()
+const { downloadAnswers } = downloadHook()
 const responseMessage = ref<null | string>(null)
 const isGreenMessage = ref(false)
+
+const downloadFile = ref<AnchorHTMLAttributes | null>(null)
+
+async function download(id: number) {
+  IncLoading()
+
+  const data = await downloadAnswers([id])
+  if (downloadFile.value && data) {
+    downloadFile.value.href = `data:application/pdf;base64,${data.content}`
+    downloadFile.value.download = data.fileName
+    downloadFile.value.click()
+  }
+  DecLoading()
+}
 
 async function raise() {
   const response = await raiseAnswer(props.answer.id)

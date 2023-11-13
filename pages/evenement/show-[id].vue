@@ -1,11 +1,9 @@
 <template>
 <PageAuthWrapper>
   <EventDetails
-    v-if="!uiStore.isLoading && eventId"
+    v-if="eventId"
     :event-id="eventId"
   />
-
-  <BaseLoader v-else />
 </PageAuthWrapper>
 </template>
 
@@ -15,7 +13,6 @@ import EventDetails from '~/components/Event/EventDetails.vue'
 import { useEventStore, useUiStore } from '~~/store'
 
 const eventStore = useEventStore()
-const uiStore = useUiStore()
 
 const route = useRoute()
 

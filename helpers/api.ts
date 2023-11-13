@@ -41,6 +41,7 @@ interface FetchWrapperInit {
   headers?: HeadersInterface
   token?: string
   redirect?: RequestRedirect
+  isFileRequest?: boolean
 }
 
 export class FetchWrapper implements ApiMethods {
@@ -48,12 +49,14 @@ export class FetchWrapper implements ApiMethods {
   private headers?: Headers
   private redirect?: RequestRedirect = 'follow'
   public token?: string
+  private isFileRequest: boolean
 
   constructor(init: FetchWrapperInit) {
     this.baseUrl = init.baseUrl
     this.token = init.token
     this.headers = init.headers
     this.redirect = init.redirect
+    this.isFileRequest = init.isFileRequest || false
   }
 
   setCredentials(token: string) {
@@ -64,11 +67,12 @@ export class FetchWrapper implements ApiMethods {
     this.token = undefined
   }
 
-  private buildBody(body: BodyInit | null | undefined, isFileRequest?: boolean) {
+  private buildBody(body: BodyInit | null | undefined) {
     if (!body) {
       return null
     }
-    if (isFileRequest) {
+
+    if (this.isFileRequest) {
       return body
     }
     return JSON.stringify(body)
@@ -103,7 +107,7 @@ export class FetchWrapper implements ApiMethods {
       const request = new Request(url, {
         ...config,
         headers: this.buildHeaders(config.headers, isFileRequest),
-        body: this.buildBody(config.body, isFileRequest),
+        body: this.buildBody(config.body),
       })
 
       const response = await fetch(request)
@@ -154,10 +158,11 @@ export class FetchWrapper implements ApiMethods {
     return `${this.baseUrl}${path}`
   }
 
-  async get<T>(path: string): Promise<FetchWrapperResponse<T>> {
-    return this.http<T>(this.getPath(path), {
-      method: FetchMethods.GET,
-    })
+  async get<T>(path: string, isFileRequest?: boolean): Promise<FetchWrapperResponse<T>> {
+    return this.http<T>(
+      this.getPath(path),
+      { method: FetchMethods.GET },
+      isFileRequest)
   }
 
   async post<T>(path: string, data?: any, isFileRequest?: boolean): Promise<FetchWrapperResponse<T>> {
