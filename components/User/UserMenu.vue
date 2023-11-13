@@ -26,11 +26,12 @@
     as="div"
   >
     <MenuItem
+      v-if="userStore.getAuthUser"
       v-slot="{ active }"
       as="div"
     >
       <NuxtLink
-        :to="{ name: 'mon-compte', params: { id: userStore.getAuthUser?.id } }"
+        :to="{ name: 'mon-compte', params: { id: userStore.getAuthUser.id } }"
         class="flex items-center justify-start px-4 py-2 space-x-2 text-sm text-gray-700 hover:bg-red-100 hover:text-red-800"
         :class="[active ? 'bg-gray-100' : '']"
       >
@@ -42,14 +43,14 @@
       </NuxtLink>
     </MenuItem>
     <MenuItem>
-      <NuxtLink
+      <a
         data-cy="user-menu-logout-link"
         class="flex items-center justify-start px-4 py-2 text-sm text-gray-700 cursor-pointer hover:bg-red-100 hover:text-red-800"
         @click="onToggleLogout"
       >
         <ArrowLeftOnRectangleIconOutline class="h-6 text-gray-500" />
         Se déconnecter
-      </NuxtLink>
+      </a>
     </MenuItem>
   </MenuItems>
 </Menu>

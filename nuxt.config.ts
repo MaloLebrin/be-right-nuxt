@@ -2,7 +2,6 @@ import Components from 'unplugin-vue-components/vite'
 import { HeadlessUiResolver } from 'unplugin-vue-components/resolvers'
 import { visualizer } from 'rollup-plugin-visualizer'
 import { type PluginOption } from 'vite'
-import colors from 'tailwindcss/colors'
 
 export default defineNuxtConfig({
   devtools: {
@@ -69,19 +68,19 @@ export default defineNuxtConfig({
     ['nuxt-purgecss', {
       // attention purgeCss enlève le style de vcalendar
       enabled: false, // Always enable purgecss
-      safelist: [
-        ...(Object.keys(colors).reduce((acc: string[], name) => {
-          acc.push(`bg-${name}-50`)
-          acc.push(`bg-${name}-100`)
-          acc.push(`text-${name}-500`)
-          acc.push(`text-${name}-700`)
-          acc.push(`border-${name}-500`)
-          acc.push(`border-${name}-700`)
-          return acc
-        }, [])),
-        'bg-gray-800',
-        'text-white',
-      ],
+      // safelist: [
+      //   ...(Object.keys(colors).reduce((acc: string[], name) => {
+      //     acc.push(`bg-${name}-50`)
+      //     acc.push(`bg-${name}-100`)
+      //     acc.push(`text-${name}-500`)
+      //     acc.push(`text-${name}-700`)
+      //     acc.push(`border-${name}-500`)
+      //     acc.push(`border-${name}-700`)
+      //     return acc
+      //   }, [])),
+      //   'bg-gray-800',
+      //   'text-white',
+      // ],
     }],
     '@tailvue/nuxt',
     'dayjs-nuxt',
