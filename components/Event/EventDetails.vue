@@ -117,7 +117,7 @@ const employees = computed(() => {
   })
 })
 
-const downloadFiles = ref<AnchorHTMLAttributes | null>(null)
+const downloadFiles = ref<AnchorHTMLAttributes & { click: () => undefined } | null>(null)
 
 async function download(ids: number[]) {
   IncLoading()

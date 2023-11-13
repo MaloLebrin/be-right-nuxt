@@ -100,7 +100,7 @@ const { downloadAnswers } = downloadHook()
 const responseMessage = ref<null | string>(null)
 const isGreenMessage = ref(false)
 
-const downloadFile = ref<AnchorHTMLAttributes | null>(null)
+const downloadFile = ref<AnchorHTMLAttributes & { click: () => undefined } | null>(null)
 
 async function download(id: number) {
   IncLoading()
