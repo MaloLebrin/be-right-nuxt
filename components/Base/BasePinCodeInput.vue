@@ -124,9 +124,7 @@ function handleKeyDown(event: KeyboardEvent, index: number, handleChange: any) {
     return
   }
 
-  const regex = /^[a-zA-Z0-9]+$/
-
-  if (regex.test(event.key)) {
+  if (fiveDigit.test(event.key)) {
     digits[index] = event.key.toUpperCase()
 
     if (index !== props.digitCount - 1 && otpCont.value) {
