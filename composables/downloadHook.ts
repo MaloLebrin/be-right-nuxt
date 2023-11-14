@@ -16,7 +16,7 @@ export function downloadHook() {
       fileName: string
       content: string
       mimeType: string
-    }>(`answer/downloadTest/?ids=${ids.join(',')}`, true)
+    }>(`answer/download/?ids=${ids.join(',')}`, true)
 
     return data
   }
