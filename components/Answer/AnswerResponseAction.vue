@@ -115,11 +115,13 @@ async function download(id: number) {
 }
 
 async function raise() {
+  IncLoading()
   const response = await raiseAnswer(props.answer.id)
   if (response) {
     const { message, isSuccess } = response
     responseMessage.value = message || null
     isGreenMessage.value = isSuccess
   }
+  DecLoading()
 }
 </script>

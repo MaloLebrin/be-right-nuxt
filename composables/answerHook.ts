@@ -81,7 +81,6 @@ export default function answerHook() {
   }
 
   async function raiseAnswer(id: number) {
-    IncLoading()
     if (id) {
       const { data } = await $api().get<ActionResponse & { answer: AnswerType }>(`answer/raise/${id}`)
       if (data) {
@@ -97,7 +96,6 @@ export default function answerHook() {
         }
       }
     }
-    DecLoading()
   }
 
   function isAnswerType(obj: any): obj is AnswerType {
