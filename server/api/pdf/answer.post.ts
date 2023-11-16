@@ -21,8 +21,7 @@ export default defineEventHandler(async event => {
     browserWSEndpoint: `https://chrome.browserless.io/pdf?token=${API_KEY}`,
   })
 
-  const URL = `https://be-right-backend.fly.dev/answer/view/?ids=${answerIds.join(',')}`
-  // const URL = `${process.env.VITE_API_URL}answer/view/?ids=${answerIds.join(',')}`
+  const URL = `${process.env.VITE_API_URL}answer/view/?ids=${answerIds.join(',')}`
 
   const page = await browser.newPage()
 
