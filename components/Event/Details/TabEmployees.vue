@@ -38,10 +38,14 @@
               </p>
             </div>
             <div
-              v-if="getAnswerForEmployee(employee.id).value?.createdAt"
+              v-if="getAnswerForEmployee(employee.id).value"
               class=""
             >
-              <AnswerResponseAction :answer="getAnswerForEmployee(employee.id).value" />
+              <AnswerResponseAction
+                :answer="getAnswerForEmployee(employee.id).value!"
+                :employee="employee"
+                :event-name="event.name"
+              />
             </div>
           </div>
         </div>
@@ -52,7 +56,8 @@
 </template>
 
 <script setup lang="ts">
-import { useAnswerStore } from '~~/store'
+import AnswerResponseAction from '~~/components/Answer/AnswerResponseAction.vue'
+import { useAnswerStore, useEventStore } from '~~/store'
 import type { EmployeeType } from '~~/types'
 
 interface Props {
@@ -65,8 +70,11 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 const answerStore = useAnswerStore()
+const eventStore = useEventStore()
 
 const answers = computed(() => answerStore.getManyByEventId(props.eventId))
+
+const event = computed(() => eventStore.getOne(props.eventId))
 
 const getAnswerForEmployee = (employeeId: number) => computed(() => {
   return answers.value.find(answer => answer.employeeId === employeeId)

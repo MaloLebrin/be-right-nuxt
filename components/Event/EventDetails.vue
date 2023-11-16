@@ -122,7 +122,10 @@ const downloadFiles = ref<AnchorHTMLAttributes & { click: () => undefined } | nu
 async function download(ids: number[]) {
   IncLoading()
 
-  const data = await downloadAnswers(ids)
+  const data = await downloadAnswers({
+    answerIds: ids,
+    eventName: event.value.name,
+  })
   if (downloadFiles.value && data) {
     downloadFiles.value.href = `data:application/pdf;base64,${data.content}`
     downloadFiles.value.download = data.fileName
