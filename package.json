@@ -31,6 +31,7 @@
     "jwt-decode": "^3.1.2",
     "node-mailjet": "^6.0.4",
     "pinia": "^2.1.7",
+    "puppeteer-core": "^21.5.2",
     "rollup-plugin-visualizer": "^5.9.0",
     "tailvue": "^0.1.68",
     "v-calendar": "3.0.3",

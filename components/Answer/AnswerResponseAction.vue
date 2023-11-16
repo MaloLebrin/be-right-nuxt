@@ -77,11 +77,13 @@
 import type { AnchorHTMLAttributes } from 'nuxt/dist/app/compat/capi'
 import BaseButton from '../Base/BaseButton.vue'
 import BaseMessage from '../Base/BaseMessage.vue'
-import type { AnswerType } from '~~/store'
+import type { AnswerType, EmployeeType } from '~~/store'
 import { useUiStore } from '~~/store'
 
 interface Props {
   answer: AnswerType
+  employee: EmployeeType
+  eventName: string
 }
 
 const props = defineProps<Props>()
@@ -97,6 +99,7 @@ const uiStore = useUiStore()
 const { IncLoading, DecLoading } = uiStore
 const { raiseAnswer } = answerHook()
 const { downloadAnswers } = downloadHook()
+const { getEmployeeFullname } = employeeHook()
 const responseMessage = ref<null | string>(null)
 const isGreenMessage = ref(false)
 
@@ -105,7 +108,11 @@ const downloadFile = ref<AnchorHTMLAttributes & { click: () => undefined } | nul
 async function download(id: number) {
   IncLoading()
 
-  const data = await downloadAnswers([id])
+  const data = await downloadAnswers({
+    answerIds: [id],
+    eventName: props.eventName,
+    employeeName: getEmployeeFullname(props.employee),
+  })
   if (downloadFile.value && data) {
     downloadFile.value.href = `data:application/pdf;base64,${data.content}`
     downloadFile.value.download = data.fileName
@@ -115,11 +122,13 @@ async function download(id: number) {
 }
 
 async function raise() {
+  IncLoading()
   const response = await raiseAnswer(props.answer.id)
   if (response) {
     const { message, isSuccess } = response
     responseMessage.value = message || null
     isGreenMessage.value = isSuccess
   }
+  DecLoading()
 }
 </script>
