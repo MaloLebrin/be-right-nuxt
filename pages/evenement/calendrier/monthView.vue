@@ -133,6 +133,7 @@
 </template>
 
 <script setup lang="ts">
+import { useCalendarStore } from '~~/store'
 import CalendarViewsHeader from '~~/components/Calendar/ViewsHeader.vue'
 import PageAuthWrapper from '~/components/Page/PageAuthWrapper.vue'
 
@@ -209,6 +210,16 @@ const days = [
   { date: '2022-02-06', events: [] },
 ]
 const selectedDay = days.find(day => day.isSelected)
+
+const calendarStore = useCalendarStore()
+
+const {
+  fetchCalendarData,
+} = calendarHook()
+
+onMounted(async () => {
+  await fetchCalendarData()
+})
 
 definePageMeta({
   layout: 'auth',

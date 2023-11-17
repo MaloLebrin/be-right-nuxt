@@ -20,8 +20,9 @@ export function calendarHook() {
 
   async function fetchCalendarData() {
     setCalendarLoading(true)
+    const { start, end } = calendarStore.getMonthViewPeriod
 
-    const { data } = await $api().get<CalendarFetchDataResponse>(`event/calendar?start=${calendarStore.getMonthViewPeriod.start}&end=${calendarStore.getMonthViewPeriod.end}`)
+    const { data } = await $api().get<CalendarFetchDataResponse>(`event/calendar?start=${start}&end=${end}`)
 
     if (data) {
       const { events, calendarData } = data
