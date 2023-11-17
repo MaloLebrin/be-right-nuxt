@@ -47,8 +47,10 @@ export const useEventStore = defineStore('events', {
 
     addMany(events: EventType[]) {
       events.forEach(event => {
+        if (noNullUndefined(this.entities.byId[event.id])) {
+          this.entities.allIds.push(event.id)
+        }
         this.entities.byId[event.id] = { ...event, $isDirty: false }
-        this.entities.allIds.push(event.id)
       })
     },
 

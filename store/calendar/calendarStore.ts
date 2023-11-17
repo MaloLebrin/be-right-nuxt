@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import { calendarState } from './state'
+import type { CalendarDay } from './types'
 
 const {
   toNextMonth,
@@ -14,6 +15,8 @@ export const useCalendarStore = defineStore('calendar', {
     getCurrentDate: state => state.currentDate,
     getMonthViewPeriod: state => getDatePeriod(state.currentDate, 'month'),
     getWeekViewPeriod: state => getDatePeriod(state.currentDate, 'week'),
+    isCalendarLoading: state => state.isLoading,
+    getCalendarData: state => state.data,
   },
   actions: {
     setNextMonth() {
@@ -24,6 +27,12 @@ export const useCalendarStore = defineStore('calendar', {
     },
     setToday() {
       this.currentDate = toToday()
+    },
+    setCalendarData(data: CalendarDay[]) {
+      this.data = data
+    },
+    setCalendarLoading(bool: boolean) {
+      this.isLoading = bool
     },
 
   },
