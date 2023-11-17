@@ -16,9 +16,32 @@ export default function dateHook() {
     return dayjs(date1).isBefore(dayjs(date2))
   }
 
+  function toNextMonth(date: Date) {
+    return dayjs(date).add(1, 'month').toDate()
+  }
+
+  function toPreviousMonth(date: Date) {
+    return dayjs(date).subtract(1, 'month').toDate()
+  }
+
+  function toToday() {
+    return dayjs().toDate()
+  }
+
+  function getDatePeriod(date: Date, view: 'month' | 'week') {
+    return {
+      start: dayjs(date).startOf(view).toDate(),
+      end: dayjs(date).endOf(view).toDate(),
+    }
+  }
+
   return {
     toFormat,
     isBefore,
     isSameDay,
+    toNextMonth,
+    toPreviousMonth,
+    toToday,
+    getDatePeriod,
   }
 }
