@@ -35,10 +35,25 @@ export default function dateHook() {
     }
   }
 
+  function isToday(date1: Date) {
+    return isSameDay(new Date(), date1)
+  }
+
+  function isInCurrentMonth(date1: Date) {
+    return dayjs().isSame(dayjs(date1), 'month')
+  }
+
+  function isInCurrentWeek(date1: Date) {
+    return dayjs().isSame(dayjs(date1), 'week')
+  }
+
   return {
     toFormat,
     isBefore,
+    isInCurrentMonth,
+    isInCurrentWeek,
     isSameDay,
+    isToday,
     toNextMonth,
     toPreviousMonth,
     toToday,
