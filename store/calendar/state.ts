@@ -5,6 +5,7 @@ export function defaultCalendarState(): CalendarState {
     currentDate: new Date(),
     isLoading: false,
     data: [],
+    selectedDay: null,
   }
 }
 

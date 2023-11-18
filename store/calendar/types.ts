@@ -4,6 +4,7 @@ export interface CalendarState {
   currentDate: Date
   isLoading: boolean
   data: CalendarDay[]
+  selectedDay: null | CalendarDay
 }
 
 export interface Period {

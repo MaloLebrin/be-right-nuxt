@@ -337,6 +337,10 @@ onMounted(() => {
   }
 })
 
+useHead({
+  title: 'Calendrier - Vue Semaine',
+})
+
 definePageMeta({
   layout: 'auth',
   isAuth: true,
