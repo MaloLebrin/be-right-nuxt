@@ -27,7 +27,7 @@
       <span>Retour</span>
     </a>
     <h3
-      class="flex items-center space-x-4 font-semibold text-gray-800 text-normal md:text-2xl dark:text-white"
+      class="flex items-center space-x-4 font-semibold text-gray-800 text-normal md:text-xl dark:text-white"
     >
       <template v-if="getRouteHeaderContent && $isNotMobile">
         <component
@@ -71,7 +71,7 @@ const getOutsideMenuRouteLabel = computed(() => {
   if (route.name) {
     const formatedRouteName = route.name.toString().split('.').splice(1).join('.')
 
-    switch (formatedRouteName) {
+    switch (formatedRouteName || route.name) {
       case RouteNames.SHOW_EVENT_ID:
         return 'Détail de l\'événement'
       case 'evenement-edit-id':
@@ -111,6 +111,11 @@ const getOutsideMenuRouteLabel = computed(() => {
         return 'Modifier l\'adresse'
       case 'address-show-id':
         return 'Voir l\'adresse'
+
+      case RouteNames.EVENT_CALENDAR_MONTH_VIEW:
+        return 'Calendrier Vue Mois'
+      case RouteNames.EVENT_CALENDAR_WEEK_VIEW:
+        return 'Calendrier Vue Semaine'
     }
   }
 })
