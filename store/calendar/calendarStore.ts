@@ -20,6 +20,7 @@ export const useCalendarStore = defineStore('calendar', {
     getCalendarData: state => state.data,
     getSelectedDay: state => state.selectedDay,
     isSelectedDay: state => (day: CalendarDay) => state.selectedDay?.date === day.date,
+    getFirstSevenDays: state => state.data.slice(0, 7),
   },
   actions: {
     setNextMonth() {

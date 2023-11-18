@@ -5,7 +5,7 @@ import {
 } from '~~/store'
 
 export function calendarHook() {
-  const { $api } = useNuxtApp()
+  const { $api, $router } = useNuxtApp()
 
   const eventStore = useEventStore()
   const {
@@ -16,7 +16,26 @@ export function calendarHook() {
   const {
     setCalendarLoading,
     setCalendarData,
+    setSelectedDayToday,
   } = calendarStore
+
+  onMounted(async () => {
+    await fetchCalendarData()
+    setSelectedDayToday()
+
+    watch(() => [$router.currentRoute.value.query], async () => {
+      await fetchCalendarData()
+    }, { deep: true })
+
+    watch(() => [calendarStore.getMonthViewPeriod], ([period]) => {
+      $router.push({
+        query: {
+          start: period.start.toString(),
+          end: period.end.toString(),
+        },
+      })
+    }, { deep: true })
+  })
 
   async function fetchCalendarData() {
     setCalendarLoading(true)
