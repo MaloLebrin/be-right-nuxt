@@ -1,4 +1,5 @@
 import type { EventType } from '../event/types'
+import type { AnswerType } from '../answer/types'
 
 export interface CalendarState {
   currentDate: Date
@@ -19,6 +20,7 @@ export interface CalendarDay {
 }
 
 export interface CalendarFetchDataResponse {
+  answers: AnswerType[]
   events: EventType[]
   calendarData: CalendarDay[]
   total: number

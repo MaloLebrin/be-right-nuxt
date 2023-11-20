@@ -20,18 +20,10 @@
       v-for="event in events.slice(0, 2)"
       :key="event.id"
     >
-      <NuxtLink
-        :to="{ name: RouteNames.SHOW_EVENT_ID, params: { id: event.id } }"
-        class="flex group"
-      >
-        <p class="flex-auto font-medium text-gray-900 truncate group-hover:text-indigo-600">
-          {{ event.name }}
-        </p>
-        <time
-          :datetime="event.start as unknown as string"
-          class="flex-none hidden ml-3 text-gray-500 group-hover:text-indigo-600 xl:block"
-        >{{ $toFormat(event.start, 'DD MM') }} - {{ $toFormat(event.end, 'DD MM') }}</time>
-      </NuxtLink>
+      <EventCard
+        :event="event"
+        :answers="getAnswers(event.id).value"
+      />
     </li>
     <li
       v-if="day.eventIds.length > 2"
@@ -44,12 +36,13 @@
 </template>
 
 <script setup lang="ts">
+import EventCard from '~~/components/Calendar/MonthView/EventCard.vue'
 import {
   type CalendarDay,
+  useAnswerStore,
   useCalendarStore,
   useEventStore,
 } from '~~/store'
-import { RouteNames } from '~~/helpers/routes'
 
 interface Props {
   day: CalendarDay
@@ -57,10 +50,11 @@ interface Props {
 
 const props = defineProps<Props>()
 
+const answerStore = useAnswerStore()
 const eventStore = useEventStore()
 const calendarStore = useCalendarStore()
 const { setSelectedDay } = calendarStore
 const { isToday, isInCurrentMonth } = dateHook()
-
 const events = eventStore.getMany(props.day.eventIds)
+const getAnswers = (eventId: number) => computed(() => answerStore.getManyByEventId(eventId))
 </script>

@@ -1,5 +1,6 @@
 import {
   type CalendarFetchDataResponse,
+  useAnswerStore,
   useCalendarStore,
   useEventStore,
 } from '~~/store'
@@ -18,6 +19,8 @@ export function calendarHook() {
     setCalendarData,
     setSelectedDayToday,
   } = calendarStore
+
+  const answerStore = useAnswerStore()
 
   onMounted(async () => {
     await fetchCalendarData()
@@ -44,9 +47,13 @@ export function calendarHook() {
     const { data } = await $api().get<CalendarFetchDataResponse>(`event/calendar?start=${start}&end=${end}`)
 
     if (data) {
-      const { events, calendarData } = data
+      const { answers, events, calendarData } = data
       if (events?.length > 0) {
         addMany(events)
+      }
+
+      if (answers?.length > 0) {
+        answerStore.addMany(answers)
       }
 
       if (calendarData?.length > 0) {

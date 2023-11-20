@@ -67,6 +67,7 @@ declare module '@vue/runtime-core' {
     PhoneIconOutline: typeof import('@heroicons/vue/24/outline/esm/PhoneIcon')['default']
     PlusCircleIconOutline: typeof import('@heroicons/vue/24/outline/esm/PlusCircleIcon')['default']
     PlusIconOutline: typeof import('@heroicons/vue/24/outline/esm/PlusIcon')['default']
+    PopoverOverlay: typeof import('@headlessui/vue')['PopoverOverlay']
     QuestionMarkCircleIconOutline: typeof import('@heroicons/vue/24/outline/esm/QuestionMarkCircleIcon')['default']
     RadioGroup: typeof import('@headlessui/vue')['RadioGroup']
     RadioGroupDescription: typeof import('@headlessui/vue')['RadioGroupDescription']
