@@ -52,7 +52,7 @@ import CalendarMonthViewMobileDayMobile from '~/components/Calendar/MonthView/Mo
 import CalendarMonthViewDesktopDayDesktop from '~/components/Calendar/MonthView/Desktop/DayDesktop.vue'
 import CalendarMonthViewMobileEventList from '~/components/Calendar/MonthView/Mobile/EventList.vue'
 import CalendarMonthViewDaysHeader from '~/components/Calendar/MonthView/DaysHeader.vue'
-import CalendarSkeletonDay from '~/components/Calendar/Skeleton/Day.vue'
+import CalendarSkeletonDay from '~~/components/Calendar/Skeleton/Day.vue'
 
 const calendarStore = useCalendarStore()
 const eventStore = useEventStore()
