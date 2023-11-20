@@ -1,7 +1,7 @@
 <template>
-<div class="flex items-center justify-between px-6 py-4 mb-2 space-y-1">
+<div class="flex items-center justify-between px-6 py-4 mb-2 space-y-1 overflow-hidden">
   <div class="overflow-hidden">
-    <h4 class="overflow-hidden text-lg text">
+    <h4 class="overflow-hidden text-lg capitalize text">
       {{ event.name }}
     </h4>
     <time

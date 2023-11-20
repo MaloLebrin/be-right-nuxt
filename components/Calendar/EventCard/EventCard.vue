@@ -3,9 +3,9 @@
   as="div"
   class="relative"
 >
-  <PopoverButton class="flex group">
+  <PopoverButton class="flex overflow-hidden group">
     <p class="flex-auto font-medium text-gray-900 truncate group-hover:text-indigo-600">
-      {{ event.name }}
+      <span class="truncate">{{ event.name }}</span>
     </p>
   </PopoverButton>
 
