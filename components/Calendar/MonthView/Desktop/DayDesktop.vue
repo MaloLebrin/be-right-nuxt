@@ -33,8 +33,8 @@
 </template>
 
 <script setup lang="ts">
-import EventListCard from '~~/components/Calendar/MonthView/EventListCard.vue'
-import EventCard from '~~/components/Calendar/MonthView/EventCard.vue'
+import EventListCard from '~~/components/Calendar/EventCard/EventListCard.vue'
+import EventCard from '~~/components/Calendar/EventCard/EventCard.vue'
 import {
   type CalendarDay,
   useAnswerStore,

@@ -42,13 +42,6 @@
             Voir
           </NuxtLink>
         </div>
-
-        <!-- <div class="relative px-6 mb-4">
-          <EventProgressBar
-            :status="event.status"
-            :answers="answers"
-          />
-        </div> -->
       </div>
     </PopoverPanel>
   </transition>
