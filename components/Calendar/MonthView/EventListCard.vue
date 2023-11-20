@@ -3,9 +3,7 @@
   as="div"
   class="relative"
 >
-  <PopoverButton
-    class="flex group"
-  >
+  <PopoverButton class="flex group">
     <p class="font-light text-gray-500">
       + {{ events.length }} more
     </p>
@@ -66,7 +64,7 @@ interface Props {
   events: EventType[]
 }
 
-const props = defineProps<Props>()
+defineProps<Props>()
 </script>
 
   <style scoped>

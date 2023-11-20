@@ -3,16 +3,10 @@
   as="div"
   class="relative"
 >
-  <PopoverButton
-    class="flex group"
-  >
+  <PopoverButton class="flex group">
     <p class="flex-auto font-medium text-gray-900 truncate group-hover:text-indigo-600">
       {{ event.name }}
     </p>
-    <time
-      :datetime="event.start as unknown as string"
-      class="flex-none hidden ml-3 text-gray-500 group-hover:text-indigo-600 xl:block"
-    >{{ $toFormat(event.start, 'DD MM') }} - {{ $toFormat(event.end, 'DD MM') }}</time>
   </PopoverButton>
 
   <transition
@@ -31,8 +25,8 @@
               {{ event.name }}
             </h4>
             <time
-              :datetime="event.start as unknown as string"
               class="text-xs font-thin"
+              :datetime="event.start as unknown as string"
             >
               {{ $toFormat(event.start, 'DD/MM/YY') }} - {{ $toFormat(event.end, 'DD/MM/YY') }}
             </time>
