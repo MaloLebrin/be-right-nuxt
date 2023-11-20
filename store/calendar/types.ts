@@ -25,3 +25,5 @@ export interface CalendarFetchDataResponse {
   calendarData: CalendarDay[]
   total: number
 }
+
+export type TypeOfView = 'month' | 'week'

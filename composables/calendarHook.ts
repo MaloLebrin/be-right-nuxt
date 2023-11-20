@@ -1,11 +1,12 @@
 import {
   type CalendarFetchDataResponse,
+  type TypeOfView,
   useAnswerStore,
   useCalendarStore,
   useEventStore,
 } from '~~/store'
 
-export function calendarHook() {
+export function calendarHook(view: TypeOfView = 'month') {
   const { $api, $router } = useNuxtApp()
 
   const eventStore = useEventStore()
@@ -30,19 +31,36 @@ export function calendarHook() {
       await fetchCalendarData()
     }, { deep: true })
 
-    watch(() => [calendarStore.getMonthViewPeriod], ([period]) => {
-      $router.push({
-        query: {
-          start: period.start.toString(),
-          end: period.end.toString(),
-        },
-      })
-    }, { deep: true })
+    if (view === 'week') {
+      watch(() => [calendarStore.getWeekViewPeriod], ([period]) => {
+        $router.push({
+          query: {
+            start: period.start.toString(),
+            end: period.end.toString(),
+          },
+        })
+      }, { deep: true })
+    }
+    if (view === 'month') {
+      watch(() => [calendarStore.getMonthViewPeriod], ([period]) => {
+        $router.push({
+          query: {
+            start: period.start.toString(),
+            end: period.end.toString(),
+          },
+        })
+      }, { deep: true })
+    }
   })
 
   async function fetchCalendarData() {
     setCalendarLoading(true)
-    const { start, end } = calendarStore.getMonthViewPeriod
+    let period = calendarStore.getMonthViewPeriod
+
+    if (view === 'week') {
+      period = calendarStore.getWeekViewPeriod
+    }
+    const { start, end } = period
 
     const { data } = await $api().get<CalendarFetchDataResponse>(`event/calendar?start=${start}&end=${end}`)
 

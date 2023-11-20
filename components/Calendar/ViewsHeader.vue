@@ -10,7 +10,7 @@
       <button
         type="button"
         class="flex items-center justify-center w-12 pr-1 text-gray-400 border-l border-gray-300 h-9 rounded-l-md border-y hover:text-gray-500 focus:relative md:w-9 md:pr-0 md:hover:bg-gray-50"
-        @click="setPreviousMonth"
+        @click="setPreviousPeriod(view)"
       >
         <span class="sr-only">Previous month</span>
         <ChevronLeftIcon
@@ -29,7 +29,7 @@
       <button
         type="button"
         class="flex items-center justify-center w-12 pl-1 text-gray-400 border-r border-gray-300 h-9 rounded-r-md border-y hover:text-gray-500 focus:relative md:w-9 md:pl-0 md:hover:bg-gray-50"
-        @click="setNextMonth"
+        @click="setNextPeriod(view)"
       >
         <span class="sr-only">Next month</span>
         <ChevronRightIcon
@@ -187,13 +187,19 @@
 <script setup lang="ts">
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
 import { ChevronLeftIcon, ChevronRightIcon, ChevronUpDownIcon, EllipsisHorizontalIcon } from '@heroicons/vue/20/solid'
-import { useCalendarStore } from '~~/store'
+import { type TypeOfView, useCalendarStore } from '~~/store'
 import { RouteNames } from '~~/helpers/routes'
+
+interface Props {
+  view: TypeOfView
+}
+
+defineProps<Props>()
 
 const calendarStore = useCalendarStore()
 const {
-  setPreviousMonth,
-  setNextMonth,
+  setPreviousPeriod,
+  setNextPeriod,
   setToday,
 } = calendarStore
 

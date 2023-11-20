@@ -1,7 +1,7 @@
 <template>
 <PageAuthWrapper>
   <div class="lg:flex lg:h-full lg:flex-col">
-    <CalendarViewsHeader />
+    <CalendarViewsHeader view="month" />
     <div class="shadow ring-1 ring-black ring-opacity-5 lg:flex lg:flex-auto lg:flex-col">
       <CalendarMonthViewDaysHeader />
       <div class="flex text-xs leading-6 text-gray-700 bg-gray-200 lg:flex-auto">

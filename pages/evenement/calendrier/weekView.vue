@@ -1,7 +1,7 @@
 <template>
 <PageAuthWrapper>
   <div class="flex flex-col h-full">
-    <CalendarViewsHeader />
+    <CalendarViewsHeader view="week" />
 
     <div
       ref="container"
@@ -15,82 +15,7 @@
           ref="containerNav"
           class="sticky top-0 z-30 flex-none bg-white shadow ring-1 ring-black ring-opacity-5 sm:pr-8"
         >
-          <div class="grid grid-cols-7 text-sm leading-6 text-gray-500 sm:hidden">
-            <button
-              type="button"
-              class="flex flex-col items-center pt-2 pb-3"
-            >
-              M
-              <span class="flex items-center justify-center w-8 h-8 mt-1 font-semibold text-gray-900">10</span>
-            </button>
-            <button
-              type="button"
-              class="flex flex-col items-center pt-2 pb-3"
-            >
-              T
-              <span class="flex items-center justify-center w-8 h-8 mt-1 font-semibold text-gray-900">11</span>
-            </button>
-            <button
-              type="button"
-              class="flex flex-col items-center pt-2 pb-3"
-            >
-              W
-              <span class="flex items-center justify-center w-8 h-8 mt-1 font-semibold text-white bg-indigo-600 rounded-full">12</span>
-            </button>
-            <button
-              type="button"
-              class="flex flex-col items-center pt-2 pb-3"
-            >
-              T
-              <span class="flex items-center justify-center w-8 h-8 mt-1 font-semibold text-gray-900">13</span>
-            </button>
-            <button
-              type="button"
-              class="flex flex-col items-center pt-2 pb-3"
-            >
-              F
-              <span class="flex items-center justify-center w-8 h-8 mt-1 font-semibold text-gray-900">14</span>
-            </button>
-            <button
-              type="button"
-              class="flex flex-col items-center pt-2 pb-3"
-            >
-              S
-              <span class="flex items-center justify-center w-8 h-8 mt-1 font-semibold text-gray-900">15</span>
-            </button>
-            <button
-              type="button"
-              class="flex flex-col items-center pt-2 pb-3"
-            >
-              S
-              <span class="flex items-center justify-center w-8 h-8 mt-1 font-semibold text-gray-900">16</span>
-            </button>
-          </div>
-
-          <div class="hidden grid-cols-7 -mr-px text-sm leading-6 text-gray-500 border-r border-gray-100 divide-x divide-gray-100 sm:grid">
-            <div class="col-end-1 w-14" />
-            <div class="flex items-center justify-center py-3">
-              <span>Mon <span class="items-center justify-center font-semibold text-gray-900">10</span></span>
-            </div>
-            <div class="flex items-center justify-center py-3">
-              <span>Tue <span class="items-center justify-center font-semibold text-gray-900">11</span></span>
-            </div>
-            <div class="flex items-center justify-center py-3">
-              <span class="flex items-baseline">Wed <span class="ml-1.5 flex h-8 w-8 items-center justify-center rounded-full bg-indigo-600 font-semibold text-white">12</span></span>
-            </div>
-            <div class="flex items-center justify-center py-3">
-              <span>Thu <span class="items-center justify-center font-semibold text-gray-900">13</span></span>
-            </div>
-            <div class="flex items-center justify-center py-3">
-              <span>Fri <span class="items-center justify-center font-semibold text-gray-900">14</span></span>
-            </div>
-            <div class="flex items-center justify-center py-3">
-              <span>Sat <span class="items-center justify-center font-semibold text-gray-900">15</span></span>
-            </div>
-            <div class="flex items-center justify-center py-3">
-              <span>Sun <span class="items-center justify-center font-semibold text-gray-900">16</span></span>
-            </div>
-          </div>
+          <CalendarWeekViewDay />
         </div>
         <div class="flex flex-auto">
           <div class="sticky left-0 z-10 flex-none bg-white w-14 ring-1 ring-gray-100" />
@@ -319,12 +244,15 @@
 </template>
 
 <script setup lang="ts">
+import CalendarWeekViewDay from '~/components/Calendar/WeekView/Day.vue'
 import PageAuthWrapper from '~/components/Page/PageAuthWrapper.vue'
 import CalendarViewsHeader from '~~/components/Calendar/ViewsHeader.vue'
 
 const container = ref<null | HTMLDivElement>(null)
 const containerNav = ref<null | HTMLDivElement>(null)
 const containerOffset = ref<null | HTMLDivElement>(null)
+
+calendarHook('week')
 
 onMounted(() => {
   // Set the container scroll position based on the current time.

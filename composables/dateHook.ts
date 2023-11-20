@@ -1,5 +1,6 @@
 import dayjs from 'dayjs'
 import fr from 'dayjs/locale/fr'
+import { type TypeOfView } from '~~/store'
 
 dayjs.locale(fr)
 
@@ -16,12 +17,12 @@ export default function dateHook() {
     return dayjs(date1).isBefore(dayjs(date2))
   }
 
-  function toNextMonth(date: Date) {
-    return dayjs(date).add(1, 'month').toDate()
+  function toNextPeriod(date: Date, view: TypeOfView) {
+    return dayjs(date).add(1, view).toDate()
   }
 
-  function toPreviousMonth(date: Date) {
-    return dayjs(date).subtract(1, 'month').toDate()
+  function toPreviousPeriod(date: Date, view: TypeOfView) {
+    return dayjs(date).subtract(1, view).toDate()
   }
 
   function toToday() {
@@ -54,8 +55,8 @@ export default function dateHook() {
     isInCurrentWeek,
     isSameDay,
     isToday,
-    toNextMonth,
-    toPreviousMonth,
+    toNextPeriod,
+    toPreviousPeriod,
     toToday,
     getDatePeriod,
   }
