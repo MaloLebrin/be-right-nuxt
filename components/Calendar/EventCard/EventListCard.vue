@@ -18,13 +18,24 @@
     leave-to-class="translate-y-1 opacity-0"
   >
     <PopoverPanel class="absolute z-10 px-4 mt-3 transform -translate-x-1/2 left-1/2 sm:px-0">
-      <div class="no-scroll-bar relative mx-5 mt-4 min-w-[315px] max-w[315px] bg-slate-200 overflow-y-scroll rounded-2xl bg-opacity-50 shadow-lg backdrop-blur">
-        <CalendarEventCardHeader
-          v-for="event in events"
-          :key="event.id"
-          :event="event"
-        />
-      </div>
+      <Disclosure
+        v-for="event in events"
+        :key="event.id"
+        as="div"
+        class="no-scroll-bar relative mx-5 mt-4 min-w-[315px] max-w[315px] bg-slate-200 overflow-y-scroll rounded-2xl bg-opacity-50 shadow-lg backdrop-blur"
+      >
+        <DisclosureButton class="w-full">
+          <CalendarEventCardHeader
+            :event="event"
+          />
+        </DisclosureButton>
+        <DisclosurePanel>
+          <CalendarEventContent
+            :event="event"
+            :answers="getAnswers(event.id).value"
+          />
+        </DisclosurePanel>
+      </Disclosure>
     </PopoverPanel>
   </transition>
 </Popover>
@@ -32,14 +43,18 @@
 
 <script setup lang="ts">
 import { Popover, PopoverButton, PopoverPanel } from '@headlessui/vue'
-import { type EventType } from '~~/store'
+import { type EventType, useAnswerStore } from '~~/store'
 import CalendarEventCardHeader from '~~/components/Calendar/EventCard/Header.vue'
+import CalendarEventContent from '~~/components/Calendar/EventCard/Content.vue'
 
 interface Props {
   events: EventType[]
 }
 
 defineProps<Props>()
+
+const answerStore = useAnswerStore()
+const getAnswers = (eventId: number) => computed(() => answerStore.getManyByEventId(eventId))
 </script>
 
   <style scoped>
