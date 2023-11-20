@@ -25,17 +25,15 @@
         :answers="getAnswers(event.id).value"
       />
     </li>
-    <li
-      v-if="day.eventIds.length > 2"
-      class="text-gray-500"
-    >
-      + {{ day.eventIds.length - 2 }} more
+    <li v-if="day.eventIds.length > 2">
+      <EventListCard :events="events.slice(2)" />
     </li>
   </ol>
 </div>
 </template>
 
 <script setup lang="ts">
+import EventListCard from '~~/components/Calendar/MonthView/EventListCard.vue'
 import EventCard from '~~/components/Calendar/MonthView/EventCard.vue'
 import {
   type CalendarDay,
