@@ -6,19 +6,31 @@
       <CalendarMonthViewDaysHeader />
       <div class="flex text-xs leading-6 text-gray-700 bg-gray-200 lg:flex-auto">
         <div class="hidden w-full lg:grid lg:grid-cols-7 lg:grid-rows-6 lg:gap-px">
-          <CalendarMonthViewDesktopDayDesktop
-            v-for="day in calendarStore.getCalendarData"
-            :key="day.label"
-            :day="day"
+          <CalendarSkeletonDay
+            v-if="calendarStore.isCalendarLoading"
+            :nb="30"
           />
+          <template v-else>
+            <CalendarMonthViewDesktopDayDesktop
+              v-for="day in calendarStore.getCalendarData"
+              :key="day.label"
+              :day="day"
+            />
+          </template>
         </div>
         <div class="grid w-full grid-cols-7 grid-rows-6 gap-px isolate lg:hidden">
-          <CalendarMonthViewMobileDayMobile
-            v-for="day in calendarStore.getCalendarData"
-            :key="day.label"
-            :day="day"
-            :is-selected="calendarStore.isSelectedDay(day)"
+          <CalendarSkeletonDay
+            v-if="calendarStore.isCalendarLoading"
+            :nb="30"
           />
+          <template v-else>
+            <CalendarMonthViewMobileDayMobile
+              v-for="day in calendarStore.getCalendarData"
+              :key="day.label"
+              :day="day"
+              :is-selected="calendarStore.isSelectedDay(day)"
+            />
+          </template>
         </div>
       </div>
       <div
@@ -40,6 +52,7 @@ import CalendarMonthViewMobileDayMobile from '~/components/Calendar/MonthView/Mo
 import CalendarMonthViewDesktopDayDesktop from '~/components/Calendar/MonthView/Desktop/DayDesktop.vue'
 import CalendarMonthViewMobileEventList from '~/components/Calendar/MonthView/Mobile/EventList.vue'
 import CalendarMonthViewDaysHeader from '~/components/Calendar/MonthView/DaysHeader.vue'
+import CalendarSkeletonDay from '~/components/Calendar/Skeleton/Day.vue'
 
 const calendarStore = useCalendarStore()
 const eventStore = useEventStore()
