@@ -30,8 +30,8 @@ export default function dateHook() {
 
   function getDatePeriod(date: Date, view: 'month' | 'week') {
     return {
-      start: dayjs(date).startOf(view).toDate(),
-      end: dayjs(date).endOf(view).toDate(),
+      start: toFormat(dayjs(date).startOf(view).toDate(), 'YYYY-MM-DD'),
+      end: toFormat(dayjs(date).endOf(view).toDate(), 'YYYY-MM-DD'),
     }
   }
 

@@ -8,12 +8,13 @@ const {
   toToday,
   getDatePeriod,
   isToday,
+  toFormat,
 } = dateHook()
 
 export const useCalendarStore = defineStore('calendar', {
   state: () => ({ ...calendarState }),
   getters: {
-    getCurrentDate: state => state.currentDate,
+    getCurrentDate: state => toFormat(state.currentDate, 'YYYY-MM-DD'),
     getMonthViewPeriod: state => getDatePeriod(state.currentDate, 'month'),
     getWeekViewPeriod: state => getDatePeriod(state.currentDate, 'week'),
     isCalendarLoading: state => state.isLoading,
