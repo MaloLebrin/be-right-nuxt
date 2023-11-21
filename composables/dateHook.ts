@@ -1,8 +1,10 @@
 import dayjs from 'dayjs'
 import fr from 'dayjs/locale/fr'
-import { type TypeOfView } from '~~/store'
+import isBetween from 'dayjs/plugin/isBetween'
+import type { Period, TypeOfView } from '~~/store'
 
 dayjs.locale(fr)
+dayjs.extend(isBetween)
 
 export default function dateHook() {
   function toFormat(date: Date | string, format: string) {
@@ -48,16 +50,34 @@ export default function dateHook() {
     return dayjs().isSame(dayjs(date1), 'week')
   }
 
+  function isDateBetween(date1: Date | string, period: Period) {
+    return dayjs(date1).isBetween(period.start, period.end)
+  }
+
+  function isPeriodInDay(period: Period, date: Date) {
+    if (!date || !period?.end || !period.start) {
+      return false
+    }
+    return isDateBetween(date, period)
+  }
+
+  function getHour(date: Date) {
+    return dayjs(date).hour()
+  }
+
   return {
-    toFormat,
+    getDatePeriod,
+    getHour,
     isBefore,
+    isDateBetween,
     isInCurrentMonth,
     isInCurrentWeek,
+    isPeriodInDay,
     isSameDay,
     isToday,
+    toFormat,
     toNextPeriod,
     toPreviousPeriod,
     toToday,
-    getDatePeriod,
   }
 }
