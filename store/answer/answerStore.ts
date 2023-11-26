@@ -34,8 +34,10 @@ export const useAnswerStore = defineStore('answers', {
 
     addMany(answers: AnswerType[]) {
       answers.forEach(answer => {
+        if (!noNullUndefined(this.entities.byId[answer.id])) {
+          this.entities.allIds.push(answer.id)
+        }
         this.entities.byId[answer.id] = { ...answer, $isDirty: false }
-        this.entities.allIds.push(answer.id)
       })
     },
 
