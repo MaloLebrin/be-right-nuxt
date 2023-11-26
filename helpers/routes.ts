@@ -5,6 +5,10 @@ export enum RouteNames {
   CREATE_EVENT_STEP_3 = 'evenement-creer-step3',
   CREATE_EVENT_STEP_PAYMENT = 'evenement-creer-paiement',
 
+  // EVENT CALENDAR
+  EVENT_CALENDAR_MONTH_VIEW = 'evenement-calendrier-monthView',
+  EVENT_CALENDAR_WEEK_VIEW = 'evenement-calendrier-weekView',
+
   LIST_EVENT = 'evenement',
 
   SHOW_EVENT_ID = 'evenement-show-id',
