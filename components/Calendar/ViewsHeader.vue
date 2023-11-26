@@ -5,7 +5,24 @@
       {{ $toFormat(calendarStore.getCurrentDate, 'DD MMMM YYYY') }}
     </time>
   </h1>
-  <div class="flex items-center">
+  <div class="flex items-center space-x-2">
+    <ClientOnly>
+      <DatePicker
+        v-model="getSetDate"
+        is24hr
+      >
+        <template #default="{ togglePopover }">
+          <button
+            class="flex items-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+            @click="togglePopover"
+          >
+            <span class="not-sr-only md:sr-only">{{ $toFormat(getSetDate, 'DD MM YY') }}</span>
+            <span class="sr-only md:not-sr-only lg:sr-only">{{ $toFormat(getSetDate, 'DD MMMM YY') }}</span>
+            <span class="sr-only lg:not-sr-only">{{ $toFormat(getSetDate, 'DD MMMM YYYY') }}</span>
+          </button>
+        </template>
+      </DatePicker>
+    </Clientonly>
     <div class="relative flex items-center bg-white rounded-md shadow-sm md:items-stretch">
       <button
         type="button"
@@ -185,6 +202,8 @@
 </template>
 
 <script setup lang="ts">
+import 'v-calendar/dist/style.css'
+import { DatePicker } from 'v-calendar'
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
 import { ChevronLeftIcon, ChevronRightIcon, ChevronUpDownIcon, EllipsisHorizontalIcon } from '@heroicons/vue/20/solid'
 import { type TypeOfView, useCalendarStore } from '~~/store'
@@ -201,6 +220,7 @@ const {
   setPreviousPeriod,
   setNextPeriod,
   setToday,
+  setCurrentDate,
 } = calendarStore
 
 const route = useRoute()
@@ -215,4 +235,11 @@ const getCurrentViewLabel = () => {
       return 'Vue mois'
   }
 }
+
+const getSetDate = computed({
+  get: () => calendarStore.getCurrentDate,
+  set: (value: string) => {
+    setCurrentDate(value)
+  },
+})
 </script>

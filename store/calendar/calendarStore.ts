@@ -24,6 +24,9 @@ export const useCalendarStore = defineStore('calendar', {
     getFirstSevenDays: state => state.data.slice(0, 7),
   },
   actions: {
+    setCurrentDate(date: Date) {
+      this.currentDate = date
+    },
     setNextPeriod(view: TypeOfView) {
       this.currentDate = toNextPeriod(this.currentDate, view)
     },
