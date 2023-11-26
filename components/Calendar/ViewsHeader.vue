@@ -239,7 +239,7 @@ const getCurrentViewLabel = () => {
 const getSetDate = computed({
   get: () => calendarStore.getCurrentDate,
   set: (value: string) => {
-    setCurrentDate(value)
+    setCurrentDate(value as unknown as Date)
   },
 })
 </script>
