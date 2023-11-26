@@ -47,12 +47,12 @@
             <!-- Events -->
             <ol
               class="grid grid-cols-1 col-start-1 col-end-2 row-start-1 sm:grid-cols-7 sm:pr-8"
-              style="grid-template-rows: 1.75rem repeat(288, minmax(0, 1fr)) auto"
+              style="grid-template-rows: 100% repeat(288, minmax(0, 1fr)) auto"
             >
               <CalendarEventInADay
                 v-for="(day, index) in calendarStore.getFirstSevenDays"
                 :key="day.label"
-                :event="eventStore.getOne(day.eventIds[0])"
+                :events="eventStore.getMany(day.eventIds)"
                 :day="day"
                 :previous-day="calendarStore.getFirstSevenDays[index - 1]"
                 :next-day="calendarStore.getFirstSevenDays[index + 1]"
