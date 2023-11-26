@@ -18,24 +18,38 @@
     leave-to-class="translate-y-1 opacity-0"
   >
     <PopoverPanel class="absolute z-10 px-4 mt-3 transform -translate-x-1/2 left-1/2 sm:px-0">
-      <Disclosure
-        v-for="event in events"
-        :key="event.id"
-        as="div"
+      <div
+        v-if="events.length === 1"
         class="no-scroll-bar relative mx-5 mt-4 min-w-[315px] max-w[315px] bg-slate-200 overflow-y-scroll rounded-2xl bg-opacity-50 shadow-lg backdrop-blur"
       >
-        <DisclosureButton class="w-full">
-          <CalendarEventCardHeader
-            :event="event"
-          />
-        </DisclosureButton>
-        <DisclosurePanel>
-          <CalendarEventContent
-            :event="event"
-            :answers="getAnswers(event.id).value"
-          />
-        </DisclosurePanel>
-      </Disclosure>
+        <CalendarEventCardHeader
+          :event="events[0]"
+        />
+        <CalendarEventContent
+          :event="events[0]"
+          :answers="getAnswers(events[0].id).value"
+        />
+      </div>
+      <template v-else>
+        <Disclosure
+          v-for="event in events"
+          :key="event.id"
+          as="div"
+          class="no-scroll-bar relative mx-5 mt-4 min-w-[315px] max-w[315px] bg-slate-200 overflow-y-scroll rounded-2xl bg-opacity-50 shadow-lg backdrop-blur"
+        >
+          <DisclosureButton class="w-full">
+            <CalendarEventCardHeader
+              :event="event"
+            />
+          </DisclosureButton>
+          <DisclosurePanel>
+            <CalendarEventContent
+              :event="event"
+              :answers="getAnswers(event.id).value"
+            />
+          </DisclosurePanel>
+        </Disclosure>
+      </template>
     </PopoverPanel>
   </transition>
 </Popover>
