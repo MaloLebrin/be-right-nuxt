@@ -13,17 +13,27 @@
 </div>
 <div class="hidden grid-cols-7 -mr-px text-sm leading-6 text-gray-500 border-r border-gray-100 divide-x divide-gray-100 sm:grid">
   <div class="col-end-1 w-14" />
-  <button
+  <div
     v-for="day in calendarStore.getCalendarData"
     :key="day.label"
-    class="flex items-center py-3 font-semibold capitalize sm:justify-center"
-    :class="[getTextColor(day)]"
-    @click="setSelectedDay(day)"
+    class="flex flex-col items-center pt-2 pb-3 capitalize"
   >
-    <span class="not-sr-only md:sr-only">{{ $toFormat(day.date, 'dd DD') }}</span>
-    <span class="sr-only md:not-sr-only lg:sr-only">{{ $toFormat(day.date, 'ddd DD') }}</span>
-    <span class="sr-only lg:not-sr-only">{{ $toFormat(day.date, 'dddd DD') }}</span>
-  </button>
+    <button
+      class="flex items-center capitalize py-21font-semibold sm:justify-center"
+      :class="[getTextColor(day)]"
+      @click="setSelectedDay(day)"
+    >
+      <span class="not-sr-only md:sr-only">{{ $toFormat(day.date, 'dd DD') }}</span>
+      <span class="sr-only md:not-sr-only lg:sr-only">{{ $toFormat(day.date, 'ddd DD') }}</span>
+      <span class="sr-only lg:not-sr-only">{{ $toFormat(day.date, 'dddd DD') }}</span>
+    </button>
+    <span
+      v-if="day.eventIds.length - 2"
+      class="font-light text-gray-500"
+    >
+      + {{ day.eventIds.length - 2 }}
+    </span>
+  </div>
 </div>
 </template>
 
