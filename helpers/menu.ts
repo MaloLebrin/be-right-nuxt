@@ -52,6 +52,12 @@ export const MENU_ITEMS = [
     isAdmin: false,
   },
   {
+    label: 'Calendrier',
+    icon: CalendarDaysIcon,
+    linkName: RouteNames.EVENT_CALENDAR_MONTH_VIEW,
+    isAdmin: false,
+  },
+  {
     label: 'Événements Archivés',
     icon: ArchiveBoxIcon,
     linkName: 'evenement-archives',

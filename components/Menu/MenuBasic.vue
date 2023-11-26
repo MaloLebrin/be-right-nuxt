@@ -1,11 +1,11 @@
 <template>
-<nav class="flex-1 mt-5 space-y-4">
+<nav class="flex-1 mt-5 space-y-2">
   <NuxtLink
     v-for="(item, index) in MENU_ITEMS"
     :key="index"
     :to="{ name: item.linkName }"
     exact-active-class="active-nuxt-link"
-    class="flex items-center px-2 py-2 text-sm font-medium text-gray-600 rounded-md group dark:text-gray-300 hover:bg-gray-700 hover:text-white"
+    class="flex items-center px-2 py-1 text-sm text-gray-600 rounded-md group dark:text-gray-300 hover:bg-gray-700 hover:text-white"
     @click="closeDrawer"
   >
     <component
