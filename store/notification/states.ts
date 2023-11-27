@@ -4,6 +4,7 @@ import type { NotificationSubscriptionType, NotificationType } from './types'
 export function defaultNotificationsState() {
   return {
     ...createState<NotificationType>(),
+    displayOnlyUnread: false,
   }
 }
 
