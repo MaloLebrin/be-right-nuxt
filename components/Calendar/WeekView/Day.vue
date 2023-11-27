@@ -13,32 +13,41 @@
 </div>
 <div class="hidden grid-cols-7 -mr-px text-sm leading-6 text-gray-500 border-r border-gray-100 divide-x divide-gray-100 sm:grid">
   <div class="col-end-1 w-14" />
-  <div
-    v-for="day in calendarStore.getCalendarData"
-    :key="day.label"
-    class="flex flex-col items-center pt-2 pb-3 capitalize"
-  >
-    <button
-      class="flex items-center capitalize py-21font-semibold sm:justify-center"
-      :class="[getTextColor(day)]"
-      @click="setSelectedDay(day)"
+
+  <CalendarSkeletonWeekHeaderDay
+    v-if="calendarStore.isCalendarLoading"
+    :nb="7"
+  />
+
+  <template v-else>
+    <div
+      v-for="day in calendarStore.getCalendarData"
+      :key="day.label"
+      class="flex flex-col items-center pt-2 pb-3 capitalize"
     >
-      <span class="not-sr-only md:sr-only">{{ $toFormat(day.date, 'dd DD') }}</span>
-      <span class="sr-only md:not-sr-only lg:sr-only">{{ $toFormat(day.date, 'ddd DD') }}</span>
-      <span class="sr-only lg:not-sr-only">{{ $toFormat(day.date, 'dddd DD') }}</span>
-    </button>
-    <span
-      v-if="(day.eventIds.length - 2) > 0"
-      class="font-light text-gray-500"
-    >
-      + {{ day.eventIds.length - 2 }}
-    </span>
-  </div>
+      <button
+        class="flex items-center capitalize py-21font-semibold sm:justify-center"
+        :class="[getTextColor(day)]"
+        @click="setSelectedDay(day)"
+      >
+        <span class="not-sr-only md:sr-only">{{ $toFormat(day.date, 'dd DD') }}</span>
+        <span class="sr-only md:not-sr-only lg:sr-only">{{ $toFormat(day.date, 'ddd DD') }}</span>
+        <span class="sr-only lg:not-sr-only">{{ $toFormat(day.date, 'dddd DD') }}</span>
+      </button>
+      <span
+        v-if="(day.eventIds.length - 2) > 0"
+        class="font-light text-gray-500"
+      >
+        + {{ day.eventIds.length - 2 }}
+      </span>
+    </div>
+  </template>
 </div>
 </template>
 
 <script setup lang="ts">
 import { type CalendarDay, useCalendarStore } from '~~/store'
+import CalendarSkeletonWeekHeaderDay from '~~/components/Calendar/Skeleton/WeekHeaderDay.vue'
 
 const calendarStore = useCalendarStore()
 const { setSelectedDay } = calendarStore
