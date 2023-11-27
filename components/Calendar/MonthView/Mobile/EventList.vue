@@ -43,7 +43,7 @@ interface Props {
   events: EventType[]
 }
 
-const props = withDefaults(defineProps<Props>(), {
+withDefaults(defineProps<Props>(), {
   events: () => [],
 })
 </script>
