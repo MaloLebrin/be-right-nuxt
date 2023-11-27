@@ -3,10 +3,11 @@
   <li
     v-for="(event, eventIndex) in events.slice(0, 2)"
     :key="`${event.id}-${day.date}`"
-    class="relative grid w-1/2 grid-cols-1"
+    class="relative grid grid-cols-1"
     :class="[
       `h-full max-h-${getHeight(event)}px mt-${getStart(event)}px`,
       { 'pl-1': (index === 0 && eventIndex === 0) },
+      { 'w-1/2': events.slice(0, 2).length > 1 },
     ]"
   >
     <NuxtLink
