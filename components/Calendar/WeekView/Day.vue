@@ -28,7 +28,7 @@
       <span class="sr-only lg:not-sr-only">{{ $toFormat(day.date, 'dddd DD') }}</span>
     </button>
     <span
-      v-if="day.eventIds.length - 2"
+      v-if="(day.eventIds.length - 2) > 0"
       class="font-light text-gray-500"
     >
       + {{ day.eventIds.length - 2 }}
