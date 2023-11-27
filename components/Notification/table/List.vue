@@ -18,7 +18,7 @@
       v-else
       class="flex items-center py-4 pl-4 pr-3 space-x-2 text-sm font-medium text-gray-900 truncate whitespace-nowrap sm:pl-6"
     >
-      <p>Vous n'avez pas de notifications</p>
+      <p>Vous n'avez pas de notifications<span v-show="notificationsStore.getDisplayUnRead"> non lues</span></p>
     </div>
   </table>
 </div>
@@ -26,7 +26,7 @@
 
 <script setup lang="ts">
 import type { NotificationType } from '~~/store'
-import { useAnswerStore, useEventStore } from '~~/store'
+import { useAnswerStore, useEventStore, useNotificationsStore } from '~~/store'
 import NotificationTableHeader from '~~/components/Notification/table/Header.vue'
 import NotificationTableItem from '~~/components/Notification/table/item.vue'
 
@@ -40,6 +40,7 @@ const props = withDefaults(defineProps<Props>(), {
 
 const eventStore = useEventStore()
 const answerStore = useAnswerStore()
+const notificationsStore = useNotificationsStore()
 
 const event = (id: number) => computed(() => {
   const notif = props.notifications.find(n => n.id === id)
