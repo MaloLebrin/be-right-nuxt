@@ -1,6 +1,7 @@
 import { useNotificationsStore, useUserStore } from '~~/store'
 
 export default function notificationSSEHook() {
+  const { $getApiUrl } = useNuxtApp()
   const notificationStore = useNotificationsStore()
   const { addMany: addManyNotifications } = notificationStore
   const userStore = useUserStore()
@@ -10,7 +11,7 @@ export default function notificationSSEHook() {
   const sse = ref<null | EventSource>(null)
 
   if (userStore.getAuthUser) {
-    sse.value = new EventSource(`http://localhost:8080/sse/${userStore.getAuthUser?.notificationToken}`)
+    sse.value = new EventSource(`${$getApiUrl}sse/${userStore.getAuthUser?.notificationToken}`)
 
     sse.value.addEventListener('message', async ({ data }) => {
       const notifs = await JSON.parse(data)
