@@ -73,7 +73,7 @@
   <aside class="hidden h-full px-4 bg-white shadow-xl lg:fixed dark:bg-gray-800 lg:flex lg:w-64 lg:flex-col">
     <!-- Sidebar component, swap this element with another sidebar if you like -->
     <div class="flex flex-col flex-1 w-full min-h-0 space-y-4">
-      <div class="flex flex-col flex-1 pt-5 pb-4 overflow-y-auto">
+      <div class="flex flex-col flex-1 pt-5 pb-4 overflow-y-visible">
         <div class="flex items-center flex-shrink-0 px-4">
           <LogoSimpleLogo />
         </div>
