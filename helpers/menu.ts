@@ -88,21 +88,47 @@ export const MENU_ITEMS = [
     isAdmin: false,
   },
   {
-    label: 'Créer un événement',
+    label: 'Créer',
     icon: PlusIcon,
-    linkName: RouteNames.CREATE_EVENT_STEP_1,
+    // linkName: RouteNames.CREATE_EVENT_STEP_1,
     isAdmin: false,
+    children: [
+      {
+        label: 'Créer un événement',
+        icon: PlusIcon,
+        linkName: RouteNames.CREATE_EVENT_STEP_1,
+        isAdmin: false,
+      },
+      {
+        label: 'Créer un destinataire',
+        icon: PlusIcon,
+        linkName: RouteNames.EMPLOYEE_CREATE,
+        isAdmin: false,
+      },
+      {
+        label: 'Créer un groupe de diffusion',
+        icon: PlusIcon,
+        linkName: 'groupe-creation',
+        isAdmin: false,
+      },
+    ],
   },
-  {
-    label: 'Créer un destinataire',
-    icon: PlusIcon,
-    linkName: RouteNames.EMPLOYEE_CREATE,
-    isAdmin: false,
-  },
-  {
-    label: 'Créer un groupe de diffusion',
-    icon: PlusIcon,
-    linkName: 'groupe-creation',
-    isAdmin: false,
-  },
+  // {
+  //   label: 'Créer un événement',
+  //   icon: PlusIcon,
+  //   linkName: RouteNames.CREATE_EVENT_STEP_1,
+  //   isAdmin: false,
+  // },
+  // {
+  //   label: 'Créer un destinataire',
+  //   icon: PlusIcon,
+  //   linkName: RouteNames.EMPLOYEE_CREATE,
+  //   isAdmin: false,
+  // },
+  // {
+  //   label: 'Créer un groupe de diffusion',
+  //   icon: PlusIcon,
+  //   linkName: 'groupe-creation',
+  //   isAdmin: false,
+  // },
 ]
