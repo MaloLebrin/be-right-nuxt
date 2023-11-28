@@ -1,10 +1,10 @@
 <template>
 <div
   v-if="data"
-  class="relative hidden p-2 mt-4 text-xs border rounded-md md:block bg-amber-100 border-amber-400"
+  class="relative hidden p-2 mt-4 text-xs bg-opacity-50 border rounded-md md:block bg-amber-200 border-amber-300"
 >
-  <div class="flex items-center justify-between mb-2">
-    <p class="font-semibold ">
+  <div class="flex justify-between mb-2">
+    <p class="font-semibold max-w-3/4">
       {{ data.title }}
     </p>
     <button
