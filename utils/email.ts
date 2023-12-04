@@ -1,5 +1,5 @@
 import { uniq } from '@antfu/utils'
-import { type EmployeeType } from 'types'
+import { type EmployeeType } from '~~/types'
 
 export function emailSuggestion(basicEmail: string) {
   if (!basicEmail || !isCompleteEmail(basicEmail)) {
@@ -32,10 +32,6 @@ export function multipleEmailSuggestions({
   const suffix = emailSuggestion(email)
 
   if (!email || !suffix) {
-    return []
-  }
-
-  if (!suffix) {
     return []
   }
 
