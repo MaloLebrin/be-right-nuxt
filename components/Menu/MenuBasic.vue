@@ -18,32 +18,38 @@
           :item="item"
           :is-active="isLinkActive(item)"
         />
-        <transition
-          enter-active-class="transition duration-500 ease-out"
-          enter-from-class="transform scale-95 opacity-0"
-          enter-to-class="transform scale-100 opacity-100"
-          leave-active-class="transition duration-75 ease-in"
-          leave-from-class="transform scale-100 opacity-100"
-          leave-to-class="transform scale-95 opacity-0"
+        <ul
+          v-if="isLinkActive(item) || isHovered === index"
+          v-motion
+          role="list"
+          class="space-y-1"
+          :initial="{
+            y: 100,
+            opacity: 0,
+          }"
+          :enter="{
+            y: 0,
+            opacity: 1,
+            transition: {
+              type: 'spring',
+              stiffness: 250,
+              damping: 25,
+              mass: 0.5,
+            },
+          }"
         >
-          <ul
-            v-if="isLinkActive(item) || isHovered === index"
-            role="list"
-            class="space-y-1"
+          <li
+            v-for="(child, index) in item.children"
+            :key="index"
+            role="menuitem"
           >
-            <li
-              v-for="(child, index) in item.children"
-              :key="index"
-              role="menuitem"
-            >
-              <MenuLink
-                :item="child"
-                :is-active="isLinkActive(child)"
-                is-child
-              />
-            </li>
-          </ul>
-        </transition>
+            <MenuLink
+              :item="child"
+              :is-active="isLinkActive(child)"
+              is-child
+            />
+          </li>
+        </ul>
       </template>
 
       <MenuLink
