@@ -19,7 +19,6 @@
     <li
       v-for="event in events.slice(0, 2)"
       :key="event.id"
-      class="overflow-hidden"
     >
       <EventCard
         :event="event"
