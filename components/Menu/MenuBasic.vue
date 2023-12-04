@@ -16,7 +16,7 @@
       <template v-if="isFolder(item)">
         <MenuLink
           :item="item"
-          :is-active="isLinkActive(item)"
+          :is-active="isLinkActive(item) || isHovered === index"
         />
         <ul
           v-if="isLinkActive(item) || isHovered === index"

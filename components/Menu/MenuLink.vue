@@ -13,7 +13,7 @@
   <template v-if="isChild">
     <component
       :is="item.icon"
-      class="flex-shrink-0 w-5 h-5 mr-3"
+      class="flex-shrink-0 w-5 h-5 mr-3 md:w-6 md:h-6"
       aria-hidden="true"
     />
   </template>
