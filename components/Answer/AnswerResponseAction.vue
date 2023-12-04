@@ -5,7 +5,7 @@
       v-if="!answer.hasSigned"
       class="flex items-center mt-2 text-sm text-gray-500"
     >
-      <XCircleIconOutline
+      <XCircleIcon
         class="flex-shrink-0 mr-1.5 h-5 w-5 text-red-400"
         aria-hidden="true"
       />
@@ -16,7 +16,7 @@
       v-else
       class="flex items-center mt-2 text-sm text-gray-500"
     >
-      <CheckCircleIconOutline
+      <CheckCircleIcon
         class="flex-shrink-0 mr-1.5 h-5 w-5 text-green-400"
         aria-hidden="true"
       />
@@ -32,7 +32,7 @@
       @click="download(answer.id)"
     >
       <template #icon>
-        <ArrowDownTrayIconOutline
+        <ArrowDownTrayIcon
           class="text-white"
           aria-hidden="true"
         />
@@ -55,7 +55,7 @@
       @click="raise"
     >
       <template #icon>
-        <EnvelopeIconOutline
+        <EnvelopeIcon
           class="text-gray-200"
           aria-hidden="true"
         />
@@ -74,6 +74,7 @@
 </template>
 
 <script setup lang="ts">
+import { ArrowDownTrayIcon, CheckCircleIcon, EnvelopeIcon, XCircleIcon } from '@heroicons/vue/24/outline'
 import type { AnchorHTMLAttributes } from 'nuxt/dist/app/compat/capi'
 import BaseButton from '../Base/BaseButton.vue'
 import BaseMessage from '../Base/BaseMessage.vue'

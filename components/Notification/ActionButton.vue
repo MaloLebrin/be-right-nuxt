@@ -6,7 +6,7 @@
   <div>
     <MenuButton class="inline-flex justify-center w-full px-2 py-1 text-sm font-medium text-purple-500 bg-purple-300 border border-purple-500 rounded-md bg-opacity-20 hover:bg-opacity-40 hover:text-purple-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
       Options
-      <ChevronDownIconSolid
+      <ChevronDownIcon
         class="w-5 h-5 ml-1 -mr-1 text-purple-500 hover:text-purple-800"
         aria-hidden="true"
       />
@@ -27,7 +27,7 @@
           :to="{ name: 'evenement-show-id', params: { id: props.eventId } }"
           @click="patchAsRead([notificationId])"
         >
-          <PencilSquareIconOutline
+          <PencilSquareIcon
             class="w-5 h-5 mr-2 text-violet-400"
             aria-hidden="true"
           />
@@ -44,7 +44,7 @@
           ]"
           @click="patchAsRead([notificationId])"
         >
-          <CheckBadgeIconOutline
+          <CheckBadgeIcon
             class="w-5 h-5 mr-2 text-green-400"
             aria-hidden="true"
           />
@@ -57,6 +57,8 @@
 </template>
 
 <script setup lang="ts">
+import { CheckBadgeIcon, PencilSquareIcon } from '@heroicons/vue/24/outline'
+import { ChevronDownIcon } from '@heroicons/vue/24/solid'
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
 
 interface Props {

@@ -15,7 +15,7 @@
       @click="clear"
     >
       <template #icon>
-        <ArrowUturnDownIconOutline />
+        <ArrowUturnDownIcon />
       </template>
       Réinitialiser
     </BaseButton>
@@ -26,7 +26,7 @@
       @click="save"
     >
       <template #icon>
-        <ArrowDownOnSquareIconOutline />
+        <ArrowDownOnSquareIcon />
       </template>
       {{ saveButtonLabel }}
     </BaseButton>
@@ -35,6 +35,7 @@
 </template>
 
 <script setup>
+import { ArrowDownOnSquareIcon, ArrowUturnDownIcon } from '@heroicons/vue/24/outline'
 import { VueSignaturePad } from 'vue-signature-pad'
 import { useUiStore } from '~~/store'
 import BaseButton from '~~/components/Base/BaseButton.vue'

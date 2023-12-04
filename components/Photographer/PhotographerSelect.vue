@@ -21,7 +21,7 @@
       @click="toggleCreatePhotographerModal"
     >
       <template #icon>
-        <UserPlusIconOutline aria-hidden="true" />
+        <UserPlusIcon aria-hidden="true" />
       </template>
     </BaseButton>
   </div>
@@ -33,7 +33,7 @@
       type="submit"
     >
       <template #icon>
-        <ArrowDownOnSquareIconOutline />
+        <ArrowDownOnSquareIcon />
       </template>
       valider
     </BaseButton>
@@ -42,11 +42,12 @@
 </template>
 
 <script setup lang="ts">
-import type { InferType } from 'yup'
-import { number, object } from 'yup'
+import { ArrowDownOnSquareIcon, UserPlusIcon } from '@heroicons/vue/24/outline'
+import { type InferType, number, object } from 'yup'
 import { Form } from 'vee-validate'
-import type { VeeValidateValues } from '@/types'
-import { ModalModeEnum, ModalNameEnum, RoleEnum } from '@/types'
+import PhotographerComboboxSelector from '~/components/Photographer/PhotographerComboboxSelector.vue'
+import BaseButton from '~/components/Base/BaseButton.vue'
+import { ModalModeEnum, ModalNameEnum, RoleEnum, type VeeValidateValues } from '~~/types'
 import { useFormStore, useUiStore, useUserStore } from '~~/store'
 
 const emit = defineEmits<{

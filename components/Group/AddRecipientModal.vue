@@ -7,7 +7,7 @@
     <div
       class="flex items-center justify-center flex-shrink-0 w-12 h-12 mx-auto bg-blue-100 rounded-full sm:mx-0 sm:h-10 sm:w-10"
     >
-      <ExclamationTriangleIconOutline
+      <ExclamationTriangleIcon
         class="w-6 h-6 text-blue-600"
         aria-hidden="true"
       />
@@ -40,7 +40,7 @@
           <ComboboxButton
             class="absolute inset-y-0 right-0 flex items-center pr-2"
           >
-            <ChevronUpDownIconOutline
+            <ChevronUpDownIcon
               class="w-5 h-5 text-gray-400"
               aria-hidden="true"
             />
@@ -76,7 +76,7 @@
                 v-if="areAllSelected"
                 class="absolute inset-y-0 left-0 flex items-center pl-3 text-teal-600"
               >
-                <CheckIconOutline
+                <CheckIcon
                   class="w-5 h-5"
                   aria-hidden="true"
                 />
@@ -108,7 +108,7 @@
                   class="absolute inset-y-0 left-0 flex items-center pl-3"
                   :class="{ 'text-white': active, 'text-teal-600': !active }"
                 >
-                  <CheckIconOutline
+                  <CheckIcon
                     class="w-5 h-5"
                     aria-hidden="true"
                   />
@@ -134,7 +134,7 @@
               type="button"
               @click.prevent="onRemoveValue(index)"
             >
-              <XCircleIconSolid class="w-4 h-4 hover:text-red-800" />
+              <XCircleIcon class="w-4 h-4 hover:text-red-800" />
             </button>
           </p>
         </div>
@@ -157,6 +157,11 @@
 </template>
 
 <script setup lang="ts">
+import { Combobox, ComboboxButton, ComboboxInput, ComboboxOption, ComboboxOptions, DialogTitle, TransitionRoot } from '@headlessui/vue'
+import { CheckIcon, ChevronUpDownIcon, ExclamationTriangleIcon } from '@heroicons/vue/24/outline'
+import { XCircleIcon } from '@heroicons/vue/24/solid'
+import BaseButton from '~/components/Base/BaseButton.vue'
+import BaseModal from '~/components/Base/BaseModal.vue'
 import type { EmployeeType } from '~~/store'
 import { useEmployeeStore, useGroupStore, useUiStore } from '~~/store'
 

@@ -17,7 +17,7 @@
             >
               Groupes
             </NuxtLink>
-            <ChevronRightIconOutline
+            <ChevronRightIcon
               class="flex-shrink-0 w-5 h-5 ml-4 text-gray-400"
               aria-hidden="true"
             />
@@ -42,14 +42,14 @@
       </h1>
       <div class="flex flex-col mt-4 sm:mt-0 sm:flex-row sm:flex-wrap sm:space-x-8">
         <div class="flex items-center mt-4 text-sm text-gray-500">
-          <CalculatorIconOutline
+          <CalculatorIcon
             class="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400"
             aria-hidden="true"
           />
           {{ nbEmployee }} Destinataires
         </div>
         <div class="flex items-center mt-2 text-sm text-gray-500">
-          <CalendarIconOutline
+          <CalendarIcon
             class="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400"
             aria-hidden="true"
           />
@@ -64,7 +64,7 @@
         disabled
       >
         <template #icon>
-          <PencilIconOutline />
+          <PencilIcon />
         </template>
         Modifier
       </BaseButton>
@@ -75,7 +75,7 @@
         @click="openDeleteConfirmModal(group.id)"
       >
         <template #icon>
-          <TrashIconOutline />
+          <TrashIcon />
         </template>
         Supprimer
       </BaseButton>
@@ -85,6 +85,14 @@
 </template>
 
 <script setup lang="ts">
+import {
+  CalculatorIcon,
+  CalendarIcon,
+  ChevronRightIcon,
+  PencilIcon,
+  TrashIcon,
+} from '@heroicons/vue/24/outline'
+import BaseButton from '~/components/Base/BaseButton.vue'
 import type { Group } from '~~/store'
 import { useUiStore } from '~~/store'
 

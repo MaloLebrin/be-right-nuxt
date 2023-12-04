@@ -27,7 +27,7 @@
               }"
             >
               <template #icon>
-                <PencilIconOutline
+                <PencilIcon
                   aria-hidden="true"
                 />
               </template>
@@ -39,7 +39,7 @@
               @click="deleteOneEmployee"
             >
               <template #icon>
-                <TrashIconOutline
+                <TrashIcon
                   aria-hidden="true"
                 />
               </template>
@@ -51,7 +51,7 @@
               @click="deleteOneForEvetEmployee"
             >
               <template #icon>
-                <TrashIconOutline
+                <TrashIcon
                   aria-hidden="true"
                 />
               </template>
@@ -176,7 +176,9 @@
 </template>
 
 <script setup lang="ts">
+import { PencilIcon, TrashIcon } from '@heroicons/vue/24/outline'
 import EmployeeCreator from '../EmployeeCreator.vue'
+import BaseButton from '~/components/Base/BaseButton.vue'
 import {
   useAddressStore,
   useAuthStore,

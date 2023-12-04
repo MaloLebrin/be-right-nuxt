@@ -24,7 +24,7 @@
           </label>
           <DisclosureButton class="inline-flex space-x-1">
             <span>{{ open ? 'Fermer' : 'Ouvrir' }}</span>
-            <ChevronUpIconOutline
+            <ChevronUpIcon
               :class="open ? 'rotate-180 transform' : ''"
               class="w-5 h-5 text-purple-500"
             />
@@ -57,6 +57,8 @@
 </template>
 
 <script setup lang="ts">
+import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/vue'
+import { ChevronUpIcon } from '@heroicons/vue/24/outline'
 import type { Group } from '~/store'
 import {
   useEmployeeStore,

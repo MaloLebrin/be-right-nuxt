@@ -52,7 +52,7 @@
         <span
           class="flex items-center pointer-events-none"
         >
-          <ChevronUpDownIconSolid
+          <ChevronUpDownIcon
             class="w-5 h-5 text-gray-400"
             aria-hidden="true"
           />
@@ -108,9 +108,10 @@
 </template>
 
 <script setup lang="ts">
+import { Listbox, ListboxButton, ListboxOption, ListboxOptions, RadioGroup, RadioGroupLabel, RadioGroupOption } from '@headlessui/vue'
+import { ChevronUpDownIcon } from '@heroicons/vue/24/solid'
 import EventStatusTag from '../EventStatusTag.vue'
-import type { EventStatusEnum } from '@/types'
-import { eventStatusArray } from '@/types'
+import { type EventStatusEnum, eventStatusArray } from '~~/types'
 
 const emit = defineEmits<{
   (e: 'setFilter', status: EventStatusEnum | undefined): void

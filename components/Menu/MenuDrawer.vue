@@ -47,7 +47,7 @@
                 @click="closeDrawer"
               >
                 <span class="sr-only">Close sidebar</span>
-                <XCircleIconOutline
+                <XCircleIcon
                   class="w-6 h-6 text-black"
                   aria-hidden="true"
                 />
@@ -56,7 +56,7 @@
           </TransitionChild>
           <div class="flex-1 h-0 pt-5 pb-4 overflow-y-auto">
             <div class="flex items-center flex-shrink-0 px-4">
-              <LogoSimpleLogo class="text-white" />
+              <SimpleLogo class="text-white" />
             </div>
             <MenuAdmin v-if="authStore.isAuthUserAdmin" />
             <MenuBasic v-else />
@@ -75,7 +75,7 @@
     <div class="flex flex-col flex-1 w-full min-h-0 space-y-4">
       <div class="flex flex-col flex-1 pt-5 pb-4 overflow-y-visible">
         <div class="flex items-center flex-shrink-0 px-4">
-          <LogoSimpleLogo />
+          <SimpleLogo />
         </div>
         <MenuAdmin v-if="authStore.isAuthUserAdmin" />
         <MenuBasic v-else />
@@ -88,8 +88,12 @@
 </template>
 
 <script setup lang="ts">
+import { XCircleIcon } from '@heroicons/vue/24/outline'
+import { Dialog, DialogOverlay, TransitionChild, TransitionRoot } from '@headlessui/vue'
 import MenuBasic from './MenuBasic.vue'
 import MenuAdmin from './MenuAdmin.vue'
+import SimpleLogo from '~/components/Logo/SimpleLogo.vue'
+import UserMenu from '~/components/User/UserMenu.vue'
 import { useAuthStore, useUiStore } from '~~/store'
 
 const uiStore = useUiStore()

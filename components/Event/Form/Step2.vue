@@ -22,7 +22,7 @@
       type="submit"
     >
       <template #icon>
-        <ArrowDownOnSquareIconOutline />
+        <ArrowDownOnSquareIcon />
       </template>
       Enregistrer
     </BaseButton>
@@ -33,6 +33,9 @@
 <script setup lang="ts">
 import { array, number, object } from 'yup'
 import { Form } from 'vee-validate'
+import { ArrowDownOnSquareIcon } from '@heroicons/vue/24/outline'
+import EmployeeComboboxSelector from '~/components/Employee/EmployeeComboboxSelector.vue'
+import BaseButton from '~/components/Base/BaseButton.vue'
 import {
   useAuthStore,
   useEmployeeStore,

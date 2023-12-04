@@ -43,7 +43,7 @@
         type="submit"
       >
         <template #icon>
-          <ArrowDownOnSquareIconOutline />
+          <ArrowDownOnSquareIcon />
         </template>
         Enregistrer
       </BaseButton>
@@ -53,9 +53,12 @@
 </template>
 
 <script setup lang="ts">
+import { ArrowDownOnSquareIcon } from '@heroicons/vue/24/outline'
 import { object, string } from 'yup'
 import { Form } from 'vee-validate'
+import BaseButton from '~/components/Base/BaseButton.vue'
 import type { VeeValidateValues } from '@/types'
+import BaseInput from '~/components/Base/BaseInput.vue'
 import type { Company } from '~~/store'
 import { useUiStore } from '~~/store'
 

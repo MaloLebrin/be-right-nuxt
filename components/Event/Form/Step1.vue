@@ -89,7 +89,7 @@
       type="submit"
     >
       <template #icon>
-        <ArrowDownOnSquareIconOutline />
+        <ArrowDownOnSquareIcon />
       </template>
       {{ !isEditMode ? 'Créer' : 'Enregistrer' }}
     </BaseButton>
@@ -103,8 +103,12 @@ import { DatePicker } from 'v-calendar'
 import type { InferType } from 'yup'
 import { date, object, string } from 'yup'
 import { ErrorMessage, Field, Form } from 'vee-validate'
-import { ModalModeEnum } from '@/types'
-import type { VeeValidateValues } from '@/types'
+import { ArrowDownOnSquareIcon } from '@heroicons/vue/24/outline'
+import BaseButton from '~/components/Base/BaseButton.vue'
+import BaseInput from '~/components/Base/BaseInput.vue'
+import BaseTextarea from '~/components/Base/BaseTextarea.vue'
+import { ModalModeEnum } from '~~/types'
+import type { VeeValidateValues } from '~~/types'
 import {
   useAddressStore,
   useEventStore,

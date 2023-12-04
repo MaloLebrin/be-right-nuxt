@@ -18,7 +18,7 @@
         }"
       >
         <template #icon>
-          <EyeIconOutline />
+          <EyeIcon />
         </template>
         Voir le group
       </BaseButton>
@@ -28,7 +28,7 @@
         @click="removeRecipients([employeeId], group.id)"
       >
         <template #icon>
-          <MinusCircleIconOutline />
+          <MinusCircleIcon />
         </template>
         <span>Retirer du groupe</span>
       </BaseButton>
@@ -38,6 +38,7 @@
 </template>
 
 <script setup lang="ts">
+import { EyeIcon, MinusCircleIcon } from '@heroicons/vue/24/outline'
 import BaseButton from '~/components/Base/BaseButton.vue'
 import type { Group } from '~~/store'
 import { useUiStore } from '~~/store'

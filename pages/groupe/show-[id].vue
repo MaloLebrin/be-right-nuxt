@@ -16,7 +16,7 @@
         <p>Oups 🫢 Il semblerait que ce groupe n'existe pas</p>
         <BaseButton :href="{ name: 'groupe' }">
           <template #icon>
-            <ListBulletIconOutline />
+            <ListBulletIcon />
           </template>
           Voir tous mes groupes
         </BaseButton>
@@ -27,6 +27,7 @@
 </template>
 
 <script setup lang="ts">
+import { ListBulletIcon } from '@heroicons/vue/24/outline'
 import PageAuthWrapper from '~/components/Page/PageAuthWrapper.vue'
 import BaseButton from '~/components/Base/BaseButton.vue'
 import BaseMessage from '~/components/Base/BaseMessage.vue'

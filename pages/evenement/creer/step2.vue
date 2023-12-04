@@ -50,7 +50,7 @@
             @click="submit"
           >
             <template #icon>
-              <ArrowDownOnSquareIconOutline />
+              <ArrowDownOnSquareIcon />
             </template>
             Enregistrer
           </BaseButton>
@@ -94,7 +94,7 @@
             class="cursor-pointer"
             @click.prevent="removeEmployee(employee.id)"
           >
-            <XCircleIconSolid class="w-4 h-4 text-red-500" />
+            <XCircleIcon class="w-4 h-4 text-red-500" />
           </button>
           <span class="block font-medium truncate">
             {{ getEmployeeFullname(employee) }}
@@ -107,6 +107,13 @@
 </template>
 
 <script setup lang="ts">
+import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/vue'
+import { ArrowDownOnSquareIcon } from '@heroicons/vue/24/outline'
+import { XCircleIcon } from '@heroicons/vue/24/solid'
+import BaseInput from '~/components/Base/BaseInput.vue'
+import BaseButton from '~/components/Base/BaseButton.vue'
+import EventFormStep2 from '~~/components/Event/Form/Step2.vue'
+import EventFormGroupList from '~~/components/Event/Form/GroupList.vue'
 import { useEmployeeStore, useFormStore, useGroupStore, useUiStore } from '~/store'
 import { RouteNames } from '~~/helpers/routes'
 
