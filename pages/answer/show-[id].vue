@@ -70,12 +70,12 @@
           <p class="font-bold">
             {{ state.employee.firstName }} {{ state.employee.lastName }}
           </p>
-          <NuxtImg
+          <img
             v-if="state.employee.signature"
             class="object-contain w-20 max-h-96"
             :src="state.employee.signature"
             :alt="`Signature du représentant de ${state.employee.firstName} ${state.employee.lastName} `"
-          />
+          >
         </div>
         <div
           v-if="user"
@@ -85,12 +85,12 @@
           <p class="font-bold">
             {{ getUserfullName(user) }}
           </p>
-          <NuxtImg
+          <img
             v-if="user.signature"
             class="object-contain w-20 max-h-96"
             :src="user.signature"
             :alt="`Signature du représentant de ${state.event.company?.name} `"
-          />
+          >
         </div>
       </div>
     </div>
