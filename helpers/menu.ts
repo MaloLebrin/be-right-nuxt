@@ -50,54 +50,39 @@ export const MENU_ITEMS = [
     icon: HomeIcon,
     linkName: 'evenement',
     isAdmin: false,
-  },
-  {
-    label: 'Calendrier',
-    icon: CalendarDaysIcon,
-    linkName: RouteNames.EVENT_CALENDAR_MONTH_VIEW,
-    isAdmin: false,
-  },
-  {
-    label: 'Événements Archivés',
-    icon: ArchiveBoxIcon,
-    linkName: 'evenement-archives',
-    isAdmin: false,
-  },
-  {
-    label: 'Destinataires',
-    icon: UsersIcon,
-    linkName: 'destinataire',
-    isAdmin: false,
-  },
-  {
-    label: 'Destinataires supprimés',
-    icon: UserMinusIcon,
-    linkName: 'destinataire-supprimes',
-    isAdmin: true,
-  },
-  {
-    label: 'Groupes de diffusion',
-    icon: ListBulletIcon,
-    linkName: 'groupe',
-    isAdmin: false,
-  },
-  {
-    label: 'Notifications',
-    icon: BellAlertIcon,
-    linkName: 'notifications',
-    isAdmin: false,
-  },
-  {
-    label: 'Créer',
-    icon: PlusIcon,
-    // linkName: RouteNames.CREATE_EVENT_STEP_1,
-    isAdmin: false,
     children: [
+      {
+        label: 'Calendrier',
+        icon: CalendarDaysIcon,
+        linkName: RouteNames.EVENT_CALENDAR_MONTH_VIEW,
+        isAdmin: false,
+      },
+      {
+        label: 'Événements Archivés',
+        icon: ArchiveBoxIcon,
+        linkName: 'evenement-archives',
+        isAdmin: false,
+      },
       {
         label: 'Créer un événement',
         icon: PlusIcon,
         linkName: RouteNames.CREATE_EVENT_STEP_1,
         isAdmin: false,
+      },
+    ],
+  },
+
+  {
+    label: 'Destinataires',
+    icon: UsersIcon,
+    linkName: 'destinataire',
+    isAdmin: false,
+    children: [
+      {
+        label: 'Destinataires supprimés',
+        icon: UserMinusIcon,
+        linkName: 'destinataire-supprimes',
+        isAdmin: true,
       },
       {
         label: 'Créer un destinataire',
@@ -105,6 +90,15 @@ export const MENU_ITEMS = [
         linkName: RouteNames.EMPLOYEE_CREATE,
         isAdmin: false,
       },
+    ],
+  },
+
+  {
+    label: 'Groupes de diffusion',
+    icon: ListBulletIcon,
+    linkName: 'groupe',
+    isAdmin: false,
+    children: [
       {
         label: 'Créer un groupe de diffusion',
         icon: PlusIcon,
@@ -113,22 +107,10 @@ export const MENU_ITEMS = [
       },
     ],
   },
-  // {
-  //   label: 'Créer un événement',
-  //   icon: PlusIcon,
-  //   linkName: RouteNames.CREATE_EVENT_STEP_1,
-  //   isAdmin: false,
-  // },
-  // {
-  //   label: 'Créer un destinataire',
-  //   icon: PlusIcon,
-  //   linkName: RouteNames.EMPLOYEE_CREATE,
-  //   isAdmin: false,
-  // },
-  // {
-  //   label: 'Créer un groupe de diffusion',
-  //   icon: PlusIcon,
-  //   linkName: 'groupe-creation',
-  //   isAdmin: false,
-  // },
+  {
+    label: 'Notifications',
+    icon: BellAlertIcon,
+    linkName: 'notifications',
+    isAdmin: false,
+  },
 ]

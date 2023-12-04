@@ -1,60 +1,82 @@
 <template>
-<nav class="flex-1 mt-5 space-y-2 text-gray-600">
-  <div
-    v-for="(item, index) in MENU_ITEMS"
-    :key="index"
+<nav
+  class="mt-5"
+  role="menu"
+>
+  <ul
+    role="list"
+    class="space-y-2"
   >
-    <Popover
-      v-if="isFolder(item)"
-      as="div"
-      class="relative"
+    <li
+      v-for="(item, index) in MENU_ITEMS"
+      :key="index"
+      role="menuitem"
     >
-      <PopoverButton class="flex items-center w-full px-2 py-1 text-sm rounded-md group dark:text-gray-300 hover:bg-gray-700 hover:text-white">
-        <component
-          :is="item.icon"
-          class="flex-shrink-0 w-6 h-6 mr-3 group-hover:text-gray-300"
-          aria-hidden="true"
+      <template v-if="isFolder(item)">
+        <MenuLink
+          v-element-hover="(state) => onHover(state, index)"
+          :item="item"
+          :is-active="isLinkActive(item)"
         />
-        {{ item.label }}
-      </PopoverButton>
-
-      <transition
-        enter-active-class="transition duration-100 ease-out"
-        enter-from-class="transform scale-95 opacity-0"
-        enter-to-class="transform scale-100 opacity-100"
-        leave-active-class="transition duration-75 ease-in"
-        leave-from-class="transform scale-100 opacity-100"
-        leave-to-class="transform scale-95 opacity-0"
-      >
-        <PopoverPanel
-          class="absolute top-0 z-50 w-56 mt-2 origin-top-right bg-white border border-red-400 divide-y divide-gray-100 rounded-md shadow-lg -right-40 focus:outline-none"
-          as="ul"
+        <transition
+          enter-active-class="transition duration-500 ease-out"
+          enter-from-class="transform scale-95 opacity-0"
+          enter-to-class="transform scale-100 opacity-100"
+          leave-active-class="transition duration-75 ease-in"
+          leave-from-class="transform scale-100 opacity-100"
+          leave-to-class="transform scale-95 opacity-0"
         >
-          <li
-            v-for="(child, index) in item.children"
-            :key="`${child.label}-${index}`"
-            as="li"
+          <ul
+            v-if="isLinkActive(item) || isHovered === index"
+            role="list"
+            class="space-y-1"
           >
-            <MenuLink :item="child" />
-          </li>
-        </PopoverPanel>
-      </transition>
-    </Popover>
-    <MenuLink
-      v-else
-      :item="item"
-    />
-  </div>
+            <li
+              v-for="(child, index) in item.children"
+              :key="index"
+              role="menuitem"
+            >
+              <MenuLink
+                :item="child"
+                :is-active="isLinkActive(child)"
+                is-child
+              />
+            </li>
+          </ul>
+        </transition>
+      </template>
+
+      <MenuLink
+        v-else
+        :item="item"
+      />
+    </li>
+  </ul>
 </nav>
 </template>
 
 <script setup lang="ts">
-import { Popover, PopoverButton, PopoverPanel } from '@headlessui/vue'
+import { vElementHover } from '@vueuse/components'
 import type { MenuItemContent } from '~~/types/Menu'
 import { MENU_ITEMS } from '@/helpers/menu'
 import MenuLink from '~~/components/Menu/MenuLink.vue'
 
+const route = useRoute()
+
 function isFolder(item: MenuItemContent) {
-  return item.children && item.children.length && !item.linkName
+  return item.children && item.children.length
+}
+
+const isHovered = ref<number>(0)
+
+function onHover(state: boolean, index: number) {
+  if (state) {
+    isHovered.value = index
+  }
+}
+
+function isLinkActive(item: MenuItemContent) {
+  return item.linkName === route.name
+    || item.children?.some(child => child.linkName === route.name)
 }
 </script>
