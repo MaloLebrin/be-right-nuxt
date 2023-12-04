@@ -48,25 +48,37 @@ export const MENU_ITEMS = [
   {
     label: 'Mes événements',
     icon: HomeIcon,
-    linkName: 'evenement',
     isAdmin: false,
-  },
-  {
-    label: 'Calendrier',
-    icon: CalendarDaysIcon,
-    linkName: RouteNames.EVENT_CALENDAR_MONTH_VIEW,
-    isAdmin: false,
-  },
-  {
-    label: 'Événements Archivés',
-    icon: ArchiveBoxIcon,
-    linkName: 'evenement-archives',
-    isAdmin: false,
+    children: [
+      {
+        label: 'Liste d\‘événements',
+        icon: HomeIcon,
+        linkName: 'evenement',
+        isAdmin: false,
+      },
+      {
+        label: 'Calendrier',
+        icon: CalendarDaysIcon,
+        linkName: RouteNames.EVENT_CALENDAR_MONTH_VIEW,
+        isAdmin: false,
+      },
+      {
+        label: 'Événements Archivés',
+        icon: ArchiveBoxIcon,
+        linkName: 'evenement-archives',
+        isAdmin: false,
+      },
+      {
+        label: 'Créer un événement',
+        icon: PlusIcon,
+        linkName: RouteNames.CREATE_EVENT_STEP_1,
+        isAdmin: false,
+      },
+    ],
   },
   {
     label: 'Destinataires',
     icon: UsersIcon,
-    linkName: 'destinataire',
     isAdmin: false,
   },
   {
@@ -94,15 +106,35 @@ export const MENU_ITEMS = [
     isAdmin: false,
     children: [
       {
-        label: 'Créer un événement',
-        icon: PlusIcon,
-        linkName: RouteNames.CREATE_EVENT_STEP_1,
+        label: 'Liste des Destinataires',
+        icon: UsersIcon,
+        linkName: 'destinataire',
         isAdmin: false,
+      },
+      {
+        label: 'Destinataires supprimés',
+        icon: UserMinusIcon,
+        linkName: 'destinataire-supprimes',
+        isAdmin: true,
       },
       {
         label: 'Créer un destinataire',
         icon: PlusIcon,
         linkName: RouteNames.EMPLOYEE_CREATE,
+        isAdmin: false,
+      },
+    ],
+  },
+
+  {
+    label: 'Groupes de diffusion',
+    icon: ListBulletIcon,
+    isAdmin: false,
+    children: [
+      {
+        label: 'Liste des groupes',
+        icon: ListBulletIcon,
+        linkName: 'groupe',
         isAdmin: false,
       },
       {

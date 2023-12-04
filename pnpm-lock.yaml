@@ -3108,8 +3108,8 @@ packages:
     peerDependencies:
       vue: '>=3.0.0'
     dependencies:
-      '@vueuse/core': 10.5.0(vue@3.3.7)
-      '@vueuse/shared': 10.5.0(vue@3.3.7)
+      '@vueuse/core': 10.6.1(vue@3.3.7)
+      '@vueuse/shared': 10.6.1(vue@3.3.7)
       csstype: 3.1.2
       framesync: 6.1.2
       popmotion: 11.0.5

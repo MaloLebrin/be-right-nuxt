@@ -15,8 +15,43 @@
           class="flex-shrink-0 w-6 h-6 mr-3 group-hover:text-gray-300"
           aria-hidden="true"
         />
-        {{ item.label }}
-      </PopoverButton>
+        <ul
+          v-if="isLinkActive(item) || isHovered === index"
+          v-motion
+          role="list"
+          class="space-y-1"
+          :initial="{
+            y: 100,
+            opacity: 0,
+          }"
+          :enter="{
+            y: 0,
+            opacity: 1,
+            transition: {
+              type: 'spring',
+              stiffness: 250,
+              damping: 25,
+              mass: 0.5,
+            },
+          }"
+        >
+          <li
+            v-for="(child, index) in item.children"
+            :key="index"
+            role="menuitem"
+          >
+            <MenuLink
+              :item="child"
+              :is-active="isLinkActive(child)"
+              is-child
+            />
+          </li>
+        </ul>
+      </popoverbutton>
+    </popover>
+  </div>
+</nav>
+</template>
 
       <transition
         enter-active-class="transition duration-100 ease-out"
@@ -39,6 +74,7 @@
           </li>
         </PopoverPanel>
       </transition>
+
     </Popover>
     <MenuLink
       v-else
@@ -49,7 +85,7 @@
 </template>
 
 <script setup lang="ts">
-import { Popover, PopoverButton, PopoverPanel } from '@headlessui/vue'
+import { Popover, PopoverButton } from '@headlessui/vue'
 import type { MenuItemContent } from '~~/types/Menu'
 import { MENU_ITEMS } from '@/helpers/menu'
 import MenuLink from '~~/components/Menu/MenuLink.vue'
