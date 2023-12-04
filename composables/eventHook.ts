@@ -272,6 +272,17 @@ export default function eventHook() {
     DecLoading()
   }
 
+  async function syncEvent(eventId: number) {
+    IncLoading()
+    const { data } = await $api().patch<EventType>(`event/synchronise/${eventId}`, {})
+
+    if (data && isEventType(data)) {
+      eventStore.addMany([data])
+      $toast?.success('L\'événement a été mis à jour avec succès')
+    }
+    DecLoading()
+  }
+
   return {
     deleteOne,
     fetchDeleted,
@@ -284,6 +295,7 @@ export default function eventHook() {
     patchOne,
     postOne,
     sortEventByDate,
+    syncEvent,
     storeEventRelationEntities,
     fetchEventWithRelations,
   }
