@@ -10,18 +10,30 @@ export default function notificationSSEHook() {
 
   const sse = ref<null | EventSource>(null)
 
-  if (userStore.getAuthUser) {
-    sse.value = new EventSource(`${$getApiUrl}sse/${userStore.getAuthUser?.notificationToken}`)
+  function startSEE() {
+    if (userStore.getAuthUser) {
+      sse.value = new EventSource(`${$getApiUrl}sse/${userStore.getAuthUser?.notificationToken}`)
 
-    sse.value.addEventListener('message', async ({ data }) => {
-      const notifs = await JSON.parse(data)
-      if (data && areNotificationTypes(notifs)) {
-        addManyNotifications(notifs)
-      }
-    })
+      sse.value.addEventListener('message', async ({ data }) => {
+        const notifs = await JSON.parse(data)
+        if (data && areNotificationTypes(notifs)) {
+          addManyNotifications(notifs)
+        }
+      })
+    }
   }
 
   onBeforeUnmount(() => {
-    sse.value?.close()
+    closeSSE()
   })
+
+  function closeSSE() {
+    sse.value?.close()
+  }
+
+  return {
+    closeSSE,
+    startSEE,
+    sse,
+  }
 }
