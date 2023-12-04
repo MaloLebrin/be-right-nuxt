@@ -70,6 +70,7 @@ import { MENU_ITEMS } from '@/helpers/menu'
 import Tricks from '~~/components/Tricks/Tricks.vue'
 import MenuLink from '~~/components/Menu/MenuLink.vue'
 
+const { $isDesktop } = useNuxtApp()
 const route = useRoute()
 
 function isFolder(item: MenuItemContent) {
@@ -87,7 +88,7 @@ function onHover(state: boolean, index: number) {
 }
 
 function isLinkActive(item: MenuItemContent) {
-  return item.linkName === route.name
+  return !$isDesktop.value || item.linkName === route.name
     || item.children?.some(child => child.linkName === route.name)
 }
 </script>
