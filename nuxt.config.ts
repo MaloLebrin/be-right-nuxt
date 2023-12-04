@@ -64,7 +64,6 @@ export default defineNuxtConfig({
     '@pinia-plugin-persistedstate/nuxt',
     'nuxt-typed-router',
     'nuxt-schema-org',
-    '@nuxt/image-edge',
     ['nuxt-purgecss', {
       // attention purgeCss enlève le style de vcalendar
       enabled: false, // Always enable purgecss
@@ -84,6 +83,7 @@ export default defineNuxtConfig({
     }],
     '@tailvue/nuxt',
     'dayjs-nuxt',
+    '@nuxt/image',
   ],
 
   dayjs: {

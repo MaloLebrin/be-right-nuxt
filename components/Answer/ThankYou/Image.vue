@@ -1,11 +1,11 @@
 <template>
 <div class="relative">
-  <img
+  <NuxtImg
     v-if="!isLoading"
     :src="src"
     :alt="alt || 'illustration'"
     class="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
-  >
+  />
   <BaseLoader v-else />
   <div class="absolute inset-0 pointer-events-none rounded-xl ring-1 ring-inset ring-gray-900/10" />
 </div>
