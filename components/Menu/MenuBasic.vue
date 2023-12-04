@@ -58,6 +58,8 @@
       />
     </li>
   </ul>
+
+  <Tricks />
 </nav>
 </template>
 
@@ -66,6 +68,7 @@ import { vElementHover } from '@vueuse/components'
 import type { MenuItemContent } from '~~/types/Menu'
 import { MENU_ITEMS } from '@/helpers/menu'
 import MenuLink from '~~/components/Menu/MenuLink.vue'
+import Tricks from '~~/components/Tricks/Tricks.vue'
 
 const route = useRoute()
 
