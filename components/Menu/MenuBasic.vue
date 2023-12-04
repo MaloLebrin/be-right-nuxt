@@ -20,10 +20,24 @@
         />
         <ul
           v-if="isLinkActive(item) || isHovered === index"
-          v-motion
           role="list"
           class="space-y-1"
         >
+          <!-- v-motion -->
+          <!-- :initial="{
+            y: -100,
+            opacity: 0,
+          }"
+          :enter="{
+            y: 0,
+            opacity: 1,
+            transition: {
+              type: 'spring',
+              stiffness: 250,
+              damping: 25,
+              mass: 0.5,
+            },
+          }" -->
           <li
             v-for="(child, index) in item.children"
             :key="index"
