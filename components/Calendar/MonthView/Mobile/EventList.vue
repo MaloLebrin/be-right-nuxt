@@ -36,7 +36,7 @@
 </template>
 
 <script setup lang="ts">
-import type { EventType } from 'types'
+import type { EventType } from '~~/types'
 import { RouteNames } from '~~/helpers/routes'
 
 interface Props {
