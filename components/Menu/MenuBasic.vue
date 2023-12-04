@@ -15,11 +15,14 @@
     />
     {{ item.label }}
   </NuxtLink>
+
+  <Tricks />
 </nav>
 </template>
 
 <script setup lang="ts">
 import { MENU_ITEMS } from '@/helpers/menu'
+import Tricks from '~~/components/Tricks/Tricks.vue'
 import { useUiStore } from '~~/store'
 
 const uiStore = useUiStore()
