@@ -17,11 +17,15 @@ export default defineNuxtPlugin(() => {
   const isDesktop = breakpoints.greater('md')
   const isNotMobile = breakpoints.greater('sm')
 
+  function getApiURL() {
+    return isProductionMode() ? import.meta.env.VITE_API_URL?.toString() : import.meta.env.VITE_DEV_API_URL?.toString()
+  }
+
   return {
     provide: {
       isProductionMode: isProductionMode(),
 
-      getApiUrl: isProductionMode() ? import.meta.env.VITE_API_URL?.toString() : import.meta.env.VITE_DEV_API_URL?.toString(),
+      getApiUrl: getApiURL(),
 
       toFormat: (date: Date | string, format: string) => toFormat(date, format),
 
@@ -32,7 +36,7 @@ export default defineNuxtPlugin(() => {
 
       api: () => {
         const api = new FetchWrapper({
-          baseUrl: isProductionMode() ? import.meta.env.VITE_API_URL as string : import.meta.env.VITE_DEV_API_URL as string,
+          baseUrl: getApiURL(),
           token: authStore.getToken || undefined,
         })
         return api
