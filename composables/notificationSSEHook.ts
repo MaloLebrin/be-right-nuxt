@@ -23,10 +23,6 @@ export default function notificationSSEHook() {
     }
   }
 
-  onBeforeUnmount(() => {
-    closeSSE()
-  })
-
   function closeSSE() {
     sse.value?.close()
   }
