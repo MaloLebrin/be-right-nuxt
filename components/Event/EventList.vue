@@ -27,7 +27,7 @@
 </template>
 
 <script setup lang="ts">
-import type { EventType } from '@/types'
+import type { EventType } from '~~/types'
 import { RouteNames } from '~~/helpers/routes'
 import EventItem from '~/components/Event/Table/EventItem.vue'
 

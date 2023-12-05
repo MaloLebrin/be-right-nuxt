@@ -4,6 +4,6 @@
 
 @layer components {
   .active-nuxt-link {
-    @apply bg-gray-800 text-white active:text-white focus:text-white
+    @apply border-blue-500 border-l font-semibold text-zinc-900
   }
 }

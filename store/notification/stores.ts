@@ -44,13 +44,21 @@ export const useNotificationsStore = defineStore('notification', {
   getters: {
     ...createGetters<NotificationType>(notificationsState),
 
+    getDisplayUnRead: state => state.displayOnlyUnread,
+
     getAllSorted: state => {
-      return Object.values(state.entities.byId).sort((a, b) => {
-        if (!a.readAt || !b.readAt) {
-          return -1
-        }
-        return dayjs(a.readAt).isAfter(b.readAt) ? 1 : -1
-      })
+      const sorted = Object.values(state.entities.byId)
+        .sort((a, b) => {
+          if (!a.readAt || !b.readAt) {
+            return -1
+          }
+          return dayjs(a.readAt).isAfter(b.readAt) ? 1 : -1
+        })
+
+      if (state.displayOnlyUnread) {
+        return sorted.filter(notif => !notif.readAt)
+      }
+      return sorted
     },
   },
 
@@ -77,6 +85,10 @@ export const useNotificationsStore = defineStore('notification', {
 
     updateManyNotifications(notifs: NotificationType[]) {
       notifs.forEach(notif => this.updateOneNotification(notif.id, notif))
+    },
+
+    toggleUnReadSetting(bool: boolean) {
+      this.displayOnlyUnread = bool
     },
   },
 })

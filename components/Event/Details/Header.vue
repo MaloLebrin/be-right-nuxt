@@ -13,14 +13,14 @@
           v-if="eventAddress"
           class="flex items-center mt-2 text-sm text-gray-500"
         >
-          <MapPinIconOutline
+          <MapPinIcon
             class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400"
             aria-hidden="true"
           />
           {{ eventAddress?.city }}
         </div>
         <div class="flex items-center mt-2 text-sm text-gray-500">
-          <CalendarDaysIconOutline
+          <CalendarDaysIcon
             class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400"
             aria-hidden="true"
           />
@@ -29,7 +29,7 @@
       </div>
     </div>
     <div class="flex flex-col items-center justify-center mt-0 space-y-4 md:mt-5">
-      <div class="flex items-center justify-center mt-5 space-x-4 md:space-y-4 :mdflex-col md:flex-row xl:mt-0 xl:ml-4">
+      <div class="flex items-center justify-center mt-5 space-x-4 md:flex-row xl:mt-0 xl:ml-4">
         <BaseButton
           :href="{
             name: 'evenement-edit-id',
@@ -37,7 +37,7 @@
           }"
         >
           <template #icon>
-            <PencilSquareIconOutline
+            <PencilSquareIcon
               class="w-5 h-5"
               aria-hidden="true"
             />
@@ -45,11 +45,25 @@
           Modifier
         </BaseButton>
         <BaseButton
+          color="white"
+          :is-loading="uiStore.getUIIsLoading"
+          :disabled="uiStore.getUIIsLoading"
+          @click="syncEvent(event.id)"
+        >
+          <template #icon>
+            <ArrowPathIcon
+              class="w-5 h-5"
+              aria-hidden="true"
+            />
+          </template>
+          Synchroniser
+        </BaseButton>
+        <BaseButton
           color="red"
           @click="deleteEvent"
         >
           <template #icon>
-            <ArchiveBoxIconOutline
+            <ArchiveBoxIcon
               class="w-5 h-5"
               aria-hidden="true"
             />
@@ -59,7 +73,7 @@
       </div>
       <EmployeeCreator
         v-if="authStore.isAuthUserAdmin"
-        :employee-creator="userStore.getOne(companyStore.getOne(event.companyId))"
+        :employee-creator="userStore.getOne(companyStore.getOne(event.companyId).userIds[0])"
       />
     </div>
   </div>
@@ -67,7 +81,16 @@
 </template>
 
 <script setup lang="ts">
-import dayjs from 'dayjs'
+import {
+  ArchiveBoxIcon,
+  ArrowPathIcon,
+  CalendarDaysIcon,
+  MapPinIcon,
+  PencilSquareIcon,
+} from '@heroicons/vue/24/outline'
+import BaseButton from '~/components/Base/BaseButton.vue'
+import EventStatusTag from '~/components/Event/EventStatusTag.vue'
+import EmployeeCreator from '~/components/Employee/EmployeeCreator.vue'
 import {
   useAddressStore,
   useAuthStore,
@@ -88,12 +111,15 @@ const addressStore = useAddressStore()
 const userStore = useUserStore()
 const authStore = useAuthStore()
 const companyStore = useCompanyStore()
-const { setUiModal } = useUiStore()
+const uiStore = useUiStore()
+const { setUiModal } = uiStore
 
 const { $toFormat } = useNuxtApp()
+const { isSameDay } = dateHook()
+const { syncEvent } = eventHook()
 
 const getDateEventDisplay = computed(() => {
-  if (dayjs(props.event.end).isSame(props.event.start, 'day')) {
+  if (isSameDay(props.event.end, props.event.start)) {
     return $toFormat(props.event.end, 'DD MMMM YYYY')
   }
   return `Du ${$toFormat(props.event.start, 'DD MMMM YYYY')} au ${$toFormat(props.event.end, 'DD MMMM YYYY')}`
