@@ -84,6 +84,9 @@
 
 <script setup lang="ts">
 import type { AnchorHTMLAttributes } from 'nuxt/dist/app/compat/capi'
+import EventDetailsTabEmployees from './Details/TabEmployees.vue'
+import EventDetailsHeader from './Details/Header.vue'
+import BaseButton from '~/components/Base/BaseButton.vue'
 import {
   useAnswerStore,
   useEmployeeStore,

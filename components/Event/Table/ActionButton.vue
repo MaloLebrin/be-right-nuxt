@@ -26,12 +26,24 @@
         :to="{ name: 'evenement-show-id', params: { id: props.event.id } }"
         :data-cy="`event-${props.event.id}-show-link`"
       >
-        <PencilSquareIconOutline
+        <PencilSquareIcon
           class="w-5 h-5 mr-2 text-violet-800"
           aria-hidden="true"
         />
         Voir / Modifier
       </NuxtLink>
+    </MenuItem>
+    <MenuItem v-if="authStore.isAuthUserAdmin">
+      <button
+        class="flex items-center w-full px-3 py-3 text-sm rounded-md group hover:bg-purple-100 hover:text-purple-800"
+        @click="syncEvent(event.id)"
+      >
+        <ArrowPathIcon
+          class="w-5 h-5 mr-2 text-violet-800"
+          aria-hidden="true"
+        />
+        Synchroniser
+      </button>
     </MenuItem>
     <MenuItem
       v-if="!isDeleted"
@@ -44,7 +56,7 @@
         ]"
         @click="addEmployeeToEvent"
       >
-        <PlusCircleIconOutline
+        <PlusCircleIcon
           class="w-5 h-5 mr-2 text-violet-800"
           aria-hidden="true"
         />
@@ -63,7 +75,7 @@
         ]"
         @click="deleteEvent"
       >
-        <ArchiveBoxIconOutline
+        <ArchiveBoxIcon
           class="w-5 h-5 mr-2 text-red-500"
           aria-hidden="true"
         />
@@ -76,9 +88,15 @@
 
 <script setup lang="ts">
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
+import {
+  ArchiveBoxIcon,
+  ArrowPathIcon,
+  PencilSquareIcon,
+  PlusCircleIcon,
+} from '@heroicons/vue/24/outline'
 import type { EventType } from '@/types'
 import { ModalModeEnum, ModalNameEnum } from '@/types'
-import { useUiStore } from '~~/store'
+import { useAuthStore, useUiStore } from '~~/store'
 
 interface Props {
   event: EventType
@@ -86,8 +104,10 @@ interface Props {
 
 const props = defineProps<Props>()
 
+const authStore = useAuthStore()
 const uiStore = useUiStore()
 const { setUiModal } = uiStore
+const { syncEvent } = eventHook()
 
 const isDeleted = computed(() => noNull(props.event.deletedAt) && noUndefined(props.event.deletedAt))
 

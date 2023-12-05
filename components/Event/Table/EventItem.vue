@@ -30,6 +30,7 @@
 </template>
 
 <script setup lang="ts">
+import EventTableActionButton from './ActionButton.vue'
 import type { EventType } from '@/types'
 import { useAnswerStore } from '~/store'
 

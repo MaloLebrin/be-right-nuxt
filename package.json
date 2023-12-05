@@ -44,7 +44,7 @@
     "@antfu/utils": "^0.7.6",
     "@headlessui/vue": "^1.7.16",
     "@nuxt/devtools": "^0.7.6",
-    "@nuxt/image-edge": "1.0.0-rc.1-28164352.ad7c010",
+    "@nuxt/image": "^1.1.0",
     "@nuxtjs/tailwindcss": "^6.4.1",
     "@pinia-plugin-persistedstate/nuxt": "^1.1.2",
     "@playwright/test": "^1.39.0",
