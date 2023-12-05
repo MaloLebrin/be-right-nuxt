@@ -28,7 +28,7 @@
     "@pinia/nuxt": "^0.5.1",
     "@popperjs/core": "^2.11.8",
     "@vueuse/integrations": "^10.7.0",
-    "jwt-decode": "^4.0.0",
+    "jwt-decode": "^3.1.2",
     "node-mailjet": "^6.0.5",
     "pinia": "^2.1.7",
     "puppeteer-core": "^21.5.2",
