@@ -9,6 +9,12 @@
 </template>
 
 <script setup lang="ts">
+import LandingHeroSection from '~~/components/Landing/HeroSection.vue'
+import LandingSolutionSection from '~~/components/Landing/SolutionSection.vue'
+import LandingHowItWorksSection from '~~/components/Landing/HowItWorksSection.vue'
+import LandingPricingSection from '~~/components/Landing/PricingSection.vue'
+import LandingNewsletterSection from '~~/components/Landing/NewsletterSection.vue'
+
 useHead({
   title: 'Accueil',
   meta: [

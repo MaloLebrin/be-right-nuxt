@@ -56,6 +56,10 @@
 <script setup lang="ts">
 import { object, string } from 'yup'
 import { Form } from 'vee-validate'
+import BaseButton from '~/components/Base/BaseButton.vue'
+import BaseInput from '~/components/Base/BaseInput.vue'
+import LogoSimpleLogo from '~/components/Logo/SimpleLogo.vue'
+import FormApiMessage from '~/components/Form/FormApiMessage.vue'
 import type { ResetPasswordData, VeeValidateValues } from '@/types'
 import { useUiStore } from '~/store/ui/uiStore'
 

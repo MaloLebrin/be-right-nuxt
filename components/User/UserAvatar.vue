@@ -3,12 +3,12 @@
   id="user-avatar"
   class="relative inline-block"
 >
-  <img
+  <NuxtImg
     v-if="user?.profilePicture"
     :class="`${avatarSize} rounded-full border`"
     :src="user?.profilePicture"
     alt="avatar"
-  >
+  />
   <div
     v-else
     :class="`${avatarSize} rounded-full border border-blue-dark dark:text-white-break dark:border-gray-300 flex items-center justify-center font-bold uppercase`"

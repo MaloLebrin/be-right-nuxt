@@ -83,3 +83,7 @@
   </div>
 </section>
 </template>
+
+<script setup lang="ts">
+import LandingPricingCard from './PricingCard.vue'
+</script>
