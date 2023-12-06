@@ -21,6 +21,9 @@
 </template>
 
 <script setup lang="ts">
+import BaseButton from '~/components/Base/BaseButton.vue'
+import LogoSimpleLogo from '~/components/Logo/SimpleLogo.vue'
+
 const router = useRouter()
 
 function goBack() {
