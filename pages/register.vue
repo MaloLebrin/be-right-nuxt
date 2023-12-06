@@ -97,30 +97,24 @@
     </div>
   </div>
 
-  <img
+  <NuxtImg
     v-if="$isTouch || $isDesktop"
     class="hidden object-cover max-w-5xl shadow-2xl lg:w-2/3 md:max-w-full md:block TranslateUpAnimation cursor-none"
-    src="https://images.unsplash.com/photo-1492146433370-dea32142adc3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80"
+    src="/img/login-picture.webp"
     width="1577"
     height="1920"
     sizes="xs:200px md:500px lg:1024"
     alt="Objectif d'appareil photo"
-  >
-  <!-- <nuxt-img
-    v-if="$isTouch || $isDesktop"
-    class="hidden object-cover max-w-5xl shadow-2xl lg:w-2/3 md:max-w-full md:block TranslateUpAnimation cursor-none"
-    src="https://images.unsplash.com/photo-1492146433370-dea32142adc3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80"
-    width="1577"
-    height="1920"
-    sizes="xs:200px md:500px lg:1024"
-    alt="Objectif d'appareil photo"
-  /> -->
+  />
 </Form>
 </template>
 
 <script setup lang="ts">
 import { Form } from 'vee-validate'
 import { object, string } from 'yup'
+import BaseButton from '~/components/Base/BaseButton.vue'
+import BaseInput from '~/components/Base/BaseInput.vue'
+import BaseRadio from '~/components/Base/BaseRadio.vue'
 import type { UserType, VeeValidateValues } from '@/types'
 import { RoleEnum } from '@/types'
 import type { Company } from '~~/store'

@@ -12,11 +12,11 @@
         v-if="employeeCreator.profilePicture"
         class="flex-shrink-0"
       >
-        <img
+        <NuxtImg
           class="w-10 h-10 rounded-full"
           :src="employeeCreator.profilePicture"
           alt="Photo de profile du créateur du destinataire"
-        >
+        />
       </div>
       <div class="flex-1 min-w-0">
         <NuxtLink

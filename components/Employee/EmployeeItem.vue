@@ -4,11 +4,11 @@
   @click="clickEmployee"
 >
   <div class="flex-shrink-0">
-    <!-- <img
+    <!-- <NuxtImg
         class="w-10 h-10 rounded-full"
         :src="employee.imageUrl"
         alt=""
-      > -->
+      /> -->
   </div>
   <div class="flex-1 min-w-0">
     <div
