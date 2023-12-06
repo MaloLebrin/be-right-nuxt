@@ -85,5 +85,5 @@
 </template>
 
 <script setup lang="ts">
-import LandingPricingCard from './PricingCard.vue'
+import LandingPricingCard from './PricingCard.server.vue'
 </script>
