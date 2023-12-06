@@ -67,7 +67,7 @@
 import { vElementHover } from '@vueuse/components'
 import type { MenuItemContent } from '~~/types/Menu'
 import { MENU_ITEMS } from '@/helpers/menu'
-import Tricks from '~~/components/Tricks/Tricks.vue'
+import Tricks from '~~/components/Tricks/Tricks.server.vue'
 import MenuLink from '~~/components/Menu/MenuLink.vue'
 
 const { $isDesktop } = useNuxtApp()
