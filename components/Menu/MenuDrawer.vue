@@ -58,8 +58,7 @@
             <div class="flex items-center flex-shrink-0 px-4">
               <LogoSimpleLogo class="text-white" />
             </div>
-            <MenuAdmin v-if="authStore.isAuthUserAdmin" />
-            <MenuBasic v-else />
+            <MenuBasic />
           </div>
         </div>
       </TransitionChild>
@@ -77,8 +76,7 @@
         <div class="flex items-center flex-shrink-0 px-4">
           <LogoSimpleLogo />
         </div>
-        <MenuAdmin v-if="authStore.isAuthUserAdmin" />
-        <MenuBasic v-else />
+        <MenuBasic />
       </div>
 
       <UserMenu />
@@ -89,17 +87,9 @@
 
 <script setup lang="ts">
 import MenuBasic from './MenuBasic.vue'
-import MenuAdmin from './MenuAdmin.vue'
-import { useAuthStore, useUiStore } from '~~/store'
+import { useUiStore } from '~~/store'
 
 const uiStore = useUiStore()
-const authStore = useAuthStore()
 
 const { closeDrawer } = uiStore
 </script>
-
-<style scoped>
-.active-nuxt-link {
-    @apply bg-gray-900 text-white focus:text-gray-200
-  }
-</style>
