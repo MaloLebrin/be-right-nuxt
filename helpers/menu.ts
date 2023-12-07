@@ -5,6 +5,7 @@ import {
   HomeIcon,
   ListBulletIcon,
   PlusIcon,
+  ShieldCheckIcon,
   UserGroupIcon,
   UserMinusIcon,
   UsersIcon,
@@ -22,39 +23,6 @@ export function findRecusivlyByLinkName(tree: MenuItemContent[], linkName: strin
     }
   }
 }
-
-export const ADMIN_MENU_ITEMS: MenuItemContent[] = [
-  {
-    label: 'Dashboard',
-    icon: HomeIcon,
-    linkName: 'admin',
-    isAdmin: true,
-  },
-  {
-    label: 'Tous les événements',
-    icon: CalendarDaysIcon,
-    linkName: 'admin-events',
-    isAdmin: true,
-  },
-  {
-    label: 'Utilisateurs',
-    icon: UserGroupIcon,
-    linkName: 'admin-user',
-    isAdmin: true,
-  },
-  {
-    label: 'Destinataires',
-    icon: UsersIcon,
-    linkName: 'admin-destinataires',
-    isAdmin: true,
-  },
-  {
-    label: 'Créer un événement',
-    icon: PlusIcon,
-    linkName: RouteNames.CREATE_EVENT_STEP_1,
-    isAdmin: true,
-  },
-]
 
 export const MENU_ITEMS: MenuItemContent[] = [
   {
@@ -152,5 +120,38 @@ export const MENU_ITEMS: MenuItemContent[] = [
         isAdmin: false,
       },
     ],
+  },
+]
+
+export const ADMIN_MENU_ITEMS: MenuItemContent[] = [
+  {
+    label: 'Dashboard',
+    icon: HomeIcon,
+    linkName: 'admin',
+    isAdmin: true,
+  },
+  {
+    label: 'Tous les événements',
+    icon: CalendarDaysIcon,
+    linkName: 'admin-events',
+    isAdmin: true,
+  },
+  {
+    label: 'Utilisateurs',
+    icon: UserGroupIcon,
+    linkName: 'admin-user',
+    isAdmin: true,
+  },
+  {
+    label: 'Destinataires',
+    icon: UsersIcon,
+    linkName: 'admin-destinataires',
+    isAdmin: true,
+  },
+  {
+    label: 'Menu classique',
+    icon: ShieldCheckIcon,
+    isAdmin: true,
+    children: MENU_ITEMS,
   },
 ]
