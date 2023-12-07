@@ -112,6 +112,18 @@ export default defineNuxtConfig({
   plugins: ['~/plugins/global.ts'],
 
   vite: {
+    optimizeDeps: {
+      include: import.meta.env.DEV
+        ? [
+            '@heroicons/vue/**',
+            'yup',
+            'vee-validate',
+            '@vueuse/integrations/useJwt',
+            '@vueuse/core',
+            '@unhead/vue',
+          ]
+        : [],
+    },
     plugins: [
       Components({
         resolvers: [
