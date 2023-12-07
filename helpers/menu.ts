@@ -10,8 +10,9 @@ import {
   UsersIcon,
 } from '@heroicons/vue/24/outline'
 import { RouteNames } from './routes'
+import type { MenuItemContent } from '~/types/Menu'
 
-export const ADMIN_MENU_ITEMS = [
+export const ADMIN_MENU_ITEMS: MenuItemContent[] = [
   {
     label: 'Dashboard',
     icon: HomeIcon,
@@ -44,7 +45,7 @@ export const ADMIN_MENU_ITEMS = [
   },
 ]
 
-export const MENU_ITEMS = [
+export const MENU_ITEMS: MenuItemContent[] = [
   {
     label: 'Mes événements',
     icon: HomeIcon,

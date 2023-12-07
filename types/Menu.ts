@@ -5,4 +5,5 @@ export interface MenuItemContent {
   linkName?: string
   icon: FunctionalComponent<HTMLAttributes & VNodeProps, {}, any>
   children?: MenuItemContent[]
+  isAdmin?: boolean
 }
