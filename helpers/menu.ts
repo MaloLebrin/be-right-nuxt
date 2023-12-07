@@ -125,7 +125,20 @@ export const MENU_ITEMS = [
   {
     label: 'Notifications',
     icon: BellAlertIcon,
-    linkName: 'notifications',
     isAdmin: false,
+    children: [
+      {
+        label: 'Liste des notifications',
+        icon: ListBulletIcon,
+        linkName: RouteNames.NOTIFICATIONS_LIST,
+        isAdmin: false,
+      },
+      {
+        label: 'Abonnement aux notifications',
+        icon: BellAlertIcon,
+        linkName: RouteNames.NOTIFICATIONS_SUBSCRIPTIONS,
+        isAdmin: false,
+      },
+    ],
   },
 ]

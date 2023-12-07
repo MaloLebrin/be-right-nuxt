@@ -116,6 +116,12 @@ const getOutsideMenuRouteLabel = computed(() => {
         return 'Calendrier Vue Mois'
       case RouteNames.EVENT_CALENDAR_WEEK_VIEW:
         return 'Calendrier Vue Semaine'
+
+      case RouteNames.NOTIFICATIONS_LIST:
+        return 'Notifications'
+
+      case RouteNames.NOTIFICATIONS_SUBSCRIPTIONS:
+        return 'Abonnements aux notifications'
     }
   }
 })
