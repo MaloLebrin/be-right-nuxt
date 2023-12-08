@@ -23,7 +23,8 @@
 </template>
 
 <script setup lang="ts">
-import type { EventType } from '@/types'
+import type { EventType } from '~~/types'
+import BaseTable from '~/components/Base/BaseTable.vue'
 
 interface Props {
   noEventMessage?: string
