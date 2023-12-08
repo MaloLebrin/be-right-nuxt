@@ -23,6 +23,10 @@ export enum RouteNames {
   FORGOT_PASSWORD = 'mot-de-passe-oublie',
   LOGIN = 'login',
 
+  // NOTIFICATIONS
+  NOTIFICATIONS_LIST = 'notifications',
+  NOTIFICATIONS_SUBSCRIPTIONS = 'notifications-abonnements',
+
   // ADMIN
   ADMIN_EVENTS = 'admin-events',
   ADMIN_EMPLOYEES = 'admin-destinataires',

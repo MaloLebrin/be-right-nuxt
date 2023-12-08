@@ -24,7 +24,7 @@
           :class="[
             active ? 'bg-purple-300 text-purple-800' : 'text-gray-900',
           ]"
-          :to="{ name: 'evenement-show-id', params: { id: props.eventId } }"
+          :to="{ name: RouteNames.SHOW_EVENT_ID, params: { id: props.eventId } }"
           @click="patchAsRead([notificationId])"
         >
           <PencilSquareIconOutline
@@ -58,6 +58,7 @@
 
 <script setup lang="ts">
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
+import { RouteNames } from '~/helpers/routes'
 
 interface Props {
   eventId?: number | null
