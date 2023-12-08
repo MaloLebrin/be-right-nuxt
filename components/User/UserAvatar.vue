@@ -11,7 +11,7 @@
   />
   <div
     v-else
-    :class="`${avatarSize} rounded-full border border-blue-dark dark:text-white-break dark:border-gray-300 flex items-center justify-center font-bold uppercase`"
+    :class="`${avatarSize} text-xs md:text-sm rounded-full border border-blue-dark dark:text-white-break dark:border-gray-300 flex items-center justify-center font-bold uppercase`"
   >
     {{ user?.firstName[0] }}
     {{ user?.lastName[0] }}

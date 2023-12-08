@@ -1,7 +1,7 @@
 <template>
 <Menu
   as="div"
-  class="relative ml-3"
+  class="relative md:ml-3"
 >
   <div>
     <MenuButton

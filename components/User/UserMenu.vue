@@ -1,7 +1,7 @@
 <template>
 <Menu
   as="div"
-  class="relative ml-3"
+  class="relative md:ml-3"
 >
   <div>
     <MenuButton
@@ -9,12 +9,15 @@
       class="flex items-center flex-shrink-0 p-4"
       data-cy="user-menu-button"
     >
-      <UserAvatar :user="userStore.getAuthUser" />
+      <UserAvatar
+        :user="userStore.getAuthUser"
+        :size="$isMobile ? 'sm' : 'md'"
+      />
       <div
         v-if="!isInHeader"
         class="ml-3"
       >
-        <p class="text-sm font-medium text-gray-600 dark:text-white">
+        <p class="text-xs font-medium text-gray-600 md:text-sm dark:text-white">
           {{ authStore.getLoggedUserFullName }}
         </p>
       </div>
@@ -57,6 +60,7 @@
 </template>
 
 <script setup lang="ts">
+import UserAvatar from '~/components/User/UserAvatar.vue'
 import { useAuthStore, useUserStore } from '~~/store'
 
 withDefaults(defineProps<Props>(), {
