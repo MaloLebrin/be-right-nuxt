@@ -18,7 +18,9 @@
       v-else
       class="flex items-center py-4 pl-4 pr-3 space-x-2 text-sm font-medium text-gray-900 truncate whitespace-nowrap sm:pl-6"
     >
-      <p>Vous n'avez pas de notifications<span v-show="notificationsStore.getDisplayUnRead"> non lues</span></p>
+      <p class="px-4">
+        Vous n'avez pas de notifications<span v-show="notificationsStore.getDisplayUnRead"> non lues</span>
+      </p>
     </div>
   </table>
 </div>

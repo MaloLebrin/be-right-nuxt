@@ -31,7 +31,10 @@
           :notification="notif"
         />
       </template>
-      <div v-else>
+      <div
+        v-else
+        class="px-2"
+      >
         Vous n'avez pas de notifications
       </div>
     </div>
