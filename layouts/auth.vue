@@ -84,7 +84,6 @@ function CloseResetModalState() {
 }
 
 onMounted(async () => {
-  const { startSEE } = notificationSSEHook()
-  startSEE()
+  await notificationSSEHook()
 })
 </script>

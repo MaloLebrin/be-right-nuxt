@@ -1,35 +1,49 @@
-import { useNotificationsStore, useUserStore } from '~~/store'
+import { useEventSource } from '@vueuse/core'
+import { useAuthStore, useNotificationsStore, useUserStore } from '~~/store'
 
-export default function notificationSSEHook() {
-  const { $getApiUrl } = useNuxtApp()
+export default async function notificationSSEHook() {
+  const { $getApiUrl, $toast } = useNuxtApp()
   const notificationStore = useNotificationsStore()
   const { addMany: addManyNotifications } = notificationStore
   const userStore = useUserStore()
+  const authStore = useAuthStore()
 
   const { areNotificationTypes } = notificationHook()
 
-  const sse = ref<null | EventSource>(null)
+  const { status, data, error, close } = useEventSource(`${$getApiUrl}sse/${userStore.getAuthUser?.notificationToken}`)
 
-  function startSEE() {
-    if (userStore.getAuthUser) {
-      sse.value = new EventSource(`${$getApiUrl}sse/${userStore.getAuthUser?.notificationToken}`)
-
-      sse.value.addEventListener('message', async ({ data }) => {
-        const notifs = await JSON.parse(data)
-        if (data && areNotificationTypes(notifs)) {
-          addManyNotifications(notifs)
-        }
-      })
+  console.log(data.value, '<==== data.value')
+  if (data.value) {
+    const notifs = await JSON.parse(data.value)
+    if (areNotificationTypes(notifs)) {
+      addManyNotifications(notifs)
     }
   }
 
-  function closeSSE() {
-    sse.value?.close()
+  if (error.value) {
+    console.log(error.value, '<==== error.value')
+    $toast.danger(error.value)
   }
 
+  watch(() => authStore.getIsLoggedIn, newValue => {
+    if (!newValue) {
+      close()
+    }
+  })
+
+  // watch(() => status.value, newValue => {
+  //   if (newValue === 'CONNECTING') {
+  //     $toast.info('SSE connection error')
+  //   }
+  //   if (newValue === 'OPEN') {
+  //     $toast.info('SSE connection opened')
+  //   }
+  //   if (newValue === 'CLOSED') {
+  //     $toast.info('SSE connection closed')
+  //   }
+  // })
+
   return {
-    closeSSE,
-    startSEE,
-    sse,
+    close,
   }
 }
