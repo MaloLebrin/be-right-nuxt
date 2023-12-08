@@ -37,7 +37,7 @@ export default function authHook() {
   const tableStore = useTableStore()
   const uiStore = useUiStore()
   const router = useRouter()
-  const { resetAuthState, setJWTasUser, setToken } = useAuthStore()
+  const { resetAuthState, setJWTasUser, setToken, removeLoggedUser } = useAuthStore()
   const { storeUsersEntities } = userHook()
   const { storeCompanyEntities } = companyHook()
   const { closeSSE } = notificationSSEHook()
@@ -45,6 +45,7 @@ export default function authHook() {
   async function logout() {
     closeSSE()
     await $api().post<ActionResponse>('auth/logout', { })
+    removeLoggedUser()
     const cookieToken = useCookie('userToken')
     cookieToken.value = null
     $api().deleteCredentials()
