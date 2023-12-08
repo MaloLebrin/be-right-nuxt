@@ -1,7 +1,7 @@
 <template>
 <PageAuthWrapper>
   <div class="h-full px-4 mt-4 sm:px-6 lg:px-8">
-    <div class=" sm:flex-col lg:flex-row lg:items-center">
+    <div class="sm:flex-col lg:flex-row lg:items-center">
       <div class="w-full mb-4 sm:flex-auto">
         <input
           v-model="state.search"
@@ -14,7 +14,7 @@
         >
       </div>
 
-      <div class="flex items-center justify-between">
+      <div class="flex items-center justify-between py-2 mt-2">
         <EventTableFilters @setFilter="setEventStatusFilter" />
 
         <div class="flex items-center space-x-2">
@@ -23,7 +23,7 @@
             :disabled="uiStore.getUIIsLoading"
             @click="resetFilters"
           >
-            Reset Filters
+            Reset
           </BaseButton>
           <BaseLimitSelector
             :default-limit="state.limit"

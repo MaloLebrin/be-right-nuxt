@@ -167,9 +167,20 @@ export default function answerHook() {
     return answer.signedAt !== null && answer.signedAt !== undefined
   }
 
+  async function fetchManyForEmployee(employeeId: number) {
+    IncLoading()
+    const { data: answers } = await $api().get<AnswerType[]>(`answer/manyByEmployeeId/${employeeId}`)
+
+    if (answers && answers.length > 0 && areAnswersType(answers)) {
+      addMany(answers)
+    }
+    DecLoading()
+  }
+
   return {
     areAnswersType,
     fetchMany,
+    fetchManyForEmployee,
     fetchManyAnswerForEvent,
     fetchManyAnswerForManyEvent,
     filteringAnswersNotInStore,

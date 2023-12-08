@@ -18,14 +18,15 @@
     <span
       v-for="id in day.eventIds"
       :key="id"
-      class="mx-0.5 mb-1 h-1.5 w-1.5 rounded-full bg-gray-400"
+      class="mx-0.5 mb-1 h-1.5 w-1.5 rounded-full "
+      :class="`${getEventStatusBGColor(eventStore.getOne(id)?.status)}`"
     />
   </span>
 </button>
 </template>
 
 <script setup lang="ts">
-import { type CalendarDay, useCalendarStore } from '~~/store'
+import { type CalendarDay, useCalendarStore, useEventStore } from '~~/store'
 
 interface Props {
   day: CalendarDay
@@ -35,6 +36,8 @@ interface Props {
 defineProps<Props>()
 
 const { setSelectedDay } = useCalendarStore()
+const eventStore = useEventStore()
 
 const { isToday, isInCurrentMonth } = dateHook()
+const { getEventStatusBGColor } = eventHook()
 </script>

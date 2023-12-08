@@ -1,5 +1,5 @@
 <template>
-<BaseTable>
+<BaseTable class="hidden md:inline-table">
   <template #header>
     <EmployeeEventTableHeader />
   </template>
@@ -20,10 +20,26 @@
     />
   </template>
 </BaseTable>
+<ul
+  class="space-y-2 md:hidden"
+  role="list"
+>
+  <li
+    v-for="event in events"
+    :key="event.id"
+    role="listitem"
+  >
+    <EventItemMobile :event="event" />
+  </li>
+</ul>
 </template>
 
 <script setup lang="ts">
-import type { EventType } from '@/types'
+import type { EventType } from '~~/types'
+import BaseTable from '~/components/Base/BaseTable.vue'
+import EmployeeEventTableItem from '~~/components/Employee/Event/table/Item.vue'
+import EmployeeEventTableHeader from '~~/components/Employee/Event/table/Header.vue'
+import EventItemMobile from '~/components/Event/EventItemMobile.vue'
 
 interface Props {
   noEventMessage?: string

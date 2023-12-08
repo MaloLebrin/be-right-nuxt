@@ -19,6 +19,9 @@ export enum RouteNames {
   // EMPLOYEE
   EMPLOYEE_CREATE = 'destinataire-create',
 
+  // GROUPS
+  SHOW_GROUP_ID = 'groupe-show-id',
+
   // AUTH
   FORGOT_PASSWORD = 'mot-de-passe-oublie',
   LOGIN = 'login',

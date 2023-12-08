@@ -1,6 +1,6 @@
 <template>
 <NuxtLink
-  :to="{ name: 'evenement-show-id', params: { id: props.event.id } }"
+  :to="{ name: RouteNames.SHOW_EVENT_ID, params: { id: props.event.id } }"
   class="flex items-center justify-between px-2 py-2 space-x-2 border border-separate border-indigo-200 rounded-md"
 >
   <span class="w-1/2 truncate">{{ event.name }}</span>
@@ -11,8 +11,9 @@
 
 <script setup lang="ts">
 import EventStatusTag from './EventStatusTag.vue'
-import type { EventType } from '@/types'
+import type { EventType } from '~~/types'
 import { useAnswerStore } from '~/store'
+import { RouteNames } from '~~/helpers/routes'
 
 interface Props {
   event: EventType

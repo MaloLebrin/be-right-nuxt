@@ -1,5 +1,5 @@
 <template>
-<div class="sticky top-0 z-10 flex items-center justify-between flex-shrink-0 w-full h-16 bg-white border-b border-gray-200 dark:border-0 dark:bg-gray-800 drop-shadow">
+<div class="sticky top-0 z-10 flex items-center justify-between flex-shrink-0 w-full h-16 bg-white border-b border-gray-200 dark:border-0 drop-shadow">
   <div class="flex items-center ml-2 space-x-4">
     <div class="flex flex-col flex-1">
       <div class="sticky top-0 z-10 pt-1 pl-1 lg:hidden sm:pl-3 sm:pt-3">
@@ -20,15 +20,13 @@
 
     <a
       data-cy="go-back-button"
-      class="flex items-center space-x-2 text-gray-500 cursor-pointer dark:text-white-break hover:underline"
+      class="items-center hidden space-x-2 text-gray-500 cursor-pointer md:flex hover:underline"
       @click="goBack"
     >
       <ChevronLeftIconOutline class="w-5 h-5" />
       <span>Retour</span>
     </a>
-    <h3
-      class="flex items-center space-x-4 font-semibold text-gray-800 text-normal md:text-xl dark:text-white"
-    >
+    <h3 class="flex items-center space-x-4 text-sm font-semibold text-gray-800 text-normal md:text-xl ">
       <template v-if="getRouteHeaderContent && $isNotMobile">
         <component
           :is="getRouteHeaderContent.icon"
@@ -53,7 +51,9 @@
 </template>
 
 <script setup lang="ts">
-import { MENU_ITEMS, findRecusivlyByLinkName } from '@/helpers/menu'
+import NotificationMenu from '~/components/Notification/NotificationMenu.vue'
+import UserMenu from '~/components/User/UserMenu.vue'
+import { MENU_ITEMS, findRecusivlyByLinkName } from '~~/helpers/menu'
 import { RouteNames } from '~~/helpers/routes'
 import { useUiStore } from '~~/store'
 
