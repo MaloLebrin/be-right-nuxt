@@ -93,6 +93,15 @@ const employeeGroups = computed(() =>
 const { fetchMany: fetchManyGroups } = groupHook()
 const { fetchManyForEmployee } = answerHook()
 
+watch(() => props.employee, async newEmployee => {
+  if (newEmployee) {
+    await Promise.all([
+      fetchManyForEmployee(newEmployee?.id),
+      fetchManyGroups(groupStore.getMissingIds(newEmployee.groupIds)),
+    ])
+  }
+})
+
 onMounted(async () => {
   if (props.employee) {
     await Promise.all([
