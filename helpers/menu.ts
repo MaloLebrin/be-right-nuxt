@@ -10,8 +10,20 @@ import {
   UsersIcon,
 } from '@heroicons/vue/24/outline'
 import { RouteNames } from './routes'
+import type { MenuItemContent } from '~/types/Menu'
 
-export const ADMIN_MENU_ITEMS = [
+export function findRecusivlyByLinkName(tree: MenuItemContent[], linkName: string) {
+  for (const item of tree) {
+    if (item?.linkName === linkName)
+      return item
+
+    if (item.children && item.children.length > 0) {
+      return findRecusivlyByLinkName(item.children, linkName)
+    }
+  }
+}
+
+export const ADMIN_MENU_ITEMS: MenuItemContent[] = [
   {
     label: 'Dashboard',
     icon: HomeIcon,
@@ -44,7 +56,7 @@ export const ADMIN_MENU_ITEMS = [
   },
 ]
 
-export const MENU_ITEMS = [
+export const MENU_ITEMS: MenuItemContent[] = [
   {
     label: 'Mes événements',
     icon: HomeIcon,
@@ -125,7 +137,20 @@ export const MENU_ITEMS = [
   {
     label: 'Notifications',
     icon: BellAlertIcon,
-    linkName: 'notifications',
     isAdmin: false,
+    children: [
+      {
+        label: 'Liste des notifications',
+        icon: ListBulletIcon,
+        linkName: RouteNames.NOTIFICATIONS_LIST,
+        isAdmin: false,
+      },
+      {
+        label: 'Abonnement aux notifications',
+        icon: BellAlertIcon,
+        linkName: RouteNames.NOTIFICATIONS_SUBSCRIPTIONS,
+        isAdmin: false,
+      },
+    ],
   },
 ]

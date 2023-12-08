@@ -53,7 +53,7 @@
 </template>
 
 <script setup lang="ts">
-import { MENU_ITEMS } from '@/helpers/menu'
+import { MENU_ITEMS, findRecusivlyByLinkName } from '@/helpers/menu'
 import { RouteNames } from '~~/helpers/routes'
 import { useUiStore } from '~~/store'
 
@@ -64,7 +64,7 @@ const { toggleDrawer } = useUiStore()
 const { $isNotMobile } = useNuxtApp()
 
 const getRouteHeaderContent = computed(() =>
-  MENU_ITEMS.find(item => item.linkName === route.name),
+  findRecusivlyByLinkName(MENU_ITEMS, route.name),
 )
 
 const getOutsideMenuRouteLabel = computed(() => {
@@ -116,6 +116,12 @@ const getOutsideMenuRouteLabel = computed(() => {
         return 'Calendrier Vue Mois'
       case RouteNames.EVENT_CALENDAR_WEEK_VIEW:
         return 'Calendrier Vue Semaine'
+
+      case RouteNames.NOTIFICATIONS_LIST:
+        return 'Notifications'
+
+      case RouteNames.NOTIFICATIONS_SUBSCRIPTIONS:
+        return 'Abonnements aux notifications'
     }
   }
 })
