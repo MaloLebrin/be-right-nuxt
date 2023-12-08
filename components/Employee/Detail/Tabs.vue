@@ -1,7 +1,7 @@
 <template>
 <TabGroup :default-index="0">
   <TabList
-    class="flex items-center px-8 mt-6 -mb-px space-x-8 border-b border-gray-200"
+    class="flex items-center px-8 mt-6 -mb-px space-x-4 border-b border-gray-200 md:space-x-8"
     aria-label="Tabs"
   >
     <Tab
@@ -37,6 +37,7 @@
     </Tab>
   </TabList>
   <TabPanels
+    v-if="employee"
     as="div"
     class="px-8 py-2"
   >
@@ -62,7 +63,10 @@
 </template>
 
 <script setup lang="ts">
-import type { EmployeeType } from '@/types'
+import BaseLoader from '~~/components/Base/BaseLoader.vue'
+import EmployeeEventList from '~~/components/Employee/Event/List.vue'
+import EmployeeGroupList from '~~/components/Employee/Group/List.vue'
+import type { EmployeeType } from '~~/types'
 import {
   useEventStore,
   useGroupStore,
@@ -86,11 +90,15 @@ const employeeGroups = computed(() =>
   props.employee ? groupStore.getWhereArray(group => group.employeeIds.includes(props.employee!.id)) : [],
 )
 
-const { fetchMany } = groupHook()
+const { fetchMany: fetchManyGroups } = groupHook()
+const { fetchManyForEmployee } = answerHook()
 
 onMounted(async () => {
-  if (props.employee && groupStore.getMissingIds(props.employee.groupIds).length > 0) {
-    await fetchMany(groupStore.getMissingIds(props.employee.groupIds))
+  if (props.employee) {
+    await Promise.all([
+      fetchManyForEmployee(props.employee?.id),
+      fetchManyGroups(groupStore.getMissingIds(props.employee.groupIds)),
+    ])
   }
 })
 </script>
