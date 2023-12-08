@@ -40,13 +40,14 @@
       </RadioGroupOption>
     </div>
   </RadioGroup>
+
   <Listbox
     v-model="filter"
     class="md:hidden"
   >
     <div class="relative">
       <ListboxButton
-        class="relative flex items-center w-full px-1 py-2 space-x-2 text-left bg-white rounded-lg shadow-md cursor-default focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm"
+        class="relative flex items-center w-full px-1 py-2 space-x-2 text-left bg-white border border-indigo-300 rounded-lg shadow-md cursor-default focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm"
       >
         <span class="block capitalize truncate">{{ filter ? getEventStatusTranslation(filter) : 'Filtrer' }}</span>
         <span
