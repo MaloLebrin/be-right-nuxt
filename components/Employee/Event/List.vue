@@ -20,10 +20,14 @@
     />
   </template>
 </BaseTable>
-<ul class="space-y-2 md:hidden">
+<ul
+  class="space-y-2 md:hidden"
+  role="list"
+>
   <li
     v-for="event in events"
     :key="event.id"
+    role="listitem"
   >
     <EventItemMobile :event="event" />
   </li>
