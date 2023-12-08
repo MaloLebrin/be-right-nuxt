@@ -29,8 +29,9 @@
       </div>
     </div>
     <div class="flex flex-col items-center justify-center mt-0 space-y-4 md:mt-5">
-      <div class="flex items-center justify-center mt-5 space-x-4 md:flex-row xl:mt-0 xl:ml-4">
+      <div class="flex items-center justify-center mt-5 space-x-2 md:space-x-4 md:flex-row xl:mt-0 xl:ml-4">
         <BaseButton
+          :disabled="uiStore.getUIIsLoading"
           :href="{
             name: 'evenement-edit-id',
             params: { id: event?.id.toString() },
@@ -60,6 +61,7 @@
         </BaseButton>
         <BaseButton
           color="red"
+          :disabled="uiStore.getUIIsLoading"
           @click="deleteEvent"
         >
           <template #icon>
