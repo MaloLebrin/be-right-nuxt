@@ -53,27 +53,15 @@
 </template>
 
 <script setup lang="ts">
-import { MENU_ITEMS } from '@/helpers/menu'
+import { MENU_ITEMS, findRecusivlyByLinkName } from '@/helpers/menu'
 import { RouteNames } from '~~/helpers/routes'
 import { useUiStore } from '~~/store'
-import type { MenuItemContent } from '~/types/Menu'
 
 const router = useRouter()
 const route = useRoute()
 const { toggleDrawer } = useUiStore()
 
 const { $isNotMobile } = useNuxtApp()
-
-function findRecusivlyByLinkName(tree: MenuItemContent[], linkName: string) {
-  for (const item of tree) {
-    if (item?.linkName === linkName)
-      return item
-
-    if (item.children && item.children.length > 0) {
-      return findRecusivlyByLinkName(item.children, linkName)
-    }
-  }
-}
 
 const getRouteHeaderContent = computed(() =>
   findRecusivlyByLinkName(MENU_ITEMS, route.name),
