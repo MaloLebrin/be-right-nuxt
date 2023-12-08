@@ -62,7 +62,7 @@
     >
       <template v-if="employees.length > 0">
         <div
-          v-for="letter in Object.keys(alphabeticalAmployeeList)"
+          v-for="letter in Object.keys(alphabeticalEmployeeList)"
           :key="letter"
           class="relative"
         >
@@ -75,7 +75,7 @@
           >
             <!-- TODO max height -->
             <EmployeeItem
-              v-for="employee in alphabeticalAmployeeList[letter]"
+              v-for="employee in alphabeticalEmployeeList[letter]"
               :key="employee.id"
               :employee="employee"
               :class="{ 'bg-gray-100': employee.id === state.activeEmployee }"
@@ -129,7 +129,8 @@ const state = reactive({
   isActiveEmployeeDirty: false,
 })
 
-onMounted(() => {
+function getActiveEmployee() {
+  state.isLoading = true
   if (route.query.id) {
     const employeeId = parseInt(route.query.id.toString())
     if (employeeStore.getOne(employeeId)) {
@@ -143,27 +144,8 @@ onMounted(() => {
       })
     }
   }
-})
-
-const activeEmployee = computed(() => {
-  if (state.activeEmployee) {
-    return employeeStore.getOne(state.activeEmployee)
-  }
-  return null
-})
-
-const filteredEmployee = computed(() => filteredEmployees(employees.value, query))
-
-const alphabeticalAmployeeList = computed(() => {
-  return filteredEmployee.value.reduce((acc: Record<string, EmployeeType[]>, employee: EmployeeType) => {
-    const letter = employee.lastName[0].toUpperCase()
-    if (!acc[letter]) {
-      acc[letter] = []
-    }
-    acc[letter].push(employee)
-    return acc
-  }, {})
-})
+  state.isLoading = false
+}
 
 function setActiveEmployee(employee: EmployeeType) {
   state.isLoading = true
@@ -176,6 +158,34 @@ function setActiveEmployee(employee: EmployeeType) {
     },
   })
 }
+
+onMounted(() => {
+  getActiveEmployee()
+})
+
+watch(() => route.query.id, () => {
+  getActiveEmployee()
+})
+
+const activeEmployee = computed(() => {
+  if (state.activeEmployee) {
+    return employeeStore.getOne(state.activeEmployee)
+  }
+  return null
+})
+
+const filteredEmployee = computed(() => filteredEmployees(employees.value, query))
+
+const alphabeticalEmployeeList = computed(() => {
+  return filteredEmployee.value.reduce((acc: Record<string, EmployeeType[]>, employee: EmployeeType) => {
+    const letter = employee.lastName[0].toUpperCase()
+    if (!acc[letter]) {
+      acc[letter] = []
+    }
+    acc[letter].push(employee)
+    return acc
+  }, {})
+})
 
 const getGeneralText = computed(() => {
   if (employees.value?.length === 0) {

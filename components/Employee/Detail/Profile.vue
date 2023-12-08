@@ -13,11 +13,11 @@
       <div class="-mt-12 sm:-mt-16 sm:flex sm:items-end sm:space-x-5">
         <div class="mt-12 sm:flex-1 sm:min-w-0 sm:flex sm:items-center sm:justify-end sm:space-x-6 sm:pb-1">
           <div class="flex-1 min-w-0 mt-6 sm:hidden 2xl:block">
-            <h1 class="text-2xl font-bold text-gray-900 truncate">
+            <h1 class="text-2xl font-bold text-center text-gray-900 truncate md:text-left">
               {{ getEmployeeFullname(employee) }}
             </h1>
           </div>
-          <div class="flex flex-col mt-6 space-y-3 justify-stretch sm:flex-row sm:space-y-0 sm:space-x-4">
+          <div class="flex items-center justify-center mt-2 space-x-2 md:mt-6 md:justify-stretch sm:flex-row sm:space-y-0 sm:space-x-4">
             <BaseButton
               :href="{
                 name: 'destinataire-edit-id',

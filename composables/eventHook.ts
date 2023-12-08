@@ -38,19 +38,26 @@ export default function eventHook() {
     return getEventStatusTranslationEnum[status]
   }
 
-  function getEventStatusColor(status: EventStatusEnum) {
+  function getStatusColor(status: EventStatusEnum) {
     switch (status) {
-      case EventStatusEnum.PENDING:
-        return 'text-orange-500'
-      case EventStatusEnum.CREATE:
-        return 'text-black'
-      case EventStatusEnum.CLOSED:
-        return 'text-gray-500'
       case EventStatusEnum.COMPLETED:
-        return 'text-green-500'
+        return 'sky'
+      case EventStatusEnum.PENDING:
+        return 'orange'
+      case EventStatusEnum.CLOSED:
+        return 'gray'
+      case EventStatusEnum.CREATE:
+        return 'green'
       default:
-        return 'text-gray-500'
+        return 'gray'
     }
+  }
+
+  function getEventStatusColor(status: EventStatusEnum) {
+    return `text-${getStatusColor(status)}-500`
+  }
+  function getEventStatusBGColor(status: EventStatusEnum) {
+    return `bg-${getStatusColor(status)}-300`
   }
 
   function storeEventRelationEntities(events: EventType[]) {
@@ -289,6 +296,8 @@ export default function eventHook() {
     fetchEventsByCompany,
     fetchOne,
     fetchMany,
+    getStatusColor,
+    getEventStatusBGColor,
     getEventStatusColor,
     getEventStatusTranslation,
     isEventType,
