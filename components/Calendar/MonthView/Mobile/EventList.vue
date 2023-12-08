@@ -1,9 +1,13 @@
 <template>
-<ol class="overflow-hidden text-sm bg-white divide-y divide-gray-100 rounded-lg shadow ring-1 ring-black ring-opacity-5">
+<ol
+  class="overflow-hidden text-sm bg-white divide-y divide-gray-100 rounded-lg shadow ring-1 ring-black ring-opacity-5"
+  role="list"
+>
   <li
     v-for="event in events"
     :key="event.id"
     class="flex p-4 pr-6 group focus-within:bg-gray-50 hover:bg-gray-50"
+    role="listitem"
   >
     <div class="flex-auto">
       <p class="font-semibold text-gray-900">
@@ -21,13 +25,14 @@
       </time>
     </div>
     <NuxtLink
+      role="link"
       :to="{
         name: RouteNames.SHOW_EVENT_ID,
         params: {
           id: event.id,
         },
       }"
-      class="self-center flex-none px-3 py-2 ml-6 font-semibold text-gray-900 bg-white rounded-md shadow-sm opacity-0 ring-1 ring-inset ring-gray-300 hover:ring-gray-400 focus:opacity-100 group-hover:opacity-100"
+      class="self-center flex-none px-3 py-2 ml-6 font-semibold text-indigo-500 bg-indigo-100 rounded-md shadow-sm ring-1 ring-inset ring-indigo-500"
     >
       Voir<span class="sr-only">, {{ event.name }}</span>
     </NuxtLink>
