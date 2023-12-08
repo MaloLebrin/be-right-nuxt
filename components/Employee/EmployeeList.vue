@@ -62,7 +62,7 @@
     >
       <template v-if="employees.length > 0">
         <div
-          v-for="letter in Object.keys(alphabeticalAmployeeList)"
+          v-for="letter in Object.keys(alphabeticalEmployeeList)"
           :key="letter"
           class="relative"
         >
@@ -75,7 +75,7 @@
           >
             <!-- TODO max height -->
             <EmployeeItem
-              v-for="employee in alphabeticalAmployeeList[letter]"
+              v-for="employee in alphabeticalEmployeeList[letter]"
               :key="employee.id"
               :employee="employee"
               :class="{ 'bg-gray-100': employee.id === state.activeEmployee }"
@@ -162,7 +162,7 @@ const activeEmployee = computed(() => {
 
 const filteredEmployee = computed(() => filteredEmployees(employees.value, query))
 
-const alphabeticalAmployeeList = computed(() => {
+const alphabeticalEmployeeList = computed(() => {
   return filteredEmployee.value.reduce((acc: Record<string, EmployeeType[]>, employee: EmployeeType) => {
     const letter = employee.lastName[0].toUpperCase()
     if (!acc[letter]) {
