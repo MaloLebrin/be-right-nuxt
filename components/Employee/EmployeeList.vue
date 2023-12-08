@@ -129,7 +129,7 @@ const state = reactive({
   isActiveEmployeeDirty: false,
 })
 
-onMounted(() => {
+function getActiveEmployee() {
   if (route.query.id) {
     const employeeId = parseInt(route.query.id.toString())
     if (employeeStore.getOne(employeeId)) {
@@ -143,6 +143,14 @@ onMounted(() => {
       })
     }
   }
+}
+
+onMounted(() => {
+  getActiveEmployee()
+})
+
+watch(() => route.query.id, () => {
+  getActiveEmployee()
 })
 
 const activeEmployee = computed(() => {
