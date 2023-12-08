@@ -130,6 +130,7 @@ const state = reactive({
 })
 
 function getActiveEmployee() {
+  state.isLoading = true
   if (route.query.id) {
     const employeeId = parseInt(route.query.id.toString())
     if (employeeStore.getOne(employeeId)) {
@@ -143,6 +144,19 @@ function getActiveEmployee() {
       })
     }
   }
+  state.isLoading = false
+}
+
+function setActiveEmployee(employee: EmployeeType) {
+  state.isLoading = true
+  state.isActiveEmployeeDirty = true
+  state.activeEmployee = employee.id
+  state.isLoading = false
+  router.push({
+    query: {
+      id: employee.id,
+    },
+  })
 }
 
 onMounted(() => {
@@ -172,18 +186,6 @@ const alphabeticalEmployeeList = computed(() => {
     return acc
   }, {})
 })
-
-function setActiveEmployee(employee: EmployeeType) {
-  state.isLoading = true
-  state.isActiveEmployeeDirty = true
-  state.activeEmployee = employee.id
-  state.isLoading = false
-  router.push({
-    query: {
-      id: employee.id,
-    },
-  })
-}
 
 const getGeneralText = computed(() => {
   if (employees.value?.length === 0) {
