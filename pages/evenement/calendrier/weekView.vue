@@ -68,7 +68,7 @@
 </template>
 
 <script setup lang="ts">
-import HoursDay from '~~/components/Calendar/HoursDay.vue'
+import HoursDay from '~~/components/Calendar/HoursDay.server.vue'
 import CalendarWeekViewDay from '~/components/Calendar/WeekView/Day.vue'
 import PageAuthWrapper from '~/components/Page/PageAuthWrapper.vue'
 import CalendarViewsHeader from '~~/components/Calendar/ViewsHeader.vue'
