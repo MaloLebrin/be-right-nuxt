@@ -14,39 +14,6 @@
     <MenuRecursiveList
       :menu-items="item.children"
     />
-    <!-- <MenuLink
-      :item="item"
-      :is-active="isLinkActive(item).value || isHovered === index"
-    />
-    isActive {{ isLinkActive(item).value }}
-    <ul
-      v-if="isLinkActive(item).value || isHovered === index"
-      role="list"
-      class="space-y-1"
-      :class="[
-        { 'pl-4 md:pl-6': isChild },
-        { 'active-link': isLinkActive(item).value },
-      ]"
-    >
-      <li
-        v-for="(child, index) in item.children"
-        :key="index"
-        v-element-hover="(state) => onHoverChild(state, index)"
-        role="menuitem"
-      >
-        <MenuRecursiveList
-          v-if="child.children && child.children?.length > 0"
-          :menu-items="child.children"
-          :is-child="true"
-        />
-        <MenuLink
-          v-else
-          :item="child"
-          :is-active="isLinkActive(child).value"
-          :is-child="true"
-        />
-      </li>
-    </ul> -->
   </template>
 
   <MenuLink
