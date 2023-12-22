@@ -87,7 +87,7 @@
 
 <script setup lang="ts">
 import MenuBasic from './MenuBasic.vue'
-import SimpleLogo from '~/components/Logo/SimpleLogo.vue'
+import SimpleLogo from '~/components/Logo/SimpleLogo.server.vue'
 import UserMenu from '~/components/User/UserMenu.vue'
 import { useUiStore } from '~~/store'
 
