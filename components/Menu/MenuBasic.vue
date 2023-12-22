@@ -12,7 +12,7 @@
       ul
     />
 
-    <Tricks />
+    <Tricks v-if="!authStore.isAuthUserAdmin" />
   </ul>
 </nav>
 </template>
