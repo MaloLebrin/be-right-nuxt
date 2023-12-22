@@ -58,8 +58,7 @@
             <div class="flex items-center flex-shrink-0 px-4">
               <LogoSimpleLogo class="text-white" />
             </div>
-            <MenuAdmin v-if="authStore.isAuthUserAdmin" />
-            <MenuBasic v-else />
+            <MenuBasic />
           </div>
         </div>
       </TransitionChild>
@@ -70,15 +69,14 @@
   </TransitionRoot>
 
   <!-- Static sidebar for desktop -->
-  <aside class="hidden h-full px-4 bg-white shadow-xl lg:fixed dark:bg-gray-800 lg:flex lg:w-64 lg:flex-col">
+  <aside class="hidden h-full bg-white shadow-xl lg:fixed dark:bg-gray-800 lg:flex lg:w-64 lg:flex-col">
     <!-- Sidebar component, swap this element with another sidebar if you like -->
     <div class="flex flex-col flex-1 w-full min-h-0 space-y-4">
       <div class="flex flex-col flex-1 pt-5 pb-4 overflow-y-visible">
         <div class="flex items-center flex-shrink-0 px-4">
           <LogoSimpleLogo />
         </div>
-        <MenuAdmin v-if="authStore.isAuthUserAdmin" />
-        <MenuBasic v-else />
+        <MenuBasic />
       </div>
 
       <UserMenu />
@@ -89,17 +87,9 @@
 
 <script setup lang="ts">
 import MenuBasic from './MenuBasic.vue'
-import MenuAdmin from './MenuAdmin.vue'
-import { useAuthStore, useUiStore } from '~~/store'
+import { useUiStore } from '~~/store'
 
 const uiStore = useUiStore()
-const authStore = useAuthStore()
 
 const { closeDrawer } = uiStore
 </script>
-
-<style scoped>
-.active-nuxt-link {
-    @apply bg-gray-900 text-white focus:text-gray-200
-  }
-</style>

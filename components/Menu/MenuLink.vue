@@ -2,9 +2,8 @@
 <NuxtLink
   :id="item.linkName"
   :to="{ name: item.linkName }"
-  class="flex items-center py-1 pl-2 text-sm border-l border-gray-200 text-zinc-500 hover:text-zinc-900"
+  class="flex items-center py-1 pl-2 text-sm border-l border-gray-200 text-zinc-500 hover:text-zinc-900 hover:border-gray-500"
   :class="[
-    { 'pl-4 md:pl-6': isChild },
     { 'active-link': isActive },
   ]"
   role="link"
@@ -39,6 +38,6 @@ const { closeDrawer } = uiStore
 
 <style scoped>
 .active-link {
-  @apply border-emerald-500 font-semibold text-zinc-900
+  @apply border-emerald-500 font-semibold text-zinc-900;
 }
 </style>
