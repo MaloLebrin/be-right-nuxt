@@ -40,5 +40,9 @@ export const useAuthStore = defineStore('auth', {
     resetAuthState() {
       this.$state = defaultAuthState()
     },
+
+    removeLoggedUser() {
+      this.user = null
+    },
   },
 })

@@ -101,7 +101,7 @@ function toggleDisclosure(open: boolean) {
   }
 
   router.replace({
-    name: route.name || 'notifications',
+    name: route.name,
     query: {
       ...queries,
     },

@@ -40,15 +40,16 @@
       </RadioGroupOption>
     </div>
   </RadioGroup>
+
   <Listbox
     v-model="filter"
     class="md:hidden"
   >
     <div class="relative">
       <ListboxButton
-        class="relative flex items-center w-full px-1 py-2 space-x-2 text-left bg-white rounded-lg shadow-md cursor-default focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm"
+        class="relative flex items-center w-full px-1 py-2 space-x-2 text-left bg-white border border-indigo-300 rounded-lg shadow-md cursor-default focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm"
       >
-        <span class="block capitalize truncate">{{ filter ? getEventStatusTranslation(filter) : 'Sélectionner un filtre' }}</span>
+        <span class="block capitalize truncate">{{ filter ? getEventStatusTranslation(filter) : 'Filtrer' }}</span>
         <span
           class="flex items-center pointer-events-none"
         >
@@ -74,7 +75,7 @@
             value=""
           >
             <li
-              class="relative flex py-2 pr-4 cursor-default select-none"
+              class="relative flex px-2 py-1 cursor-default select-none md:py-2 md:pr-4"
               :class="[
                 active ? 'bg-amber-100 text-amber-900' : 'text-gray-900',
               ]"
@@ -91,7 +92,7 @@
             as="template"
           >
             <li
-              class="relative flex py-2 pr-4 capitalize cursor-default select-none"
+              class="relative flex px-2 py-1 capitalize cursor-default select-none md:py-2 md:pr-4"
               :class="[
                 getEventStatusColor(status),
                 active ? 'bg-amber-100 text-amber-900' : 'text-gray-900',
@@ -108,8 +109,16 @@
 </template>
 
 <script setup lang="ts">
-import { Listbox, ListboxButton, ListboxOption, ListboxOptions, RadioGroup, RadioGroupLabel, RadioGroupOption } from '@headlessui/vue'
 import { ChevronUpDownIcon } from '@heroicons/vue/24/solid'
+import {
+  Listbox,
+  ListboxButton,
+  ListboxOption,
+  ListboxOptions,
+  RadioGroup,
+  RadioGroupLabel,
+  RadioGroupOption,
+} from '@headlessui/vue'
 import EventStatusTag from '../EventStatusTag.vue'
 import { type EventStatusEnum, eventStatusArray } from '~~/types'
 

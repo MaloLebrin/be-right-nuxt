@@ -11,7 +11,7 @@
       <BaseButton
         :disabled="uiStore.getUIIsLoading"
         :href="{
-          name: 'groupe-show-id',
+          name: RouteNames.SHOW_GROUP_ID,
           params: {
             id: group.id,
           },
@@ -42,6 +42,7 @@ import { EyeIcon, MinusCircleIcon } from '@heroicons/vue/24/outline'
 import BaseButton from '~/components/Base/BaseButton.vue'
 import type { Group } from '~~/store'
 import { useUiStore } from '~~/store'
+import { RouteNames } from '~~/helpers/routes'
 
 interface Props {
   group: Group

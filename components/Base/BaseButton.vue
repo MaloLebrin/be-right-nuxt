@@ -8,10 +8,10 @@
   :title="title"
   :to="href"
   role="link"
-  class="flex justify-center px-4 py-2 text-sm font-medium transition duration-300 ease-in-out transform border border-transparent rounded-lg shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 hover:-translate-y-1 hover:scale-105 font-link"
+  class="flex items-center justify-center px-2 py-2 text-sm font-medium transition duration-300 ease-in-out transform border border-transparent rounded-lg shadow-lg md:px-4 focus:outline-none focus:ring-2 focus:ring-offset-2 hover:-translate-y-1 hover:scale-105"
   :class="[
     colorClasses,
-    { 'inline-flex flex-row items-center': $slots.icon },
+    { 'inline-flex flex-row items-center space-x-1 md:space-x-2': $slots.icon },
     { 'justify-start': $slots.icon && $slots.default },
     { 'justify-center': $slots.icon && !$slots.default },
     { 'cursor-not-allowed opacity-70': disabled },
@@ -22,7 +22,7 @@
   <span
     v-if="$slots.icon"
     class="w-6 h-6"
-    :class="[!$slots.default ? '-mr-2' : 'mr-2']"
+    :class="[!$slots.default ? 'md:-mr-2' : 'md:mr-2']"
   >
     <slot name="icon" />
   </span>
@@ -65,10 +65,10 @@
   :aria-disabled="disabled"
   :aria-label="title"
   :title="title"
-  class="flex items-center justify-center px-4 py-2 text-sm font-medium transition duration-300 ease-in-out transform border border-transparent rounded-lg shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 hover:-translate-y-1 hover:scale-105"
+  class="flex items-center justify-center px-2 py-2 text-sm font-medium transition duration-300 ease-in-out transform border border-transparent rounded-lg shadow-lg md:px-4 focus:outline-none focus:ring-2 focus:ring-offset-2 hover:-translate-y-1 hover:scale-105"
   :class="[
     colorClasses,
-    { 'inline-flex flex-row items-center space-x-2': $slots.icon },
+    { 'inline-flex flex-row items-center space-x-1 md:space-x-2': $slots.icon },
     { 'justify-start': $slots.icon && $slots.default },
     { 'justify-center': $slots.icon && !$slots.default },
     { 'cursor-not-allowed opacity-70': disabled },
@@ -78,8 +78,8 @@
 >
   <span
     v-if="$slots.icon"
-    class="w-6 h-6"
-    :class="[!$slots.default ? '-mr-2' : 'mr-2']"
+    class="w-6 h-6 mt-1"
+    :class="[!$slots.default ? 'md:-mr-2' : 'md:mr-2']"
   >
     <slot name="icon" />
   </span>

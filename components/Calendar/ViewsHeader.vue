@@ -1,6 +1,6 @@
 <template>
-<header class="flex items-center justify-between px-6 py-4 border-b border-gray-200 lg:flex-none">
-  <h1 class="text-base font-semibold leading-6 text-gray-900 capitalize">
+<header class="flex items-center justify-between px-4 py-4 border-b border-gray-200 md:px-6 lg:flex-none">
+  <h1 class="text-base font-semibold leading-6 text-gray-900">
     <time :datetime="calendarStore.getCurrentDate">
       {{ $toFormat(calendarStore.getCurrentDate, 'DD MMMM YYYY') }}
     </time>
@@ -16,7 +16,10 @@
             class="flex items-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
             @click="togglePopover"
           >
-            <span class="not-sr-only md:sr-only">{{ $toFormat(getSetDate, 'DD MM YY') }}</span>
+            <CalendarDaysIcon
+              class="w-5 h-5 text-indigo-500 not-sr-only md:sr-only"
+              aria-hidden="true"
+            />
             <span class="sr-only md:not-sr-only lg:sr-only">{{ $toFormat(getSetDate, 'DD MMMM YY') }}</span>
             <span class="sr-only lg:not-sr-only">{{ $toFormat(getSetDate, 'DD MMMM YYYY') }}</span>
           </button>
@@ -205,7 +208,7 @@
 import 'v-calendar/dist/style.css'
 import { DatePicker } from 'v-calendar'
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
-import { ChevronLeftIcon, ChevronRightIcon, ChevronUpDownIcon, EllipsisHorizontalIcon } from '@heroicons/vue/20/solid'
+import { CalendarDaysIcon, ChevronLeftIcon, ChevronRightIcon, ChevronUpDownIcon, EllipsisHorizontalIcon } from '@heroicons/vue/20/solid'
 import { type TypeOfView, useCalendarStore } from '~~/store'
 import { RouteNames } from '~~/helpers/routes'
 

@@ -14,6 +14,9 @@
         aria-hidden="true"
       />
     </MenuButton>
+    <a
+      ref="downloadFiles"
+    />
   </div>
 
   <MenuItems
@@ -23,7 +26,7 @@
       <MenuItem>
         <NuxtLink
           class="flex items-center w-full px-2 py-2 text-sm rounded-md group"
-          :to="{ name: 'evenement-show-id', params: { id: event.id } }"
+          :to="{ name: RouteNames.SHOW_EVENT_ID, params: { id: event.id } }"
         >
           <PencilSquareIcon
             class="w-5 h-5 mr-2 text-gray-800"
@@ -33,23 +36,18 @@
         </NuxtLink>
       </MenuItem>
       <MenuItem v-if="answer">
-        <NuxtLink
+        <button
           class="flex items-center w-full px-2 py-2 text-sm rounded-md group"
           :class="{ isDowloadDisabled: 'cursor-not-allowed opacity-50' }"
-          :to="{
-            name: 'evenement-answer-download-id',
-            params: {
-              id: answer.id,
-            },
-          }"
           :disabled="isDowloadDisabled"
+          @click="download(answer.id)"
         >
           <ArrowDownTrayIcon
             class="w-5 h-5 mr-2 text-gray-800"
             aria-hidden="true"
           />
           Télécharger
-        </NuxtLink>
+        </button>
       </MenuItem>
     </div>
   </MenuItems>
@@ -57,11 +55,13 @@
 </template>
 
 <script setup lang="ts">
+import type { AnchorHTMLAttributes } from 'nuxt/dist/app/compat/capi'
+import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
 import { ArrowDownTrayIcon, PencilSquareIcon } from '@heroicons/vue/24/outline'
 import { ChevronDownIcon } from '@heroicons/vue/24/solid'
-import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
-import type { EventType } from '@/types'
-import { useAnswerStore } from '~~/store'
+import { RouteNames } from '~~/helpers/routes'
+import type { EventType } from '~~/types'
+import { useAnswerStore, useUiStore } from '~~/store'
 
 interface Props {
   event: EventType
@@ -70,10 +70,30 @@ interface Props {
 
 const props = defineProps<Props>()
 const answerStore = useAnswerStore()
+const uiStore = useUiStore()
+const { IncLoading, DecLoading } = uiStore
 
 const answer = computed(() => answerStore.getAllArray.find(answer =>
   answer.eventId === props.event.id && answer.employeeId === props.employeeId),
 )
 
 const isDowloadDisabled = computed(() => !answer.value || !answer.value?.signedAt)
+const downloadFiles = ref<AnchorHTMLAttributes & { click: () => undefined } | null>(null)
+
+const { downloadAnswers } = downloadHook()
+
+async function download(id: number) {
+  IncLoading()
+
+  const data = await downloadAnswers({
+    answerIds: [id],
+    eventName: props.event.name,
+  })
+  if (downloadFiles.value && data) {
+    downloadFiles.value.href = `data:application/pdf;base64,${data.content}`
+    downloadFiles.value.download = data.fileName
+    downloadFiles.value.click()
+  }
+  DecLoading()
+}
 </script>

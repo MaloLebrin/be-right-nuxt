@@ -5,6 +5,7 @@
 >
   <NuxtImg
     class="absolute right-0 hidden duration-500 ease-in-out transform md:inline hover:-translate-y-2 animate-fade-in-down"
+    loading="lazy"
     src="/mokup-phone.webp"
     alt="mokup"
     width="998"

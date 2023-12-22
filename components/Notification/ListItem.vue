@@ -20,7 +20,7 @@
 
     <NotificationActionButton
       :event-id="getEventIdNotif"
-      :notification-id="notification.id"
+      :notification="notification"
     />
   </div>
 </MenuItem>

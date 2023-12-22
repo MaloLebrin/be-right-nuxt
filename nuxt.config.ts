@@ -112,6 +112,19 @@ export default defineNuxtConfig({
   plugins: ['~/plugins/global.ts'],
 
   vite: {
+    optimizeDeps: {
+      include: [
+        '@heroicons/vue/**',
+        '@headlessui/vue',
+        '@vueuse/components',
+        'yup',
+        'vee-validate',
+        '@vueuse/integrations/useJwt',
+        '@vueuse/core',
+        '@unhead/vue',
+        'vue-signature-pad',
+      ],
+    },
     plugins: [
       Components({
         resolvers: [
