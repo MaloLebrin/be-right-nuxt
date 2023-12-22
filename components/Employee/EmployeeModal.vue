@@ -33,7 +33,7 @@
           type="submit"
         >
           <template #icon>
-            <TrashIconOutline />
+            <TrashIcon />
           </template>
           Supprimer définitivement
         </BaseButton>
@@ -65,6 +65,7 @@
 </template>
 
 <script setup lang="ts">
+import { TrashIcon } from '@heroicons/vue/24/outline'
 import { Form } from 'vee-validate'
 import { object, string } from 'yup'
 import type { EmployeeType, ModalModeEnum } from '@/types'

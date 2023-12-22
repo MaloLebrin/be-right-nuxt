@@ -5,7 +5,7 @@
 >
   <div class="px-4 py-2 sm:flex sm:items-start">
     <div class="flex items-center justify-center flex-shrink-0 w-12 h-12 mx-auto bg-blue-100 rounded-full sm:mx-0 sm:h-10 sm:w-10">
-      <UserPlusIconOutline
+      <UserPlusIcon
         class="w-6 h-6 text-blue-600"
         aria-hidden="true"
       />
@@ -26,6 +26,10 @@
 </template>
 
 <script setup lang="ts">
+import { UserPlusIcon } from '@heroicons/vue/24/outline'
+import { DialogTitle } from '@headlessui/vue'
+import PhotographerForm from '~/components/Photographer/PhotographerForm.vue'
+import BaseModal from '~/components/Base/BaseModal.vue'
 import { useUiStore } from '~~/store'
 
 interface Props {

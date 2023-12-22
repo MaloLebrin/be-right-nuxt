@@ -29,7 +29,7 @@
       @blur="handleBlur"
     >
     <template #icon>
-      <ArrowUpTrayIconOutline />
+      <ArrowUpTrayIcon />
     </template>
     <label
       class="font-semibold cursor-pointer font-heading"
@@ -60,8 +60,10 @@
 </template>
 
 <script lang="ts" setup>
+import { ArrowUpTrayIcon } from '@heroicons/vue/24/outline'
 import { ErrorMessage, Field } from 'vee-validate'
 import type { FieldMeta } from 'vee-validate'
+import BaseButton from '~/components/Base/BaseButton.vue'
 
 interface Props {
   debug?: boolean

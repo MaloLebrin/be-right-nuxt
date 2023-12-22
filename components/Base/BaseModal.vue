@@ -43,7 +43,7 @@
             class="absolute z-20 bg-white border-none rounded-full -top-2 -right-2"
             @click="closeModal"
           >
-            <XCircleIconOutline class="text-gray-900 w-7 h-7" />
+            <XCircleIcon class="text-gray-900 w-7 h-7" />
           </button>
           <slot />
         </div>
@@ -54,6 +54,9 @@
 </template>
 
 <script setup lang="ts">
+import { Dialog, DialogOverlay, TransitionChild, TransitionRoot } from '@headlessui/vue'
+import { XCircleIcon } from '@heroicons/vue/24/outline'
+
 interface ModalProps {
   isActive: boolean
 }

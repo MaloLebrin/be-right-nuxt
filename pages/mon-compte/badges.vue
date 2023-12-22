@@ -30,7 +30,7 @@
               </div>
             </div>
           </div>
-          <CheckIconOutline
+          <CheckIcon
             v-if="userStore.getAuthUserId && badge.userIds.includes(userStore.getAuthUserId)"
             class="w-6 h-6 text-green-500"
           />
@@ -42,6 +42,8 @@
 </template>
 
 <script setup lang="ts">
+import { CheckIcon } from '@heroicons/vue/24/outline'
+import BadgeIcon from '~~/components/badge/Icon.vue'
 import { useBadgeStore, useUserStore } from '~~/store'
 
 const { fetchAll } = badgeHook()

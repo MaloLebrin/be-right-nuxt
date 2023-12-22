@@ -23,14 +23,14 @@
                 {{ employee.lastName }}
               </p>
               <p class="flex items-center mt-2 text-sm text-gray-500">
-                <EnvelopeIconOutline
+                <EnvelopeIcon
                   class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400"
                   aria-hidden="true"
                 />
                 <span class="truncate">{{ employee.email }}</span>
               </p>
               <p class="flex items-center mt-2 text-sm text-gray-500">
-                <PhoneIconOutline
+                <PhoneIcon
                   class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400"
                   aria-hidden="true"
                 />
@@ -53,6 +53,7 @@
 </template>
 
 <script setup lang="ts">
+import { EnvelopeIcon, PhoneIcon } from '@heroicons/vue/24/outline'
 import AnswerResponseAction from '~~/components/Answer/AnswerResponseAction.vue'
 import { useAnswerStore, useEventStore } from '~~/store'
 import type { EmployeeType } from '~~/types'

@@ -46,7 +46,7 @@ function isFolder(item: MenuItemContent) {
 }
 
 const isHovered = ref <number | null>(0)
-const isHoveredChild = ref <number | null>(0)
+// const isHoveredChild = ref <number | null>(0)
 
 function onHover(state: boolean, index: number) {
   if (state) {
@@ -56,13 +56,13 @@ function onHover(state: boolean, index: number) {
   }
 }
 
-function onHoverChild(state: boolean, index: number) {
-  if (state) {
-    isHoveredChild.value = index
-  } else if (isHoveredChild.value === index) {
-    isHoveredChild.value = null
-  }
-}
+// function onHoverChild(state: boolean, index: number) {
+//   if (state) {
+//     isHoveredChild.value = index
+//   } else if (isHoveredChild.value === index) {
+//     isHoveredChild.value = null
+//   }
+// }
 
 const isLinkActive = (item: MenuItemContent) => computed(() =>
   !$isDesktop.value || item.linkName === route.name

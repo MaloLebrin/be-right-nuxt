@@ -62,7 +62,7 @@
               @click="createNewUser"
             >
               <template #icon>
-                <PlusCircleIconOutline />
+                <PlusCircleIcon />
               </template>
             </BaseButton>
           </th>
@@ -119,6 +119,9 @@
 </template>
 
 <script setup lang="ts">
+import { PlusCircleIcon } from '@heroicons/vue/24/outline'
+import BaseButton from '~/components/Base/BaseButton.vue'
+import UserRoleTag from '~/components/User/UserRoleTag.vue'
 import type { UserType } from '~~/store'
 import { useAuthStore, useUiStore, useUserStore } from '~~/store'
 import { ModalModeEnum, ModalNameEnum, RoleEnum } from '~~/types'

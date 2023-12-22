@@ -24,7 +24,7 @@
     >
       <span class="block truncate">{{ displayValue || placeholder }}</span>
       <span class="absolute inset-y-0 right-0 flex items-center pr-4 pointer-events-none">
-        <ArrowsUpDownIconOutline
+        <ArrowsUpDownIcon
           class="w-6 h-6 text-gray-900"
           aria-hidden="true"
         />
@@ -50,7 +50,7 @@
             v-if="selected"
             class="absolute inset-y-0 right-0 flex items-center pr-4 text-gray-900"
           >
-            <CheckIconOutline
+            <CheckIcon
               class="w-6 h-6"
               aria-hidden="true"
             />
@@ -68,6 +68,8 @@
 </template>
 
 <script lang="ts" setup>
+import { Listbox, ListboxButton, ListboxLabel, ListboxOption, ListboxOptions } from '@headlessui/vue'
+import { ArrowsUpDownIcon, CheckIcon } from '@heroicons/vue/24/outline'
 import { ErrorMessage, useField } from 'vee-validate'
 
 interface Props {

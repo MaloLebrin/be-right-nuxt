@@ -13,7 +13,7 @@
       @click="toggleDisclosure(open)"
     >
       <span>Abonnez vous à des notifications</span>
-      <ChevronUpIconOutline
+      <ChevronUpIcon
         :class="open ? 'rotate-180 transform' : ''"
         class="w-5 h-5 text-purple-500"
       />
@@ -59,6 +59,8 @@
 </template>
 
 <script setup lang="ts">
+import { Disclosure, DisclosureButton, DisclosurePanel, Switch, SwitchGroup, SwitchLabel } from '@headlessui/vue'
+import { ChevronUpIcon } from '@heroicons/vue/24/outline'
 import type { NotificationTypeEnum } from '~/store/notification/types'
 import { NotificationTypeEnumArray } from '~/store/notification/types'
 import { useNotificationsSubscriptionStore, useUiStore } from '~~/store'

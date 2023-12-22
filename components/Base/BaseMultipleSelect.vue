@@ -24,7 +24,7 @@
     >
       <span class="block truncate">{{ placeholder }}</span>
       <span class="absolute inset-y-0 right-0 flex items-center pr-4 pointer-events-none">
-        <ArrowsUpDownIconOutline
+        <ArrowsUpDownIcon
           class="w-6 h-6 text-gray-800"
           aria-hidden="true"
         />
@@ -105,7 +105,7 @@
         type="button"
         @click.prevent="onRemoveValue(value)"
       >
-        <XCircleIconSolid class="w-4 h-4 hover:text-red-800" />
+        <XCircleIcon class="w-4 h-4 hover:text-red-800" />
       </button>
     </p>
   </div>
@@ -113,6 +113,15 @@
 </template>
 
 <script lang="ts" setup>
+import { XCircleIcon } from '@heroicons/vue/24/solid'
+import { ArrowsUpDownIcon } from '@heroicons/vue/24/outline'
+import {
+  Listbox,
+  ListboxButton,
+  ListboxLabel,
+  ListboxOption,
+  ListboxOptions,
+} from '@headlessui/vue'
 import { ErrorMessage, useField } from 'vee-validate'
 
 interface Props {

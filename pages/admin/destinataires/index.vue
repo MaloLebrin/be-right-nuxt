@@ -43,7 +43,7 @@
                 },
               }"
             >
-              <PencilSquareIconOutline
+              <PencilSquareIcon
                 class="w-5 h-5 mr-2 text-violet-800"
                 aria-hidden="true"
               />
@@ -65,6 +65,7 @@
 </template>
 
 <script setup lang="ts">
+import { PencilSquareIcon } from '@heroicons/vue/24/outline'
 import { uniq } from '@antfu/utils'
 import { RouteNames } from '~/helpers/routes'
 import PageAuthWrapper from '~/components/Page/PageAuthWrapper.vue'
