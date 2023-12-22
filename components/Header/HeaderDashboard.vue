@@ -51,10 +51,10 @@
 </template>
 
 <script setup lang="ts">
+import { Bars3Icon, ChevronLeftIcon } from '@heroicons/vue/24/outline'
 import UserMenu from '~/components/User/UserMenu.vue'
 import { MENU_ITEMS, findRecusivlyByLinkName } from '~~/helpers/menu'
 import NotificationMenu from '~/components/Notification/NotificationMenu.vue'
-import { Bars3Icon, ChevronLeftIcon } from '@heroicons/vue/24/outline'
 import { RouteNames } from '~~/helpers/routes'
 import { useUiStore } from '~~/store'
 

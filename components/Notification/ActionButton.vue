@@ -64,8 +64,6 @@
 import { CheckBadgeIcon, PencilSquareIcon } from '@heroicons/vue/24/outline'
 import { ChevronDownIcon } from '@heroicons/vue/24/solid'
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
-import { CheckBadgeIcon, PencilSquareIcon } from '@heroicons/vue/24/outline'
-import { ChevronDownIcon } from '@heroicons/vue/24/solid'
 import type { NotificationType } from '~~/store'
 
 interface Props {
