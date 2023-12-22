@@ -29,7 +29,7 @@
 <script setup lang="ts">
 import BaseTable from '~~/components/Base/BaseTable.vue'
 import BaseButton from '~~/components/Base/BaseButton.vue'
-import EventTableHeader from '~/components/Event/Table/Header.vue'
+import EventTableHeader from '~/components/Event/Table/Header.server.vue'
 import type { EventType } from '~~/types'
 import { RouteNames } from '~~/helpers/routes'
 import EventItem from '~/components/Event/Table/EventItem.vue'
