@@ -38,7 +38,7 @@
 import type { EventType } from '~~/types'
 import BaseTable from '~/components/Base/BaseTable.vue'
 import EmployeeEventTableItem from '~~/components/Employee/Event/table/Item.vue'
-import EmployeeEventTableHeader from '~~/components/Employee/Event/table/Header.vue'
+import EmployeeEventTableHeader from '~~/components/Employee/Event/table/Header.server.vue'
 import EventItemMobile from '~/components/Event/EventItemMobile.vue'
 
 interface Props {

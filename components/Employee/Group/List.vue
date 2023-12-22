@@ -27,7 +27,7 @@
 </template>
 
 <script setup lang="ts">
-import EmployeeGroupTableHeader from '~~/components/Employee/Group/Table/Header.vue'
+import EmployeeGroupTableHeader from '~~/components/Employee/Group/Table/Header.server.vue'
 import EmployeeGroupTableItem from '~~/components/Employee/Group/Table/Item.vue'
 import BaseTable from '~/components/Base/BaseTable.vue'
 import GroupItemMobileVue from '~/components/Group/GroupItemMobile.vue'
