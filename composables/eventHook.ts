@@ -1,5 +1,6 @@
 import { hasOwnProperty, uniq } from '@antfu/utils'
 import { isAddressType } from '~/utils/address'
+import { areAnswersType } from '~/utils/answer'
 import type { AnswerType } from '~~/store'
 import {
   useAddressStore,
@@ -17,7 +18,7 @@ import { EventStatusEnum, getEventStatusTranslationEnum } from '~~/types'
 export default function eventHook() {
   const { $toast, $api } = useNuxtApp()
 
-  const { fetchManyAnswerForEvent, areAnswersType } = answerHook()
+  const { fetchManyAnswerForEvent } = answerHook()
   const { fetchEmployeesByEventId } = employeeHook()
   const { fetchMany: fetchManyUsers } = userHook()
   const { fetchMany: fetchManyAddress } = addressHook()

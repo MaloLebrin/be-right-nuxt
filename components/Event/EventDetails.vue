@@ -91,6 +91,7 @@ import {
   useEventStore,
   useUiStore,
 } from '~~/store'
+import { isAnswerSigned } from '~/utils/answer'
 
 interface Props {
   eventId: number
@@ -103,7 +104,6 @@ const employeeStore = useEmployeeStore()
 const answerStore = useAnswerStore()
 const uiStore = useUiStore()
 const { IncLoading, DecLoading } = uiStore
-const { isAnswerSigned } = answerHook()
 const { downloadAnswers } = downloadHook()
 
 const event = computed(() => eventStore.getOne(props.eventId))

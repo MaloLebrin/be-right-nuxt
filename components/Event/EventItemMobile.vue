@@ -14,6 +14,7 @@ import EventStatusTag from './EventStatusTag.vue'
 import type { EventType } from '~~/types'
 import { useAnswerStore } from '~/store'
 import { RouteNames } from '~~/helpers/routes'
+import { isAnswerSigned } from '~/utils/answer'
 
 interface Props {
   event: EventType
@@ -22,7 +23,6 @@ interface Props {
 const props = defineProps<Props>()
 
 const answerStore = useAnswerStore()
-const { isAnswerSigned } = answerHook()
 
 const answers = computed(() => answerStore.getManyByEventId(props.event.id))
 </script>
