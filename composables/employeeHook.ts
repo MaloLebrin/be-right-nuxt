@@ -10,6 +10,7 @@ import {
   useGroupStore,
   useUiStore,
 } from '~~/store'
+import { isAddressType } from '~/utils/address'
 
 export default function employeeHook() {
   const { $toast, $api } = useNuxtApp()
@@ -22,7 +23,6 @@ export default function employeeHook() {
   const { addMany: addManyAddresses } = addressStore
   const groupStore = useGroupStore()
   const { filteringFilesNotInStore } = fileHook()
-  const { isAddressType } = addressHook()
 
   function getEmployeeStatusSignature(employee: EmployeeType): string {
     if (employee.hasSigned) {

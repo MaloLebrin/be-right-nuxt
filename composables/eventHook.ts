@@ -1,4 +1,5 @@
 import { hasOwnProperty, uniq } from '@antfu/utils'
+import { isAddressType } from '~/utils/address'
 import type { AnswerType } from '~~/store'
 import {
   useAddressStore,
@@ -24,7 +25,6 @@ export default function eventHook() {
 
   const eventStore = useEventStore()
   const { deleteEventAndRelations } = eventStore
-  const { isAddressType } = addressHook()
   const { DecLoading, IncLoading } = useUiStore()
   const addressStore = useAddressStore()
   const employeeStore = useEmployeeStore()

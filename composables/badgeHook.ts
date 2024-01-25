@@ -2,7 +2,7 @@ import { hasOwnProperty } from '@antfu/utils'
 import type { Badge } from '~~/store'
 import { useBadgeStore, useUiStore } from '~~/store'
 
-export default function addressHook() {
+export default function badgeHook() {
   const { $api } = useNuxtApp()
 
   const { IncLoading, DecLoading } = useUiStore()
