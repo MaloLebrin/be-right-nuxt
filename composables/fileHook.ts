@@ -1,6 +1,5 @@
-import { hasOwnProperty } from '@antfu/utils'
-import { FileTypeEnum } from '@/types'
 import type { FileType, PaginatedResponse, UserType } from '@/types'
+import { isFileType } from '~/utils/file'
 import { useFileStore, useUiStore, useUserStore } from '~~/store'
 
 export default function fileHook() {
@@ -58,27 +57,6 @@ export default function fileHook() {
     return []
   }
 
-  function getTranslationFileType(fileType: FileTypeEnum) {
-    switch (fileType) {
-      case FileTypeEnum.LOGO:
-        return 'Logo'
-      case FileTypeEnum.MODEL:
-        return 'Modèle'
-
-      case FileTypeEnum.IMAGE_RIGHT:
-        return 'Droit à l\'image'
-
-      case FileTypeEnum.PROFILE_PICTURE:
-        return 'Photo de profil'
-
-      case FileTypeEnum.BUG_REPORT:
-        return 'Capture d\'écran de bug'
-
-      default:
-        return 'Autre'
-    }
-  }
-
   async function deleteOne(id: number) {
     IncLoading()
     await $api().delete(`file/${id}`)
@@ -95,14 +73,6 @@ export default function fileHook() {
       $toast.success('fichier modifié avec succès')
     }
     DecLoading()
-  }
-
-  function isNotPersonnalFile(file: FileType) {
-    return ![FileTypeEnum.BUG_REPORT, FileTypeEnum.PROFILE_PICTURE, FileTypeEnum.LOGO].includes(file.type)
-  }
-
-  function isFileType(file: any): file is FileType {
-    return hasOwnProperty(file, 'fileName')
   }
 
   async function fetchManyFiles(ids: number[]) {
@@ -122,9 +92,6 @@ export default function fileHook() {
     deleteOne,
     fetchManyFiles,
     filteringFilesNotInStore,
-    getTranslationFileType,
-    isFileType,
-    isNotPersonnalFile,
     patchOne,
     postLogo,
     postOne,
