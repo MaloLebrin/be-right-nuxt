@@ -1,6 +1,7 @@
-import { hasOwnProperty, uniq } from '@antfu/utils'
+import { uniq } from '@antfu/utils'
 import { isAddressType } from '~/utils/address'
 import { areAnswersType } from '~/utils/answer'
+import { areEventTypes, isEventType } from '~/utils/event'
 import type { AnswerType } from '~~/store'
 import {
   useAddressStore,
@@ -13,7 +14,6 @@ import {
   useUserStore,
 } from '~~/store'
 import type { AddressType, EventCreatePayload, EventType } from '~~/types'
-import { EventStatusEnum, getEventStatusTranslationEnum } from '~~/types'
 
 export default function eventHook() {
   const { $toast, $api } = useNuxtApp()
@@ -34,32 +34,6 @@ export default function eventHook() {
   const companyStore = useCompanyStore()
   const fileStore = useFileStore()
   const { createOne: createOneAddress } = addressStore
-
-  function getEventStatusTranslation(status: EventStatusEnum) {
-    return getEventStatusTranslationEnum[status]
-  }
-
-  function getStatusColor(status: EventStatusEnum) {
-    switch (status) {
-      case EventStatusEnum.COMPLETED:
-        return 'sky'
-      case EventStatusEnum.PENDING:
-        return 'orange'
-      case EventStatusEnum.CLOSED:
-        return 'gray'
-      case EventStatusEnum.CREATE:
-        return 'green'
-      default:
-        return 'gray'
-    }
-  }
-
-  function getEventStatusColor(status: EventStatusEnum) {
-    return `text-${getStatusColor(status)}-500`
-  }
-  function getEventStatusBGColor(status: EventStatusEnum) {
-    return `bg-${getStatusColor(status)}-300`
-  }
 
   function storeEventRelationEntities(events: EventType[]) {
     if (events?.length > 0) {
@@ -93,24 +67,6 @@ export default function eventHook() {
       return eventsToStore
     }
     return []
-  }
-
-  function sortEventByDate(events: EventType[]) {
-    return events.sort((a, b) => {
-      if (a.start < b.start)
-        return 1
-      if (a.start > b.start)
-        return -1
-      return 0
-    })
-  }
-
-  function isEventType(event: any): event is EventType {
-    return hasOwnProperty(event, 'start') && hasOwnProperty(event, 'end')
-  }
-
-  function areEventTypes(events: unknown[]): events is EventType[] {
-    return events.every(event => isEventType(event))
   }
 
   async function fetchEventsByCompany() {
@@ -297,14 +253,9 @@ export default function eventHook() {
     fetchEventsByCompany,
     fetchOne,
     fetchMany,
-    getStatusColor,
-    getEventStatusBGColor,
-    getEventStatusColor,
-    getEventStatusTranslation,
     isEventType,
     patchOne,
     postOne,
-    sortEventByDate,
     syncEvent,
     storeEventRelationEntities,
     fetchEventWithRelations,
