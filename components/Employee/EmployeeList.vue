@@ -111,6 +111,7 @@ import {
   useAuthStore,
   useEmployeeStore,
 } from '~~/store'
+import { filteredEmployees } from '~/utils/employee'
 
 interface Props {
   employees: EmployeeType[]
@@ -124,7 +125,6 @@ const authStore = useAuthStore()
 const employeeStore = useEmployeeStore()
 const route = useRoute()
 const router = useRouter()
-const { filteredEmployees } = employeeHook()
 
 const employees = computed(() => alphabetical(props.employees) as EmployeeType[])
 

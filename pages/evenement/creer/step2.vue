@@ -116,6 +116,7 @@ import EventFormStep2 from '~~/components/Event/Form/Step2.vue'
 import EventFormGroupList from '~~/components/Event/Form/GroupList.vue'
 import { useEmployeeStore, useFormStore, useGroupStore, useUiStore } from '~/store'
 import { RouteNames } from '~~/helpers/routes'
+import { filteredEmployees, getEmployeeFullname } from '~/utils/employee'
 
 const router = useRouter()
 const query = ref('')
@@ -124,7 +125,6 @@ const uiStore = useUiStore()
 const formStore = useFormStore()
 const groupStore = useGroupStore()
 const { setEmployeeIds } = formStore
-const { getEmployeeFullname, filteredEmployees } = employeeHook()
 
 const employees = computed(() => employeeStore.getMany(formStore.getEmployeeIds))
 

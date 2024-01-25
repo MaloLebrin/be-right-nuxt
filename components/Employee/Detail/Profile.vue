@@ -187,6 +187,7 @@ import {
 } from '~~/store'
 import type { EmployeeType } from '~~/types'
 import { ModalModeEnum, ModalNameEnum } from '~~/types'
+import { getEmployeeFullname } from '~/utils/employee'
 
 interface Props {
   employee: EmployeeType | null
@@ -208,8 +209,6 @@ const employeeCreator = computed(() => {
 })
 
 const employeeAddress = computed(() => addressStore.getOne(props.employee?.addressId))
-
-const { getEmployeeFullname } = employeeHook()
 
 function deleteOneEmployee() {
   setUiModal({

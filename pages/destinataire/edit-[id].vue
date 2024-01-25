@@ -31,11 +31,12 @@ import BaseCard from '~/components/Account/BaseCard.vue'
 import EmployeeEditForm from '~/components/Employee/EmployeeEditForm.vue'
 import AddressForm from '~/components/address/AddressForm.vue'
 import { useAddressStore, useEmployeeStore } from '~~/store'
+import { getEmployeeFullname } from '~/utils/employee'
 
 const route = useRoute()
 const employeeStore = useEmployeeStore()
 const addressStore = useAddressStore()
-const { fetchOne: fetchOneEmployee, getEmployeeFullname } = employeeHook()
+const { fetchOne: fetchOneEmployee } = employeeHook()
 const { fetchOne: fetchOneAddress } = addressHook()
 
 const employeeId = route.name === 'destinataire-edit-id' && parseInt(route.params.id.toString())

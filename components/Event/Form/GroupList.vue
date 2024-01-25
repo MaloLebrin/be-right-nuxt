@@ -66,13 +66,13 @@ import {
   useGroupStore,
   useUiStore,
 } from '~/store'
+import { getEmployeeFullname } from '~/utils/employee'
 
 const groupStore = useGroupStore()
 const employeeStore = useEmployeeStore()
 const uiStore = useUiStore()
 const formStore = useFormStore()
 const { mergeEmployeeIds, removeEmployeeIds } = formStore
-const { getEmployeeFullname } = employeeHook()
 
 const allEmployeeGroupSelected = (group: Group) => computed(() => group.employeeIds.every(id => formStore.getEmployeeIds.includes(id)))
 const groupEmployees = (group: Group) => computed(() => employeeStore.getMany(group.employeeIds))

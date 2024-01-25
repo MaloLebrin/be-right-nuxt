@@ -164,6 +164,7 @@ import BaseButton from '~/components/Base/BaseButton.vue'
 import BaseModal from '~/components/Base/BaseModal.vue'
 import type { EmployeeType } from '~~/store'
 import { useEmployeeStore, useGroupStore, useUiStore } from '~~/store'
+import { filteredEmployees, getEmployeeFullname } from '~/utils/employee'
 
 interface Props {
   isActive: boolean
@@ -183,7 +184,6 @@ const uiStore = useUiStore()
 const employeeStore = useEmployeeStore()
 const groupStore = useGroupStore()
 const { resetUiModalState } = uiStore
-const { getEmployeeFullname, filteredEmployees } = employeeHook()
 const { patchOne } = groupHook()
 
 const selected = ref<EmployeeType[]>([])
