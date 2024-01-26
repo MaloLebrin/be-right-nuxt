@@ -1,10 +1,9 @@
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import isBetween from 'dayjs/plugin/isBetween'
-import { hasOwnProperty, uniq } from '@antfu/utils'
+import { uniq } from '@antfu/utils'
 import type { NotificationType } from '~~/store'
 import {
-  NotificationTypeEnum,
   useAnswerStore,
   useAuthStore,
   useEventStore,
@@ -30,28 +29,6 @@ export default function notificationHook() {
   const { fetchMany: fetchManyAnswers } = answerHook()
   const { fetchMany: fetchManyEvents } = eventHook()
 
-  function areNotificationTypes(args: unknown[]): args is NotificationType[] {
-    if (!args || !isArray(args)) {
-      return false
-    }
-    return args?.every(arg =>
-      hasOwnProperty(arg, 'type')
-      && hasOwnProperty(arg, 'title')
-      && hasOwnProperty(arg, 'subscriberId')
-      && hasOwnProperty(arg, 'eventNotificationId'),
-    )
-  }
-
-  async function fetchUserNotifications() {
-    IncLoading()
-    const { data } = await $api().get<NotificationType[]>('notifications')
-
-    if (data && data.length > 0) {
-      addManyNotifications(data)
-    }
-    DecLoading()
-  }
-
   function getDateDisplayedNotification(notification: NotificationType) {
     const { readAt, createdAt } = notification
     const now = dayjs()
@@ -70,6 +47,16 @@ export default function notificationHook() {
     }
   }
 
+  async function fetchUserNotifications() {
+    IncLoading()
+    const { data } = await $api().get<NotificationType[]>('notifications')
+
+    if (data && data.length > 0) {
+      addManyNotifications(data)
+    }
+    DecLoading()
+  }
+
   async function patchAsRead(notificationIds: number[]) {
     IncLoading()
     if (notificationIds?.length) {
@@ -83,36 +70,6 @@ export default function notificationHook() {
       }
     }
     DecLoading()
-  }
-
-  function getTranslationNotificationType(type: NotificationTypeEnum) {
-    switch (type) {
-      case NotificationTypeEnum.EVENT_CREATED:
-        return {
-          label: 'Création d\'événements',
-          description: 'Vous recevrez des notifications de création d\'événements',
-        }
-      case NotificationTypeEnum.EVENT_COMPLETED:
-        return {
-          label: 'Événements complété',
-          description: 'Vous recevrez des notifications lorsque tous les destinataires auront répondu à un événement',
-        }
-      case NotificationTypeEnum.EVENT_CLOSED:
-        return {
-          label: 'Événements terminé',
-          description: 'Vous recevrez des notifications lorsque la date de fin de l\'événement sera passée',
-        }
-      case NotificationTypeEnum.ANSWER_RESPONSE_ACCEPTED:
-        return {
-          label: 'Droits à l\'image accepté',
-          description: 'Vous recevrez des notifications lorsqu\'un destinataire aura accepté les droits à l\'image d\'un événement',
-        }
-      case NotificationTypeEnum.ANSWER_RESPONSE_REFUSED:
-        return {
-          label: 'Droits à l\'image refusé',
-          description: 'Vous recevrez des notifications lorsqu\'un destinataire aura refusé les droits à l\'image d\'un événement',
-        }
-    }
   }
 
   async function fetchUserNotificationsAndRelations() {
@@ -162,11 +119,9 @@ export default function notificationHook() {
   }
 
   return {
-    areNotificationTypes,
+    getDateDisplayedNotification,
     fetchUserNotifications,
     fetchUserNotificationsAndRelations,
-    getDateDisplayedNotification,
-    getTranslationNotificationType,
     patchAsRead,
     scheduleNotifications,
   }
