@@ -55,7 +55,7 @@ import { useAddressStore, useCompanyStore, useUserStore } from '~~/store'
 const userStore = useUserStore()
 const companyStore = useCompanyStore()
 const addressStore = useAddressStore()
-const { getUserfullName, postUserSignature } = userHook()
+const { postUserSignature } = userHook()
 
 const route = useRoute()
 

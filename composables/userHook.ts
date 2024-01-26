@@ -1,9 +1,8 @@
-import { hasOwnProperty } from '@antfu/utils'
-import { RoleEnum } from '@/types'
 import type {
   ActionResponse,
   UserType,
 } from '@/types'
+import { isArrayUserType, isUserType } from '~/utils/user'
 import type { Company } from '~~/store'
 import {
   useCompanyStore,
@@ -21,37 +20,6 @@ export default function userHook() {
   const notificationSubscriptionStore = useNotificationsSubscriptionStore()
 
   const { IncLoading, DecLoading } = useUiStore()
-
-  function isUserType(user: any): user is UserType {
-    return hasOwnProperty(user, 'id') && hasOwnProperty(user, 'token')
-  }
-
-  function isArrayUserType(users: any[]): users is UserType[] {
-    return users?.every(isUserType)
-  }
-
-  function isUserAdmin(user: UserType) {
-    return user?.roles === RoleEnum.ADMIN
-  }
-
-  function isUserOwner(user: UserType) {
-    return user?.roles === RoleEnum.OWNER
-  }
-
-  function filteredUsers(list: UserType[], query: Ref<string>): UserType[] {
-    return query.value === ''
-      ? list
-      : list.filter(person =>
-        person.lastName
-          .toLowerCase()
-          .replace(/\s+/g, '')
-          .includes(query.value.toLowerCase().replace(/\s+/g, ''))
-        || person.firstName
-          .toLowerCase()
-          .replace(/\s+/g, '')
-          .includes(query.value.toLowerCase().replace(/\s+/g, '')),
-      )
-  }
 
   async function fetchOne(userId: number) {
     IncLoading()
@@ -101,35 +69,6 @@ export default function userHook() {
       $toast.success('Utilisateur à été modifié avec succès')
     }
     DecLoading()
-  }
-
-  function getRoleTranslation(role: RoleEnum) {
-    switch (role) {
-      case RoleEnum.ADMIN:
-        return 'Administrateur'
-      case RoleEnum.USER:
-        return 'Utilisateur'
-      case RoleEnum.EMPLOYEE:
-        return 'Destinataire'
-      case RoleEnum.SUPER_USER:
-        return 'Super utilisateur'
-      case RoleEnum.OWNER:
-        return 'Propriétaire'
-      case RoleEnum.PHOTOGRAPHER:
-        return 'Photographe'
-
-      default:
-        return 'Utilisateur'
-    }
-  }
-
-  function getUserfullName(user: Pick<UserType, 'firstName' | 'lastName'>) {
-    let str = ''
-    if (user?.firstName)
-      str += user.firstName
-    if (user?.lastName)
-      str += ` ${user.lastName}`
-    return str
   }
 
   async function fetchMany(ids: number[]) {
@@ -205,14 +144,7 @@ export default function userHook() {
     deleteForEver,
     fetchMany,
     fetchOne,
-    filteredUsers,
     getPhotographerUserWorkedWith,
-    getRoleTranslation,
-    getUserfullName,
-    isArrayUserType,
-    isUserAdmin,
-    isUserOwner,
-    isUserType,
     patchOne,
     postPhotographer,
     postUserSignature,

@@ -21,7 +21,6 @@ export default function fileHook() {
   }
 
   async function postProfilePicture(fileForm: FormData) {
-    const { isUserType } = userHook()
     IncLoading()
     const { data } = await $api().post<FileType>('file/profile', fileForm)
     if (data && isFileType(data)) {

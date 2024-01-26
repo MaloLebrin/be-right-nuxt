@@ -35,7 +35,6 @@ interface Props {
 }
 
 const props = defineProps<Props>()
-const { getUserfullName } = userHook()
 const companyStore = useCompanyStore()
 const userStore = useUserStore()
 

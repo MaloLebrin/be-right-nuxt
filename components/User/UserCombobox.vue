@@ -154,8 +154,6 @@ function handle(e: unknown) {
 
 type Field = UserType[] | number[]
 
-const { getUserfullName, filteredUsers } = userHook()
-
 const query = ref('')
 
 const filteredUser = computed(() => filteredUsers(props.defaultValues, query))
