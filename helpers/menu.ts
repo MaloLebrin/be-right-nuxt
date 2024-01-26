@@ -14,6 +14,9 @@ import { RouteNames } from './routes'
 import type { MenuItemContent } from '~/types/Menu'
 
 export function findRecusivlyByLinkName(tree: MenuItemContent[], linkName: string) {
+  if (!linkName) {
+    return undefined
+  }
   for (const item of tree) {
     if (item?.linkName === linkName)
       return item
