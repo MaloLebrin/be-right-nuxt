@@ -17,8 +17,6 @@ interface Props {
 
 const props = defineProps<Props>()
 
-const { getRoleTranslation } = userHook()
-
 function getRoleColor() {
   switch (props.role) {
     case RoleEnum.ADMIN:

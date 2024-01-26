@@ -61,6 +61,7 @@
 import { CheckCircleIcon, ClockIcon, XCircleIcon } from '@heroicons/vue/20/solid'
 import { type AnswerType, type EventType, useEmployeeStore } from '~~/store'
 import EventProgressBar from '~~/components/Event/EventProgressBar.vue'
+import { getEmployeeFullname } from '~/utils/employee'
 
 interface Props {
   event: EventType
@@ -70,7 +71,6 @@ interface Props {
 const props = defineProps<Props>()
 
 const employeeStore = useEmployeeStore()
-const { getEmployeeFullname } = employeeHook()
 
 const employees = computed(() => employeeStore.getMany(props.answers.map(answer => answer.employeeId)))
 

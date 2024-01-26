@@ -65,10 +65,6 @@ import type { NotificationTypeEnum } from '~/store/notification/types'
 import { NotificationTypeEnumArray } from '~/store/notification/types'
 import { useNotificationsSubscriptionStore, useUiStore } from '~~/store'
 
-const {
-  getTranslationNotificationType,
-} = notificationHook()
-
 const { subscribe, unsubscribe } = notificationSubscriptionHook()
 const notificationSubscriptionStore = useNotificationsSubscriptionStore()
 const uiStore = useUiStore()

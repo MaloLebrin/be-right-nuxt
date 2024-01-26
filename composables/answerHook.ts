@@ -1,5 +1,6 @@
-import { hasOwnProperty, uniq } from '@antfu/utils'
+import { uniq } from '@antfu/utils'
 import type { ActionResponse, ErrorResponse, ResponseAnswerSignature } from '~/types/Payload'
+import { areAnswersType, isAnswerType } from '~/utils/answer'
 import type { AnswerType } from '~~/store'
 import { useAnswerStore, useUiStore } from '~~/store'
 
@@ -98,14 +99,6 @@ export default function answerHook() {
     }
   }
 
-  function isAnswerType(obj: any): obj is AnswerType {
-    return hasOwnProperty(obj, 'hasSigned') && hasOwnProperty(obj, 'eventId') && hasOwnProperty(obj, 'employeeId')
-  }
-
-  function areAnswersType(array: any[]): array is AnswerType[] {
-    return array?.every(item => isAnswerType(item))
-  }
-
   async function getAnswerForSignature({ email, token }: { email: string; token: string }) {
     if (email && token) {
       const { success, data } = await $api().post<
@@ -163,10 +156,6 @@ export default function answerHook() {
     DecLoading()
   }
 
-  function isAnswerSigned(answer: AnswerType): boolean {
-    return answer.signedAt !== null && answer.signedAt !== undefined
-  }
-
   async function fetchManyForEmployee(employeeId: number) {
     IncLoading()
     const { data: answers } = await $api().get<AnswerType[]>(`answer/manyByEmployeeId/${employeeId}`)
@@ -178,14 +167,12 @@ export default function answerHook() {
   }
 
   return {
-    areAnswersType,
     fetchMany,
     fetchManyForEmployee,
     fetchManyAnswerForEvent,
     fetchManyAnswerForManyEvent,
     filteringAnswersNotInStore,
     getAnswerForSignature,
-    isAnswerSigned,
     postMany,
     raiseAnswer,
     updateAnswerForEmployee,

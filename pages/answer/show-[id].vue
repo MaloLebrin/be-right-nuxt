@@ -230,7 +230,6 @@ const eventStore = useEventStore()
 const employeeStore = useEmployeeStore()
 
 const { $modal, $toast, $router } = useNuxtApp()
-const { isUserOwner, getUserfullName } = userHook()
 const { updateAnswerForEmployee } = answerHook()
 
 interface State {

@@ -162,7 +162,6 @@ const {
   meta,
 } = useField<UserType>(name, undefined, { })
 
-const { getUserfullName } = userHook()
 const query = ref('')
 
 const filteredPhotographer = computed(() => {

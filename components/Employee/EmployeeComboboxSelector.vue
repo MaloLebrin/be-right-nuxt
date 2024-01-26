@@ -149,6 +149,7 @@ import { CheckIcon, ChevronUpDownIcon } from '@heroicons/vue/24/outline'
 import { XCircleIcon } from '@heroicons/vue/24/solid'
 import { Combobox, ComboboxButton, ComboboxInput, ComboboxLabel, ComboboxOption, ComboboxOptions, TransitionRoot } from '@headlessui/vue'
 import { ErrorMessage, useField } from 'vee-validate'
+import { filteredEmployees, getEmployeeFullname } from '~/utils/employee'
 
 import type { EmployeeType } from '~~/types'
 
@@ -196,7 +197,6 @@ function handle(e: unknown) {
 
 type Field = EmployeeType[] | number[]
 
-const { getEmployeeFullname, filteredEmployees } = employeeHook()
 const query = ref('')
 
 const filteredEmployee = computed(() => filteredEmployees(props.defaultValues, query))

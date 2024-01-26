@@ -54,5 +54,4 @@ interface Props {
 }
 
 defineProps<Props>()
-const { getUserfullName } = userHook()
 </script>

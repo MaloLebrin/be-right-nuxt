@@ -26,6 +26,7 @@ import {
   useUiStore,
   useUserStore,
 } from '~~/store'
+import { getEmployeeFullname } from '~/utils/employee'
 
 const employeeStore = useEmployeeStore()
 const uiStore = useUiStore()
@@ -36,7 +37,7 @@ const userStore = useUserStore()
 
 const { $router } = useNuxtApp()
 
-const { getEmployeeFullname, fetchOne: fetchOneEmployee } = employeeHook()
+const { fetchOne: fetchOneEmployee } = employeeHook()
 const { fetchMany: fetchManyGroups } = groupHook()
 const { fetchOne: fetchOneAddress } = addressHook()
 const { fetchOne: fetchOneCompany } = companyHook()

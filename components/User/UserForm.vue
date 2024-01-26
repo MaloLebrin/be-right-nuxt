@@ -111,7 +111,7 @@ const emit = defineEmits<{
 const uiStore = useUiStore()
 const { IncLoading, DecLoading, resetUiModalState } = uiStore
 
-const { getRoleTranslation, patchOne } = userHook()
+const { patchOne } = userHook()
 const { createNewUser } = companyHook()
 
 const router = useRouter()

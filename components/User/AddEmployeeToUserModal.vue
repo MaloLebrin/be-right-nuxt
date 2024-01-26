@@ -156,7 +156,6 @@ const props = withDefaults(defineProps<Props>(), {
 const userStore = useUserStore()
 const uiStore = useUiStore()
 const { IncLoading, DecLoading, resetUiModalState } = uiStore
-const { getUserfullName } = userHook()
 const { postOneAdminForUser } = employeeHook()
 
 const user = computed(() => userStore.getOne(props.userId))

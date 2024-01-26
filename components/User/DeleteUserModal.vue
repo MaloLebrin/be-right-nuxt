@@ -93,7 +93,7 @@ const emit = defineEmits<{
 
 const uiStore = useUiStore()
 const { IncLoading, DecLoading, resetUiModalState } = uiStore
-const { getUserfullName, deleteForEver, deleteUser } = userHook()
+const { deleteForEver, deleteUser } = userHook()
 
 function close() {
   resetUiModalState()

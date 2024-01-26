@@ -81,7 +81,7 @@ import { useAuthStore, useUiStore } from '~~/store'
 import { RouteNames } from '~/helpers/routes'
 
 const uiStore = useUiStore()
-const { storeUsersEntities, getUserfullName } = userHook()
+const { storeUsersEntities } = userHook()
 const { storeCompanyEntities } = companyHook()
 const { jwtDecode, getCookie } = authHook()
 const { IncLoading, DecLoading } = uiStore

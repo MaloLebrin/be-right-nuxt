@@ -6,8 +6,6 @@ export default function notificationSSEHook() {
   const { addMany: addManyNotifications } = notificationStore
   const userStore = useUserStore()
 
-  const { areNotificationTypes } = notificationHook()
-
   const sse = ref<null | EventSource>(null)
 
   function startSEE() {

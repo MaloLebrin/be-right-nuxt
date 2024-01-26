@@ -136,8 +136,6 @@ const uiStore = useUiStore()
 const { setUiModal } = uiStore
 const authStore = useAuthStore()
 const userStore = useUserStore()
-
-const { getUserfullName, isUserAdmin } = userHook()
 const { addOrRemoveOwner } = companyHook()
 
 const usersSorted = computed(() =>

@@ -80,6 +80,7 @@ import BaseButton from '../Base/BaseButton.vue'
 import BaseMessage from '../Base/BaseMessage.vue'
 import type { AnswerType, EmployeeType } from '~~/store'
 import { useUiStore } from '~~/store'
+import { getEmployeeFullname } from '~/utils/employee'
 
 interface Props {
   answer: AnswerType
@@ -100,7 +101,6 @@ const uiStore = useUiStore()
 const { IncLoading, DecLoading } = uiStore
 const { raiseAnswer } = answerHook()
 const { downloadAnswers } = downloadHook()
-const { getEmployeeFullname } = employeeHook()
 const responseMessage = ref<null | string>(null)
 const isGreenMessage = ref(false)
 
