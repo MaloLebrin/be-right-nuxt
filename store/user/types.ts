@@ -20,6 +20,7 @@ export interface UserType extends BaseEntity {
 
   companyId: number
   company?: Company | null
+  stripeCustomerId?: string | null
 }
 
 export type UserTypeOmitRelations = Omit<UserType, 'profilePicture' | 'createdAt' | 'updatedAt'>
