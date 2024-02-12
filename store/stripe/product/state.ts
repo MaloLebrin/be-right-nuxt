@@ -1,8 +1,8 @@
 import { createState } from '@malolebrin/pinia-entity-store'
-import type { Product } from '~/types'
+import type { ProductWithPrice } from '~/types'
 
-export const productState = createState<Product>()
+export const productState = createState<ProductWithPrice>()
 
 export function defaultProductState() {
-  return createState<Product>()
+  return createState<ProductWithPrice>()
 }
