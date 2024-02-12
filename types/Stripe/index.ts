@@ -9,4 +9,9 @@ export interface StripeList<T> {
 
 export enum StripeObjectTypeEnum {
   PRODUCT = 'product',
+  PRICE = 'price',
+}
+
+export enum CurrencyEnum {
+  EUR = 'eur',
 }

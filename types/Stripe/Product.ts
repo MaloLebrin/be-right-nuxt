@@ -1,12 +1,12 @@
+import type { Price } from './Price'
 import type { StripeObjectTypeEnum } from './index'
 
-export interface Product {
+interface DefaultProduct {
   id: string
   object: StripeObjectTypeEnum
   active: boolean
   attributes: []
   created: number
-  default_price: string
   description: string
   features: []
   images: []
@@ -21,4 +21,12 @@ export interface Product {
   unit_label: null
   updated: number
   url: null
+}
+
+export interface Product extends DefaultProduct {
+  default_price: string
+}
+
+export interface ProductWithPrice extends DefaultProduct {
+  default_price: Price
 }
