@@ -6,7 +6,5 @@ export default defineEventHandler(async event => {
   const products = await stripe.products.list({
   })
 
-  console.log(products, '<==== products List')
-
   return products
 })
