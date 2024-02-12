@@ -86,6 +86,7 @@
 </template>
 
 <script setup lang="ts">
+import { XCircleIcon } from '@heroicons/vue/24/outline'
 import MenuBasic from './MenuBasic.vue'
 import SimpleLogo from '~/components/Logo/SimpleLogo.server.vue'
 import UserMenu from '~/components/User/UserMenu.vue'
