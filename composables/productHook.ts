@@ -1,12 +1,22 @@
-import type { Product, StripeList } from '~/types'
+import { useProductStore, useUiStore } from '~/store'
+import type { ProductWithPrice } from '~/types'
 
 export default function productHook() {
+  const { addMany } = useProductStore()
+  const { IncLoading, DecLoading } = useUiStore()
+
   async function fetchAllByUser() {
-    const { data } = await useFetch<StripeList<Product>>('/api/stripe/products/list', {
+    IncLoading()
+
+    const { data } = await useFetch<ProductWithPrice[]>('/api/stripe/products/list', {
       method: 'get',
     })
-    console.log(data.value, '<==== data productHook')
-    return data.value?.data
+
+    if (data.value && data.value.length > 0) {
+      addMany(data.value)
+    }
+
+    DecLoading()
   }
 
   return {
