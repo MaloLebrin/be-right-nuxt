@@ -5,6 +5,6 @@ export default defineEventHandler(async event => {
   console.info('Stripe instance:', stripe)
 
   return {
-    version: stripe.VERSION,
+    version: stripe,
   }
 })
