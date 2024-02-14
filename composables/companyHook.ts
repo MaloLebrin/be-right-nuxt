@@ -1,4 +1,5 @@
-import { hasOwnProperty, uniq } from '@antfu/utils'
+import { uniq } from '@antfu/utils'
+import { areCompaniesTypes, isCompanyType } from '~/utils/company'
 import type { Company, CreateNewUserPayload, MissingInfos, UserType } from '~~/store'
 import {
   useAddressStore,
@@ -65,17 +66,6 @@ export default function companyHook() {
     } else {
       addCompany(company)
     }
-  }
-
-  function isCompanyType(arg: any): arg is Company {
-    return hasOwnProperty(arg, 'subscriptionLabel')
-      && hasOwnProperty(arg, 'siret')
-      && hasOwnProperty(arg, 'name')
-      && hasOwnProperty(arg, 'subscriptionId')
-  }
-
-  function areCompaniesTypes(args: unknown[]): args is Company[] {
-    return args.every(arg => isCompanyType(arg))
   }
 
   async function fetchOne(companyId: number) {

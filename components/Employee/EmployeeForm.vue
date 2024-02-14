@@ -125,7 +125,7 @@
         type="submit"
       >
         <template #icon>
-          <ArrowDownOnSquareIconOutline />
+          <ArrowDownOnSquareIcon />
         </template>
         Créer
       </BaseButton>
@@ -135,6 +135,7 @@
 </template>
 
 <script setup lang="ts">
+import { ArrowDownOnSquareIcon } from '@heroicons/vue/24/outline'
 import { number, object, string } from 'yup'
 import { Form } from 'vee-validate'
 import BaseButton from '../Base/BaseButton.vue'

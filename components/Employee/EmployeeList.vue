@@ -22,7 +22,7 @@
       :href="{ name: 'destinataire-create' }"
     >
       <template #icon>
-        <UserPlusIconOutline />
+        <UserPlusIcon />
       </template>
       Créer un destinataire
     </BaseButton>
@@ -99,12 +99,19 @@
 </template>
 
 <script setup lang="ts">
+import { UserPlusIcon } from '@heroicons/vue/24/outline'
+import EmployeeDetails from '~/components/Employee/EmployeeDetails.vue'
+import EmployeeItem from '~/components/Employee/EmployeeItem.vue'
+import BaseInput from '~/components/Base/BaseInput.vue'
+import BaseLoader from '~/components/Base/BaseLoader.vue'
+import BaseButton from '~/components/Base/BaseButton.vue'
 import { alphabetical } from '~/utils/arrayUtils'
-import type { EmployeeType } from '@/types'
+import type { EmployeeType } from '~~/types'
 import {
   useAuthStore,
   useEmployeeStore,
 } from '~~/store'
+import { filteredEmployees } from '~/utils/employee'
 
 interface Props {
   employees: EmployeeType[]
@@ -118,7 +125,6 @@ const authStore = useAuthStore()
 const employeeStore = useEmployeeStore()
 const route = useRoute()
 const router = useRouter()
-const { filteredEmployees } = employeeHook()
 
 const employees = computed(() => alphabetical(props.employees) as EmployeeType[])
 

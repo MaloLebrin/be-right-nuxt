@@ -28,8 +28,6 @@ const emit = defineEmits<{
   (e: 'click'): void
 }>()
 
-const { getEventStatusTranslation, getStatusColor } = eventHook()
-
 function sendEvent() {
   emit('click')
 }

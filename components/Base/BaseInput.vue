@@ -32,11 +32,11 @@
       @blur="handleBlur"
     >
     <div class="absolute inset-y-0 right-0 flex items-center pr-4 space-x-2">
-      <XCircleIconSolid
+      <XCircleIcon
         v-if="errors.length > 0"
         class="w-6 h-6 text-red"
       />
-      <CheckCircleIconSolid
+      <CheckCircleIcon
         v-else-if="meta.dirty && meta.valid"
         class="w-6 h-6 text-green"
       />
@@ -46,11 +46,11 @@
         class="text-gray-600 border-2 border-transparent focus:outline-none"
         @click.prevent="onPasswordVisibilityToggle"
       >
-        <EyeSlashIconOutline
+        <EyeSlashIcon
           v-if="isPasswordVisible"
           class="w-6 h-6"
         />
-        <EyeIconOutline
+        <EyeIcon
           v-else
           class="w-6 h-6"
         />
@@ -65,6 +65,8 @@
 </template>
 
 <script setup lang="ts">
+import { EyeIcon, EyeSlashIcon } from '@heroicons/vue/24/outline'
+import { CheckCircleIcon, XCircleIcon } from '@heroicons/vue/24/solid'
 import type { FieldMeta } from 'vee-validate'
 import { ErrorMessage, Field } from 'vee-validate'
 

@@ -38,7 +38,7 @@
         class="flex items-center justify-start px-4 py-2 space-x-2 text-sm text-gray-700 hover:bg-red-100 hover:text-red-800"
         :class="[active ? 'bg-gray-100' : '']"
       >
-        <UserCircleIconOutline
+        <UserCircleIcon
           class="h-6 text-gray-500 hover:text-red-800"
           :class="{ active: 'hover:text-red-800' }"
         />
@@ -51,7 +51,7 @@
         class="flex items-center justify-start px-4 py-2 text-sm text-gray-700 cursor-pointer hover:bg-red-100 hover:text-red-800"
         @click="onToggleLogout"
       >
-        <ArrowLeftOnRectangleIconOutline class="h-6 text-gray-500" />
+        <ArrowLeftOnRectangleIcon class="h-6 text-gray-500" />
         Se déconnecter
       </a>
     </MenuItem>
@@ -60,6 +60,8 @@
 </template>
 
 <script setup lang="ts">
+import { ArrowLeftOnRectangleIcon, UserCircleIcon } from '@heroicons/vue/24/outline'
+import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
 import UserAvatar from '~/components/User/UserAvatar.vue'
 import { useAuthStore, useUserStore } from '~~/store'
 

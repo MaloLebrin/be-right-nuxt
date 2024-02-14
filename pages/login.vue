@@ -74,14 +74,14 @@ import { object, string } from 'yup'
 import { Form } from 'vee-validate'
 import BaseButton from '~/components/Base/BaseButton.vue'
 import BaseInput from '~/components/Base/BaseInput.vue'
-import LogoSimpleLogo from '~/components/Logo/SimpleLogo.vue'
+import LogoSimpleLogo from '~/components/Logo/SimpleLogo.server.vue'
 import type { UserType, VeeValidateValues, WithoutId } from '@/types'
 import type { Company } from '~~/store'
 import { useAuthStore, useUiStore } from '~~/store'
 import { RouteNames } from '~/helpers/routes'
 
 const uiStore = useUiStore()
-const { storeUsersEntities, getUserfullName } = userHook()
+const { storeUsersEntities } = userHook()
 const { storeCompanyEntities } = companyHook()
 const { jwtDecode, getCookie } = authHook()
 const { IncLoading, DecLoading } = uiStore

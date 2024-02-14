@@ -21,12 +21,12 @@
 <script setup lang="ts">
 import { useCompanyStore } from '~/store'
 import type { EmployeeType } from '@/types'
+import { getEmployeeFullname } from '~/utils/employee'
 
 interface Props {
   employee: EmployeeType
 }
 
 defineProps<Props>()
-const { getEmployeeFullname } = employeeHook()
 const companyStore = useCompanyStore()
 </script>

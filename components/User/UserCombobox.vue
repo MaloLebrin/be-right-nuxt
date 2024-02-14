@@ -27,7 +27,7 @@
         @change="($event) => search($event)"
       />
       <ComboboxButton class="absolute inset-y-0 right-0 flex items-center pr-2">
-        <ChevronUpDownIconOutline
+        <ChevronUpDownIcon
           class="w-5 h-5 text-gray-400"
           aria-hidden="true"
         />
@@ -72,7 +72,7 @@
                 class="absolute inset-y-0 left-0 flex items-center pl-3"
                 :class="[isSelected(active, selected, user.id).value ? 'text-white' : 'text-teal-600']"
               >
-                <CheckIconOutline
+                <CheckIcon
                   class="w-5 h-5"
                   aria-hidden="true"
                 />
@@ -104,6 +104,8 @@
 </template>
 
 <script setup lang="ts">
+import { CheckIcon, ChevronUpDownIcon } from '@heroicons/vue/24/outline'
+import { Combobox, ComboboxButton, ComboboxInput, ComboboxLabel, ComboboxOption, ComboboxOptions, TransitionRoot } from '@headlessui/vue'
 import { ErrorMessage, useField } from 'vee-validate'
 
 import BaseLoader from '../Base/BaseLoader.vue'
@@ -151,8 +153,6 @@ function handle(e: unknown) {
 }
 
 type Field = UserType[] | number[]
-
-const { getUserfullName, filteredUsers } = userHook()
 
 const query = ref('')
 

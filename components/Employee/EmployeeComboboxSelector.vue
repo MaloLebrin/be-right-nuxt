@@ -29,7 +29,7 @@
         @change="query = $event.target.value"
       />
       <ComboboxButton class="absolute inset-y-0 right-0 flex items-center pr-2">
-        <ChevronUpDownIconOutline
+        <ChevronUpDownIcon
           class="w-5 h-5 text-gray-400"
           aria-hidden="true"
         />
@@ -63,7 +63,7 @@
             v-if="areAllSelected"
             class="absolute inset-y-0 left-0 flex items-center pl-3 text-teal-600 hover:text-white"
           >
-            <CheckIconOutline
+            <CheckIcon
               class="w-5 h-5"
               aria-hidden="true"
             />
@@ -96,7 +96,7 @@
               class="absolute inset-y-0 left-0 flex items-center pl-3"
               :class="[isSelected(active, selected, employee.id).value ? 'text-white' : 'text-teal-600']"
             >
-              <CheckIconOutline
+              <CheckIcon
                 class="w-5 h-5"
                 aria-hidden="true"
               />
@@ -125,7 +125,7 @@
           type="button"
           @click.prevent="onRemoveValue(index)"
         >
-          <XCircleIconSolid class="w-4 h-4 hover:text-red-800" />
+          <XCircleIcon class="w-4 h-4 hover:text-red-800" />
         </button>
       </p>
     </div>
@@ -145,7 +145,11 @@
 </template>
 
 <script setup lang="ts">
+import { CheckIcon, ChevronUpDownIcon } from '@heroicons/vue/24/outline'
+import { XCircleIcon } from '@heroicons/vue/24/solid'
+import { Combobox, ComboboxButton, ComboboxInput, ComboboxLabel, ComboboxOption, ComboboxOptions, TransitionRoot } from '@headlessui/vue'
 import { ErrorMessage, useField } from 'vee-validate'
+import { filteredEmployees, getEmployeeFullname } from '~/utils/employee'
 
 import type { EmployeeType } from '~~/types'
 
@@ -193,7 +197,6 @@ function handle(e: unknown) {
 
 type Field = EmployeeType[] | number[]
 
-const { getEmployeeFullname, filteredEmployees } = employeeHook()
 const query = ref('')
 
 const filteredEmployee = computed(() => filteredEmployees(props.defaultValues, query))

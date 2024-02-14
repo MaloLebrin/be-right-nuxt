@@ -5,7 +5,7 @@
 >
   <div class="px-4 py-2 sm:flex sm:items-start">
     <div class="flex items-center justify-center flex-shrink-0 w-12 h-12 mx-auto bg-red-100 rounded-full sm:mx-0 sm:h-10 sm:w-10">
-      <PlusCircleIconOutline
+      <PlusCircleIcon
         class="w-6 h-6 text-red-600"
         aria-hidden="true"
       />
@@ -119,7 +119,7 @@
               type="submit"
             >
               <template #icon>
-                <ArrowDownOnSquareIconOutline />
+                <ArrowDownOnSquareIcon />
               </template>
               Créer
             </BaseButton>
@@ -132,8 +132,9 @@
 </template>
 
 <script setup lang="ts">
-import { number, object, string } from 'yup'
-import type { InferType } from 'yup'
+import { ArrowDownOnSquareIcon, PlusCircleIcon } from '@heroicons/vue/24/outline'
+import { DialogTitle } from '@headlessui/vue'
+import { type InferType, number, object, string } from 'yup'
 import { Form } from 'vee-validate'
 import BaseModal from '../Base/BaseModal.vue'
 import BaseButton from '../Base/BaseButton.vue'
@@ -155,7 +156,6 @@ const props = withDefaults(defineProps<Props>(), {
 const userStore = useUserStore()
 const uiStore = useUiStore()
 const { IncLoading, DecLoading, resetUiModalState } = uiStore
-const { getUserfullName } = userHook()
 const { postOneAdminForUser } = employeeHook()
 
 const user = computed(() => userStore.getOne(props.userId))

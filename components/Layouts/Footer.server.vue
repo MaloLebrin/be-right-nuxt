@@ -54,7 +54,7 @@
 </template>
 
 <script setup lang="ts">
-import SimpleLogo from '~~/components/Logo/SimpleLogo.vue'
+import SimpleLogo from '~~/components/Logo/SimpleLogo.server.vue'
 import { useAuthStore } from '~~/store'
 
 const authStore = useAuthStore()

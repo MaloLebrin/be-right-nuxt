@@ -129,16 +129,6 @@ export default defineNuxtConfig({
       Components({
         resolvers: [
           HeadlessUiResolver({}),
-          name => {
-            if (name.includes('IconSolid')) {
-              const realName = name.split('Solid')[0]
-              return `@heroicons/vue/24/solid/esm/${realName}`
-            }
-            if (name.includes('IconOutline')) {
-              const realName = name.split('Outline')[0]
-              return `@heroicons/vue/24/outline/esm/${realName}`
-            }
-          },
         ],
         include: [/\.vue$/, /\.vue\?vue/],
         extensions: ['vue'],

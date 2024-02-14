@@ -26,7 +26,7 @@
             v-if="isStepCompleted(stepIdx) && isStepPassed(stepIdx)"
             class="flex items-center justify-center w-8 h-8 bg-indigo-600 rounded-full lg:w-10 lg:h-10"
           >
-            <CheckIconOutline
+            <CheckIcon
               class="w-6 h-6 text-white"
               aria-hidden="true"
             />
@@ -36,7 +36,7 @@
             v-else-if="isStepPassed(stepIdx) && !isStepCompleted(stepIdx)"
             class="flex items-center justify-center w-8 h-8 bg-orange-600 rounded-full lg:w-10 lg:h-10"
           >
-            <ExclamationCircleIconOutline
+            <ExclamationCircleIcon
               class="w-6 h-6 text-white"
               aria-hidden="true"
             />
@@ -89,6 +89,10 @@
 </template>
 
 <script setup lang="ts">
+import {
+  CheckIcon,
+  ExclamationCircleIcon,
+} from '@heroicons/vue/24/outline'
 import { useFormStore } from '~~/store'
 
 interface Props {

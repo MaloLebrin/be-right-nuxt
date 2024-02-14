@@ -75,7 +75,7 @@
         type="submit"
       >
         <template #icon>
-          <ArrowDownOnSquareIconOutline />
+          <ArrowDownOnSquareIcon />
         </template>
         Enregistrer
       </BaseButton>
@@ -85,14 +85,15 @@
 </template>
 
 <script setup lang="ts">
+import { ArrowDownOnSquareIcon } from '@heroicons/vue/24/outline'
 import { object, string } from 'yup'
 import { Form } from 'vee-validate'
 import BaseButton from '../Base/BaseButton.vue'
 import BaseSelect from '../Base/BaseSelect.vue'
 import BaseOption from '../Base/BaseOption.vue'
 import BaseInput from '../Base/BaseInput.vue'
-import type { UserType, VeeValidateValues } from '@/types'
-import { RoleEnum } from '@/types'
+import type { UserType, VeeValidateValues } from '~~/types'
+import { RoleEnum } from '~~/types'
 import { useUiStore } from '~~/store'
 
 interface Props {
@@ -110,7 +111,7 @@ const emit = defineEmits<{
 const uiStore = useUiStore()
 const { IncLoading, DecLoading, resetUiModalState } = uiStore
 
-const { getRoleTranslation, patchOne } = userHook()
+const { patchOne } = userHook()
 const { createNewUser } = companyHook()
 
 const router = useRouter()

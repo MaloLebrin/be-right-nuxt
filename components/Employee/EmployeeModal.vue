@@ -33,7 +33,7 @@
           type="submit"
         >
           <template #icon>
-            <TrashIconOutline />
+            <TrashIcon />
           </template>
           Supprimer définitivement
         </BaseButton>
@@ -65,6 +65,7 @@
 </template>
 
 <script setup lang="ts">
+import { TrashIcon } from '@heroicons/vue/24/outline'
 import { Form } from 'vee-validate'
 import { object, string } from 'yup'
 import type { EmployeeType, ModalModeEnum } from '@/types'
@@ -73,6 +74,7 @@ import BaseDeleteConfirmModal from '~~/components/Base/BaseDeleteConfirmModal.vu
 import BaseButton from '~~/components/Base/BaseButton.vue'
 import BaseInput from '~~/components/Base/BaseInput.vue'
 import BaseMessage from '~~/components/Base/BaseMessage.vue'
+import { getEmployeeFullname } from '~/utils/employee'
 
 interface Props {
   mode?: ModalModeEnum
@@ -104,7 +106,7 @@ const schema = object({
 
 const uiStore = useUiStore()
 const { IncLoading, DecLoading, resetUiModalState } = uiStore
-const { deleteOne, deleteOneForEver, getEmployeeFullname } = employeeHook()
+const { deleteOne, deleteOneForEver } = employeeHook()
 
 async function deleteEmployee() {
   if (uiStore.getUiModalState && uiStore.getUiModalData?.employee) {

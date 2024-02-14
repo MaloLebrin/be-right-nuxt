@@ -47,7 +47,7 @@
                 @click="closeDrawer"
               >
                 <span class="sr-only">Close sidebar</span>
-                <XCircleIconOutline
+                <XCircleIcon
                   class="w-6 h-6 text-black"
                   aria-hidden="true"
                 />
@@ -56,7 +56,7 @@
           </TransitionChild>
           <div class="flex-1 h-0 pt-5 pb-4 overflow-y-auto">
             <div class="flex items-center flex-shrink-0 px-4">
-              <LogoSimpleLogo class="text-white" />
+              <SimpleLogo class="text-white" />
             </div>
             <MenuBasic />
           </div>
@@ -74,7 +74,7 @@
     <div class="flex flex-col flex-1 w-full min-h-0 space-y-4">
       <div class="flex flex-col flex-1 pt-5 pb-4 overflow-y-visible">
         <div class="flex items-center flex-shrink-0 px-4">
-          <LogoSimpleLogo />
+          <SimpleLogo />
         </div>
         <MenuBasic />
       </div>
@@ -86,7 +86,10 @@
 </template>
 
 <script setup lang="ts">
+import { XCircleIcon } from '@heroicons/vue/24/outline'
 import MenuBasic from './MenuBasic.vue'
+import SimpleLogo from '~/components/Logo/SimpleLogo.server.vue'
+import UserMenu from '~/components/User/UserMenu.vue'
 import { useUiStore } from '~~/store'
 
 const uiStore = useUiStore()

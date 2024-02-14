@@ -33,7 +33,7 @@
           type="submit"
         >
           <template #icon>
-            <TrashIconOutline />
+            <TrashIcon />
           </template>
           Supprimer définitivement
         </BaseButton>
@@ -65,9 +65,10 @@
 </template>
 
 <script setup lang="ts">
+import { TrashIcon } from '@heroicons/vue/24/outline'
 import { Form } from 'vee-validate'
 import { object, string } from 'yup'
-import type { UserType } from '@/types'
+import type { UserType } from '~~/types'
 import { useUiStore } from '~~/store'
 import BaseDeleteConfirmModal from '~~/components/Base/BaseDeleteConfirmModal.vue'
 import BaseButton from '~~/components/Base/BaseButton.vue'
@@ -92,7 +93,7 @@ const emit = defineEmits<{
 
 const uiStore = useUiStore()
 const { IncLoading, DecLoading, resetUiModalState } = uiStore
-const { getUserfullName, deleteForEver, deleteUser } = userHook()
+const { deleteForEver, deleteUser } = userHook()
 
 function close() {
   resetUiModalState()

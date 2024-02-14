@@ -128,8 +128,6 @@ const emit = defineEmits<{
 
 const filter = ref<undefined | EventStatusEnum>(undefined)
 
-const { getEventStatusTranslation, getEventStatusColor } = eventHook()
-
 watch(() => filter.value, val => {
   emit('setFilter', val)
 })

@@ -28,7 +28,7 @@
           class="flex-shrink-0 ml-2 text-gray-400 hover:text-gray-500"
         >
           <span class="sr-only">Learn more about how shipping is calculated</span>
-          <QuestionMarkCircleIconOutline
+          <QuestionMarkCircleIcon
             class="w-5 h-5"
             aria-hidden="true"
           />
@@ -91,6 +91,7 @@
 </template>
 
 <script setup lang="ts">
+import { QuestionMarkCircleIcon } from '@heroicons/vue/24/outline'
 import { useFormStore, useUiStore } from '~~/store'
 
 interface Props {

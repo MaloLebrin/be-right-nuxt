@@ -56,7 +56,7 @@
                   @click="openAddEmployeeModal"
                 >
                   <template #icon>
-                    <PlusCircleIconOutline />
+                    <PlusCircleIcon />
                   </template>
                 </BaseButton>
               </th>
@@ -100,15 +100,16 @@
 </template>
 
 <script setup lang="ts">
+import { PlusCircleIcon } from '@heroicons/vue/24/outline'
+import BaseButton from '~/components/Base/BaseButton.vue'
 import { ModalModeEnum, ModalNameEnum, useEmployeeStore, useFormStore, useUiStore } from '~~/store'
+import { getEmployeeFullname } from '~/utils/employee'
 
 const employeeStore = useEmployeeStore()
 const uiStore = useUiStore()
 const { setUiModal } = uiStore
 const formStore = useFormStore()
 const { setEmployeeIds } = formStore
-
-const { getEmployeeFullname } = employeeHook()
 
 const employees = computed(() =>
   formStore.eventform.employeeIds.length > 0

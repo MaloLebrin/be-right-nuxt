@@ -1,4 +1,5 @@
-import { hasOwnProperty, uniq } from '@antfu/utils'
+import { uniq } from '@antfu/utils'
+import { areGroupTypes, isGroupType } from '~/utils/group'
 import type { Company, EmployeeType, Group, GroupCreationPayload } from '~~/store'
 import { ModalModeEnum, ModalNameEnum, useCompanyStore, useEmployeeStore, useUiStore } from '~~/store'
 import { useGroupStore } from '~~/store/group/groupStore'
@@ -170,21 +171,9 @@ export default function groupHook() {
     })
   }
 
-  function isGroupType(obj: unknown): obj is Group {
-    return hasOwnProperty(obj, 'name')
-      && hasOwnProperty(obj, 'description')
-      && hasOwnProperty(obj, 'employeeIds')
-  }
-
-  function areGroupTypes(objs: unknown[]): objs is Group[] {
-    return objs.every(obj => isGroupType(obj))
-  }
-
   return {
-    areGroupTypes,
     deleteGroup,
     fetchByEmployeeId,
-    isGroupType,
     openAddRecipientModal,
     openDeleteConfirmModal,
     postOne,

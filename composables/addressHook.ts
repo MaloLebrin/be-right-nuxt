@@ -1,5 +1,5 @@
-import { hasOwnProperty } from '@antfu/utils'
 import type { AddressPostPayload, AddressType, WithoutId } from '@/types'
+import { areAddressType, isAddressType } from '~/utils/address'
 import { useAddressStore, useCompanyStore, useUiStore } from '~~/store'
 
 export default function addressHook() {
@@ -54,17 +54,6 @@ export default function addressHook() {
       $toast.success('Adresse mise à jour')
     }
     DecLoading()
-  }
-
-  function isAddressType(arg: any): arg is AddressType {
-    return hasOwnProperty(arg, 'addressLine')
-      && hasOwnProperty(arg, 'postalCode')
-      && hasOwnProperty(arg, 'city')
-      && hasOwnProperty(arg, 'country')
-  }
-
-  function areAddressType(args: unknown[]): args is AddressType[] {
-    return args.every(arg => isAddressType(arg))
   }
 
   return {

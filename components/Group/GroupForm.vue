@@ -73,7 +73,7 @@
       type="submit"
     >
       <template #icon>
-        <ArrowDownOnSquareIconOutline />
+        <ArrowDownOnSquareIcon />
       </template>
       Enregistrer
     </BaseButton>
@@ -84,9 +84,17 @@
 <script setup lang="ts">
 import { Form } from 'vee-validate'
 import { array, number, object, string } from 'yup'
+import { RadioGroup, RadioGroupLabel } from '@headlessui/vue'
+import { ArrowDownOnSquareIcon } from '@heroicons/vue/24/outline'
 import { useEmployeeStore, useUiStore, useUserStore } from '~~/store'
 import type { VeeValidateValues } from '~~/types'
 import EmployeeComboboxSelector from '~~/components/Employee/EmployeeComboboxSelector.vue'
+import BaseButton from '~~/components/Base/BaseButton.vue'
+import BaseInputFileButton from '~~/components/Base/BaseInputFileButton.vue'
+import BaseTextarea from '~~/components/Base/BaseTextarea.vue'
+import BaseFormDebug from '~~/components/Base/BaseFormDebug.vue'
+import BaseInput from '~~/components/Base/BaseInput.vue'
+import GroupFormRadioOption from '~~/components/Group/Form/RadioOption.vue'
 
 interface Props {
   isDebug?: boolean

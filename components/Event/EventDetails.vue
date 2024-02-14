@@ -24,9 +24,7 @@
             Destinataires
           </h2>
 
-          <a
-            ref="downloadFiles"
-          />
+          <a ref="downloadFiles" />
           <BaseButton
             :disabled="!answerStore.canAnswersBeDownload(event.id) || uiStore.getUIIsLoading"
             :is-loading="uiStore.getUIIsLoading"
@@ -34,9 +32,7 @@
             @click="download(answers.map(answer => answer.id))"
           >
             <template #icon>
-              <ArrowDownTrayIconOutline
-                aria-hidden="true"
-              />
+              <ArrowDownTrayIcon aria-hidden="true" />
             </template>
             Tout Télécharger
           </BaseButton>
@@ -83,6 +79,8 @@
 </template>
 
 <script setup lang="ts">
+import { ArrowDownTrayIcon } from '@heroicons/vue/24/outline'
+import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/vue'
 import type { AnchorHTMLAttributes } from 'nuxt/dist/app/compat/capi'
 import EventDetailsTabEmployees from './Details/TabEmployees.vue'
 import EventDetailsHeader from './Details/Header.vue'
@@ -93,6 +91,7 @@ import {
   useEventStore,
   useUiStore,
 } from '~~/store'
+import { isAnswerSigned } from '~/utils/answer'
 
 interface Props {
   eventId: number
@@ -105,7 +104,6 @@ const employeeStore = useEmployeeStore()
 const answerStore = useAnswerStore()
 const uiStore = useUiStore()
 const { IncLoading, DecLoading } = uiStore
-const { isAnswerSigned } = answerHook()
 const { downloadAnswers } = downloadHook()
 
 const event = computed(() => eventStore.getOne(props.eventId))

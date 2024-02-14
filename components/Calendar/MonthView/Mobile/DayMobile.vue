@@ -39,5 +39,4 @@ const { setSelectedDay } = useCalendarStore()
 const eventStore = useEventStore()
 
 const { isToday, isInCurrentMonth } = dateHook()
-const { getEventStatusBGColor } = eventHook()
 </script>

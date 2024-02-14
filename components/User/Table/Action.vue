@@ -33,7 +33,7 @@
         }"
         :data-cy="`user-${props.user.id}-show-link`"
       >
-        <PencilSquareIconOutline
+        <PencilSquareIcon
           class="w-5 h-5 mr-2 text-violet-800"
           aria-hidden="true"
         />
@@ -52,7 +52,7 @@
         ]"
         @click="addEmployeeToUser"
       >
-        <PlusCircleIconOutline
+        <PlusCircleIcon
           class="w-5 h-5 mr-2 text-violet-800"
           aria-hidden="true"
         />
@@ -71,7 +71,7 @@
         ]"
         @click="deleteUser(false)"
       >
-        <ArchiveBoxIconOutline
+        <ArchiveBoxIcon
           class="w-5 h-5 mr-2 text-red-500"
           aria-hidden="true"
         />
@@ -86,7 +86,7 @@
         :disabled="uiStore.getUIIsLoading"
         @click="restoreUser(user.id)"
       >
-        <PlusCircleIconOutline
+        <PlusCircleIcon
           class="w-5 h-5 mr-2 text-violet-800"
           aria-hidden="true"
         />
@@ -102,7 +102,7 @@
         ]"
         @click="deleteUser(true)"
       >
-        <TrashIconOutline
+        <TrashIcon
           class="w-5 h-5 mr-2 text-red-500"
           aria-hidden="true"
         />
@@ -115,8 +115,9 @@
 
 <script setup lang="ts">
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
-import type { UserType } from '@/types'
-import { ModalModeEnum, ModalNameEnum } from '@/types'
+import { ArchiveBoxIcon, PencilSquareIcon, PlusCircleIcon, TrashIcon } from '@heroicons/vue/24/outline'
+import type { UserType } from '~~/types'
+import { ModalModeEnum, ModalNameEnum } from '~~/types'
 import { useUiStore } from '~~/store'
 import { RouteNames } from '~~/helpers/routes'
 

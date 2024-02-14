@@ -1,4 +1,3 @@
-import { hasOwnProperty } from '@antfu/utils'
 import type { AddressType, EmployeeDeleteRequest, EmployeeType, FileType } from '@/types'
 import { isArrayOfNumbers } from '~~/utils'
 
@@ -10,6 +9,8 @@ import {
   useGroupStore,
   useUiStore,
 } from '~~/store'
+import { isAddressType } from '~/utils/address'
+import { areEmployeeTypes, isEmployeeType } from '~/utils/employee'
 
 export default function employeeHook() {
   const { $toast, $api } = useNuxtApp()
@@ -22,29 +23,6 @@ export default function employeeHook() {
   const { addMany: addManyAddresses } = addressStore
   const groupStore = useGroupStore()
   const { filteringFilesNotInStore } = fileHook()
-  const { isAddressType } = addressHook()
-
-  function getEmployeeStatusSignature(employee: EmployeeType): string {
-    if (employee.hasSigned) {
-      return 'Accepté'
-    } else {
-      if (employee.signedAt) {
-        return 'Refusé'
-      }
-      return 'En attente'
-    }
-  }
-
-  function getEmployeeStatusColor(employee: EmployeeType): string {
-    if (employee.hasSigned) {
-      return 'text-green'
-    } else {
-      if (employee.signedAt) {
-        return 'text-red'
-      }
-      return 'text-orange'
-    }
-  }
 
   function storeEmployeeRelationsEntities(employees: EmployeeType[]): EmployeeType[] {
     if (employees?.length > 0) {
@@ -79,18 +57,6 @@ export default function employeeHook() {
       }
     }
     return []
-  }
-
-  function isEmployeeType(arg: unknown): arg is EmployeeType {
-    return hasOwnProperty(arg, 'email')
-      && hasOwnProperty(arg, 'phone')
-      && hasOwnProperty(arg, 'slug')
-      && hasOwnProperty(arg, 'firstName')
-      && hasOwnProperty(arg, 'lastName')
-  }
-
-  function areEmployeeTypes(args: unknown[]): args is EmployeeType[] {
-    return args.every(arg => isEmployeeType(arg))
   }
 
   async function fetchOne(id: number) {
@@ -211,34 +177,6 @@ export default function employeeHook() {
     DecLoading()
   }
 
-  function getEmployeeFullname(employee: EmployeeType): string {
-    let str = ''
-    if (employee?.firstName)
-      str += employee.firstName
-    if (employee?.lastName)
-      str += ` ${employee.lastName}`
-    return str
-  }
-
-  function filteredEmployees(list: EmployeeType[], query: Ref<string>): EmployeeType[] {
-    return query.value === ''
-      ? list
-      : list.filter(person =>
-        person.lastName
-          .toLowerCase()
-          .replace(/\s+/g, '')
-          .includes(query.value.toLowerCase().replace(/\s+/g, ''))
-        || person.firstName
-          .toLowerCase()
-          .replace(/\s+/g, '')
-          .includes(query.value.toLowerCase().replace(/\s+/g, ''))
-        || person.email
-          .toLowerCase()
-          .replace(/\s+/g, '')
-          .includes(query.value.toLowerCase().replace(/\s+/g, '')),
-      )
-  }
-
   async function postOneAdminForUser(
     { employee, address, userId }: { employee: EmployeeType; address: AddressType; userId: number }) {
     const { data } = await $api().post<EmployeeType>('admin/employee', { employee, address, userId })
@@ -266,17 +204,12 @@ export default function employeeHook() {
   }
 
   return {
-    areEmployeeTypes,
     deleteOne,
     deleteOneForEver,
     fetchAllByUserId,
     fetchOne,
     fetchMany,
-    getEmployeeFullname,
     fetchEmployeesByEventId,
-    filteredEmployees,
-    getEmployeeStatusColor,
-    getEmployeeStatusSignature,
     patchOne,
     postManyForEvent,
     postOne,

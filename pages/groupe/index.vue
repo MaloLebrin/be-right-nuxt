@@ -19,7 +19,7 @@
 
         <BaseButton :href="{ name: 'groupe-creation' }">
           <template #icon>
-            <PlusIconOutline />
+            <PlusIcon />
           </template>
           Créer un groupe
         </BaseButton>
@@ -30,6 +30,7 @@
 </template>
 
 <script setup lang="ts">
+import { PlusIcon } from '@heroicons/vue/24/outline'
 import PageAuthWrapper from '~/components/Page/PageAuthWrapper.vue'
 import BaseButton from '~/components/Base/BaseButton.vue'
 import BaseMessage from '~/components/Base/BaseMessage.vue'

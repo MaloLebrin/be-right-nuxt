@@ -125,7 +125,7 @@ import newsletterHook from '~/composables/newsletterHook'
 const { $toast, $api } = useNuxtApp()
 const router = useRouter()
 const { checkMailIsAlreadyExist, jwtDecode, getCookie } = authHook()
-const { storeUsersEntities, getUserfullName } = userHook()
+const { storeUsersEntities } = userHook()
 const { storeCompanyEntities } = companyHook()
 const { addToContactList } = newsletterHook()
 const { setJWTasUser } = useAuthStore()

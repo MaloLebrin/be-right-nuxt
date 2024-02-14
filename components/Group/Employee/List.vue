@@ -70,7 +70,7 @@
                   @click="openAddRecipientModal(group.id)"
                 >
                   <template #icon>
-                    <PlusCircleIconOutline />
+                    <PlusCircleIcon />
                   </template>
                 </BaseButton>
               </th>
@@ -133,8 +133,11 @@
 </template>
 
 <script setup lang="ts">
+import { PlusCircleIcon } from '@heroicons/vue/24/outline'
+import BaseButton from '~/components/Base/BaseButton.vue'
 import type { Group } from '~~/store'
 import { useEmployeeStore, useUiStore } from '~~/store'
+import { getEmployeeFullname } from '~/utils/employee'
 
 interface Props {
   group: Group
@@ -146,7 +149,6 @@ const employeeStore = useEmployeeStore()
 const uiStore = useUiStore()
 
 const { $isNotMobile } = useNuxtApp()
-const { getEmployeeFullname } = employeeHook()
 const { removeRecipients, openAddRecipientModal } = groupHook()
 
 const employees = computed(() =>

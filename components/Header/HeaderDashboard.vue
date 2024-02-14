@@ -10,7 +10,7 @@
           @click="toggleDrawer"
         >
           <span class="sr-only">Open sidebar</span>
-          <Bars3IconOutline
+          <Bars3Icon
             class="w-6 h-6"
             aria-hidden="true"
           />
@@ -23,7 +23,7 @@
       class="items-center hidden space-x-2 text-gray-500 cursor-pointer md:flex hover:underline"
       @click="goBack"
     >
-      <ChevronLeftIconOutline class="w-5 h-5" />
+      <ChevronLeftIcon class="w-5 h-5" />
       <span>Retour</span>
     </a>
     <h3 class="flex items-center space-x-4 text-sm font-semibold text-gray-800 text-normal md:text-xl ">
@@ -51,9 +51,10 @@
 </template>
 
 <script setup lang="ts">
-import NotificationMenu from '~/components/Notification/NotificationMenu.vue'
+import { Bars3Icon, ChevronLeftIcon } from '@heroicons/vue/24/outline'
 import UserMenu from '~/components/User/UserMenu.vue'
 import { MENU_ITEMS, findRecusivlyByLinkName } from '~~/helpers/menu'
+import NotificationMenu from '~/components/Notification/NotificationMenu.vue'
 import { RouteNames } from '~~/helpers/routes'
 import { useUiStore } from '~~/store'
 

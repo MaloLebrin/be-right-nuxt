@@ -14,7 +14,7 @@
         @click="setGroupIdParams(group.id)"
       >
         <span>{{ group.name }}</span>
-        <ChevronUpIconOutline
+        <ChevronUpIcon
           :class="open ? 'rotate-180 transform' : ''"
           class="w-5 h-5 text-red-500"
         />
@@ -34,6 +34,8 @@
 </template>
 
 <script setup lang="ts">
+import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/vue'
+import { ChevronUpIcon } from '@heroicons/vue/24/outline'
 import GroupDetailHeader from '~~/components/Group/Detail/header.vue'
 import GroupEmployeeList from '~~/components/Group/Employee/List.vue'
 import type { Group } from '~~/store'

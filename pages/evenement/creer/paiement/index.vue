@@ -15,14 +15,14 @@
           </div>
           <div class="flex flex-col mt-1 sm:flex-row sm:flex-wrap sm:mt-0 sm:space-x-8">
             <div class="flex items-center mt-2 text-sm text-gray-500">
-              <MapPinIconOutline
+              <MapPinIcon
                 class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400"
                 aria-hidden="true"
               />
               {{ formStore.addressForm.city }}
             </div>
             <div class="flex items-center mt-2 text-sm text-gray-500">
-              <CalendarDaysIconOutline
+              <CalendarDaysIcon
                 class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400"
                 aria-hidden="true"
               />
@@ -44,7 +44,9 @@
 </template>
 
 <script setup lang="ts">
+import { CalendarDaysIcon, MapPinIcon } from '@heroicons/vue/24/outline'
 import PaymentEmployeeList from '~~/components/Payment/PaymentEmployeeList.vue'
+import PaymentCart from '~/components/Payment/PaymentCart.vue'
 import { RouteNames } from '~~/helpers/routes'
 import { useFormStore } from '~~/store'
 
