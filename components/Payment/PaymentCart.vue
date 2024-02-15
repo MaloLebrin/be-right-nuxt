@@ -11,7 +11,10 @@
     Votre panier
   </h2>
 
-  <dl class="mt-6 space-y-4">
+  <dl
+    v-if="unitPrice"
+    class="mt-6 space-y-4"
+  >
     <div class="flex items-center justify-between">
       <dt class="text-sm text-gray-600">
         Nombre de destinataires
@@ -35,7 +38,7 @@
         </a>
       </dt>
       <dd class="text-sm font-medium text-gray-900">
-        1.00€
+        {{ fromCent(unitPrice) }}€
       </dd>
     </div>
     <div class="flex items-center justify-between pt-4 border-t border-gray-200">
@@ -43,7 +46,7 @@
         Montant total
       </dt>
       <dd class="text-base font-medium text-gray-900">
-        {{ nbRecipient * 1 }}€
+        {{ nbRecipient * fromCent(unitPrice) }}€
       </dd>
     </div>
   </dl>
@@ -96,10 +99,12 @@ import { useFormStore, useUiStore } from '~~/store'
 
 interface Props {
   nbRecipient: number
+  unitPrice: number | null
 }
 
 withDefaults(defineProps<Props>(), {
   nbRecipient: 0,
+  unitPrice: null,
 })
 
 const emit = defineEmits(['checkout'])

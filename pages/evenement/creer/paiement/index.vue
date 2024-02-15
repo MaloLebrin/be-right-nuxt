@@ -36,7 +36,9 @@
 
     <!-- Order summary -->
     <PaymentCart
+      v-if="!pending && !error"
       :nb-recipient="formStore.eventform.employeeIds.length"
+      :unit-price="getUnitPrice(productData)"
       @checkout="redirect"
     />
   </div>
@@ -49,9 +51,14 @@ import PaymentEmployeeList from '~~/components/Payment/PaymentEmployeeList.vue'
 import PaymentCart from '~/components/Payment/PaymentCart.vue'
 import { RouteNames } from '~~/helpers/routes'
 import { useFormStore } from '~~/store'
+import type { ProductWithPrice } from '~/types/Stripe/Product'
 
 const formStore = useFormStore()
 const router = useRouter()
+
+const { data: productData, pending, error } = await useFetch<ProductWithPrice[]>('/api/stripe/products/list', {
+  method: 'get',
+})
 
 function redirect() {
   router.push({ name: RouteNames.PAYMENT_CONFIRM })
