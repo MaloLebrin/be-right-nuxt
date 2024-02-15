@@ -12,7 +12,7 @@
   </h2>
 
   <dl
-    v-if="unitPrice"
+    v-if="unitPrice && nbRecipient !== null"
     class="mt-6 space-y-4"
   >
     <div class="flex items-center justify-between">
@@ -98,12 +98,12 @@ import { QuestionMarkCircleIcon } from '@heroicons/vue/24/outline'
 import { useFormStore, useUiStore } from '~~/store'
 
 interface Props {
-  nbRecipient: number
+  nbRecipient: number | null
   unitPrice: number | null
 }
 
 withDefaults(defineProps<Props>(), {
-  nbRecipient: 0,
+  nbRecipient: null,
   unitPrice: null,
 })
 
