@@ -5,7 +5,7 @@ export default function productHook() {
   const { addMany } = useProductStore()
   const { IncLoading, DecLoading } = useUiStore()
 
-  async function fetchAllByUser() {
+  async function fetchAll() {
     IncLoading()
 
     const { data } = await useFetch<ProductWithPrice[]>('/api/stripe/products/list', {
@@ -20,6 +20,6 @@ export default function productHook() {
   }
 
   return {
-    fetchAllByUser,
+    fetchAll,
   }
 }
