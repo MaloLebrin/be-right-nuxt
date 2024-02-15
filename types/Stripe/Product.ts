@@ -11,7 +11,9 @@ interface DefaultProduct {
   features: []
   images: []
   livemode: false
-  metadata: Record<string, any>
+  metadata: {
+    apiType: 'UNIT' | 'PREMIUM'
+  }
   name: string
   package_dimensions: null
   shippable: null
