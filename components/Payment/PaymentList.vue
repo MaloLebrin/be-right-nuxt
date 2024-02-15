@@ -32,7 +32,7 @@
       </thead>
       <tbody class="bg-white divide-y divide-gray-200">
         <template
-          v-if="!pending && !error && data?.data?.length > 0"
+          v-if="!pending && !error && data?.data && data?.data?.length > 0"
         >
           <tr
             v-for="payment in data?.data"
