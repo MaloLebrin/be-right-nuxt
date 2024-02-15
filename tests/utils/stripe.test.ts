@@ -1,6 +1,7 @@
 import { describe, expect, test } from 'vitest'
 import {
   getUnitPrice,
+  toCent,
 } from '../../utils/stripe'
 import type { ProductWithPrice } from '~/types'
 
@@ -60,5 +61,25 @@ describe('getUnitPrice', () => {
         },
       },
     ] as ProductWithPrice[])).toBe(1000)
+  })
+})
+
+describe('fromCent', () => {
+  test('should convert units to cents', () => {
+    expect(fromCent(1000)).toBe(10)
+  })
+
+  test('should throw an error if amount is not a number', () => {
+    expect(() => fromCent('1000' as unknown as number)).toThrow('Invalid amount')
+  })
+})
+
+describe('toCent', () => {
+  test('should convert cents to unit', () => {
+    expect(toCent(10)).toBe(1000)
+  })
+
+  test('should throw an error if amount is not a number', () => {
+    expect(() => toCent('1000' as unknown as number)).toThrow('Invalid amount')
   })
 })
