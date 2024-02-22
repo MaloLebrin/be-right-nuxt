@@ -1,4 +1,6 @@
 export * from './Product'
+export * from './Price'
+export * from './Customer'
 
 export interface StripeList<T> {
   object: string
@@ -14,4 +16,10 @@ export enum StripeObjectTypeEnum {
 
 export enum CurrencyEnum {
   EUR = 'eur',
+}
+
+export interface BaseStripeEntity {
+  id: string
+  created: number
+  object: string
 }
