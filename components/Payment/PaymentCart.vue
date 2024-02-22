@@ -54,7 +54,7 @@
   <div class="mt-6">
     <button
       type="button"
-      :disabled="!isSubmitEnabled || uiStore.getUIIsLoading"
+      :disabled="!isSubmitEnabled"
       class="w-full px-4 py-3 text-base font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm"
       :class="[
         'hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50',
@@ -111,12 +111,16 @@ const emit = defineEmits(['checkout'])
 
 const uiStore = useUiStore()
 const formStore = useFormStore()
-const { submitCreationEvent } = eventFormHook()
+// const { submitCreationEvent } = eventFormHook()
 
-const isSubmitEnabled = computed(() => formStore.isStepPhotographerValid && formStore.isStepEventValid && formStore.isStepEmployeeValid)
+const isSubmitEnabled = computed(() =>
+  formStore.isStepPhotographerValid
+  && formStore.isStepEventValid
+  && formStore.isStepEmployeeValid
+  && !uiStore.getUIIsLoading)
 
 async function checkout() {
-  await submitCreationEvent()
+  // await submitCreationEvent()
   emit('checkout')
 }
 </script>
