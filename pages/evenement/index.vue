@@ -21,6 +21,14 @@
           <BaseButton
             :is-loading="uiStore.getUIIsLoading"
             :disabled="uiStore.getUIIsLoading"
+            :href="{ name: RouteNames.CREATE_EVENT_STEP_1 }"
+            color="white"
+          >
+            Créer un nouveau
+          </BaseButton>
+          <BaseButton
+            :is-loading="uiStore.getUIIsLoading"
+            :disabled="uiStore.getUIIsLoading"
             @click="resetFilters"
           >
             Reset
