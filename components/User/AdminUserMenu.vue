@@ -4,7 +4,7 @@
     role="list"
     class="flex flex-none min-w-full px-4 text-sm font-semibold leading-6 text-gray-400 sm:px-6 lg:px-8"
   >
-    <template v-if="$route.params.id">
+    <template v-if="routeParams.id">
       <li
         v-for="item in menu"
         :key="item.name"
@@ -13,7 +13,7 @@
           :to="{
             name: item.name,
             params: {
-              id: $route.params.id,
+              id: routeParams.id,
             },
             query: $route.query,
           }"
@@ -35,6 +35,10 @@
 
 <script setup lang="ts">
 import { RouteNames } from '~~/helpers/routes'
+
+const $route = useRoute()
+
+const routeParams = computed(() => $route.params as { id: string })
 
 const menu = [
   {

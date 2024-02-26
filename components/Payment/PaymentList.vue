@@ -31,26 +31,37 @@
         </tr>
       </thead>
       <tbody class="bg-white divide-y divide-gray-200">
-        <tr
-          v-for="payment in payments"
-          :key="payment.id"
+        <template
+          v-if="!pending && !error && data?.data && data?.data?.length > 0"
         >
-          <td class="px-6 py-4 text-sm font-medium text-gray-900 whitespace-nowrap">
-            <time :datetime="payment.datetime">{{ payment.date }}</time>
-          </td>
-          <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
-            {{ payment.description }}
-          </td>
-          <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
-            {{ payment.amount }}
-          </td>
-          <td class="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
-            <a
-              :href="payment.href"
-              class="text-orange-600 hover:text-orange-900"
-            >Voir le reçu</a>
-          </td>
-        </tr>
+          <tr
+            v-for="payment in data?.data"
+            :key="payment.id"
+          >
+            <td class="px-6 py-4 text-sm font-medium text-gray-900 whitespace-nowrap">
+              <time :datetime="payment.datetime">{{ payment.date }}</time>
+            </td>
+            <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
+              {{ payment.description }}
+            </td>
+            <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
+              {{ payment.amount }}
+            </td>
+            <td class="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
+              <a
+                :href="payment.href"
+                class="text-orange-600 hover:text-orange-900"
+              >Voir le reçu</a>
+            </td>
+          </tr>
+        </template>
+        <template v-else-if="!pending && !error && data?.data?.length === 0">
+          <tr>
+            <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
+              Aucun paiement à ce jour
+            </td>
+          </tr>
+        </template>
       </tbody>
     </table>
   </div>
@@ -58,11 +69,10 @@
 </template>
 
 <script setup lang="ts">
-interface Props {
-  payments: Record<string, string>[]
-}
+import { useUserStore } from '~/store'
+import type { StripeList } from '~/types'
 
-withDefaults(defineProps<Props>(), {
-  payments: () => [],
-})
+const userStore = useUserStore()
+
+const { data, pending, error, refresh } = await useFetch<StripeList<any>>(`/api/stripe/sessions/list/${userStore.getAuthUser?.stripeCustomerId}`)
 </script>

@@ -89,12 +89,12 @@
                   :to="{
                     name: RouteNames.EVENT_CALENDAR_WEEK_VIEW,
                     query: {
-                      ...$route.query,
+                      ...route.query,
                     },
                   }"
-                  :disabled="$route.name === RouteNames.EVENT_CALENDAR_WEEK_VIEW"
+                  :disabled="route.name === RouteNames.EVENT_CALENDAR_WEEK_VIEW"
                   class="block px-4 py-2 text-sm"
-                  :class="[$route.name === RouteNames.EVENT_CALENDAR_WEEK_VIEW ? 'bg-gray-100 text-gray-900' : 'text-gray-700']"
+                  :class="[route.name === RouteNames.EVENT_CALENDAR_WEEK_VIEW ? 'bg-gray-100 text-gray-900' : 'text-gray-700']"
                 >
                   Vue semaine
                 </NuxtLink>
@@ -104,12 +104,12 @@
                   :to="{
                     name: RouteNames.EVENT_CALENDAR_MONTH_VIEW,
                     query: {
-                      ...$route.query,
+                      ...route.query,
                     },
                   }"
-                  :disabled="$route.name === RouteNames.EVENT_CALENDAR_MONTH_VIEW"
+                  :disabled="route.name === RouteNames.EVENT_CALENDAR_MONTH_VIEW"
                   class="block px-4 py-2 text-sm"
-                  :class="[$route.name === RouteNames.EVENT_CALENDAR_MONTH_VIEW ? 'bg-gray-100 text-gray-900' : 'text-gray-700']"
+                  :class="[route.name === RouteNames.EVENT_CALENDAR_MONTH_VIEW ? 'bg-gray-100 text-gray-900' : 'text-gray-700']"
                 >
                   Vue mois
                 </NuxtLink>
@@ -171,12 +171,12 @@
                 :to="{
                   name: RouteNames.EVENT_CALENDAR_WEEK_VIEW,
                   query: {
-                    ...$route.query,
+                    ...route.query,
                   },
                 }"
-                :disabled="$route.name === RouteNames.EVENT_CALENDAR_WEEK_VIEW"
+                :disabled="route.name === RouteNames.EVENT_CALENDAR_WEEK_VIEW"
                 class="block px-4 py-2 text-sm"
-                :class="[$route.name === RouteNames.EVENT_CALENDAR_WEEK_VIEW ? 'bg-gray-100 text-gray-900' : 'text-gray-700']"
+                :class="[route.name === RouteNames.EVENT_CALENDAR_WEEK_VIEW ? 'bg-gray-100 text-gray-900' : 'text-gray-700']"
               >
                 Vue semaine
               </NuxtLink>
@@ -186,12 +186,12 @@
                 :to="{
                   name: RouteNames.EVENT_CALENDAR_MONTH_VIEW,
                   query: {
-                    ...$route.query,
+                    ...route.query,
                   },
                 }"
-                :disabled="$route.name === RouteNames.EVENT_CALENDAR_MONTH_VIEW"
+                :disabled="route.name === RouteNames.EVENT_CALENDAR_MONTH_VIEW"
                 class="block px-4 py-2 text-sm"
-                :class="[$route.name === RouteNames.EVENT_CALENDAR_MONTH_VIEW ? 'bg-gray-100 text-gray-900' : 'text-gray-700']"
+                :class="[route.name === RouteNames.EVENT_CALENDAR_MONTH_VIEW ? 'bg-gray-100 text-gray-900' : 'text-gray-700']"
               >
                 Vue mois
               </NuxtLink>

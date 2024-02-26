@@ -35,13 +35,16 @@ import {
   UserGroupIcon,
 } from '@heroicons/vue/24/outline'
 
-const subNavigation = [
+const { $router } = useNuxtApp()
 
+const $route = $router.currentRoute.value
+
+const subNavigation = [
   { label: 'Profile', name: 'mon-compte', icon: UserCircleIcon, disabled: false },
   { label: 'Paramètres', name: 'mon-compte-parametre', icon: CogIcon, disabled: true },
   { label: 'Utilisateurs', name: 'mon-compte-utilisateurs', icon: UserGroupIcon, disabled: false },
   { label: 'Notifications', name: 'mon-compte-notifications', icon: BellIcon, disabled: false },
-  { label: 'Plan & Billing', name: 'mon-compte-plan-billing', icon: CreditCardIcon, disabled: true },
+  { label: 'Plan & Billing', name: 'mon-compte-plan-billing', icon: CreditCardIcon, disabled: false },
   { label: 'Badges', name: 'mon-compte-badges', icon: TagIcon, disabled: true },
 ]
 </script>

@@ -87,7 +87,17 @@ export default defineNuxtConfig({
     '@tailvue/nuxt',
     'dayjs-nuxt',
     '@nuxt/image',
+    '@unlok-co/nuxt-stripe',
   ],
+
+  stripe: {
+    server: {
+      key: process.env.STRIPE_PRIVATE_KEY,
+    },
+    client: {
+      key: process.env.STRIPE_PUBLIC_KEY,
+    },
+  },
 
   dayjs: {
     locales: ['en', 'fr'],
