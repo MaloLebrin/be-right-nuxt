@@ -74,8 +74,8 @@ export default function authHook() {
     return data
   }
 
-  function jwtDecode(jwt: Ref<string>) {
-    const { payload } = useJwt(jwt)
+  function jwtDecode(jwt: Ref<string> | MaybeRefOrGetter<string>) {
+    const { payload } = useJwt(jwt as any)
     return payload
   }
 
