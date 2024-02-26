@@ -46,7 +46,10 @@
         Montant total
       </dt>
       <dd class="text-base font-medium text-gray-900">
-        {{ nbRecipient * fromCent(unitPrice) }}€
+        <p class="line-through ">
+          {{ nbRecipient * fromCent(unitPrice) }}€
+        </p>
+        <p>0€</p>
       </dd>
     </div>
   </dl>
