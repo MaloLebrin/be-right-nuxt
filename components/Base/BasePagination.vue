@@ -74,4 +74,8 @@ defineProps<Props>()
 const emit = defineEmits<{
   (e: 'pageChange', page: number): void
 }>()
+
+const { $router } = useNuxtApp()
+
+const $route = $router.currentRoute.value
 </script>

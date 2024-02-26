@@ -12,14 +12,13 @@
       ul
     />
 
-    <Tricks v-if="!authStore.isAuthUserAdmin" />
+    <!-- <Tricks v-if="!authStore.isAuthUserAdmin" /> -->
   </ul>
 </nav>
 </template>
 
 <script setup lang="ts">
 import { ADMIN_MENU_ITEMS, MENU_ITEMS } from '~~/helpers/menu'
-import Tricks from '~~/components/Tricks/Tricks.server.vue'
 import { useAuthStore } from '~~/store/auth'
 import MenuRecursiveList from '~/components/Menu/MenuRecursiveList.vue'
 

@@ -1,6 +1,6 @@
 {
   "private": false,
-  "packageManager": "pnpm@8.15.1",
+  "packageManager": "pnpm@8.15.4",
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
@@ -50,6 +50,7 @@
     "@playwright/test": "^1.40.1",
     "@tailvue/nuxt": "^1.0.0",
     "@types/jsonwebtoken": "^9.0.5",
+    "@unlok-co/nuxt-stripe": "^2.0.0",
     "@vueuse/components": "^10.7.0",
     "@vueuse/core": "^10.7.0",
     "@vueuse/nuxt": "^10.7.0",
