@@ -1,7 +1,7 @@
 <template>
 <button
   type="button"
-  :disabled="!isDisabled"
+  :disabled="isDisabled"
   class="w-full px-4 py-3 text-base font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50"
   :class="[
     isDisabled ? '' : 'disabled:cursor-not-allowed disabled:opacity-50',
