@@ -68,7 +68,7 @@
       v-if="!isDeleted"
       v-slot="{ active }"
     >
-      <NuxtLink
+      <button
         class="flex items-center w-full px-3 py-3 text-sm rounded-md cursor-pointer group"
         :class="[
           active ? 'bg-red-100 text-red-500' : 'text-gray-900',
@@ -80,7 +80,7 @@
           aria-hidden="true"
         />
         Archiver
-      </NuxtLink>
+      </button>
     </MenuItem>
   </MenuItems>
 </Menu>
