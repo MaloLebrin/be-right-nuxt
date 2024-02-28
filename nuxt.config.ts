@@ -71,6 +71,7 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
+      APP_URL: process.env.APP_URL,
       siteUrl: 'https://be-right.co/',
       siteName: 'Be Right',
       siteDescription: 'Révolutionnez votre gestion des droits à l\'image',
