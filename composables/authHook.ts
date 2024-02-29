@@ -107,7 +107,8 @@ export default function authHook() {
   }
 
   function getCookie() {
-    return useCookie('userToken', { secure: true, sameSite: true, path: '', maxAge: 604800 })
+    const cookie = useCookie('userToken', { secure: true, sameSite: true, path: '', maxAge: 604800 })
+    return cookie.value
   }
 
   return {
