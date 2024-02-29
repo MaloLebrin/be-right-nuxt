@@ -31,11 +31,11 @@
         </tr>
       </thead>
       <tbody class="bg-white divide-y divide-gray-200">
-        <template
-          v-if="!pending && !error && data?.data && data?.data?.length > 0"
+        <!-- <template
+          v-if="isListDisplayable"
         >
           <tr
-            v-for="payment in data?.data"
+            v-for="payment in data.value?.data"
             :key="payment.id"
           >
             <td class="px-6 py-4 text-sm font-medium text-gray-900 whitespace-nowrap">
@@ -54,25 +54,14 @@
               >Voir le reçu</a>
             </td>
           </tr>
-        </template>
-        <template v-else-if="!pending && !error && data?.data?.length === 0">
-          <tr>
-            <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
-              Aucun paiement à ce jour
-            </td>
-          </tr>
-        </template>
+        </template> -->
+        <tr>
+          <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
+            Aucun paiement à ce jour
+          </td>
+        </tr>
       </tbody>
     </table>
   </div>
 </div>
 </template>
-
-<script setup lang="ts">
-import { useUserStore } from '~/store'
-import type { StripeList } from '~/types'
-
-const userStore = useUserStore()
-
-const { data, pending, error, refresh } = await useFetch<StripeList<any>>(`/api/stripe/sessions/list/${userStore.getAuthUser?.stripeCustomerId}`)
-</script>

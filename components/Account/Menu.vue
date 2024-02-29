@@ -34,7 +34,6 @@ import {
   UserCircleIcon,
   UserGroupIcon,
 } from '@heroicons/vue/24/outline'
-import type { RoutesNamesList } from '@typed-router/__routes'
 
 const { $router } = useNuxtApp()
 
@@ -42,7 +41,7 @@ const $route = $router.currentRoute.value
 
 const subNavigation: {
   label: string
-  name: RoutesNamesList
+  name: string
   icon: any
   disabled: boolean
 }[] = [

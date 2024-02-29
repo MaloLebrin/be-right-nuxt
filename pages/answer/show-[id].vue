@@ -274,7 +274,7 @@ const {
 
 async function submitAnswer(form: VeeValidateValues) {
   const { query } = route
-  const params = route.params as Record<string, number>
+  const params = route.params as unknown as Record<string, number>
   const answerId = params.id as number
 
   if (!query.token || !query.email || !answerId) {
@@ -316,7 +316,7 @@ onMounted(async () => {
     },
   })
 
-  const params = route.params as Record<string, number>
+  const params = route.params as unknown as Record<string, number>
   const answerId = params?.id
   if (answerId) {
     state.answer = answerStore.getOne(answerId)

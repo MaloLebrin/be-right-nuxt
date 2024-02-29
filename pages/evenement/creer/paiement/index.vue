@@ -36,9 +36,9 @@
 
     <!-- Order summary -->
     <PaymentCart
-      v-if="!pending && !error && productData && productData?.length > 0"
+      v-if="!pending && !error && productData.value && productData.value?.length > 0"
       :nb-recipient="formStore.eventform.employeeIds.length"
-      :unit-price="getUnitPrice(productData)"
+      :unit-price="getUnitPrice(productData.value)"
       @checkout="redirect"
     />
   </div>

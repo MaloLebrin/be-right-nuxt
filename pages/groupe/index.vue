@@ -4,7 +4,7 @@
     <template v-if="groupStore.getAllArray?.length > 0">
       <GroupList
         :groups="groupStore.getAllArray"
-        :default-open-group-id="$route.query.groupId ? parseInt($route.query.groupId.toLocaleString()) : undefined"
+        :default-open-group-id="route.query.groupId ? parseInt(route.query.groupId.toLocaleString()) : undefined"
       />
     </template>
 
@@ -38,6 +38,7 @@ import BaseLoader from '~/components/Base/BaseLoader.vue'
 import GroupList from '~~/components/Group/List.vue'
 import { useGroupStore, useUiStore } from '~~/store'
 
+const route = useRoute()
 const { fetchUserGroupsAndRelations } = groupHook()
 const groupStore = useGroupStore()
 const uiStore = useUiStore()
