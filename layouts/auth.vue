@@ -61,12 +61,14 @@ import EventModal from '~/components/Event/EventModal.vue'
 import HeaderDashboard from '~/components/Header/HeaderDashboard.vue'
 import MenuDrawer from '~/components/Menu/MenuDrawer.vue'
 import UserMissingInfoModal from '~~/components/User/MissingInfoModal.vue'
-import { useEventStore, useUiStore } from '~~/store'
+import { useAuthStore, useEventStore, useUiStore } from '~~/store'
 import { ModalNameEnum } from '~~/types'
 
 const uiStore = useUiStore()
+const authStore = useAuthStore()
 const { resetUiModalState } = uiStore
 const eventStore = useEventStore()
+const { logWithToken } = authHook()
 
 const isModalActive = (modalName: ModalNameEnum) => computed(() =>
   uiStore.getUiModalState.isActive
@@ -84,6 +86,9 @@ function CloseResetModalState() {
 }
 
 onMounted(async () => {
+  if (authStore.getToken) {
+    await logWithToken(authStore.getToken)
+  }
   const { startSEE } = notificationSSEHook()
   startSEE()
 })
