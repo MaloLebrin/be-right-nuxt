@@ -42,14 +42,16 @@ interface FetchWrapperInit {
   token?: string
   redirect?: RequestRedirect
   isFileRequest?: boolean
+  isRedirect?: boolean
 }
 
 export class FetchWrapper implements ApiMethods {
   private baseUrl: string
   private headers?: Headers
-  private redirect?: RequestRedirect = 'follow'
+  private redirect?: RequestRedirect = 'error'
   public token?: string
   private isFileRequest: boolean
+  private isRedirect: boolean
 
   constructor(init: FetchWrapperInit) {
     this.baseUrl = init.baseUrl
@@ -57,6 +59,10 @@ export class FetchWrapper implements ApiMethods {
     this.headers = init.headers
     this.redirect = init.redirect
     this.isFileRequest = init.isFileRequest || false
+    this.isRedirect = init.isRedirect || false
+    if (this.isRedirect) {
+      this.redirect = 'follow'
+    }
   }
 
   setCredentials(token: string) {
