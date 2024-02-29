@@ -189,7 +189,7 @@ async function submitregister(form: VeeValidateValues) {
         if (decode.value) {
           setJWTasUser(decode.value)
         }
-        $toast.success(`Heureux de vous revoir ${getUserfullName(user)}`)
+        $toast.success(`Bienvenue ${getUserfullName(user)}`)
         router.replace({
           name: 'evenement',
         })

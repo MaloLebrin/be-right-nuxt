@@ -3,7 +3,7 @@
 <div class="w-full max-w-2xl p-2 mx-auto bg-white rounded-2xl">
   <Disclosure
     v-slot="{ open }"
-    :default-open="$route.query.notificationSubscriptionOpen !== 'false'"
+    :default-open="route.query.notificationSubscriptionOpen !== 'false'"
   >
     <DisclosureButton
       :class="[
@@ -65,6 +65,7 @@ import type { NotificationTypeEnum } from '~/store/notification/types'
 import { NotificationTypeEnumArray } from '~/store/notification/types'
 import { useNotificationsSubscriptionStore, useUiStore } from '~~/store'
 
+const route = useRoute()
 const { subscribe, unsubscribe } = notificationSubscriptionHook()
 const notificationSubscriptionStore = useNotificationsSubscriptionStore()
 const uiStore = useUiStore()
@@ -97,7 +98,7 @@ function toggleDisclosure(open: boolean) {
   }
 
   router.replace({
-    name: route.name,
+    name: route.name || undefined,
     query: {
       ...queries,
     },
