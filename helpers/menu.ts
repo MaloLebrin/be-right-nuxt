@@ -12,8 +12,9 @@ import {
 } from '@heroicons/vue/24/outline'
 import { RouteNames } from './routes'
 import type { MenuItemContent } from '~/types/Menu'
+import type { RouteRecordName } from '#vue-router'
 
-export function findRecusivlyByLinkName(tree: MenuItemContent[], linkName: string) {
+export function findRecusivlyByLinkName(tree: MenuItemContent[], linkName?: RouteRecordName | null) {
   if (!linkName) {
     return undefined
   }

@@ -2,7 +2,7 @@
 <li
   v-for="(item, index) in menuItems"
   :key="index"
-  v-element-hover="(state) => onHover(state, index)"
+  v-element-hover="(state: boolean) => onHover(state, index)"
   class="pl-2 md:pl-4"
   role="menuitem"
 >

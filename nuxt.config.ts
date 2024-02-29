@@ -65,7 +65,6 @@ export default defineNuxtConfig({
     'nuxt-headlessui',
     'nuxt-vitest',
     '@pinia-plugin-persistedstate/nuxt',
-    'nuxt-typed-router',
     'nuxt-schema-org',
     ['nuxt-purgecss', {
       // attention purgeCss enlève le style de vcalendar
