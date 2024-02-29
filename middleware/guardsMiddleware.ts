@@ -14,9 +14,9 @@ export default defineNuxtRouteMiddleware(async to => {
   }
 
   if (to.meta.isAuth && !authStore.getIsLoggedIn) {
-    if (cookieToken) {
-      setToken(cookieToken)
-      const { payload } = useJwt(cookieToken)
+    if (cookieToken.value) {
+      setToken(cookieToken.value)
+      const { payload } = useJwt(cookieToken.value)
 
       if (payload.value) {
         setJWTasUser(payload.value)
