@@ -61,6 +61,7 @@
       :is-disabled="!isSubmitEnabled"
       :stripe-customer-id="userStore.getAuthUser?.stripeCustomerId"
       :nb-recipients="nbRecipient"
+      :price-id="priceId"
     />
   </div>
 </section>
