@@ -36,10 +36,10 @@
 
     <!-- Order summary -->
     <PaymentCart
-      v-if="isCartDisplayable"
+      v-if="isPaymentCartDisplayable && getPriceData"
       :nb-recipient="formStore.eventform.employeeIds.length"
-      :unit-price="getUnitPrice(productData)"
-      @checkout="redirect"
+      :unit-price="getPriceData.default_price?.unit_amount"
+      :price-id="getPriceData.default_price?.id"
     />
   </div>
 </div>
@@ -49,22 +49,18 @@
 import { CalendarDaysIcon, MapPinIcon } from '@heroicons/vue/24/outline'
 import PaymentEmployeeList from '~~/components/Payment/PaymentEmployeeList.vue'
 import PaymentCart from '~/components/Payment/PaymentCart.vue'
-import { RouteNames } from '~~/helpers/routes'
 import { useFormStore } from '~~/store'
 import type { ProductWithPrice } from '~/types/Stripe/Product'
 
 const formStore = useFormStore()
-const router = useRouter()
 
 const { data: productData, pending, error } = await useFetch<ProductWithPrice[]>('/api/stripe/products/list', {
   method: 'get',
 })
 
-const isCartDisplayable = computed(() => !pending && !error && productData.value && productData.value?.length > 0)
+const isPaymentCartDisplayable = computed(() => !pending.value && !error.value && productData.value && productData.value?.length > 0)
 
-function redirect() {
-  router.push({ name: RouteNames.PAYMENT_CONFIRM })
-}
+const getPriceData = computed(() => getPrice(productData.value || []))
 
 definePageMeta({
   layout: 'create-event-layout',
