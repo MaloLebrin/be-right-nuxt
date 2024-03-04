@@ -186,7 +186,8 @@ export default function eventHook() {
       }
 
       employeeStore.getMany(answers
-        .map(answer => answer.employeeId)).forEach(emp => missingAddressIds.push(emp.addressId))
+        .map(answer => answer.employeeId))
+        .forEach(emp => missingAddressIds.push(emp.addressId))
 
       const uniqAddressIds = uniq(missingAddressIds).filter(id => !addressStore.isAlreadyInStore(id))
 
