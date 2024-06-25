@@ -1,22 +1,26 @@
-import { defineVitestConfig } from 'nuxt-vitest/config'
+import { defineVitestConfig } from '@nuxt/test-utils/config'
 
-const config = {
+export default defineVitestConfig({
   test: {
+    environment: 'nuxt',
     exclude: [
       './e2e/**',
     ],
     include: [
       './tests/**/*.test.ts',
     ],
-    environment: 'happy-dom',
     testTransformMode: {
       ssr: [
         './tests/**/*.test.ts',
       ],
     },
+    environmentOptions: {
+      nuxt: {
+        mock: {
+          intersectionObserver: true,
+          indexedDb: true,
+        },
+      },
+    },
   },
-} as any
-export default defineVitestConfig({
-  // test: { environment: 'nuxt' },
-  ...config,
 })

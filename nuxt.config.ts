@@ -60,6 +60,7 @@ export default defineNuxtConfig({
     strict: true,
   },
   modules: [
+    '@nuxt/test-utils/module',
     '@pinia/nuxt',
     '@nuxtjs/tailwindcss',
     'nuxt-headlessui',
