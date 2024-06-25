@@ -8,7 +8,6 @@ env:
 
 jobs:
   StyleGuides_checks:
-    needs: Install_Dependancies
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -39,7 +38,6 @@ jobs:
         run: pnpm run type:check
 
   Tests:
-    needs: Install_Dependancies
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
