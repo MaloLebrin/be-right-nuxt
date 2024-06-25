@@ -2,7 +2,7 @@ name: ⬆️ Update Patch Dependencies
 
 on:
   schedule:
-    - cron: "18 15 25 * *"
+    - cron: "00 2 26 * *"
 
 jobs:
   Patch_Dependencies:
