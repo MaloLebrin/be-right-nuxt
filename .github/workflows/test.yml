@@ -7,14 +7,15 @@ env:
   NODE_ENV: prod
 
 jobs:
-  Install_Dependancies:
+  StyleGuides_checks:
+    needs: Install_Dependancies
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         node: [18.x]
         os: [ubuntu-latest]
       fail-fast: false
-    
+
     steps:
       - name: ⬇️ Checkout code
         uses: actions/checkout@v3
@@ -30,31 +31,6 @@ jobs:
 
       - name: 🔧 Install
         run: pnpm i --frozen-lockfile
-
-  StyleGuides_checks:
-    needs: Install_Dependancies
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        node: [18.x]
-        os: [ubuntu-latest]
-      fail-fast: false
-
-    steps:
-      # - name: ⬇️ Checkout code
-      #   uses: actions/checkout@v3
-
-      # - name: Install pnpm
-      #   uses: pnpm/action-setup@v4
-
-      # - name: ⚙️ Set node ${{ matrix.node }}
-      #   uses: actions/setup-node@v4
-      #   with:
-      #     node-version: ${{ matrix.node }}
-      #     cache: pnpm
-
-      # - name: 🔧 Install
-      #   run: pnpm i --frozen-lockfile
 
       - name: 📖 Lint
         run: pnpm run lint
@@ -72,20 +48,20 @@ jobs:
       fail-fast: false
 
     steps:
-      # - name: ⬇️ Checkout code
-      #   uses: actions/checkout@v3
+      - name: ⬇️ Checkout code
+        uses: actions/checkout@v3
 
-      # - name: Install pnpm
-      #   uses: pnpm/action-setup@v4
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
 
-      # - name: ⚙️ Set node ${{ matrix.node }}
-      #   uses: actions/setup-node@v4
-      #   with:
-      #     node-version: ${{ matrix.node }}
-      #     cache: pnpm
+      - name: ⚙️ Set node ${{ matrix.node }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: pnpm
 
-      # - name: 🔧 Install
-      #   run: pnpm i --frozen-lockfile
+      - name: 🔧 Install
+        run: pnpm i --frozen-lockfile
 
       - name: 🏗 Build
         run: pnpm run build
