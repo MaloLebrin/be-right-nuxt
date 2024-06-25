@@ -36,9 +36,9 @@
 
     <!-- Order summary -->
     <PaymentCart
-      v-if="!pending && !error && productData.value && productData.value?.length > 0"
+      v-if="isCartDisplayable"
       :nb-recipient="formStore.eventform.employeeIds.length"
-      :unit-price="getUnitPrice(productData.value)"
+      :unit-price="getUnitPrice(productData)"
       @checkout="redirect"
     />
   </div>
@@ -59,6 +59,8 @@ const router = useRouter()
 const { data: productData, pending, error } = await useFetch<ProductWithPrice[]>('/api/stripe/products/list', {
   method: 'get',
 })
+
+const isCartDisplayable = computed(() => !pending && !error && productData.value && productData.value?.length > 0)
 
 function redirect() {
   router.push({ name: RouteNames.PAYMENT_CONFIRM })
