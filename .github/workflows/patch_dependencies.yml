@@ -1,10 +1,8 @@
 name: ⬆️ Update Patch Dependencies
 
-# on:
-#   schedule:
-#     - cron: "00 10 26 * *"
 on:
-  pull_request:
+  schedule:
+    - cron: "00 10 26 * *"
 
 jobs:
   Patch_Dependencies:
