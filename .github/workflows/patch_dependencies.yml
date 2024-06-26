@@ -1,8 +1,10 @@
 name: ⬆️ Update Patch Dependencies
 
+# on:
+#   schedule:
+#     - cron: "00 10 26 * *"
 on:
-  schedule:
-    - cron: "00 2 26 * *"
+  pull_request:
 
 jobs:
   Patch_Dependencies:
@@ -34,9 +36,12 @@ jobs:
 
       - name: Create commits
         run: |
+          git config --global user.email "githubactions@exemple.com"
+          git config --global user.name "Github Actions"
+          git checkout -b update-patch-dependencies
           git add -A
           git commit -m ":arrow_up: Patch dependencies"
-          git push
+          git push origin HEAD:update-patch-dependencies
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v6
         with:
