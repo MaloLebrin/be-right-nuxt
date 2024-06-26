@@ -39,7 +39,8 @@ jobs:
           git config --global user.email "githubactions@exemple.com"
           git config --global user.name "Github Actions"
           git checkout -b update-patch-dependencies
-          git add -A
+          git pull
+          git add .
           git commit -m ":arrow_up: Patch dependencies"
           git push origin update-patch-dependencies
       - name: Create Pull Request
