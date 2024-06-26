@@ -41,7 +41,7 @@ jobs:
           git checkout -b update-patch-dependencies
           git add -A
           git commit -m ":arrow_up: Patch dependencies"
-          git push origin HEAD:update-patch-dependencies
+          git push origin update-patch-dependencies
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v6
         with:
