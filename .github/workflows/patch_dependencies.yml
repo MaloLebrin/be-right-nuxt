@@ -48,5 +48,5 @@ jobs:
           commit-message:  ⬆️ Patch dependencies
           title: ⬆️ Patch dependencies
           body: This PR was created by github actions
-          branch: update-patch-dependencies
+          branch: main
       
