@@ -38,9 +38,10 @@ jobs:
         run: |
           git config --global user.email "githubactions@exemple.com"
           git config --global user.name "Github Actions"
+          git checkout -b update-patch-dependencies
           git add -A
           git commit -m ":arrow_up: Patch dependencies"
-          git push
+          git push origin HEAD:update-patch-dependencies
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v6
         with:
