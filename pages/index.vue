@@ -1,16 +1,14 @@
 <template>
-<div>
-  <LandingHeroSection />
-  <LandingSolutionSection />
-  <LandingHowItWorksSection />
-  <LandingPricingSection />
-  <LandingNewsletterSection />
-</div>
+<LandingHeroSection />
+<LandingSolutionSection />
+<LandingHowItWorksSection />
+<LandingPricingSection />
+<LandingNewsletterSection />
 </template>
 
 <script setup lang="ts">
-import LandingHeroSection from '~~/components/Landing/HeroSection.server.vue'
-import LandingSolutionSection from '~~/components/Landing/SolutionSection.server.vue'
+import LandingHeroSection from '~/components/Landing/HeroSection.vue'
+import LandingSolutionSection from '~/components/Landing/SolutionSection.vue'
 import LandingHowItWorksSection from '~~/components/Landing/HowItWorksSection.server.vue'
 import LandingPricingSection from '~~/components/Landing/PricingSection.server.vue'
 import LandingNewsletterSection from '~~/components/Landing/NewsletterSection.server.vue'
