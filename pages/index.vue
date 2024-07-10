@@ -1,7 +1,7 @@
 <template>
 <LandingHeroSection />
 <LandingSolutionSection />
-<LandingHowItWorksSection />
+<LandingCta />
 <LandingPricingSection />
 <LandingNewsletterSection />
 </template>
@@ -9,9 +9,9 @@
 <script setup lang="ts">
 import LandingHeroSection from '~/components/Landing/HeroSection.vue'
 import LandingSolutionSection from '~/components/Landing/SolutionSection.vue'
-import LandingHowItWorksSection from '~~/components/Landing/HowItWorksSection.server.vue'
+import LandingCta from '~/components/Landing/Cta.vue'
 import LandingPricingSection from '~~/components/Landing/PricingSection.server.vue'
-import LandingNewsletterSection from '~~/components/Landing/NewsletterSection.server.vue'
+import LandingNewsletterSection from '~~/components/Landing/NewsletterSection.vue'
 
 useServerSeoMeta({
   title: 'BeRight Accueil',
