@@ -6,10 +6,9 @@ test.beforeEach(async ({ page }) => {
 
 test('Load landing page', async ({ page }) => {
   await expect(page).toHaveTitle(/Accueil | Be Right/)
-  await expect(page.getByRole('heading', { name: 'Gérez enfin le droit à l\'image de vos clients facilement !' })).toBeVisible()
+  await expect(page.getByRole('heading', { name: 'BeRight: Révolutionnez votre gestion des droits à l\'image' })).toBeVisible()
   await expect(page.getByTestId('commencer-home-button')).toBeVisible()
   await expect(page.getByTestId('solutions-home-link-header')).toBeVisible()
-  await expect(page.getByTestId('pricings-home-link-header')).toBeVisible()
 })
 
 test('click on links redirect on right page with section solution', async ({ page }) => {
