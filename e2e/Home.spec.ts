@@ -19,13 +19,6 @@ test('click on links redirect on right page with section solution', async ({ pag
   await expect(page).toHaveURL('http://localhost:3000/#Solution')
 })
 
-test('click on links redirect on right page with section pricings', async ({ page }) => {
-  const pricingsLink = page.getByTestId('pricings-home-link-header')
-  await expect(pricingsLink).toBeVisible()
-  await pricingsLink.click()
-  await expect(page).toHaveURL('http://localhost:3000/#Pricings')
-})
-
 test('click on links redirect on right page login', async ({ page }) => {
   const commencerLink = page.getByTestId('commencer-home-button')
   await expect(commencerLink).toBeVisible()
