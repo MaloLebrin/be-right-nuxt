@@ -1,7 +1,7 @@
 <template>
 <section class="bg-white">
-  <div class="relative overflow-hidden isolate bg-gradient-to-b from-indigo-100/20">
-    <div class="pt-10 pb-24 mx-auto max-w-7xl sm:pb-32 lg:grid lg:grid-cols-2 lg:gap-x-8 lg:px-8 lg:py-40">
+  <div class="relative isolate bg-gradient-to-b from-indigo-100/20">
+    <div class="pt-10 pb-24 mx-auto max-w-7xl sm:pb-32 lg:grid lg:grid-cols-2 lg:gap-x-8 lg:py-40">
       <div class="px-6 lg:px-0 lg:pt-4">
         <div class="max-w-2xl mx-auto">
           <div class="max-w-lg">
@@ -26,15 +26,15 @@
           </div>
         </div>
       </div>
-      <div class="mt-20 sm:mt-24 md:mx-auto md:max-w-2xl lg:mx-0 lg:mt-0 lg:w-screen">
+      <div class="mt-20 sm:mt-24 md:mx-auto md:max-w-2xl lg:mx-0 lg:mt-0 lg:w-full">
         <div
-          class="absolute inset-y-0 right-1/2 -z-10 -mr-10 w-[200%] skew-x-[-30deg] bg-white shadow-xl shadow-indigo-600/10 ring-1 ring-indigo-50 md:-mr-20 lg:-mr-36"
+          class="absolute overflow-x-visible inset-y-0 right-1/2 -z-10 -mr-10 w-[200%] skew-x-[-30deg] bg-white shadow-xl shadow-indigo-600/10 ring-1 ring-indigo-50 md:-mr-20 lg:-mr-36"
           aria-hidden="true"
         />
         <img
           src="/homeScreenshot.webp"
           alt="Capture d'écran de l'application"
-          class="object-cover object-left-top shadow-lg rounded-3xl"
+          class="object-cover h-full shadow-lg rounded-3xl "
         >
       </div>
     </div>

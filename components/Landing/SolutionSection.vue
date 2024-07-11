@@ -2,7 +2,7 @@
 <section
   id="Solution"
 >
-  <div class="px-6 mx-auto max-w-7xl lg:px-8">
+  <div class="px-6 mx-auto mt-4 lg:mt-10 max-w-7xl lg:px-8">
     <div class="max-w-2xl mx-auto sm:text-center">
       <h2 class="text-base font-semibold leading-7 text-indigo-600">
         Tout ce dont vous avez besoin
