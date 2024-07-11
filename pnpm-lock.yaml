@@ -46,7 +46,7 @@ importers:
         version: 3.0.3(@popperjs/core@2.11.8)(vue@3.4.30(typescript@5.5.2))
       vee-validate:
         specifier: ^4.13.1
-        version: 4.13.1(vue@3.4.30(typescript@5.5.2))
+        version: 4.13.2(vue@3.4.30(typescript@5.5.2))
       vue-signature-pad:
         specifier: ^3.0.2
         version: 3.0.2(vue@3.4.30(typescript@5.5.2))
@@ -5884,8 +5884,8 @@ packages:
     resolution: {integrity: sha512-tLq3bSNx+xSpwvAJnzrK0Ep5CLNWjvFTOp71URMaAEWBfRb9nnJiBoUe0tF8bI4ZFO3omgBR6NvnbzVUT3Ly4g==}
     engines: {node: '>=14.16'}
 
-  type-fest@4.20.1:
-    resolution: {integrity: sha512-R6wDsVsoS9xYOpy8vgeBlqpdOyzJ12HNfQhC/aAKWM3YoCV9TtunJzh/QpkMgeDhkoynDcw5f1y+qF9yc/HHyg==}
+  type-fest@4.21.0:
+    resolution: {integrity: sha512-ADn2w7hVPcK6w1I0uWnM//y1rLXZhzB9mr0a3OirzclKF1Wp6VzevUmzz/NRAWunOT6E8HrnpGY7xOfc6K57fA==}
     engines: {node: '>=16'}
 
   type-is@1.6.18:
@@ -6098,8 +6098,8 @@ packages:
     resolution: {integrity: sha512-BNGbWLfd0eUPabhkXUVm0j8uuvREyTh5ovRa/dyow/BqAbZJyC+5fU+IzQOzmAKzYqYRAISoRhdQr3eIZ/PXqg==}
     engines: {node: '>= 0.8'}
 
-  vee-validate@4.13.1:
-    resolution: {integrity: sha512-JAlUWTBHg0z66n+v66mrtE9IC1xmVCggzpyc7UXCNkizVok8Zgt1VAVjobSxA/0N19Zn6v6hRfjoYciYH/Z11Q==}
+  vee-validate@4.13.2:
+    resolution: {integrity: sha512-HlpR/6MJ92TW9f135umMZKUqdd/tFQTxLNSf2ImbU4Y/MlLVAUpF1l64VdjTOhbClAqPjCb5p/SqHDxLpUHXrw==}
     peerDependencies:
       vue: ^3.4.26
 
@@ -13452,7 +13452,7 @@ snapshots:
 
   type-fest@3.13.1: {}
 
-  type-fest@4.20.1: {}
+  type-fest@4.21.0: {}
 
   type-is@1.6.18:
     dependencies:
@@ -13724,10 +13724,10 @@ snapshots:
 
   vary@1.1.2: {}
 
-  vee-validate@4.13.1(vue@3.4.30(typescript@5.5.2)):
+  vee-validate@4.13.2(vue@3.4.30(typescript@5.5.2)):
     dependencies:
       '@vue/devtools-api': 6.6.3
-      type-fest: 4.20.1
+      type-fest: 4.21.0
       vue: 3.4.30(typescript@5.5.2)
 
   vite-hot-client@0.2.3(vite@4.5.3(@types/node@20.14.8)(terser@5.31.1)):
