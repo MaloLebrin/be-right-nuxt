@@ -21,13 +21,13 @@
                 Solutions
               </a>
 
-              <a
+              <!-- <a
                 href="#Pricings"
                 data-test-id="pricings-home-link-header"
                 class="px-3 py-2 text-sm font-medium rounded-md text-blue dark:text-white dark:hover:text-red-light hover:text-red-light"
               >
                 Tarifs
-              </a>
+              </a> -->
 
               <BaseButton
                 :href="getButtonPath"

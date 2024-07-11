@@ -1,17 +1,15 @@
 <template>
-<LandingHeroSection />
-<LandingSolutionSection />
-<LandingCta />
-<LandingPricingSection />
-<LandingNewsletterSection />
+<div>
+  <LandingHeroSection />
+  <LandingSolutionSection />
+  <LandingCta />
+</div>
 </template>
 
 <script setup lang="ts">
 import LandingHeroSection from '~/components/Landing/HeroSection.vue'
 import LandingSolutionSection from '~/components/Landing/SolutionSection.vue'
 import LandingCta from '~/components/Landing/Cta.vue'
-import LandingPricingSection from '~~/components/Landing/PricingSection.server.vue'
-import LandingNewsletterSection from '~~/components/Landing/NewsletterSection.vue'
 
 useServerSeoMeta({
   title: 'BeRight Accueil',
