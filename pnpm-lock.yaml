@@ -9,7 +9,7 @@ importers:
   .:
     dependencies:
       '@heroicons/vue':
-        specifier: ^2.1.4
+        specifier: ^2.1.5
         version: 2.1.5(vue@3.4.30(typescript@5.5.2))
       '@malolebrin/pinia-entity-store':
         specifier: ^0.2.4
