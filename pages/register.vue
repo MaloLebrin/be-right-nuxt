@@ -82,6 +82,7 @@
           :disabled="!meta.valid || !meta.dirty || isSubmitting"
           :is-loading="uiStore.getUIIsLoading || isSubmitting"
           type="submit"
+          data-test-id="register-submit-button"
         >
           S'inscrire
         </BaseButton>

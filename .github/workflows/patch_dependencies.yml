@@ -2,7 +2,7 @@ name: ⬆️ Update Patch Dependencies
 
 on:
   schedule:
-    - cron: "00 2 26 * *"
+    - cron: "00 10 26 * *"
 
 jobs:
   Patch_Dependencies:
@@ -26,22 +26,24 @@ jobs:
           node-version: ${{ matrix.node }}
           cache: pnpm
 
-      - name: 🔧 Install
-        run: pnpm i --frozen-lockfile
-
       - name: 📦 Patch Dependencies
         run: pnpx taze patch -w
 
       - name: Create commits
         run: |
-          git add -A
+          git config --global user.email "githubactions@exemple.com"
+          git config --global user.name "Github Actions"
+          git switch main
+          git checkout -b update-patch-dependencies
+          git pull
+          git add .
           git commit -m ":arrow_up: Patch dependencies"
-          git push
+          git push origin update-patch-dependencies
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v6
         with:
           commit-message:  ⬆️ Patch dependencies
           title: ⬆️ Patch dependencies
           body: This PR was created by github actions
-          branch: update-patch-dependencies
+          branch: main
       

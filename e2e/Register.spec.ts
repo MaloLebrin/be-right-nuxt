@@ -10,7 +10,7 @@ test('load register page', async ({ page }) => {
 })
 
 test('button to submit form login is disabled by default', async ({ page }) => {
-  const submitButton = page.locator('button[type=submit]')
+  const submitButton = page.getByTestId('register-submit-button')
   await expect(submitButton).toBeVisible()
   await expect(submitButton).toBeDisabled()
 
