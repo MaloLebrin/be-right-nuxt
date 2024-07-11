@@ -3,7 +3,7 @@
   v-slot="{ field, meta, errors, handleChange, handleBlur }"
   as="div"
   :name="name"
-  :class="`flex flex-col w-full space-y-4 ${wrapperClasses}`"
+  :class="`flex flex-col w-full ${label ? 'space-y-4' : ''} ${wrapperClasses}`"
 >
   <label
     v-show="label"
