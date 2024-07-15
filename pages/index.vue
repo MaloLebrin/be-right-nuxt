@@ -1,8 +1,9 @@
 <template>
-<div>
+<div class="w-full h-full">
   <LandingHeroSection />
   <LandingSolutionSection />
   <LandingCta />
+  <LandingFaq />
 </div>
 </template>
 
@@ -10,6 +11,7 @@
 import LandingHeroSection from '~/components/Landing/HeroSection.vue'
 import LandingSolutionSection from '~/components/Landing/SolutionSection.vue'
 import LandingCta from '~/components/Landing/Cta.vue'
+import LandingFaq from '~/components/Landing/FAQ.vue'
 
 useServerSeoMeta({
   title: 'BeRight Accueil',

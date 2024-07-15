@@ -1,6 +1,6 @@
 <template>
 <section class="bg-white">
-  <div class="relative isolate bg-gradient-to-b from-indigo-100/20">
+  <div class="relative overflow-x-visible isolate bg-gradient-to-b from-indigo-100/20">
     <div class="pt-10 pb-24 mx-auto max-w-7xl sm:pb-32 lg:grid lg:grid-cols-2 lg:gap-x-8 lg:py-40">
       <div class="px-6 lg:px-0 lg:pt-4">
         <div class="max-w-2xl mx-auto">
@@ -15,7 +15,7 @@
             <div class="flex items-center mt-6 gap-x-6">
               <NuxtLink
                 type="button"
-                title="commencer"
+                title="Commencez"
                 name="commencer"
                 class="px-4 py-2 mx-auto font-bold text-white transition duration-300 ease-in-out transform bg-indigo-600 shadow-lg md:px-8 md:py-4 rounded-xl md:my-6 ms:block lg:mx-0 hover:underline focus:outline-none focus:shadow-outline hover:-translate-y-2 hover:scale-105"
                 :to="{ name: 'login' }"
@@ -34,11 +34,11 @@
         <img
           src="/homeScreenshot.webp"
           alt="Capture d'écran de l'application"
-          class="object-cover h-full shadow-lg rounded-3xl "
+          class="object-cover h-full shadow-lg rounded-3xl"
         >
       </div>
     </div>
-    <div class="absolute inset-x-0 bottom-0 h-24 -z-10 bg-gradient-to-t from-white sm:h-32" />
+    <div class="absolute inset-x-0 bottom-0 h-24 overflow-x-visible -z-10 bg-gradient-to-t from-white sm:h-32" />
   </div>
 </section>
 </template>

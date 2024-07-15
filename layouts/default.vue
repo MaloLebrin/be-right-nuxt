@@ -1,9 +1,11 @@
 <template>
 <div class="min-h-screen">
   <LayoutsHeader />
-  <main class="h-full bg-white dark:bg-blue-dark">
-    <slot />
-  </main>
+  <div class="flex justify-center w-full h-full">
+    <main class="container flex-1">
+      <slot />
+    </main>
+  </div>
   <LayoutsFooter />
 </div>
 </template>

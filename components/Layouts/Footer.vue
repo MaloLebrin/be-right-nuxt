@@ -1,6 +1,6 @@
 <template>
 <footer
-  class="bg-white border-t border-gray-100"
+  class="pb-8 bg-white border-t border-gray-100"
   aria-labelledby="footer-heading"
 >
   <h2
@@ -10,80 +10,64 @@
     BeRight : Gérez en toute sécurité les autorisations d'image de vos
     employés
   </h2>
-  <div class="px-6 pt-16 pb-8 mx-auto lg:px-8">
-    <div class="xl:grid xl:grid-cols-3 xl:gap-8">
-      <SimpleLogo />
-
-      <nav class="grid grid-cols-2 gap-8 mt-16 xl:col-span-2 xl:mt-0">
-        <div class="md:grid md:grid-cols-3 md:gap-8">
-          <div>
-            <NuxtLink
-              :to="{ name: 'index' }"
-              class="text-sm font-semibold leading-6 text-gray-900 cursor-pointer"
-            >
-              Accueil
-            </NuxtLink>
-          </div>
-          <div>
-            <a
-              href="#Solution"
-              class="text-sm font-semibold leading-6 text-gray-900 cursor-pointer"
-            >
-              Solution
-            </a>
-          </div>
-          <div class="mt-10 md:mt-0">
-            <NuxtLink
-              :to="getLinkPath"
-              class="text-sm font-semibold leading-6 text-gray-900 cursor-pointer"
-            >
-              {{ authStore.getIsLoggedIn ? 'Mon compte' : 'Se connecter' }}
-            </NuxtLink>
-          </div>
-        </div>
-        <div class="md:grid md:grid-cols-2 md:gap-8">
-          <div>
-            <NuxtLink
-              v-if="!authStore.getIsLoggedIn"
-              :to="{ name: 'register' }"
-              class="text-sm font-semibold leading-6 text-gray-900 cursor-pointer"
-            >
-              S'inscrire
-            </NuxtLink>
-            <p
-              v-else
-              class="text-sm font-semibold leading-6 text-gray-900 cursor-pointer"
-              @click="logout"
-            >
-              Se déconnecter
-            </p>
-          </div>
-        </div>
-      </nav>
-    </div>
-    <div class="pt-8 mt-16 border-t border-gray-900/10 sm:mt-20 lg:mt-24 lg:flex lg:items-center lg:justify-evenly">
-      <div>
-        <h3 class="text-sm font-semibold leading-6 text-gray-900">
-          Abonnez-vous !
-        </h3>
-        <p class="mt-2 text-sm leading-6 text-gray-600">
-          Restez au courant des nouveautés !
-        </p>
-      </div>
-      <NewsletterForm />
-    </div>
-    <div class="pt-8 mt-8 border-t border-gray-900/10 md:flex md:items-center md:justify-evenly">
-      <p class="mt-8 text-xs leading-5 text-gray-500 md:order-1 md:mt-0">
-        &copy; {{ `Be Right ${new Date().getFullYear()}` }}. All rights reserved. Designed by digital campus students.
+  <div class="xl:grid xl:grid-cols-3 xl:gap-8">
+    <nav class="grid grid-cols-4 gap-8 mt-8 xl:col-span-3 xl:mt-0">
+      <NuxtLink
+        :to="{ name: 'index' }"
+        class="text-sm font-semibold leading-6 text-center text-gray-900 cursor-pointer"
+      >
+        Accueil
+      </NuxtLink>
+      <a
+        href="#Solution"
+        class="text-sm font-semibold leading-6 text-center text-gray-900 cursor-pointer"
+      >
+        Solution
+      </a>
+      <NuxtLink
+        :to="getLinkPath"
+        class="text-sm font-semibold leading-6 text-center text-gray-900 cursor-pointer"
+      >
+        {{ authStore.getIsLoggedIn ? 'Mon compte' : 'Se connecter' }}
+      </NuxtLink>
+      <NuxtLink
+        v-if="!authStore.getIsLoggedIn"
+        :to="{ name: 'register' }"
+        class="text-sm font-semibold leading-6 text-center text-gray-900 cursor-pointer"
+      >
+        S'inscrire
+      </NuxtLink>
+      <p
+        v-else
+        class="text-sm font-semibold leading-6 text-center text-gray-900 cursor-pointer"
+        @click="logout"
+      >
+        Se déconnecter
+      </p>
+    </nav>
+  </div>
+  <div class="px-4 pt-8 mt-8 border-t border-gray-900/10 sm:mt-8 lg:mt-8 md:flex md:items-center md:justify-evenly md:px-0">
+    <div>
+      <h3 class="text-sm font-semibold leading-6 text-gray-900">
+        Abonnez-vous !
+      </h3>
+      <p class="mt-2 text-sm leading-6 text-gray-600">
+        Restez au courant des nouveautés !
       </p>
     </div>
+    <NewsletterForm />
+  </div>
+  <div class="pt-8 mt-8 border-t border-gray-900/10 md:flex md:items-center md:justify-evenly">
+    <p class="mt-8 text-xs leading-5 text-gray-500 md:order-1 md:mt-0">
+      &copy; {{ `Be Right ${new Date().getFullYear()}` }}. All rights reserved. Designed by digital campus students.
+    </p>
   </div>
 </footer>
 </template>
 
 <script setup lang="ts">
 import { useAuthStore } from '~~/store'
-import SimpleLogo from '~~/components/Logo/SimpleLogo.server.vue'
+import NewsletterForm from '~~/components/Newsletter/NewsletterForm.vue'
 
 const authStore = useAuthStore()
 const { logout } = authHook()
