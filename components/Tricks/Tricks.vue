@@ -8,6 +8,7 @@
       {{ data.title }}
     </p>
     <button
+      type="reset"
       class="w-4 h-4 text-amber-500"
       @click="refresh()"
     >

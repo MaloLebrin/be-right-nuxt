@@ -7,9 +7,6 @@ export default defineNuxtConfig({
   devtools: {
     enabled: import.meta.env.DEV,
   },
-  experimental: {
-    componentIslands: true,
-  },
   app: {
     pageTransition: {
       name: 'page',

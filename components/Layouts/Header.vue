@@ -128,7 +128,7 @@
 <script setup lang="ts">
 import { Bars3Icon } from '@heroicons/vue/24/outline'
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
-import SimpleLogo from '~~/components/Logo/SimpleLogo.server.vue'
+import SimpleLogo from '~/components/Logo/SimpleLogo.vue'
 import BaseButton from '~~/components/Base/BaseButton.vue'
 import { useAuthStore } from '~~/store'
 
