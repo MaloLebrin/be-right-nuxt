@@ -31,7 +31,7 @@ export function alphabetical<T extends UserType[] | EmployeeType[]>(entityArray:
  * @param value any
  * @returns `true` || `false`
  */
-export function isArrayOfNumbers(value: any): boolean {
+export function isArrayOfNumbers<T>(value: T): boolean {
   if (!isArray(value) || !value.length)
     return false
   return value.every(i => isNumber(i))
