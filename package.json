@@ -52,7 +52,7 @@
     "@types/jsonwebtoken": "^9.0.7",
     "@unlok-co/nuxt-stripe": "^3.0.0",
     "@vueuse/components": "^10.11.1",
-    "@vueuse/core": "^10.11.1",
+    "@vueuse/core": "^11.0.0",
     "@vueuse/nuxt": "^10.11.1",
     "autoprefixer": "^10.4.20",
     "dayjs-nuxt": "^2.1.11",
