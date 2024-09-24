@@ -1,5 +1,3 @@
-import Components from 'unplugin-vue-components/vite'
-import { HeadlessUiResolver } from 'unplugin-vue-components/resolvers'
 import { visualizer } from 'rollup-plugin-visualizer'
 import { type PluginOption } from 'vite'
 
@@ -135,13 +133,6 @@ export default defineNuxtConfig({
       ],
     },
     plugins: [
-      Components({
-        resolvers: [
-          HeadlessUiResolver({}),
-        ],
-        include: [/\.vue$/, /\.vue\?vue/],
-        extensions: ['vue'],
-      }),
       visualizer() as PluginOption,
     ],
   },
