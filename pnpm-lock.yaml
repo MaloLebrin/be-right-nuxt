@@ -135,9 +135,6 @@ importers:
       typescript:
         specifier: ^5.5.3
         version: 5.5.4
-      unplugin-vue-components:
-        specifier: ^0.27.2
-        version: 0.27.3(@babel/parser@7.24.8)(@nuxt/kit@3.12.4(magicast@0.3.4)(rollup@4.18.1))(rollup@4.18.1)(vue@3.4.31(typescript@5.5.4))
       vitest:
         specifier: ^1.6.0
         version: 1.6.0(@types/node@20.14.12)(happy-dom@14.12.3)(terser@5.31.2)
@@ -5677,19 +5674,6 @@ packages:
   unplugin-ast@0.10.0:
     resolution: {integrity: sha512-IA1r4JGZ6O/Zn3CZxSShQBuJ2fbNCDGCtMOz0q+K2kOhgZHJUH3Y+hTthcitjH0vx5C0QN3lWwgsa/4cL1cS0w==}
     engines: {node: '>=18.12.0'}
-
-  unplugin-vue-components@0.27.3:
-    resolution: {integrity: sha512-5wg7lbdg5ZcrAQNzyYK+6gcg/DG8K6rO+f5YeuvqGHs/PhpapBvpA4O/0ex/pFthE5WgRk43iWuRZEMLVsdz4Q==}
-    engines: {node: '>=14'}
-    peerDependencies:
-      '@babel/parser': ^7.15.8
-      '@nuxt/kit': ^3.2.2
-      vue: 2 || 3
-    peerDependenciesMeta:
-      '@babel/parser':
-        optional: true
-      '@nuxt/kit':
-        optional: true
 
   unplugin-vue-router@0.7.0:
     resolution: {integrity: sha512-ddRreGq0t5vlSB7OMy4e4cfU1w2AwBQCwmvW3oP/0IHQiokzbx4hd3TpwBu3eIAFVuhX2cwNQwp1U32UybTVCw==}
@@ -12980,26 +12964,6 @@ snapshots:
       unplugin: 1.11.0
     transitivePeerDependencies:
       - rollup
-
-  unplugin-vue-components@0.27.3(@babel/parser@7.24.8)(@nuxt/kit@3.12.4(magicast@0.3.4)(rollup@4.18.1))(rollup@4.18.1)(vue@3.4.31(typescript@5.5.4)):
-    dependencies:
-      '@antfu/utils': 0.7.10
-      '@rollup/pluginutils': 5.1.0(rollup@4.18.1)
-      chokidar: 3.6.0
-      debug: 4.3.5
-      fast-glob: 3.3.2
-      local-pkg: 0.5.0
-      magic-string: 0.30.10
-      minimatch: 9.0.5
-      mlly: 1.7.1
-      unplugin: 1.11.0
-      vue: 3.4.31(typescript@5.5.4)
-    optionalDependencies:
-      '@babel/parser': 7.24.8
-      '@nuxt/kit': 3.12.4(magicast@0.3.4)(rollup@4.18.1)
-    transitivePeerDependencies:
-      - rollup
-      - supports-color
 
   unplugin-vue-router@0.7.0(rollup@4.18.1)(vue-router@4.4.0(vue@3.4.31(typescript@5.5.4)))(vue@3.4.31(typescript@5.5.4)):
     dependencies:
