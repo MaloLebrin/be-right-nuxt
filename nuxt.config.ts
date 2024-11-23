@@ -8,6 +8,34 @@ export default defineNuxtConfig({
   experimental: {
     componentIslands: true,
   },
+  routeRules: {
+    // Homepage pre-rendered at build time
+    '/': { prerender: true },
+    '/login': { prerender: true },
+    '/register': { prerender: true },
+    // Products page generated on demand, revalidates in background, cached until API response changes
+    // '/products': { swr: true },
+    // Product pages generated on demand, revalidates in background, cached for 1 hour (3600 seconds)
+    // '/products/**': { swr: 3600 },
+    // Blog posts page generated on demand, revalidates in background, cached on CDN for 1 hour (3600 seconds)
+    // '/blog': { isr: 3600 },
+    // Blog post page generated on demand once until next deployment, cached on CDN
+    // '/blog/**': { isr: true },
+    // Admin dashboard renders only on client-side
+    '/admin/**': { ssr: false },
+    '/addresse/**': { ssr: false },
+    '/answer/**': { ssr: false },
+    '/destinataire/**': { ssr: false },
+    '/evenement/**': { ssr: false },
+    '/groupe/**': { ssr: false },
+    '/mon-compte/**': { ssr: false },
+    '/notifications/**': { ssr: false },
+    '/paiements/**': { ssr: false },
+    // Add cors headers on API routes
+    // '/api/**': { cors: true },
+    // Redirects legacy urls
+    // '/old-page': { redirect: '/new-page' }
+  },
   app: {
     pageTransition: {
       name: 'page',
