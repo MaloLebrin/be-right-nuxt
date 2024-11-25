@@ -2,7 +2,7 @@ import { useJwt } from '@vueuse/integrations/useJwt'
 import { RouteNames } from '~/helpers/routes'
 import { useAuthStore } from '~~/store'
 
-export default defineNuxtRouteMiddleware(async to => {
+export default defineNuxtRouteMiddleware(to => {
   const { $toast } = useNuxtApp()
   const authStore = useAuthStore()
   const { setToken, setJWTasUser } = authStore

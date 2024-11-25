@@ -231,6 +231,9 @@ watch(() => isLeft.value, val => {
 definePageMeta({
   layout: 'auth',
   isAuth: true,
-  middleware: ['guards-middleware'],
+  middleware: [
+    'success-session-middleware',
+    'guards-middleware',
+  ],
 })
 </script>

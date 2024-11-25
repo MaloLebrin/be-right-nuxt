@@ -7,7 +7,7 @@ export default defineNuxtRouteMiddleware(to => {
 
   const cookieToken = getCookie()
 
-  if (to.name && ['login', 'register'].includes(to.name)) {
+  if (to.name && ['login', 'register'].includes(to.name as string)) {
     if (authStore.getIsLoggedIn || cookieToken.value) {
       return navigateTo({
         name: RouteNames.LIST_EVENT,
