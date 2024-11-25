@@ -1,4 +1,5 @@
 import { useJwt } from '@vueuse/integrations/useJwt'
+import { RouteNames } from '~/helpers/routes'
 import { useAuthStore } from '~~/store'
 
 export default defineNuxtRouteMiddleware(async to => {
@@ -36,6 +37,6 @@ export default defineNuxtRouteMiddleware(async to => {
 function redirectToLogin() {
   abortNavigation()
   return navigateTo({
-    name: 'login',
+    name: RouteNames.LOGIN,
   }, { replace: true })
 }
