@@ -9,13 +9,13 @@
         <h1 class="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
           Confirmation #54879
         </h1>
-        <a
+        <!-- <a
           href="#"
           class="hidden text-sm font-medium text-indigo-600 hover:text-indigo-500 sm:block"
         >
           View invoice
           <span aria-hidden="true"> &rarr;</span>
-        </a>
+        </a> -->
       </div>
       <p class="text-sm text-gray-600">
         Créé le <time
@@ -68,7 +68,7 @@
               <dl class="grid grid-cols-2 text-sm gap-x-6">
                 <div v-if="address">
                   <dt class="font-medium text-gray-900">
-                    Billing address
+                    Adresse de facturation
                   </dt>
                   <dd class="mt-3 text-gray-500">
                     <span class="block">{{ address.addressLine }}</span>
@@ -78,16 +78,10 @@
                 </div>
                 <div>
                   <dt class="font-medium text-gray-900">
-                    Shipping updates
+                    Email de facturation
                   </dt>
                   <dd class="mt-3 space-y-3 text-gray-500">
                     <p>{{ user?.email }}</p>
-                    <button
-                      type="button"
-                      class="font-medium text-indigo-600 hover:text-indigo-500"
-                    >
-                      Edit
-                    </button>
                   </dd>
                 </div>
               </dl>
@@ -95,14 +89,19 @@
           </div>
 
           <div class="px-4 py-6 border-t border-gray-200 sm:px-6 lg:p-8">
-            <h4 class="sr-only">
-              Status
-            </h4>
             <div class="flex items-center space-x-2">
               <EventStatusTag :status="event.status" />
               <p class="text-sm font-medium text-gray-900">
-                le <time :datetime="event.createdAt.toString()">{{ $toFormat(event.createdAt, 'DD MMMM YYYY') }}</time>
+                le <time :datetime="event.updatedAt.toString()">{{ $toFormat(event.createdAt, 'DD MMMM YYYY') }}</time>
               </p>
+              <div>
+                <NuxtLink
+                  :to="{ name: RouteNames.SHOW_EVENT_ID, params: { id: event.id } }"
+                  class="block w-full px-4 py-2 text-sm font-medium text-white bg-indigo-600 rounded-md hover:bg-indigo-700"
+                >
+                  Voir l'événement
+                </NuxtLink>
+              </div>
             </div>
           </div>
         </div>
@@ -119,7 +118,7 @@
         <dl class="grid grid-cols-2 gap-6 text-sm sm:grid-cols-2 md:gap-x-8 lg:col-span-7">
           <div v-if="address">
             <dt class="font-medium text-gray-900">
-              Billing address
+              Adresse de facturation
             </dt>
             <dd class="mt-3 text-gray-500">
               <span class="block">{{ address.addressLine }}</span>
@@ -129,7 +128,7 @@
           </div>
           <div>
             <dt class="font-medium text-gray-900">
-              Payment security
+              Paiement sécurisé
             </dt>
             <dd class="flex items-center mt-1">
               <a
