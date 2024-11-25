@@ -7,7 +7,7 @@
     <div class="px-4 space-y-2 sm:flex sm:items-baseline sm:justify-between sm:space-y-0 sm:px-0">
       <div class="flex sm:items-baseline sm:space-x-4">
         <h1 class="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
-          Confirmation #54879
+          Confirmation #{{ event.id }}
         </h1>
         <!-- <a
           href="#"
@@ -184,12 +184,14 @@ import {
   useAnswerStore,
   useCompanyStore,
   useEventStore,
+  useFormStore,
   useUiStore,
   useUserStore,
 } from '~~/store'
 
 const isLeft = usePageLeave()
 const eventStore = useEventStore()
+const { resetAllFormStore } = useFormStore()
 const answerStore = useAnswerStore()
 const companyStore = useCompanyStore()
 const addressStore = useAddressStore()
@@ -218,6 +220,7 @@ const { fetchEventWithRelations } = eventHook()
 onMounted(async () => {
   if (eventStore.getFirstActive) {
     await fetchEventWithRelations(eventStore.getFirstActive)
+    resetAllFormStore()
   }
 })
 
