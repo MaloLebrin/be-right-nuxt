@@ -1,12 +1,21 @@
 <template>
-<Form
-  v-if="!isSuccess"
-  v-slot="{ meta, isSubmitting }"
-  :validation-schema="schema"
-  class="w-full max-w-md lg:col-span-6 lg:pt-2"
-  @submit="submit"
+<section
+  id="Newsletter"
+  class="flex flex-col items-center py-6 mx-auto mb-8 space-y-4 text-center dark:bg-blue-dark dark:text-white DarkModeAnimation"
 >
-  <div class="flex gap-x-4">
+  <h3 class="text-2xl leading-tight md:text-3xl">
+    Restez informé des dernières nouveautés!
+  </h3>
+  <h4 class="text-gray-500">
+    Vous serez prévenu de la sortie de Be Right
+  </h4>
+  <Form
+    v-if="!isSuccess"
+    v-slot="{ meta, isSubmitting }"
+    :validation-schema="schema"
+    class="flex flex-col space-y-4"
+    @submit="submit"
+  >
     <BaseInput
       type="email"
       name="email"
@@ -21,16 +30,16 @@
       title="S'abonner à la newletter"
       :is-loading="uiStore.getUIIsLoading || isSubmitting"
     >
-      Envoyer
+      Prévenez-moi
     </BaseButton>
-  </div>
-</Form>
-<BaseMessage
-  v-else
-  type="success"
->
-  Merci pour votre inscription!
-</BaseMessage>
+  </Form>
+  <BaseMessage
+    v-else
+    type="success"
+  >
+    Merci pour votre inscription!
+  </BaseMessage>
+</section>
 </template>
 
 <script setup lang="ts">

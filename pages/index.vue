@@ -1,17 +1,19 @@
 <template>
-<div class="w-full h-full">
+<div>
   <LandingHeroSection />
   <LandingSolutionSection />
-  <LandingCta />
-  <LandingFaq />
+  <LandingHowItWorksSection />
+  <LandingPricingSection />
+  <LandingNewsletterSection />
 </div>
 </template>
 
 <script setup lang="ts">
-import LandingHeroSection from '~/components/Landing/HeroSection.vue'
-import LandingSolutionSection from '~/components/Landing/SolutionSection.vue'
-import LandingCta from '~/components/Landing/Cta.vue'
-import LandingFaq from '~/components/Landing/FAQ.vue'
+import LandingHeroSection from '~~/components/Landing/HeroSection.server.vue'
+import LandingSolutionSection from '~~/components/Landing/SolutionSection.server.vue'
+import LandingHowItWorksSection from '~~/components/Landing/HowItWorksSection.server.vue'
+import LandingPricingSection from '~~/components/Landing/PricingSection.server.vue'
+import LandingNewsletterSection from '~~/components/Landing/NewsletterSection.server.vue'
 
 useServerSeoMeta({
   title: 'BeRight Accueil',

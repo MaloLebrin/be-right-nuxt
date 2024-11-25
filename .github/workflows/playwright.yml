@@ -14,7 +14,7 @@ jobs:
         node-version: 18
 
     - name: Install pnpm
-      uses: pnpm/action-setup@v4
+      uses: pnpm/action-setup@v2
 
     - name: ⚙️ Set node ${{ matrix.node }}
       uses: actions/setup-node@v4
@@ -39,4 +39,4 @@ jobs:
       with:
         name: playwright-report
         path: playwright-report/
-        retention-days: 1
+        retention-days: 30

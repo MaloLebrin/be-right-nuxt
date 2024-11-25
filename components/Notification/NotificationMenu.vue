@@ -53,7 +53,6 @@
 </template>
 
 <script setup lang="ts">
-import { Menu, MenuButton, MenuItems } from '@headlessui/vue'
 import NotificationListItem from '~~/components/Notification/ListItem.vue'
 import NotificationBellBubbleIcon from '~~/components/Notification/BellBubbleIcon.vue'
 import { useNotificationsStore } from '~~/store'

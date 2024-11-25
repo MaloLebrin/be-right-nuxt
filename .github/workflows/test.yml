@@ -20,7 +20,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@v2
 
       - name: ⚙️ Set node ${{ matrix.node }}
         uses: actions/setup-node@v4
@@ -28,14 +28,17 @@ jobs:
           node-version: ${{ matrix.node }}
           cache: pnpm
 
+      - name: ⚙️ Setup
+        run: npm i -g @antfu/ni
+
       - name: 🔧 Install
-        run: pnpm i --frozen-lockfile
+        run: nci
 
       - name: 📖 Lint
-        run: pnpm run lint
+        run: nr lint
 
       - name: ☑️ Type checking
-        run: pnpm run type:check
+        run: nr type:check
 
   Tests:
     runs-on: ${{ matrix.os }}
@@ -50,7 +53,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@v2
 
       - name: ⚙️ Set node ${{ matrix.node }}
         uses: actions/setup-node@v4
@@ -58,11 +61,44 @@ jobs:
           node-version: ${{ matrix.node }}
           cache: pnpm
 
+      - name: ⚙️ Setup
+        run: npm i -g @antfu/ni
+
       - name: 🔧 Install
-        run: pnpm i --frozen-lockfile
+        run: nci
 
       - name: 🏗 Build
-        run: pnpm run build
+        run: nr build
       
       - name: ✅ Tests
-        run: pnpm run test
+        run: nr test
+
+  Build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        node: [18.x]
+        os: [ubuntu-latest, windows-latest, macos-latest]
+      fail-fast: false
+
+    steps:
+      - name: ⬇️ Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+
+      - name: ⚙️ Set node ${{ matrix.node }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: pnpm
+
+      - name: ⚙️ Setup
+        run: npm i -g @antfu/ni
+
+      - name: 🔧 Install
+        run: nci
+
+      - name: 🏗 Build
+        run: nr build
