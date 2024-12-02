@@ -9,13 +9,6 @@
         <h1 class="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
           Confirmation #{{ event.id }}
         </h1>
-        <!-- <a
-          href="#"
-          class="hidden text-sm font-medium text-indigo-600 hover:text-indigo-500 sm:block"
-        >
-          View invoice
-          <span aria-hidden="true"> &rarr;</span>
-        </a> -->
       </div>
       <p class="text-sm text-gray-600">
         Créé le <time
