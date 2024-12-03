@@ -56,9 +56,12 @@
 
   <div class="mt-6">
     <PaymentButton
+      v-if="userStore.getAuthUser?.stripeCustomerId && nbRecipient"
       :is-loading="uiStore.getUIIsLoading"
       :is-disabled="!isSubmitEnabled"
-      @onClick="checkout"
+      :stripe-customer-id="userStore.getAuthUser?.stripeCustomerId"
+      :nb-recipients="nbRecipient"
+      :price-id="priceId"
     />
   </div>
 </section>
@@ -67,11 +70,12 @@
 <script setup lang="ts">
 import { QuestionMarkCircleIcon } from '@heroicons/vue/24/outline'
 import PaymentButton from '~/components/Payment/PaymentButton.vue'
-import { useFormStore, useUiStore } from '~~/store'
+import { useFormStore, useUiStore, useUserStore } from '~~/store'
 
 interface Props {
   nbRecipient: number | null
   unitPrice: number | null
+  priceId: string
 }
 
 withDefaults(defineProps<Props>(), {
@@ -79,20 +83,13 @@ withDefaults(defineProps<Props>(), {
   unitPrice: null,
 })
 
-const emit = defineEmits(['checkout'])
-
 const uiStore = useUiStore()
 const formStore = useFormStore()
-const { submitCreationEvent } = eventFormHook()
+const userStore = useUserStore()
 
 const isSubmitEnabled = computed(() =>
   formStore.isStepPhotographerValid
   && formStore.isStepEventValid
   && formStore.isStepEmployeeValid
   && !uiStore.getUIIsLoading)
-
-async function checkout() {
-  await submitCreationEvent()
-  emit('checkout')
-}
 </script>
