@@ -8,10 +8,10 @@
 </template>
 
 <script setup lang="ts">
-import LandingHeroSection from '~/components/Landing/HeroSection.vue'
-import LandingSolutionSection from '~/components/Landing/SolutionSection.vue'
+import LandingHeroSection from '~/components/Landing/HeroSection.server.vue'
+import LandingSolutionSection from '~/components/Landing/SolutionSection.server.vue'
 import LandingCta from '~/components/Landing/Cta.vue'
-import LandingFaq from '~/components/Landing/FAQ.vue'
+import LandingFaq from '~/components/Landing/FAQ.server.vue'
 
 useServerSeoMeta({
   title: 'BeRight Accueil',
