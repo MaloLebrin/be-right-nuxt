@@ -40,7 +40,7 @@ jobs:
           git commit -m ":arrow_up: Patch dependencies"
           git push origin update-patch-dependencies
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v6
+        uses: peter-evans/create-pull-request@v7
         with:
           commit-message:  ⬆️ Patch dependencies
           title: ⬆️ Patch dependencies
