@@ -128,7 +128,12 @@ async function submitLogin(form: VeeValidateValues) {
   DecLoading()
 }
 
-definePageMeta({ layout: 'default' })
+definePageMeta({
+  layout: 'default',
+  middleware: [
+    'is-logged-in-middleware',
+  ],
+})
 
 useHead({
   title: 'Se connecter',

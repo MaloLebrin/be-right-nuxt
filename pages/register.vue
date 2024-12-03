@@ -200,6 +200,13 @@ async function submitregister(form: VeeValidateValues) {
   DecLoading()
 }
 
+definePageMeta({
+  layout: 'default',
+  middleware: [
+    'is-logged-in-middleware',
+  ],
+})
+
 useHead({
   title: 'S\'inscrire',
   meta: [
