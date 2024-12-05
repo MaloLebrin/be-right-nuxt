@@ -31,7 +31,7 @@ importers:
         version: 6.0.6
       pinia:
         specifier: ^2.2.2
-        version: 2.2.2(typescript@5.6.2)(vue@3.4.31(typescript@5.6.2))
+        version: 2.3.0(typescript@5.6.2)(vue@3.4.31(typescript@5.6.2))
       puppeteer-core:
         specifier: ^22.15.0
         version: 22.15.0
@@ -74,7 +74,7 @@ importers:
         version: 6.12.1(magicast@0.3.5)(rollup@4.18.1)
       '@pinia-plugin-persistedstate/nuxt':
         specifier: ^1.2.1
-        version: 1.2.1(@pinia/nuxt@0.5.4(magicast@0.3.5)(rollup@4.18.1)(typescript@5.6.2)(vue@3.4.31(typescript@5.6.2)))(magicast@0.3.5)(pinia@2.2.2(typescript@5.6.2)(vue@3.4.31(typescript@5.6.2)))(rollup@4.18.1)
+        version: 1.2.1(@pinia/nuxt@0.5.4(magicast@0.3.5)(rollup@4.18.1)(typescript@5.6.2)(vue@3.4.31(typescript@5.6.2)))(magicast@0.3.5)(pinia@2.3.0(typescript@5.6.2)(vue@3.4.31(typescript@5.6.2)))(rollup@4.18.1)
       '@playwright/test':
         specifier: ^1.47.2
         version: 1.47.2
@@ -1969,8 +1969,8 @@ packages:
   '@vue/compiler-vue2@2.7.16':
     resolution: {integrity: sha512-qYC3Psj9S/mfu9uVi5WvNZIzq+xnXMhOwbTFKKDD7b1lhpnn71jXSFdTQ+WsIEk0ONCd7VV2IMm7ONl6tbQ86A==}
 
-  '@vue/devtools-api@6.6.3':
-    resolution: {integrity: sha512-0MiMsFma/HqA6g3KLKn+AGpL1kgKhFWszC9U29NfpWK5LE7bjeXxySWJrOJ77hBz+TBrBQ7o4QJqbPbqbs8rJw==}
+  '@vue/devtools-api@6.6.4':
+    resolution: {integrity: sha512-sGhTPMuXqZ1rVOk32RylztWkfXTRhuS7vgAKv0zjqk8gbsHkJ7xfFf+jbySxt7tWObEJwyKaHMikV/WGDiQm8g==}
 
   '@vue/devtools-api@7.6.7':
     resolution: {integrity: sha512-PV4I31WaV2rfA8RGauM+69uFEzWkqtP561RiLU2wK+Ce85u3zyKW3aoESlLCNzkc4y0JaJyskH6zAE3xWOP8+Q==}
@@ -4922,15 +4922,12 @@ packages:
     peerDependencies:
       pinia: ^2.0.0
 
-  pinia@2.2.2:
-    resolution: {integrity: sha512-ja2XqFWZC36mupU4z1ZzxeTApV7DOw44cV4dhQ9sGwun+N89v/XP7+j7q6TanS1u1tdbK4r+1BUx7heMaIdagA==}
+  pinia@2.3.0:
+    resolution: {integrity: sha512-ohZj3jla0LL0OH5PlLTDMzqKiVw2XARmC1XYLdLWIPBMdhDW/123ZWr4zVAhtJm+aoSkFa13pYXskAvAscIkhQ==}
     peerDependencies:
-      '@vue/composition-api': ^1.4.0
       typescript: '>=4.4.4'
-      vue: ^2.6.14 || ^3.3.0
+      vue: ^2.7.0 || ^3.5.11
     peerDependenciesMeta:
-      '@vue/composition-api':
-        optional: true
       typescript:
         optional: true
 
@@ -8291,12 +8288,12 @@ snapshots:
       '@parcel/watcher-win32-ia32': 2.4.1
       '@parcel/watcher-win32-x64': 2.4.1
 
-  '@pinia-plugin-persistedstate/nuxt@1.2.1(@pinia/nuxt@0.5.4(magicast@0.3.5)(rollup@4.18.1)(typescript@5.6.2)(vue@3.4.31(typescript@5.6.2)))(magicast@0.3.5)(pinia@2.2.2(typescript@5.6.2)(vue@3.4.31(typescript@5.6.2)))(rollup@4.18.1)':
+  '@pinia-plugin-persistedstate/nuxt@1.2.1(@pinia/nuxt@0.5.4(magicast@0.3.5)(rollup@4.18.1)(typescript@5.6.2)(vue@3.4.31(typescript@5.6.2)))(magicast@0.3.5)(pinia@2.3.0(typescript@5.6.2)(vue@3.4.31(typescript@5.6.2)))(rollup@4.18.1)':
     dependencies:
       '@nuxt/kit': 3.12.3(magicast@0.3.5)(rollup@4.18.1)
       '@pinia/nuxt': 0.5.4(magicast@0.3.5)(rollup@4.18.1)(typescript@5.6.2)(vue@3.4.31(typescript@5.6.2))
       defu: 6.1.4
-      pinia-plugin-persistedstate: 3.2.1(pinia@2.2.2(typescript@5.6.2)(vue@3.4.31(typescript@5.6.2)))
+      pinia-plugin-persistedstate: 3.2.1(pinia@2.3.0(typescript@5.6.2)(vue@3.4.31(typescript@5.6.2)))
     transitivePeerDependencies:
       - magicast
       - pinia
@@ -8306,7 +8303,7 @@ snapshots:
   '@pinia/nuxt@0.5.4(magicast@0.3.5)(rollup@4.18.1)(typescript@5.6.2)(vue@3.4.31(typescript@5.6.2))':
     dependencies:
       '@nuxt/kit': 3.12.4(magicast@0.3.5)(rollup@4.18.1)
-      pinia: 2.2.2(typescript@5.6.2)(vue@3.4.31(typescript@5.6.2))
+      pinia: 2.3.0(typescript@5.6.2)(vue@3.4.31(typescript@5.6.2))
     transitivePeerDependencies:
       - '@vue/composition-api'
       - magicast
@@ -8959,7 +8956,7 @@ snapshots:
       de-indent: 1.0.2
       he: 1.2.0
 
-  '@vue/devtools-api@6.6.3': {}
+  '@vue/devtools-api@6.6.4': {}
 
   '@vue/devtools-api@7.6.7':
     dependencies:
@@ -12631,17 +12628,19 @@ snapshots:
 
   pify@2.3.0: {}
 
-  pinia-plugin-persistedstate@3.2.1(pinia@2.2.2(typescript@5.6.2)(vue@3.4.31(typescript@5.6.2))):
+  pinia-plugin-persistedstate@3.2.1(pinia@2.3.0(typescript@5.6.2)(vue@3.4.31(typescript@5.6.2))):
     dependencies:
-      pinia: 2.2.2(typescript@5.6.2)(vue@3.4.31(typescript@5.6.2))
+      pinia: 2.3.0(typescript@5.6.2)(vue@3.4.31(typescript@5.6.2))
 
-  pinia@2.2.2(typescript@5.6.2)(vue@3.4.31(typescript@5.6.2)):
+  pinia@2.3.0(typescript@5.6.2)(vue@3.4.31(typescript@5.6.2)):
     dependencies:
-      '@vue/devtools-api': 6.6.3
+      '@vue/devtools-api': 6.6.4
       vue: 3.4.31(typescript@5.6.2)
       vue-demi: 0.14.10(vue@3.4.31(typescript@5.6.2))
     optionalDependencies:
       typescript: 5.6.2
+    transitivePeerDependencies:
+      - '@vue/composition-api'
 
   pirates@4.0.6: {}
 
@@ -14357,7 +14356,7 @@ snapshots:
 
   vue-router@4.4.0(vue@3.4.31(typescript@5.6.2)):
     dependencies:
-      '@vue/devtools-api': 6.6.3
+      '@vue/devtools-api': 6.6.4
       vue: 3.4.31(typescript@5.6.2)
 
   vue-screen-utils@1.0.0-beta.13(vue@3.4.31(typescript@5.6.2)):
