@@ -10,7 +10,7 @@ importers:
     dependencies:
       '@heroicons/vue':
         specifier: ^2.1.5
-        version: 2.1.5(vue@3.4.31(typescript@5.6.2))
+        version: 2.2.0(vue@3.4.31(typescript@5.6.2))
       '@malolebrin/pinia-entity-store':
         specifier: ^0.2.4
         version: 0.2.4
@@ -1125,8 +1125,8 @@ packages:
     peerDependencies:
       vue: ^3.2.0
 
-  '@heroicons/vue@2.1.5':
-    resolution: {integrity: sha512-IpqR72sFqFs55kyKfFS7tN+Ww6odFNeH/7UxycIOrlVYfj4WUGAdzQtLBnJspucSeqWFQsKM0g0YrgU655BEfA==}
+  '@heroicons/vue@2.2.0':
+    resolution: {integrity: sha512-G3dbSxoeEKqbi/DFalhRxJU4mTXJn7GwZ7ae8NuEQzd1bqdd0jAbdaBZlHPcvPD2xI1iGzNVB4k20Un2AguYPw==}
     peerDependencies:
       vue: '>= 3'
 
@@ -7522,7 +7522,7 @@ snapshots:
       '@tanstack/vue-virtual': 3.8.3(vue@3.4.31(typescript@5.6.2))
       vue: 3.4.31(typescript@5.6.2)
 
-  '@heroicons/vue@2.1.5(vue@3.4.31(typescript@5.6.2))':
+  '@heroicons/vue@2.2.0(vue@3.4.31(typescript@5.6.2))':
     dependencies:
       vue: 3.4.31(typescript@5.6.2)
 
