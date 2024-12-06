@@ -219,8 +219,8 @@ definePageMeta({
   layout: 'auth',
   isAuth: true,
   middleware: [
-    'success-session-middleware',
     'guards-middleware',
+    'success-session-middleware',
   ],
 })
 </script>
