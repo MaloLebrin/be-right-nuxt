@@ -76,6 +76,7 @@ const { getPhotographerUserWorkedWith } = userHook()
 const { fetchMany: fetchManyEmployees } = employeeHook()
 const { fetchMany: fetchManyGroups } = groupHook()
 const { fetchCustomer } = stripeCustomerHook()
+const { fetchOne } = companyHook()
 
 const haveUserEmployees = computed(() => {
   if (!authStore.isAuthUserAdmin) {
@@ -90,6 +91,10 @@ onMounted(async () => {
     if (!userStore.getAuthUserCustomerId) {
       await fetchCustomer()
     }
+    if (!companyStore.getAuthCompany && userStore.getAuthUserCompanyId) {
+      await fetchOne(userStore.getAuthUserCompanyId)
+    }
+
     if (companyStore.getAuthCompany
       && companyStore.getAuthCompany.employeeIds.length > 0) {
       const missingsEmployeeIds = companyStore.getAuthCompany.employeeIds.filter(id => !employeeStore.isAlreadyInStore(id))

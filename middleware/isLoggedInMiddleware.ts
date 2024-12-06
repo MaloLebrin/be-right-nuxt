@@ -11,7 +11,7 @@ export default defineNuxtRouteMiddleware(to => {
     if (authStore.getIsLoggedIn || cookieToken.value) {
       return navigateTo({
         name: RouteNames.LIST_EVENT,
-      }, { replace: true })
+      })
     }
   }
 })
