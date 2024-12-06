@@ -1,6 +1,6 @@
 <template>
 <div
-  v-if="data"
+  v-if="data && data.title"
   class="relative hidden p-2 mx-2 mt-4 text-xs bg-opacity-50 border rounded-md md:block bg-amber-200 border-amber-300"
 >
   <div class="flex justify-between mb-2">
