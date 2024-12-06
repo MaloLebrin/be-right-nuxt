@@ -21,6 +21,11 @@ export default defineNuxtRouteMiddleware(to => {
       if (payload.value) {
         setJWTasUser(payload.value)
       }
+
+      if (to.meta.isAdmin && !authStore.isAuthUserAdmin) {
+        return redirectToLogin()
+      }
+
       return
     }
 
@@ -37,5 +42,5 @@ function redirectToLogin() {
   abortNavigation()
   return navigateTo({
     name: 'login',
-  }, { replace: true })
+  })
 }
