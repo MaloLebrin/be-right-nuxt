@@ -1,6 +1,6 @@
 <template>
 <div class="space-y-6 sm:px-6 lg:col-span-9 lg:px-0">
-  <AccountBaseCard
+  <!-- <AccountBaseCard
     title="Payment details"
     description="Update your billing information. Please note that updating your location could affect your tax rates."
   >
@@ -118,10 +118,10 @@
         save
       </BaseButton>
     </template>
-  </AccountBaseCard>
+  </AccountBaseCard> -->
 
   <!-- Plan -->
-  <AccountBaseCard title="Abonnements">
+  <!-- <AccountBaseCard title="Abonnements">
     <div class="px-4 space-y-6">
       <RadioGroup v-model="selectedPlan">
         <RadioGroupLabel class="sr-only">
@@ -209,7 +209,7 @@
         Save
       </button>
     </template>
-  </AccountBaseCard>
+  </AccountBaseCard> -->
 
   <AccountBaseCard title="Historique de paiement">
     <PaymentList />
@@ -218,26 +218,16 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import {
-  RadioGroup,
-  RadioGroupDescription,
-  RadioGroupLabel,
-  RadioGroupOption,
-  Switch,
-  SwitchGroup,
-  SwitchLabel,
-} from '@headlessui/vue'
-import { QuestionMarkCircleIcon } from '@heroicons/vue/20/solid'
+import PaymentList from '~/components/Payment/PaymentList.vue'
 
-const plans = [
-  { name: 'Startup', priceMonthly: 29, priceYearly: 290, limit: 'Up to 5 active job postings' },
-  { name: 'Business', priceMonthly: 99, priceYearly: 990, limit: 'Up to 25 active job postings' },
-  { name: 'Enterprise', priceMonthly: 249, priceYearly: 2490, limit: 'Unlimited active job postings' },
-]
+// const plans = [
+//   { name: 'Startup', priceMonthly: 29, priceYearly: 290, limit: 'Up to 5 active job postings' },
+//   { name: 'Business', priceMonthly: 99, priceYearly: 990, limit: 'Up to 25 active job postings' },
+//   { name: 'Enterprise', priceMonthly: 249, priceYearly: 2490, limit: 'Unlimited active job postings' },
+// ]
 
-const selectedPlan = ref(plans[1])
-const annualBillingEnabled = ref(true)
+// const selectedPlan = ref(plans[1])
+// const annualBillingEnabled = ref(true)
 
 definePageMeta({
   layout: 'account',
