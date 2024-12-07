@@ -198,18 +198,22 @@ const answers = computed(() => answerStore.getManyByEventId(event.value?.id))
 const bill = computed(() => ({
   amount: answers.value?.length * 1,
 }))
+
 const haveData = computed(() => event.value
     && user.value
     && company.value
     && answers.value?.length > 0,
 )
+
 const { fetchEventWithRelations } = eventHook()
+
 onMounted(async () => {
   if (eventStore.getFirstActive) {
     await fetchEventWithRelations(eventStore.getFirstActive)
     resetAllFormStore()
   }
 })
+
 watch(() => isLeft.value, val => {
   if (val) {
     eventStore.resetActive()
@@ -219,7 +223,6 @@ definePageMeta({
   layout: 'auth',
   isAuth: true,
   middleware: [
-    'guards-middleware',
     'success-session-middleware',
   ],
 })
