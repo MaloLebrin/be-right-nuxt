@@ -9,11 +9,7 @@ export default defineEventHandler(async event => {
     throw new Error('Missing customerId')
   }
 
-  const sessions = await stripe.checkout.sessions.list({
+  return stripe.checkout.sessions.list({
     customer: customerId,
   })
-
-  console.log(sessions.data[0], '<==== sessions.data[0]')
-
-  return sessions
 })
