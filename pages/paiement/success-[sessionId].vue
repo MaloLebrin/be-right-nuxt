@@ -214,7 +214,7 @@ onMounted(async () => {
 })
 
 definePageMeta({
-  layout: 'auth',
+  layout: 'none',
   isAuth: true,
   middleware: [
     'success-session-middleware',

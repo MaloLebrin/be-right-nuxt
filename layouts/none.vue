@@ -1,6 +1,6 @@
 <template>
 <main class="flex min-h-screen mx-auto bg-white">
-  <div class="flex max-w-lg mx-auto">
+  <div class="flex flex-1 max-w-lg mx-auto">
     <slot />
   </div>
 
