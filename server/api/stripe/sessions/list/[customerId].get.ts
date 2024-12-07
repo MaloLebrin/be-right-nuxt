@@ -13,5 +13,7 @@ export default defineEventHandler(async event => {
     customer: customerId,
   })
 
+  console.log(sessions.data[0], '<==== sessions.data[0]')
+
   return sessions
 })

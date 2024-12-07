@@ -4,31 +4,28 @@
     <table class="min-w-full divide-y divide-gray-200">
       <PaymentTableHeader />
       <tbody class="bg-white divide-y divide-gray-200">
-        <!-- <template
-          v-if="isListDisplayable"
-        >
+        <template v-if="sessions?.data?.length && sessions?.data?.length > 0">
           <tr
-            v-for="payment in data.value?.data"
-            :key="payment.id"
+            v-for="session in sessions?.data"
+            :key="session.id"
           >
             <td class="px-6 py-4 text-sm font-medium text-gray-900 whitespace-nowrap">
-              <time :datetime="payment.datetime">{{ payment.date }}</time>
+              <BaseDate :date="session.created" />
             </td>
             <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
-              {{ payment.description }}
+              {{ session.customer_details.name }}
             </td>
             <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
-              {{ payment.amount }}
+              {{ fromCent(session.amount_total) }}€
             </td>
             <td class="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
               <a
-                :href="payment.href"
                 class="text-orange-600 hover:text-orange-900"
               >Voir le reçu</a>
             </td>
           </tr>
-        </template> -->
-        <tr>
+        </template>
+        <tr v-if="sessions?.data?.length === 0">
           <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
             Aucun paiement à ce jour
           </td>
@@ -41,6 +38,7 @@
 
 <script setup lang="ts">
 import PaymentTableHeader from '@/components/Payment/table/TableHeader.server.vue'
+import type { CheckoutSession, StripeList } from '~/types'
 
 interface Props {
   customerId: string
@@ -48,7 +46,7 @@ interface Props {
 
 const { customerId } = defineProps<Props>()
 
-const { data: paymentsData, pending, error } = await useFetch<[]>(`/api/stripe/payments/list/${customerId}`, {
+const { data: sessions } = await useFetch<StripeList<CheckoutSession>>(`/api/stripe/sessions/list/${customerId}`, {
   method: 'get',
 })
 </script>

@@ -211,11 +211,13 @@
     </template>
   </AccountBaseCard> -->
 
+  <!-- {{ userStore.getAuthUser?.stripeCustomerId }} -->
+
   <AccountBaseCard
-    v-if="userStore.getAuthUserCustomerId"
+    v-if="userStore.getAuthUser?.stripeCustomerId"
     title="Historique de paiement"
   >
-    <PaymentList :customer-id="userStore.getAuthUserCustomerId" />
+    <PaymentList :customer-id="userStore.getAuthUser?.stripeCustomerId" />
   </AccountBaseCard>
 </div>
 </template>

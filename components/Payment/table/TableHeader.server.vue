@@ -11,7 +11,7 @@
       scope="col"
       class="px-6 py-3 text-sm font-semibold text-left text-gray-900"
     >
-      Description
+      Payeur
     </th>
     <th
       scope="col"
