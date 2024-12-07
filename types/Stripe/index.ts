@@ -1,5 +1,6 @@
 export * from './Product'
 export * from './Price'
+export * from './Session'
 export * from './Customer'
 
 export interface StripeList<T> {
