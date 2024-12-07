@@ -6,6 +6,6 @@
 definePageMeta({
   layout: 'create-event-layout',
   isAuth: true,
-  middleware: 'guards-middleware',
+  middleware: ['guards-middleware'],
 })
 </script>

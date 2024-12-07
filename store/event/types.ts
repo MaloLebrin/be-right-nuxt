@@ -31,6 +31,7 @@ export interface EventType extends IEvent {
 
 export type EventTypeCreate = Omit<IEvent, 'status' | 'id' | 'createdAt' | 'deletedAt' | 'updatedAt' | 'totalSignatureNeeded' | 'signatureCount' | 'files' | 'address'> & {
   photographerId: number
+  employeeIds: number[]
 }
 export interface EventCreatePayload {
   event: EventTypeCreate
