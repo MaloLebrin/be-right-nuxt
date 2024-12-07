@@ -211,14 +211,20 @@
     </template>
   </AccountBaseCard> -->
 
-  <AccountBaseCard title="Historique de paiement">
-    <PaymentList />
+  <AccountBaseCard
+    v-if="userStore.getAuthUserCustomerId"
+    title="Historique de paiement"
+  >
+    <PaymentList :customer-id="userStore.getAuthUserCustomerId" />
   </AccountBaseCard>
 </div>
 </template>
 
 <script setup lang="ts">
 import PaymentList from '~/components/Payment/PaymentList.vue'
+import { useUserStore } from '~/store'
+
+const userStore = useUserStore()
 
 // const plans = [
 //   { name: 'Startup', priceMonthly: 29, priceYearly: 290, limit: 'Up to 5 active job postings' },
@@ -232,6 +238,9 @@ import PaymentList from '~/components/Payment/PaymentList.vue'
 definePageMeta({
   layout: 'account',
   isAuth: true,
-  middleware: 'guards-middleware',
+  middleware: [
+    'guards-middleware',
+    'login-with-token-middleware',
+  ],
 })
 </script>

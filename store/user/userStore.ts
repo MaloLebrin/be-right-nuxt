@@ -17,6 +17,10 @@ export const useUserStore = defineStore('user', {
       return (email: string) => Object.values(state.entities.byId).find(user => user.email === email)
     },
 
+    getOneByToken: state => {
+      return (token: string) => Object.values(state.entities.byId).find(user => user.token === token)
+    },
+
     getAuthUser: state => {
       const authStore = useAuthStore()
       return Object.values(state.entities.byId).find(user => user.email === authStore.user?.email)

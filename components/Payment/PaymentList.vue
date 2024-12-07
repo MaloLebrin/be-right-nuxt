@@ -2,34 +2,7 @@
 <div class="inline-block min-w-full py-2 align-middle">
   <div class="overflow-hidden border-t border-gray-200">
     <table class="min-w-full divide-y divide-gray-200">
-      <thead class="bg-gray-50">
-        <tr>
-          <th
-            scope="col"
-            class="px-6 py-3 text-sm font-semibold text-left text-gray-900"
-          >
-            Date
-          </th>
-          <th
-            scope="col"
-            class="px-6 py-3 text-sm font-semibold text-left text-gray-900"
-          >
-            Description
-          </th>
-          <th
-            scope="col"
-            class="px-6 py-3 text-sm font-semibold text-left text-gray-900"
-          >
-            Montant
-          </th>
-          <th
-            scope="col"
-            class="relative px-6 py-3 text-sm font-medium text-left text-gray-500"
-          >
-            <span class="sr-only">View receipt</span>
-          </th>
-        </tr>
-      </thead>
+      <PaymentTableHeader />
       <tbody class="bg-white divide-y divide-gray-200">
         <!-- <template
           v-if="isListDisplayable"
@@ -65,3 +38,17 @@
   </div>
 </div>
 </template>
+
+<script setup lang="ts">
+import PaymentTableHeader from '@/components/Payment/table/TableHeader.server.vue'
+
+interface Props {
+  customerId: string
+}
+
+const { customerId } = defineProps<Props>()
+
+const { data: paymentsData, pending, error } = await useFetch<[]>(`/api/stripe/payments/list/${customerId}`, {
+  method: 'get',
+})
+</script>
