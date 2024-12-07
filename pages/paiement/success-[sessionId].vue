@@ -91,6 +91,7 @@
                 <NuxtLink
                   :to="{ name: RouteNames.SHOW_EVENT_ID, params: { id: event.id } }"
                   class="block w-full px-4 py-2 text-sm font-medium text-white bg-indigo-600 rounded-md hover:bg-indigo-700"
+                  @click="eventStore.resetActive()"
                 >
                   Voir l'événement
                 </NuxtLink>
@@ -168,7 +169,6 @@
 </template>
 
 <script setup lang="ts">
-import { usePageLeave } from '@vueuse/core'
 import EventStatusTag from '~~/components/Event/EventStatusTag.vue'
 import BaseLoader from '~~/components/Base/BaseLoader.vue'
 import { RouteNames } from '~~/helpers/routes'
@@ -182,7 +182,6 @@ import {
   useUserStore,
 } from '~~/store'
 
-const isLeft = usePageLeave()
 const eventStore = useEventStore()
 const { resetAllFormStore } = useFormStore()
 const answerStore = useAnswerStore()
@@ -214,11 +213,6 @@ onMounted(async () => {
   }
 })
 
-watch(() => isLeft.value, val => {
-  if (val) {
-    eventStore.resetActive()
-  }
-})
 definePageMeta({
   layout: 'auth',
   isAuth: true,
