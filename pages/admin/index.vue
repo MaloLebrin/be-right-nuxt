@@ -107,6 +107,13 @@ import {
   ChatBubbleBottomCenterIcon,
   UsersIcon,
 } from '@heroicons/vue/24/outline'
+import {
+  Tab,
+  TabGroup,
+  TabList,
+  TabPanel,
+  TabPanels,
+} from '@headlessui/vue'
 import StatsAbstractCard from '~~/components/Stats/StatsAbstractCard.vue'
 import BaseButton from '~/components/Base/BaseButton.vue'
 import BaseLoader from '~/components/Base/BaseLoader.vue'
