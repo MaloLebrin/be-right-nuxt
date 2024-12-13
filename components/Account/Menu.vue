@@ -50,6 +50,6 @@ const subNavigation: {
   { label: 'Utilisateurs', name: 'mon-compte-utilisateurs', icon: UserGroupIcon, disabled: false },
   { label: 'Notifications', name: 'mon-compte-notifications', icon: BellIcon, disabled: false },
   { label: 'Plan & Billing', name: 'mon-compte-plan-billing', icon: CreditCardIcon, disabled: false },
-  { label: 'Badges', name: 'mon-compte-badges', icon: TagIcon, disabled: true },
+  { label: 'Badges', name: 'mon-compte-badges', icon: TagIcon, disabled: false },
 ]
 </script>

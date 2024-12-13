@@ -1,6 +1,7 @@
 <template>
 <div class="space-y-6 sm:px-6 lg:col-span-9 lg:px-0">
   <ul
+    v-if="!badgeStore.getIsEmpty"
     role="list"
     class="divide-y divide-gray-200"
   >
@@ -38,6 +39,10 @@
       </div>
     </li>
   </ul>
+
+  <BaseMessage v-else>
+    Aucun badge pour le moment.
+  </BaseMessage>
 </div>
 </template>
 

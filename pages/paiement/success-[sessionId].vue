@@ -7,15 +7,8 @@
     <div class="px-4 space-y-2 sm:flex sm:items-baseline sm:justify-between sm:space-y-0 sm:px-0">
       <div class="flex sm:items-baseline sm:space-x-4">
         <h1 class="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
-          Confirmation #54879
+          Confirmation #{{ event.id }}
         </h1>
-        <a
-          href="#"
-          class="hidden text-sm font-medium text-indigo-600 hover:text-indigo-500 sm:block"
-        >
-          View invoice
-          <span aria-hidden="true"> &rarr;</span>
-        </a>
       </div>
       <p class="text-sm text-gray-600">
         Créé le <time
@@ -68,7 +61,7 @@
               <dl class="grid grid-cols-2 text-sm gap-x-6">
                 <div v-if="address">
                   <dt class="font-medium text-gray-900">
-                    Billing address
+                    Adresse de facturation
                   </dt>
                   <dd class="mt-3 text-gray-500">
                     <span class="block">{{ address.addressLine }}</span>
@@ -78,16 +71,10 @@
                 </div>
                 <div>
                   <dt class="font-medium text-gray-900">
-                    Shipping updates
+                    Email de facturation
                   </dt>
                   <dd class="mt-3 space-y-3 text-gray-500">
                     <p>{{ user?.email }}</p>
-                    <button
-                      type="button"
-                      class="font-medium text-indigo-600 hover:text-indigo-500"
-                    >
-                      Edit
-                    </button>
                   </dd>
                 </div>
               </dl>
@@ -95,14 +82,20 @@
           </div>
 
           <div class="px-4 py-6 border-t border-gray-200 sm:px-6 lg:p-8">
-            <h4 class="sr-only">
-              Status
-            </h4>
             <div class="flex items-center space-x-2">
               <EventStatusTag :status="event.status" />
               <p class="text-sm font-medium text-gray-900">
-                le <time :datetime="event.createdAt.toString()">{{ $toFormat(event.createdAt, 'DD MMMM YYYY') }}</time>
+                le <time :datetime="event.updatedAt.toString()">{{ $toFormat(event.createdAt, 'DD MMMM YYYY') }}</time>
               </p>
+              <div>
+                <NuxtLink
+                  :to="{ name: RouteNames.SHOW_EVENT_ID, params: { id: event.id } }"
+                  class="block w-full px-4 py-2 text-sm font-medium text-white bg-indigo-600 rounded-md hover:bg-indigo-700"
+                  @click="eventStore.resetActive()"
+                >
+                  Voir l'événement
+                </NuxtLink>
+              </div>
             </div>
           </div>
         </div>
@@ -119,7 +112,7 @@
         <dl class="grid grid-cols-2 gap-6 text-sm sm:grid-cols-2 md:gap-x-8 lg:col-span-7">
           <div v-if="address">
             <dt class="font-medium text-gray-900">
-              Billing address
+              Adresse de facturation
             </dt>
             <dd class="mt-3 text-gray-500">
               <span class="block">{{ address.addressLine }}</span>
@@ -129,7 +122,7 @@
           </div>
           <div>
             <dt class="font-medium text-gray-900">
-              Payment security
+              Paiement sécurisé
             </dt>
             <dd class="flex items-center mt-1">
               <a
@@ -176,7 +169,6 @@
 </template>
 
 <script setup lang="ts">
-import { usePageLeave } from '@vueuse/core'
 import EventStatusTag from '~~/components/Event/EventStatusTag.vue'
 import BaseLoader from '~~/components/Base/BaseLoader.vue'
 import { RouteNames } from '~~/helpers/routes'
@@ -185,33 +177,31 @@ import {
   useAnswerStore,
   useCompanyStore,
   useEventStore,
+  useFormStore,
   useUiStore,
   useUserStore,
 } from '~~/store'
 
-const isLeft = usePageLeave()
 const eventStore = useEventStore()
+const { resetAllFormStore } = useFormStore()
 const answerStore = useAnswerStore()
 const companyStore = useCompanyStore()
 const addressStore = useAddressStore()
 const userStore = useUserStore()
 const uiStore = useUiStore()
-
 const event = computed(() => eventStore.getOne(eventStore.getFirstActive))
 const user = computed(() => userStore.getAuthUser)
 const company = computed(() => companyStore.getOne(event.value?.companyId))
-
 const address = computed(() => addressStore.getOne(event.value?.addressId) || null)
 const answers = computed(() => answerStore.getManyByEventId(event.value?.id))
-
 const bill = computed(() => ({
   amount: answers.value?.length * 1,
 }))
 
 const haveData = computed(() => event.value
-  && user.value
-  && company.value
-  && answers.value?.length > 0,
+    && user.value
+    && company.value
+    && answers.value?.length > 0,
 )
 
 const { fetchEventWithRelations } = eventHook()
@@ -219,18 +209,15 @@ const { fetchEventWithRelations } = eventHook()
 onMounted(async () => {
   if (eventStore.getFirstActive) {
     await fetchEventWithRelations(eventStore.getFirstActive)
-  }
-})
-
-watch(() => isLeft.value, val => {
-  if (val) {
-    eventStore.resetActive()
+    resetAllFormStore()
   }
 })
 
 definePageMeta({
-  layout: 'auth',
+  layout: 'none',
   isAuth: true,
-  middleware: ['guards-middleware'],
+  middleware: [
+    'success-session-middleware',
+  ],
 })
 </script>

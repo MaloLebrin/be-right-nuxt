@@ -63,6 +63,13 @@
 </template>
 
 <script setup lang="ts">
+import {
+  Tab,
+  TabGroup,
+  TabList,
+  TabPanel,
+  TabPanels,
+} from '@headlessui/vue'
 import BaseLoader from '~~/components/Base/BaseLoader.vue'
 import EmployeeEventList from '~~/components/Employee/Event/List.vue'
 import EmployeeGroupList from '~~/components/Employee/Group/List.vue'

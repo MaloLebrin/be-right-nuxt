@@ -144,6 +144,11 @@ export const useFormStore = defineStore('form', {
       }
     },
 
+    resetAllFormStore() {
+      this.addressForm = createForm(baseAddressCreationForm)
+      this.eventform = createForm(baseEventCreationForm)
+    },
+
     resetState() {
       this.$state = defaultFormState()
     },

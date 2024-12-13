@@ -5,6 +5,7 @@
 </template>
 
 <script setup lang="ts">
+import PhotographerSelect from '~/components/Photographer/PhotographerSelect.vue'
 import { RouteNames } from '~~/helpers/routes'
 
 const router = useRouter()

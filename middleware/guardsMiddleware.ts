@@ -1,7 +1,7 @@
 import { useJwt } from '@vueuse/integrations/useJwt'
 import { useAuthStore } from '~~/store'
 
-export default defineNuxtRouteMiddleware(async to => {
+export default defineNuxtRouteMiddleware(to => {
   const { $toast } = useNuxtApp()
   const authStore = useAuthStore()
   const { setToken, setJWTasUser } = authStore
@@ -13,7 +13,7 @@ export default defineNuxtRouteMiddleware(async to => {
     return
   }
 
-  if (to.meta.isAuth && !authStore.getIsLoggedIn) {
+  if (to.meta.isAuth) {
     if (cookieToken.value) {
       setToken(cookieToken.value)
       const { payload } = useJwt(cookieToken.value)
@@ -21,6 +21,11 @@ export default defineNuxtRouteMiddleware(async to => {
       if (payload.value) {
         setJWTasUser(payload.value)
       }
+
+      if (to.meta.isAdmin && !authStore.isAuthUserAdmin) {
+        return redirectToLogin()
+      }
+
       return
     }
 
@@ -37,5 +42,5 @@ function redirectToLogin() {
   abortNavigation()
   return navigateTo({
     name: 'login',
-  }, { replace: true })
+  })
 }

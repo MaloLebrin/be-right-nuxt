@@ -7,10 +7,11 @@
     role="list"
     class="space-y-2"
   >
-    <MenuRecursiveList
-      :menu-items="authStore.isAuthUserAdmin ? ADMIN_MENU_ITEMS : MENU_ITEMS"
-      ul
-    />
+    <ClientOnly>
+      <MenuRecursiveList
+        :menu-items="authStore.isAuthUserAdmin ? ADMIN_MENU_ITEMS : MENU_ITEMS"
+      />
+    </ClientOnly>
   </ul>
   <Tricks v-if="!authStore.isAuthUserAdmin" />
 </nav>

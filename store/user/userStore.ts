@@ -17,14 +17,28 @@ export const useUserStore = defineStore('user', {
       return (email: string) => Object.values(state.entities.byId).find(user => user.email === email)
     },
 
+    getOneByToken: state => {
+      return (token: string) => Object.values(state.entities.byId).find(user => user.token === token)
+    },
+
     getAuthUser: state => {
       const authStore = useAuthStore()
       return Object.values(state.entities.byId).find(user => user.email === authStore.user?.email)
     },
 
+    getAuthUserCompanyId: state => {
+      const authStore = useAuthStore()
+      return Object.values(state.entities.byId).find(user => user.email === authStore.user?.email)?.companyId
+    },
+
     getAuthUserId: state => {
       const authStore = useAuthStore()
       return Object.values(state.entities.byId).find(user => user.email === authStore.user?.email)?.id
+    },
+
+    getAuthUserCustomerId: state => {
+      const authStore = useAuthStore()
+      return state.entities.byId[authStore.user?.id]?.stripeCustomerId
     },
 
     getUserByCompanyId: state => {
