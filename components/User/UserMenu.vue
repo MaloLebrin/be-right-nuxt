@@ -51,7 +51,7 @@
         class="flex items-center justify-start px-4 py-2 text-sm text-gray-700 cursor-pointer hover:bg-red-100 hover:text-red-800"
         @click="onToggleLogout"
       >
-        <ArrowLeftOnRectangleIcon class="h-6 text-gray-500" />
+        <ArrowLeftStartOnRectangleIcon class="h-6 text-gray-500" />
         Se déconnecter
       </a>
     </MenuItem>
@@ -60,7 +60,7 @@
 </template>
 
 <script setup lang="ts">
-import { ArrowLeftOnRectangleIcon, UserCircleIcon } from '@heroicons/vue/24/outline'
+import { ArrowLeftStartOnRectangleIcon, UserCircleIcon } from '@heroicons/vue/24/outline'
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
 import UserAvatar from '~/components/User/UserAvatar.vue'
 import { useAuthStore, useUserStore } from '~~/store'

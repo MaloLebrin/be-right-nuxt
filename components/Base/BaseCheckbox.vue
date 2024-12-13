@@ -27,7 +27,7 @@
 </template>
 
 <script lang="ts" setup>
-import { useField } from 'vee-validate'
+import { ErrorMessage, useField } from 'vee-validate'
 
 type PossibleValues = boolean | string | number | null
 

@@ -64,6 +64,12 @@
 </template>
 
 <script setup lang="ts">
+import {
+  RadioGroupDescription,
+  RadioGroupLabel,
+  RadioGroupOption,
+} from '@headlessui/vue'
+
 interface Props {
   title: string
   description?: string

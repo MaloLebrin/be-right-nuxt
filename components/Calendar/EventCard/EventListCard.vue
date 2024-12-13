@@ -56,7 +56,7 @@
 </template>
 
 <script setup lang="ts">
-import { Popover, PopoverButton, PopoverPanel } from '@headlessui/vue'
+import { Disclosure, DisclosureButton, DisclosurePanel, Popover, PopoverButton, PopoverPanel } from '@headlessui/vue'
 import { type EventType, useAnswerStore } from '~~/store'
 import CalendarEventCardHeader from '~~/components/Calendar/EventCard/Header.vue'
 import CalendarEventContent from '~~/components/Calendar/EventCard/Content.vue'

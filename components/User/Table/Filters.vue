@@ -41,6 +41,11 @@
 </template>
 
 <script setup lang="ts">
+import {
+  RadioGroup,
+  RadioGroupLabel,
+  RadioGroupOption,
+} from '@headlessui/vue'
 import UserRoleTag from '../UserRoleTag.vue'
 import type { RoleEnum } from '@/types'
 import { userRolesArray } from '@/types'

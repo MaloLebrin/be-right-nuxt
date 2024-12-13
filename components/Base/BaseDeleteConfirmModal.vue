@@ -32,6 +32,7 @@
 </template>
 
 <script setup lang="ts">
+import { DialogTitle } from '@headlessui/vue'
 import { ExclamationTriangleIcon } from '@heroicons/vue/24/outline'
 import BaseModal from '~~/components/Base/BaseModal.vue'
 import { ModalModeEnum } from '@/types'

@@ -67,21 +67,23 @@ import { CheckIcon, ChevronUpDownIcon } from '@heroicons/vue/20/solid'
 
 interface Props {
   defaultLimit: number
+  limits: number[]
 }
 
-const props = defineProps<Props>()
+const props = withDefaults(defineProps<Props>(), {
+  defaultLimit: 10,
+  limits: () => [
+    10,
+    15,
+    20,
+    50,
+    100,
+  ],
+})
 
 const emit = defineEmits<{
   (e: 'update:limit', nb: number): void
 }>()
-
-const limits = [
-  10,
-  15,
-  20,
-  50,
-  100,
-]
 
 const getSetLimit = computed({
   get: () => props.defaultLimit,
