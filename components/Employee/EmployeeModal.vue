@@ -4,6 +4,10 @@
   :is-active="isActive"
 >
   <template v-if="isForEver">
+    <p class="text-sm text-gray-500">
+      Êtes-vous sûr de vouloir supprimer ce destinataire ? Toutes ses données
+      seront définitivement supprimés de nos serveurs pour toujours. Cette action ne peut pas être annulée.
+    </p>
     <BaseMessage
       v-if="employee"
       type="danger"
@@ -20,7 +24,7 @@
       @submit="deleteEmployee"
     >
       <BaseInput
-        label="Text de confirmation"
+        label="Texte de confirmation"
         name="confirmText"
         type="text"
         is-required
@@ -100,7 +104,7 @@ const emit = defineEmits<{
 
 const schema = object({
   confirmText: string()
-    .oneOf([`${props.employee?.firstName}-${props.employee?.lastName}`], 'Le text n\'est pas conforme')
+    .oneOf([`${props.employee?.firstName}-${props.employee?.lastName}`], 'Le texte n\'est pas conforme')
     .required('Vous devez confirmer la suppression'),
 })
 
