@@ -85,8 +85,8 @@ importers:
         specifier: ^9.0.7
         version: 9.0.7
       '@unlok-co/nuxt-stripe':
-        specifier: ^3.0.0
-        version: 3.0.0(magicast@0.3.5)(rollup@4.18.1)
+        specifier: ^4.0.0
+        version: 4.0.1(magicast@0.3.5)(rollup@4.18.1)
       '@vueuse/components':
         specifier: ^10.11.1
         version: 10.11.1(vue@3.4.31(typescript@5.6.2))
@@ -1675,8 +1675,8 @@ packages:
   '@sinonjs/fake-timers@10.3.0':
     resolution: {integrity: sha512-V4BG07kuYSUkTCSBHG8G8TNhM+F19jXFWnQtzj+we8DrkpSBCee9Z3Ms8yiGer/dlmhe35/Xdgyo3/0rQKg7YA==}
 
-  '@stripe/stripe-js@3.5.0':
-    resolution: {integrity: sha512-pKS3wZnJoL1iTyGBXAvCwduNNeghJHY6QSRSNNvpYnrrQrLZ6Owsazjyynu0e0ObRgks0i7Rv+pe2M7/MBTZpQ==}
+  '@stripe/stripe-js@4.10.0':
+    resolution: {integrity: sha512-KrMOL+sH69htCIXCaZ4JluJ35bchuCCznyPyrbN8JXSGQfwBI1SuIEMZNwvy8L8ykj29t6sa5BAAiL7fNoLZ8A==}
     engines: {node: '>=12.16'}
 
   '@tailvue/nuxt@1.0.0':
@@ -1870,8 +1870,8 @@ packages:
     peerDependencies:
       vue: '>=2.7 || >=3'
 
-  '@unlok-co/nuxt-stripe@3.0.0':
-    resolution: {integrity: sha512-68PdI/CO8CkrtJEIbvaWRXUrfpZTHXL2uf+kmeuZ/JuLDkY1/496oTA4chvRhHt0m0C7RWCR0nEVYdcFGIaArQ==}
+  '@unlok-co/nuxt-stripe@4.0.1':
+    resolution: {integrity: sha512-ThRf6RcUV3OJpRMRw18bMPmncBeCCe9CLWTZ2H1fD2uJ+lfjBi4f6Wysg+suHIv8bxTyIRBx6mgjbsbjeH3EXg==}
 
   '@vercel/nft@0.26.5':
     resolution: {integrity: sha512-NHxohEqad6Ra/r4lGknO52uc/GrWILXAMs1BB4401GTqww0fw1bAqzpG1XHuDO+dprg4GvsD9ZLLSsdo78p9hQ==}
@@ -5750,8 +5750,8 @@ packages:
   strip-literal@2.1.1:
     resolution: {integrity: sha512-631UJ6O00eNGfMiWG78ck80dfBab8X6IVFB51jZK5Icd7XAs60Z5y7QdSd/wGIklnWvRbUNloVzhOKKmutxQ6Q==}
 
-  stripe@15.12.0:
-    resolution: {integrity: sha512-slTbYS1WhRJXVB8YXU8fgHizkUrM9KJyrw4Dd8pLEwzKHYyQTIE46EePC2MVbSDZdE24o1GdNtzmJV4PrPpmJA==}
+  stripe@17.5.0:
+    resolution: {integrity: sha512-kcyeAkDFjGsVl17FqnG7q/+xIjt0ZjOo9Dm+q8deAvs2Xe4iAHrhxyoP4etUVFc+/LZJANjIPVR+ZOnt9hr/Ug==}
     engines: {node: '>=12.*'}
 
   stylehacks@6.1.1:
@@ -6986,7 +6986,7 @@ snapshots:
   '@babel/helper-simple-access@7.25.7':
     dependencies:
       '@babel/traverse': 7.25.7
-      '@babel/types': 7.25.7
+      '@babel/types': 7.26.3
     transitivePeerDependencies:
       - supports-color
 
@@ -7606,7 +7606,7 @@ snapshots:
     dependencies:
       '@jest/fake-timers': 29.7.0
       '@jest/types': 29.6.3
-      '@types/node': 20.14.10
+      '@types/node': 20.14.12
       jest-mock: 29.7.0
 
   '@jest/expect-utils@29.7.0':
@@ -7624,7 +7624,7 @@ snapshots:
     dependencies:
       '@jest/types': 29.6.3
       '@sinonjs/fake-timers': 10.3.0
-      '@types/node': 20.14.10
+      '@types/node': 20.14.12
       jest-message-util: 29.7.0
       jest-mock: 29.7.0
       jest-util: 29.7.0
@@ -7667,7 +7667,7 @@ snapshots:
       '@jest/schemas': 29.6.3
       '@types/istanbul-lib-coverage': 2.0.6
       '@types/istanbul-reports': 3.0.4
-      '@types/node': 20.14.10
+      '@types/node': 20.14.12
       '@types/yargs': 17.0.32
       chalk: 4.1.2
 
@@ -8146,7 +8146,7 @@ snapshots:
       std-env: 3.8.0
       ufo: 1.5.4
       unimport: 3.14.5(rollup@4.18.1)
-      untyped: 1.5.1
+      untyped: 1.5.2
     transitivePeerDependencies:
       - rollup
       - supports-color
@@ -8549,7 +8549,7 @@ snapshots:
     dependencies:
       '@sinonjs/commons': 3.0.1
 
-  '@stripe/stripe-js@3.5.0': {}
+  '@stripe/stripe-js@4.10.0': {}
 
   '@tailvue/nuxt@1.0.0(magicast@0.3.5)(rollup@4.18.1)(tailvue@1.0.0(vue@3.4.31(typescript@5.6.2)))':
     dependencies:
@@ -8786,13 +8786,13 @@ snapshots:
       unhead: 1.9.16
       vue: 3.4.31(typescript@5.6.2)
 
-  '@unlok-co/nuxt-stripe@3.0.0(magicast@0.3.5)(rollup@4.18.1)':
+  '@unlok-co/nuxt-stripe@4.0.1(magicast@0.3.5)(rollup@4.18.1)':
     dependencies:
       '@jest/globals': 29.7.0
-      '@nuxt/kit': 3.12.3(magicast@0.3.5)(rollup@4.18.1)
-      '@stripe/stripe-js': 3.5.0
+      '@nuxt/kit': 3.14.1592(magicast@0.3.5)(rollup@4.18.1)
+      '@stripe/stripe-js': 4.10.0
       defu: 6.1.4
-      stripe: 15.12.0
+      stripe: 17.5.0
     transitivePeerDependencies:
       - magicast
       - rollup
@@ -8991,7 +8991,7 @@ snapshots:
       '@vue/compiler-ssr': 3.5.13
       '@vue/shared': 3.5.13
       estree-walker: 2.0.2
-      magic-string: 0.30.14
+      magic-string: 0.30.17
       postcss: 8.4.49
       source-map-js: 1.2.1
 
@@ -11502,7 +11502,7 @@ snapshots:
   jest-mock@29.7.0:
     dependencies:
       '@jest/types': 29.6.3
-      '@types/node': 20.14.10
+      '@types/node': 20.14.12
       jest-util: 29.7.0
 
   jest-regex-util@29.6.3: {}
@@ -11535,7 +11535,7 @@ snapshots:
   jest-util@29.7.0:
     dependencies:
       '@jest/types': 29.6.3
-      '@types/node': 20.14.10
+      '@types/node': 20.14.12
       chalk: 4.1.2
       ci-info: 3.9.0
       graceful-fs: 4.2.11
@@ -13581,9 +13581,9 @@ snapshots:
     dependencies:
       js-tokens: 9.0.1
 
-  stripe@15.12.0:
+  stripe@17.5.0:
     dependencies:
-      '@types/node': 20.14.10
+      '@types/node': 20.14.12
       qs: 6.12.3
 
   stylehacks@6.1.1(postcss@8.4.47):
