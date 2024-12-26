@@ -17,6 +17,10 @@
   </td>
   <td class="px-3 py-2 text-sm text-gray-500 truncate whitespace-nowrap">
     <SubscriptionTag :subscription="(subscription?.type || company?.subscriptionLabel) || undefined" />
+    <BaseDateDisplayer
+      v-if="subscription && subscription.expireAt"
+      :date="subscription.expireAt"
+    />
   </td>
   <td class="relative py-2 pl-3 pr-4 text-sm font-medium text-right whitespace-nowrap sm:pr-6">
     <UserTableAction

@@ -1,3 +1,4 @@
+import { uniq } from '@antfu/utils'
 import { type SubscriptionType, useSubscriptionStore, useUiStore } from '~/store'
 
 export default function subscriptionHook() {
@@ -29,8 +30,25 @@ export default function subscriptionHook() {
     DecLoading()
   }
 
+  async function fetchMany(userIds: number[]) {
+    IncLoading()
+    if (userIds.length > 0) {
+      const { data } = await $api().get<SubscriptionType[]>(`admin/subscription/manyByIds?ids=${uniq(userIds).join(',')}`)
+
+      if (data && data.length > 0) {
+        const missingSubscriptions = data.filter(user => !subscriptionStore.isAlreadyInStore(user.id))
+
+        if (missingSubscriptions.length > 0) {
+          addMany(missingSubscriptions)
+        }
+      }
+    }
+    DecLoading()
+  }
+
   return {
     fetchOneSubscription,
+    fetchMany,
     updateSubscription,
   }
 }
