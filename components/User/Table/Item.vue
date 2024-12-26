@@ -15,6 +15,9 @@
   <td class="px-3 py-2 text-sm text-gray-500 truncate whitespace-nowrap">
     {{ company?.name }}
   </td>
+  <td class="px-3 py-2 text-sm text-gray-500 truncate whitespace-nowrap">
+    <SubscriptionTag :subscription="(subscription?.type || company?.subscriptionLabel) || undefined" />
+  </td>
   <td class="relative py-2 pl-3 pr-4 text-sm font-medium text-right whitespace-nowrap sm:pr-6">
     <UserTableAction
       :user="user"
@@ -26,8 +29,9 @@
 
 <script setup lang="ts">
 import UserRoleTag from '../UserRoleTag.vue'
+import SubscriptionTag from '../../Subscription/SubscriptionTag.vue'
 import UserTableAction from './Action.vue'
-import { useCompanyStore, useUserStore } from '~/store'
+import { useCompanyStore, useSubscriptionStore, useUserStore } from '~/store'
 import type { UserType } from '@/types'
 
 interface Props {
@@ -36,9 +40,14 @@ interface Props {
 
 const props = defineProps<Props>()
 const companyStore = useCompanyStore()
+const subscriptionStore = useSubscriptionStore()
 const userStore = useUserStore()
 
 const company = computed(() => props.user?.companyId
   ? companyStore.getOne(props.user?.companyId)
+  : null)
+
+const subscription = computed(() => company?.value?.subscriptionId
+  ? subscriptionStore.getOne(company?.value?.subscriptionId)
   : null)
 </script>
