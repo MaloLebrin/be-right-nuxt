@@ -1,11 +1,10 @@
 <template>
 <PageAuthWrapper>
-  <div class="container mx-auto">
-    <section class="py-8">
-      <p>Modifier L'abonnement de l'utilisateur</p>
+  <AccountBaseCard :title="`Modifier L'abonnement ${getUserfullName(user)}`">
+    <section class="container py-8 mx-auto">
       <SubscriptionSelector :default-plan="defaultSubscription" />
     </section>
-  </div>
+  </AccountBaseCard>
 </PageAuthWrapper>
 </template>
 
@@ -18,6 +17,8 @@ const companyStore = useCompanyStore()
 const subscriptionStore = useSubscriptionStore()
 
 const route = useRoute()
+
+const user = userStore.getOne(route.params.id)
 
 const defaultSubscription = computed(() => {
   if (route.params.id) {
