@@ -59,7 +59,7 @@ const menu = [
   {
     label: 'Settings',
     name: RouteNames.ADMIN_USER_SHOW_SETTINGS,
-    disabled: true,
+    disabled: false,
   },
 ]
 </script>

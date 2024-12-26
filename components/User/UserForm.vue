@@ -3,7 +3,12 @@
   <Form
     v-slot="{ meta, isSubmitting, values, errors }"
     :validation-schema="schema"
-    :initial-values="initialValues"
+    :initial-values="{
+      email: props.user?.email || '',
+      firstName: props.user?.firstName || '',
+      lastName: props.user?.lastName || '',
+      roles: props.user?.roles || null,
+    }"
     class="grid grid-cols-2 gap-4"
     validate-on-mount
     @submit="submit"
@@ -130,13 +135,6 @@ const schema = props.hideRoleSelector
       .oneOf([RoleEnum.OWNER, RoleEnum.USER], 'Vous devez renseigner un rôle')
       .required('Le rôle est requis'),
   })
-
-const initialValues = {
-  email: props.user?.email || '',
-  firstName: props.user?.firstName || '',
-  lastName: props.user?.lastName || '',
-  roles: props.user?.roles || null,
-}
 
 async function submit(form: VeeValidateValues) {
   IncLoading()
