@@ -74,20 +74,27 @@ import BaseInputSearch from '~/components/Base/BaseInputSearch.vue'
 import BaseLimitSelector from '~/components/Base/BaseLimitSelector.vue'
 import AddEmployeeToUserModal from '~/components/User/AddEmployeeToUserModal.vue'
 import type { UserType } from '~~/store'
-import { useUiStore, useUserStore } from '~~/store'
+import { useCompanyStore, useUiStore, useUserStore } from '~~/store'
 import { ModalNameEnum } from '~/types'
 import type { RoleEnum } from '~/types'
 
 const uiStore = useUiStore()
+const companyStore = useCompanyStore()
 const userStore = useUserStore()
 const { addMany } = userStore
 
 const { fetchMany: fetchManyCompanies } = companyHook()
+const { fetchMany: fetchManySubscriptions } = subscriptionHook()
 
 async function fetchRelations(items: UserType[]) {
   if (items.length > 0) {
+    const companyIds = items.map(item => item.companyId)
+
     addMany(items.filter(user => !userStore.isAlreadyInStore(user.id)))
-    await fetchManyCompanies(items.map(item => item.companyId))
+    await fetchManyCompanies(companyIds)
+    const companies = companyStore.getMany(companyIds)
+    const subscriptionIds = companies.map(cie => cie.subscriptionId).filter(Boolean)
+    await fetchManySubscriptions(subscriptionIds as number[])
   }
 }
 

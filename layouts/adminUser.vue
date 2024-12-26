@@ -4,7 +4,9 @@
   <div class="w-full lg:ml-64">
     <HeaderDashboard />
     <AdminUserMenu />
-    <slot />
+    <section class="px-4 my-2 ">
+      <slot />
+    </section>
   </div>
 
   <ClientOnly>
