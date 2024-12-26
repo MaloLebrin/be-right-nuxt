@@ -10,6 +10,7 @@ export default defineNuxtRouteMiddleware(async to => {
 
   const { fetchOne: fetchOneAddress } = addressHook()
   const { fetchOne: fetchOneCompany } = companyHook()
+  const { fetchOneSubscription } = subscriptionHook()
 
   const user = userStore.getOne(userId)
 
@@ -23,6 +24,10 @@ export default defineNuxtRouteMiddleware(async to => {
 
     if (company?.addressId) {
       await fetchOneAddress(company.addressId)
+    }
+
+    if (company.subscriptionId) {
+      await fetchOneSubscription(company.subscriptionId)
     }
     DecLoading()
   }
