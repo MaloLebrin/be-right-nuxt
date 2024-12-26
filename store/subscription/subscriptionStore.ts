@@ -17,8 +17,10 @@ export const useSubscriptionStore = defineStore('subscription', {
 
     addMany(subs: SubscriptionType[]) {
       subs.forEach(sub => {
+        if (!noNullUndefined(this.entities.byId[sub.id])) {
+          this.entities.allIds.push(sub.id)
+        }
         this.entities.byId[sub.id] = { ...sub, $isDirty: false }
-        this.entities.allIds.push(sub.id)
       })
     },
   },
