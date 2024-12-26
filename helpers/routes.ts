@@ -39,5 +39,5 @@ export enum RouteNames {
   ADMIN_USER_SHOW_ACCOUNT = 'admin-user-show-id-account',
   ADMIN_USER_SHOW_EVENTS = 'admin-user-show-id-evenements',
   ADMIN_USER_SHOW_EMPLOYEES = 'admin-user-show-id-destinataires',
-  ADMIN_USER_SHOW_SETTINGS = 'admin-user-show-id-account',
+  ADMIN_USER_SHOW_SETTINGS = 'admin-user-show-id-settings',
 }
