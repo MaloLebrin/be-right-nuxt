@@ -65,9 +65,10 @@ const { isSameDay } = dateHook()
 const selected = ref(subscription?.type || SubscriptionEnum.BASIC)
 const exiprationDate = ref(subscription?.expireAt || dayjs().add(1, 'month').toDate())
 
-const isDisabled = computed(() => {
-  return subscription?.type === selected.value && isSameDay(subscription?.expireAt, exiprationDate.value)
-})
+const isDisabled = computed(() =>
+  subscription?.type === selected.value
+  && (subscription?.expireAt ? isSameDay(subscription?.expireAt, exiprationDate.value) : false),
+)
 
 async function updateSubscription() {
   if (subscription) {
