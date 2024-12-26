@@ -33,7 +33,7 @@
           mode="date"
           range
         />
-      </Clientonly>
+      </ClientOnly>
     </Field>
     <ErrorMessage name="period" />
   </div>

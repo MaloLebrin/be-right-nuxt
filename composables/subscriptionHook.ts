@@ -1,7 +1,7 @@
 import { type SubscriptionType, useSubscriptionStore, useUiStore } from '~/store'
 
 export default function subscriptionHook() {
-  const { $api } = useNuxtApp()
+  const { $api, $toast } = useNuxtApp()
 
   const subscriptionStore = useSubscriptionStore()
   const { IncLoading, DecLoading } = useUiStore()
@@ -18,7 +18,19 @@ export default function subscriptionHook() {
     DecLoading()
   }
 
+  async function updateSubscription(subscription: SubscriptionType) {
+    IncLoading()
+    const { data: updatedSubscription } = await $api().patch<SubscriptionType>('admin/subscription', subscription)
+
+    if (updatedSubscription) {
+      addMany([updatedSubscription])
+      $toast.success('Subscription updated')
+    }
+    DecLoading()
+  }
+
   return {
     fetchOneSubscription,
+    updateSubscription,
   }
 }

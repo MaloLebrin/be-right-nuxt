@@ -1,6 +1,9 @@
 <template>
 <div class="w-full px-4 py-16">
-  <div class="w-full max-w-5xl mx-auto">
+  <form
+    class="w-full max-w-5xl mx-auto space-y-4 place-items-center"
+    @submit.prevent="updateSubscription"
+  >
     <RadioGroup v-model="selected">
       <div class="items-center justify-center space-y-2 lg:flex lg:space-x-4 lg:space-y-0">
         <SubscriptionSelectorOption
@@ -10,23 +13,41 @@
         />
       </div>
     </RadioGroup>
-  </div>
+
+    <ClientOnly>
+      <DatePicker
+        v-model="exiprationDate"
+        color="purple"
+        is-required
+        locale="fr"
+        mode="date"
+      />
+    </ClientOnly>
+
+    <BaseButton
+      type="submit"
+      :disabled="isDisabled"
+    >
+      Enregistrer
+    </BaseButton>
+  </form>
 </div>
 </template>
 
 <script setup lang="ts">
+import dayjs from 'dayjs'
+import 'v-calendar/dist/style.css'
+import { DatePicker } from 'v-calendar'
 import {
   RadioGroup,
 } from '@headlessui/vue'
-import { SubscriptionEnum } from '~/types'
+import { SubscriptionEnum, type SubscriptionType } from '~/types'
 
 interface Props {
-  defaultPlan: SubscriptionEnum
+  subscription: SubscriptionType | null
 }
 
-const { defaultPlan } = withDefaults(defineProps<Props>(), {
-  defaultPlan: SubscriptionEnum.BASIC,
-})
+const { subscription } = defineProps<Props>()
 
 const plans = [
   {
@@ -39,5 +60,26 @@ const plans = [
   },
 ]
 
-const selected = ref(defaultPlan)
+const { isSameDay } = dateHook()
+
+const selected = ref(subscription?.type || SubscriptionEnum.BASIC)
+const exiprationDate = ref(subscription?.expireAt || dayjs().add(1, 'month').toDate())
+
+const isDisabled = computed(() => {
+  return subscription?.type === selected.value && isSameDay(subscription?.expireAt, exiprationDate.value)
+})
+
+async function updateSubscription() {
+  if (subscription) {
+    const {
+      updateSubscription,
+    } = subscriptionHook()
+
+    await updateSubscription({
+      ...subscription,
+      type: selected.value,
+      expireAt: exiprationDate.value,
+    })
+  }
+}
 </script>

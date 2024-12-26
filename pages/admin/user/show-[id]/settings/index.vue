@@ -2,7 +2,7 @@
 <PageAuthWrapper>
   <AccountBaseCard :title="`Modifier L'abonnement ${getUserfullName(user)}`">
     <section class="container py-8 mx-auto">
-      <SubscriptionSelector :default-plan="defaultSubscription" />
+      <SubscriptionSelector :subscription="defaultSubscription" />
     </section>
   </AccountBaseCard>
 </PageAuthWrapper>
@@ -10,7 +10,7 @@
 
 <script lang="ts" setup>
 import PageAuthWrapper from '~~/components/Page/PageAuthWrapper.vue'
-import { SubscriptionEnum, useCompanyStore, useSubscriptionStore, useUserStore } from '~/store'
+import { useCompanyStore, useSubscriptionStore, useUserStore } from '~/store'
 
 const userStore = useUserStore()
 const companyStore = useCompanyStore()
@@ -26,11 +26,11 @@ const defaultSubscription = computed(() => {
     if (user) {
       const company = companyStore.getOne(user.companyId)
       if (company?.subscriptionId) {
-        return subscriptionStore.getOne(company?.subscriptionId)?.type || SubscriptionEnum.BASIC
+        return subscriptionStore.getOne(company?.subscriptionId)
       }
     }
   }
-  return SubscriptionEnum.BASIC
+  return null
 })
 
 definePageMeta({
