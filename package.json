@@ -57,7 +57,7 @@
     "autoprefixer": "^10.4.20",
     "dayjs-nuxt": "^2.1.11",
     "eslint": "^8.57.1",
-    "happy-dom": "^15.0.0",
+    "happy-dom": "^16.0.0",
     "nuxt": "3.8.1",
     "nuxt-headlessui": "^1.2.0",
     "nuxt-purgecss": "^2.0.0",
