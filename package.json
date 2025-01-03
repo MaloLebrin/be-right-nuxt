@@ -32,6 +32,7 @@
     "node-mailjet": "^6.0.6",
     "pinia": "^2.3.0",
     "puppeteer-core": "^22.15.0",
+    "tailvue": "^1.0.0",
     "v-calendar": "3.1.2",
     "vee-validate": "^4.15.0",
     "vue-signature-pad": "^3.0.2",

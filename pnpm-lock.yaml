@@ -35,6 +35,9 @@ importers:
       puppeteer-core:
         specifier: ^22.15.0
         version: 22.15.0
+      tailvue:
+        specifier: ^1.0.0
+        version: 1.0.0(vue@3.5.13(typescript@5.7.2))
       v-calendar:
         specifier: 3.1.2
         version: 3.1.2(@popperjs/core@2.11.8)(vue@3.4.31(typescript@5.7.2))
@@ -80,7 +83,7 @@ importers:
         version: 1.49.1
       '@tailvue/nuxt':
         specifier: ^1.0.0
-        version: 1.0.0(magicast@0.3.5)(rollup@4.29.1)
+        version: 1.0.0(magicast@0.3.5)(rollup@4.29.1)(tailvue@1.0.0(vue@3.5.13(typescript@5.7.2)))
       '@types/jsonwebtoken':
         specifier: ^9.0.7
         version: 9.0.7
@@ -5643,6 +5646,11 @@ packages:
     resolution: {integrity: sha512-ulAk51I9UVUyJgxlv9M6lFot2WP3e7t8Kz9+IS6D4rVba1tR9kON+Ey69f+1R4Q8cd45Lod6a4IcJIxnzGc/zA==}
     engines: {node: '>=18'}
 
+  tailvue@1.0.0:
+    resolution: {integrity: sha512-g6TAk8h0VhxFBR7avt4PDEYc9VclKrCHS94XK91rTxREqRfa9Q+nyXWpNUS+sh64FEz0F37Afg7eiZzOYFjg1g==}
+    peerDependencies:
+      vue: ^3.2.21
+
   tailwind-config-viewer@2.0.4:
     resolution: {integrity: sha512-icvcmdMmt9dphvas8wL40qttrHwAnW3QEN4ExJ2zICjwRsPj7gowd1cOceaWG3IfTuM/cTNGQcx+bsjMtmV+cw==}
     engines: {node: '>=13'}
@@ -8139,6 +8147,7 @@ snapshots:
     dependencies:
       '@nuxt/kit': '@nuxt/kit-edge@3.8.0-28284309.b3d3d7f4(magicast@0.3.5)(rollup@4.29.1)'
       pathe: 0.2.0
+      tailvue: 1.0.0(vue@3.5.13(typescript@5.7.2))
     transitivePeerDependencies:
       - magicast
       - rollup
@@ -12962,6 +12971,10 @@ snapshots:
       tslib: 2.8.1
 
   system-architecture@0.1.0: {}
+
+  tailvue@1.0.0(vue@3.5.13(typescript@5.7.2)):
+    dependencies:
+      vue: 3.5.13(typescript@5.7.2)
 
   tailwind-config-viewer@2.0.4(tailwindcss@3.4.17):
     dependencies:

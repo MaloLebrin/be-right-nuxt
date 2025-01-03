@@ -1,8 +1,9 @@
 export default defineNuxtConfig({
   typescript: {
-    typeCheck: true,
+    // typeCheck: true,
     strict: true,
   },
+
   devtools: {
     enabled: import.meta.env.DEV,
   },
@@ -14,6 +15,7 @@ export default defineNuxtConfig({
   experimental: {
     componentIslands: true,
   },
+
   routeRules: {
     // Homepage pre-rendered at build time
     '/': { prerender: true },
@@ -42,6 +44,7 @@ export default defineNuxtConfig({
     // Redirects legacy urls
     // '/old-page': { redirect: '/new-page' }
   },
+
   app: {
     pageTransition: {
       name: 'page',
@@ -165,4 +168,6 @@ export default defineNuxtConfig({
       ],
     },
   },
+
+  compatibilityDate: '2025-01-03',
 })

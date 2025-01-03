@@ -4,11 +4,11 @@
   lang="fr"
 >
   <Head>
-    <SeoKit />
+    <!-- <SeoKit />
     <SchemaOrgPerson
       name="Be Right"
       image="/photographer.webp"
-    />
+    /> -->
   </Head>
 
   <Body>
