@@ -81,7 +81,7 @@
 <script setup lang="ts">
 import { ArrowDownTrayIcon } from '@heroicons/vue/24/outline'
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/vue'
-import type { AnchorHTMLAttributes } from 'nuxt/dist/app/compat/capi'
+import type { AnchorHTMLAttributes } from 'vue'
 import EventDetailsTabEmployees from './Details/TabEmployees.vue'
 import EventDetailsHeader from './Details/Header.vue'
 import BaseButton from '~/components/Base/BaseButton.vue'

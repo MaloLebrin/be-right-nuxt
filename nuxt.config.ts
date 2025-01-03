@@ -1,7 +1,8 @@
-import { visualizer } from 'rollup-plugin-visualizer'
-import { type PluginOption } from 'vite'
-
 export default defineNuxtConfig({
+  typescript: {
+    typeCheck: true,
+    strict: true,
+  },
   devtools: {
     enabled: import.meta.env.DEV,
   },
@@ -79,12 +80,9 @@ export default defineNuxtConfig({
   },
 
   extends: [
-    'nuxt-seo-kit',
+
   ],
 
-  typescript: {
-    strict: true,
-  },
   modules: [
     '@pinia/nuxt',
     '@nuxtjs/tailwindcss',
@@ -160,8 +158,5 @@ export default defineNuxtConfig({
         'vue-signature-pad',
       ],
     },
-    plugins: [
-      visualizer() as PluginOption,
-    ],
   },
 })

@@ -66,8 +66,8 @@ import {
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/vue/20/solid'
 
 interface Props {
-  defaultLimit: number
-  limits: number[]
+  defaultLimit?: number
+  limits?: number[]
 }
 
 const props = withDefaults(defineProps<Props>(), {
