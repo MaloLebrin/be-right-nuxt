@@ -1,4 +1,8 @@
 export default defineNuxtConfig({
+  typescript: {
+    typeCheck: true,
+    strict: true,
+  },
   devtools: {
     enabled: import.meta.env.DEV,
   },
@@ -81,12 +85,9 @@ export default defineNuxtConfig({
   },
 
   extends: [
-    'nuxt-seo-kit',
+
   ],
 
-  typescript: {
-    strict: true,
-  },
   modules: [
     '@pinia/nuxt',
     '@nuxtjs/tailwindcss',

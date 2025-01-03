@@ -43,7 +43,6 @@ export default defineNuxtPlugin(() => {
       },
 
       authUser: authStore.user,
-
       isAuthUserAdmin: authStore.isAuthUserAdmin,
     },
   }
