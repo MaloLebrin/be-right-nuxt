@@ -6,7 +6,7 @@ test.beforeEach(async ({ page }) => {
 
 test('load register page', async ({ page }) => {
   await expect(page).toHaveURL('http://localhost:3000/register')
-  await expect(page).toHaveTitle(/S'inscrire' | Be Right/)
+  await expect(page).toHaveTitle(/S'inscrire'/)
 })
 
 test('button to submit form login is disabled by default', async ({ page }) => {

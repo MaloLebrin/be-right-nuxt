@@ -5,7 +5,7 @@ test.beforeEach(async ({ page }) => {
 })
 
 test('button to submit form login is disabled by default', async ({ page }) => {
-  await expect(page).toHaveTitle(/Se connecter | Be Right/)
+  await expect(page).toHaveTitle(/Se connecter/)
   await expect(page.getByRole('heading', { name: 'Connectez vous sur' })).toBeVisible()
 
   const submitButton = page.getByTestId('login-submit-button')
