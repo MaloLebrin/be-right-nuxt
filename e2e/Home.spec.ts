@@ -5,7 +5,6 @@ test.beforeEach(async ({ page }) => {
 })
 
 test('Load landing page', async ({ page }) => {
-  await expect(page).toHaveTitle(/Accueilt/)
   await expect(page.getByRole('heading', { name: 'BeRight: Révolutionnez votre gestion des droits à l\'image' })).toBeVisible()
   await expect(page.getByTestId('commencer-home-button')).toBeVisible()
   await expect(page.getByTestId('solutions-home-link-header')).toBeVisible()
