@@ -35,9 +35,6 @@ importers:
       puppeteer-core:
         specifier: ^22.15.0
         version: 22.15.0
-      rollup-plugin-visualizer:
-        specifier: ^5.13.1
-        version: 5.13.1(rollup@4.18.1)
       tailvue:
         specifier: ^1.0.0
         version: 1.0.0(vue@3.4.31(typescript@5.7.2))

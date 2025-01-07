@@ -32,7 +32,6 @@
     "node-mailjet": "^6.0.6",
     "pinia": "^2.3.0",
     "puppeteer-core": "^22.15.0",
-    "rollup-plugin-visualizer": "^5.13.1",
     "tailvue": "^1.0.0",
     "v-calendar": "3.0.3",
     "vee-validate": "^4.15.0",

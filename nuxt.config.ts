@@ -1,6 +1,3 @@
-import { visualizer } from 'rollup-plugin-visualizer'
-import { type PluginOption } from 'vite'
-
 export default defineNuxtConfig({
   devtools: {
     enabled: import.meta.env.DEV,
@@ -160,8 +157,5 @@ export default defineNuxtConfig({
         'vue-signature-pad',
       ],
     },
-    plugins: [
-      visualizer() as PluginOption,
-    ],
   },
 })
