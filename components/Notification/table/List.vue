@@ -52,5 +52,6 @@ const event = (id: number) => computed(() => {
   if (notif?.eventNotification?.answerId) {
     return eventStore.getOne(answerStore.getOne(notif?.eventNotification?.answerId)?.eventId)
   }
+  return undefined
 })
 </script>

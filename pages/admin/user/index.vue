@@ -9,7 +9,7 @@
       />
 
       <div class="flex items-center justify-between">
-        <UserTableFilters @setFilter="setUserRoleFilter" />
+        <UserTableFilters @set-filter="setUserRoleFilter" />
 
         <div class="flex items-center space-x-2">
           <BaseButton
@@ -115,6 +115,7 @@ const userId = computed(() => {
   if (uiStore.getUiModalState.data && uiStore.getUiModalState.data.userId) {
     return userStore.entities.byId[uiStore.getUiModalState.data.userId].id
   }
+  return null
 })
 
 function setUserRoleFilter(roles: RoleEnum | undefined) {

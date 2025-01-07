@@ -39,6 +39,7 @@ export default createConfigForNuxt({
       }],
       "vue/no-template-shadow": "off",
       "vue/v-on-event-hyphenation": "off",
+      "vue/return-in-computed-property": "off",
 
       "no-console": ["warn", { "allow": ["warn", "error", "time", "timeEnd"] }],
       "curly": [0, "all"],

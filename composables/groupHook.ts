@@ -137,6 +137,7 @@ export default function groupHook() {
       ? uniq(groups
         .reduce((acc, emp) => {
           if (emp && emp.employeeIds?.length > 0) {
+            // eslint-disable-next-line no-unsafe-optional-chaining
             return [...acc, ...emp?.employeeIds]
           }
           return acc
