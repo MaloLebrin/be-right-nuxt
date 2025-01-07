@@ -1,10 +1,15 @@
 // @ts-check
-import withNuxt from './.nuxt/eslint.config.mjs'
-import antfu from '@antfu/eslint-config'
+// import withNuxt from './.nuxt/eslint.config.mjs'
+// import antfu from '@antfu/eslint-config'
 
-export default withNuxt(
-  // antfu(), // TODO enable
-)
+// export default withNuxt(
+//   // antfu(), // TODO enable
+// )
+import { createConfigForNuxt } from '@nuxt/eslint-config/flat'
+
+export default createConfigForNuxt({
+  // options here
+})
   .override('nuxt/typescript/rules', {
     rules: {
       '@typescript-eslint/no-explicit-any': 'off', // TODO move to warn
@@ -43,6 +48,8 @@ export default withNuxt(
       "antfu/top-level-function": "off",
       "@typescript-eslint/no-unused-vars": ["off"],
       "arrow-parens": [2, "as-needed"],
-      '@typescript-eslint/no-dynamic-delete': 'off'
+      '@typescript-eslint/no-dynamic-delete': 'off',
+      "@typescript-eslint/no-duplicate-enum-values": "off",
+      "@typescript-eslint/no-empty-object-type": "off",
     }
   })
