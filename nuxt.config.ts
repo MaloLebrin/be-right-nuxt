@@ -2,6 +2,11 @@ export default defineNuxtConfig({
   devtools: {
     enabled: import.meta.env.DEV,
   },
+  eslint: {
+    config: {
+      standalone: false // <---
+    }
+  },
   experimental: {
     componentIslands: true,
   },
