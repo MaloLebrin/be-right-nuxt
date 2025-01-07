@@ -110,6 +110,7 @@ export default defineNuxtConfig({
     'dayjs-nuxt',
     '@nuxt/image',
     '@unlok-co/nuxt-stripe',
+    '@nuxt/eslint',
   ],
 
   stripe: {

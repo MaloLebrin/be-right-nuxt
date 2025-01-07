@@ -43,6 +43,7 @@
     "@antfu/utils": "^0.7.10",
     "@headlessui/vue": "^1.7.23",
     "@nuxt/devtools": "^1.7.0",
+    "@nuxt/eslint": "0.7.4",
     "@nuxt/image": "^1.8.1",
     "@nuxtjs/tailwindcss": "^6.12.2",
     "@pinia-plugin-persistedstate/nuxt": "^1.2.1",
