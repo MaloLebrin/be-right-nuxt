@@ -201,5 +201,6 @@ const getGeneralText = computed(() => {
   if (!state.isActiveEmployeeDirty) {
     return 'Vous n\'avez pas séléctionné de destinataire'
   }
+  return 'Aucun destinataire trouvé'
 })
 </script>

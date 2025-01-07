@@ -32,7 +32,7 @@
 
 <script setup lang="ts">
 import { Popover, PopoverButton, PopoverPanel } from '@headlessui/vue'
-import { type AnswerType, type EventType } from '~~/store'
+import type {  AnswerType, EventType } from '~~/store'
 import CalendarEventCardHeader from '~~/components/Calendar/EventCard/Header.vue'
 import CalendarEventContent from '~~/components/Calendar/EventCard/Content.vue'
 

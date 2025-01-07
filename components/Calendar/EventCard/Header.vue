@@ -22,7 +22,7 @@
 
 <script setup lang="ts">
 import { RouteNames } from '~~/helpers/routes'
-import { type EventType } from '~~/store'
+import type { EventType } from '~~/store'
 
 interface Props {
   event: EventType

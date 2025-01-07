@@ -2,6 +2,11 @@ export default defineNuxtConfig({
   devtools: {
     enabled: import.meta.env.DEV,
   },
+  eslint: {
+    config: {
+      standalone: false // <---
+    }
+  },
   experimental: {
     componentIslands: true,
   },
@@ -110,6 +115,7 @@ export default defineNuxtConfig({
     'dayjs-nuxt',
     '@nuxt/image',
     '@unlok-co/nuxt-stripe',
+    '@nuxt/eslint',
   ],
 
   stripe: {

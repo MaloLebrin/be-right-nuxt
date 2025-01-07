@@ -49,11 +49,11 @@
   />
   <div v-if="debug">
     <p
-      v-for="(value, name) in meta"
-      :key="name"
+      v-for="(value, key) in meta"
+      :key="key"
       class="p-0 ml-1 text-center"
     >
-      {{ name }}: {{ value }}
+      {{ key }}: {{ value }}
     </p>
   </div>
 </Field>
@@ -68,6 +68,7 @@ import BaseButton from '~/components/Base/BaseButton.vue'
 interface Props {
   debug?: boolean
   disabled?: boolean
+  // eslint-disable-next-line vue/require-default-prop
   fileName?: string
   isRequired?: boolean
   label?: string
@@ -79,6 +80,7 @@ interface Props {
 const props = withDefaults(defineProps<Props>(), {
   label: 'Importer une liste de destinataire',
   placeholder: 'Importer une liste de destinataire',
+  wrapperClasses: undefined
 })
 
 const fileInput = ref<HTMLInputElement | null>(null)
