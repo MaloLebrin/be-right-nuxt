@@ -42,6 +42,7 @@ export default withNuxt(
       "no-unused-vars": "off",
       "antfu/top-level-function": "off",
       "@typescript-eslint/no-unused-vars": ["off"],
-      "arrow-parens": [2, "as-needed"]
+      "arrow-parens": [2, "as-needed"],
+      '@typescript-eslint/no-dynamic-delete': 'off'
     }
   })
