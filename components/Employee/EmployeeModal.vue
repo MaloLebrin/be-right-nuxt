@@ -99,6 +99,7 @@ const props = withDefaults(defineProps<Props>(), {
 
 const emit = defineEmits<{
   (e: 'close'): void
+  // eslint-disable-next-line @typescript-eslint/unified-signatures
   (e: 'submit'): void
 }>()
 

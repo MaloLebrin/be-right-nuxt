@@ -126,6 +126,7 @@ interface Props {
 const props = withDefaults(defineProps<Props>(), {
   defaultValues: () => [],
   disabledValues: () => [],
+  helpMessage: undefined,
   isRequired: false,
   disabled: false,
   label: 'Sélectionner des destinataires',

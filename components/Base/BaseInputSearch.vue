@@ -34,6 +34,7 @@ defineProps<Props>()
 
 const emit = defineEmits<{
   (e: 'update:modelValue', str: string): void
+  // eslint-disable-next-line @typescript-eslint/unified-signatures
   (e: 'update:searchQuery', str: string): void
 }>()
 

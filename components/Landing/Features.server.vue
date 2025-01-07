@@ -1,4 +1,5 @@
 <template>
+<!-- eslint-disable-next-line vue/no-multiple-template-root -->
 <div
   v-for="feature in features"
   :key="feature.name"

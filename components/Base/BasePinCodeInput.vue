@@ -37,11 +37,11 @@
 
   <div v-if="debug">
     <p
-      v-for="(val, name) in { ...meta, value }"
-      :key="name"
+      v-for="(val, key) in { ...meta, value }"
+      :key="key"
       class="p-0 ml-1 text-center text-white"
     >
-      {{ name }}: {{ val }}
+      {{ key }}: {{ val }}
     </p>
   </div>
 </Field>

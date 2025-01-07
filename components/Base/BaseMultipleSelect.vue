@@ -35,7 +35,7 @@
       class="absolute z-10 w-full mt-2 overflow-auto bg-white border border-gray-500 rounded-md shadow-lg pt max-h-60 focus:outline-none"
     >
       <ListboxOption
-        v-slot="{ active, selected, disabled }"
+        v-slot="{ active, selected, disabled: ListboxOptionDisabled }"
         :value="values"
         as="li"
         @click="toggleSelectAll"
@@ -45,7 +45,7 @@
           class="relative flex items-start justify-start px-4 py-2 space-x-2 text-sm text-gray-900 cursor-pointer select-none"
           :class="[
             active ? 'bg-gray-200' : 'bg-white',
-            disabled ? 'opacity-50' : '',
+            ListboxOptionDisabled ? 'opacity-50' : '',
           ]"
         >
           <input
@@ -59,7 +59,7 @@
       </ListboxOption>
       <ListboxOption
         v-for="value in values"
-        v-slot="{ active, selected, disabled }"
+        v-slot="{ active, selected, disabled: ListboxOptionDisabled }"
         :key="value[valueKey]"
         :value="value[valueKey]"
         as="li"
@@ -70,7 +70,7 @@
           class="relative flex items-start justify-start px-4 py-2 space-x-2 text-sm text-gray-900 cursor-pointer select-none"
           :class="[
             active ? 'bg-gray-200' : 'bg-white',
-            disabled ? 'opacity-50' : '',
+            ListboxOptionDisabled ? 'opacity-50' : '',
           ]"
         >
           <input

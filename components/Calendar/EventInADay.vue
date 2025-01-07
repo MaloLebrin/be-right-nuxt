@@ -8,22 +8,18 @@
       `h-full max-h-${getHeight(event)}px mt-${getStart(event)}px`,
       { 'pl-1': (index === 0 && eventIndex === 0) },
       { 'w-1/2': events.slice(0, 2).length > 1 },
-    ]"
-  >
+    ]">
     <NuxtLink
       :to="{ name: RouteNames.SHOW_EVENT_ID, params: { id: event.id } }"
       class="flex flex-col p-2 overflow-y-auto text-xs leading-5 border rounded-lg bg-opacity-10 group inset-1"
-      :class="getBG(event.status)"
-    >
+      :class="getBG(event.status)">
       <p>
         <span
           v-if="isAllDay(event)"
-          class="truncate"
-        >Jour entier</span>
+          class="truncate">Jour entier</span>
         <time
           v-else
-          :datetime="event.start.toString()"
-        >{{ $toFormat(event.start, 'HH:00') }}</time>
+          :datetime="event.start.toString()">{{ $toFormat(event.start, 'HH:00') }}</time>
       </p>
       <p class="font-semibold">
         {{ event.name }}
@@ -37,7 +33,7 @@
 import type { EventType } from '~~/types'
 import { EventStatusEnum } from '~~/types'
 import { RouteNames } from '~~/helpers/routes'
-import { type CalendarDay } from '~~/store/calendar/'
+import type { CalendarDay } from '~~/store/calendar/'
 
 interface Props {
   events: EventType[]

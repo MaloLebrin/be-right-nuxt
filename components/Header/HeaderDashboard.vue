@@ -125,6 +125,7 @@ const getOutsideMenuRouteLabel = computed(() => {
         return 'Abonnements aux notifications'
     }
   }
+  return null
 })
 
 function goBack() {
