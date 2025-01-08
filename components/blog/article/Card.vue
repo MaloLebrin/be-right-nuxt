@@ -3,8 +3,8 @@
   <img
     v-if="post.mainImage"
     :alt="post.mainImage.alt ||
-      ''"
-    :src="image(post.mainImage).size(1170, 780).url()"
+      'Image de couverture de l\'article ' + post.title"
+    :src="post.mainImage.url"
     class="aspect-[3/2] w-full rounded-2xl object-cover">
   <div class="flex flex-col flex-1 p-8">
     <div class="text-gray-700 text-sm/5">
@@ -23,8 +23,8 @@
       v-if="post.author"
       class="flex items-center gap-3 mt-6">
       <img
-        alt=""
-        :src="image(post.author.image).size(64, 64).url()"
+        :alt="`Avatar de l'auteur ${post.author.name}`"
+        :src="post.author.image.url"
         class="object-cover rounded-full aspect-square size-6">
       <div class="text-gray-700 text-sm/5">
         {{ post.author.name }}

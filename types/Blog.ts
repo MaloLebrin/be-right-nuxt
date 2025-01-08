@@ -1,7 +1,7 @@
 export interface Post {
   mainImage: {
     url: string;
-    alr: string;
+    alt: string;
   }
   title: string;
   slug: string;
