@@ -1,7 +1,7 @@
 <template>
 <section class="bg-white">
   <div class="relative overflow-x-visible isolate bg-gradient-to-b from-indigo-100/20">
-    <div class="container pt-10 pb-24 mx-auto max-w-7xl sm:pb-32 lg:grid lg:grid-cols-2 lg:gap-x-8 lg:py-40">
+    <div class="container px-5 pt-10 pb-24 mx-auto max-w-7xl sm:pb-32 lg:grid lg:grid-cols-2 lg:gap-x-8 lg:py-40">
       <div class="px-6 lg:px-0 lg:pt-4">
         <div class="max-w-2xl mx-auto">
           <div class="max-w-lg">
@@ -26,7 +26,7 @@
           </div>
         </div>
       </div>
-      <div class="mt-20 sm:mt-24 md:mx-auto md:max-w-2xl lg:mx-0 lg:mt-0 lg:w-full">
+      <div class="mt-20 sm:mt-24 md:mx-auto md:max-w-2xl lg:-mx-5 lg:mt-0 lg:w-full">
         <div
           class="absolute overflow-x-visible inset-y-0 right-1/2 -z-10 -mr-10 w-[200%] skew-x-[-30deg] bg-white shadow-xl shadow-indigo-600/10 ring-1 ring-indigo-50 md:-mr-20 lg:-mr-36"
           aria-hidden="true"
