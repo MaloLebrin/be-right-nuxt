@@ -16,5 +16,7 @@ interface ListCardsProps {
   posts: Post[]
 }
 
-defineProps<ListCardsProps>()
+withDefaults(defineProps<ListCardsProps>(), {
+  posts: () => []
+})
 </script>
