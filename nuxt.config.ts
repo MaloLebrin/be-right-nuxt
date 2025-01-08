@@ -29,6 +29,7 @@ export default defineNuxtConfig({
     // Blog post page generated on demand once until next deployment, cached on CDN
     // '/blog/**': { isr: true },
     // Admin dashboard renders only on client-side
+    '/blog/**': { prerender: true },
     '/admin/**': { ssr: false },
     '/addresse/**': { ssr: false },
     '/answer/**': { ssr: false },
@@ -38,6 +39,15 @@ export default defineNuxtConfig({
     '/mon-compte/**': { ssr: false },
     '/notifications/**': { ssr: false },
     '/paiements/**': { ssr: false },
+    // Products page generated on demand, revalidates in background, cached until API response changes
+    // '/products': { swr: true },
+    // Product pages generated on demand, revalidates in background, cached for 1 hour (3600 seconds)
+    // '/products/**': { swr: 3600 },
+    // Blog posts page generated on demand, revalidates in background, cached on CDN for 1 hour (3600 seconds)
+    // '/blog': { isr: 3600 },
+    // Blog post page generated on demand once until next deployment, cached on CDN
+    // '/blog/**': { isr: true },
+    // Admin dashboard renders only on client-side
     // Add cors headers on API routes
     // '/api/**': { cors: true },
     // Redirects legacy urls
@@ -118,6 +128,7 @@ export default defineNuxtConfig({
     '@nuxt/image',
     '@unlok-co/nuxt-stripe',
     '@nuxt/eslint',
+    '@nuxt/content',
   ],
 
   stripe: {
