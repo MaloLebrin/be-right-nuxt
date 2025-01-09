@@ -16,12 +16,17 @@ export default defineNuxtConfig({
     componentIslands: true,
   },
 
+  // content: {
+  //   documentDriven: true
+  // },
+
   routeRules: {
     // Homepage pre-rendered at build time
     '/': { prerender: true },
     '/login': { prerender: true },
     '/register': { prerender: true },
-    '/blog/**': { prerender: true },
+    '/blog/**': { ssr: true },
+
     '/admin/**': { ssr: false },
     '/addresse/**': { ssr: false },
     '/answer/**': { ssr: false },
@@ -87,11 +92,6 @@ export default defineNuxtConfig({
       language: 'fr',
     },
   },
-
-  extends: [
-
-  ],
-
   modules: [
     '@pinia/nuxt',
     '@nuxtjs/tailwindcss',
