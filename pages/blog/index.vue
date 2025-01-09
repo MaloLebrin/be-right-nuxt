@@ -14,7 +14,6 @@
   </Container>
   <!-- {page === 1 && !category && <FeaturedPosts />} -->
   <Container class-name="mt-16 pb-24">
-    bl
   <!-- <Categories selected={category} />
         <Posts page={page} category={category} />
         <Pagination page={page} category={category} /> -->
@@ -34,7 +33,6 @@ useServerSeoMeta({
   ogUrl: 'https://be-right.co/blog',
   ogLocale: 'fr_FR',
   ogType: 'website',
-    
 })
 </script>
     
