@@ -14,9 +14,20 @@
   </Container>
   <!-- {page === 1 && !category && <FeaturedPosts />} -->
   <Container class-name="mt-16 pb-24">
-  <!-- <Categories selected={category} />
-        <Posts page={page} category={category} />
-        <Pagination page={page} category={category} /> -->
+    <!-- <ContentDoc>
+      <template #not-found>
+        <NoArticle />
+      </template>
+
+      <template #default="{ doc }">
+        <p class="article-date">{{ doc.date }}</p>
+        <h1 class="article-title">{{ doc.title }}</h1>
+        <ContentRenderer
+          :value="doc"
+          class="page-formating" />
+      </template>
+
+    </ContentDoc> -->
   </Container>
 </section>
 </template>
@@ -24,6 +35,7 @@
 <script setup lang="ts">
 import Container from '~/components/blog/Container.vue'
 import GradientBackground from '~/components/blog/GradientBackground.vue'
+// import NoArticle from '~/components/blog/NoArticle.vue'
 
 useServerSeoMeta({
   title: 'BeRight Blog',

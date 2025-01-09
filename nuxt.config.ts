@@ -16,10 +16,16 @@ export default defineNuxtConfig({
     componentIslands: true,
   },
 
+  // content: {
+  //   documentDriven: true
+  // },
+
   routeRules: {
     // Homepage pre-rendered at build time
     '/': { prerender: true },
     '/login': { prerender: true },
+    '/blog/**': { ssr: true },
+
     // Products page generated on demand, revalidates in background, cached until API response changes
     // '/products': { swr: true },
     // Product pages generated on demand, revalidates in background, cached for 1 hour (3600 seconds)
@@ -29,7 +35,6 @@ export default defineNuxtConfig({
     // Blog post page generated on demand once until next deployment, cached on CDN
     // '/blog/**': { isr: true },
     // Admin dashboard renders only on client-side
-    '/blog/**': { prerender: true },
     '/admin/**': { ssr: false },
     '/addresse/**': { ssr: false },
     '/answer/**': { ssr: false },
@@ -95,11 +100,6 @@ export default defineNuxtConfig({
       language: 'fr',
     },
   },
-
-  extends: [
-
-  ],
-
   modules: [
     '@pinia/nuxt',
     '@nuxtjs/tailwindcss',
