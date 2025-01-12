@@ -1,10 +1,9 @@
 <template>
 <div class="relative flex flex-col p-2 bg-white shadow-md rounded-3xl shadow-black/5 ring-1 ring-black/5">
   <img
-    v-if="post.mainImage"
-    :alt="post.mainImage.alt ||
-      'Image de couverture de l\'article ' + post.title"
-    :src="post.mainImage.url"
+    v-if="post.imageUrl"
+    :alt="'Image de couverture de l\'article ' + post.title"
+    :src="post.imageUrl"
     class="aspect-[3/2] w-full rounded-2xl object-cover">
   <div class="flex flex-col flex-1 p-8">
     <div class="text-gray-700 text-sm/5">
