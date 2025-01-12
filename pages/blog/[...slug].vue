@@ -32,5 +32,5 @@ import NoArticle from '~/components/blog/NoArticle.vue'
 import GradientBackground from '~/components/blog/GradientBackground.vue'
 import type { Post } from '~/types';
 
-const { data } = await useAsyncData('hello', async () => await queryContent('/').find())
+const { data } = await useAsyncData('', async () => await queryContent('/').find())
 </script>
