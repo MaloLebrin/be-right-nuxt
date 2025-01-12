@@ -4,10 +4,12 @@ export interface Post {
   subtitle: string;
   shortDescription: string;
   publishedAt: string;
+  slug: string;
   author: {
     image: {
       url: string;
     }
     name: string;
   }
+  imageUrl?: string;
 }
