@@ -16,7 +16,7 @@
   <Container
     v-if="data && data.length > 0"
     class-name="mt-16 pb-24">
-    <BlogArticleListCards :posts="data" />
+    <BlogArticleListCards :posts="data as Post[]" />
   </Container>
   <Container
     v-else
@@ -30,6 +30,7 @@
 import Container from '~/components/blog/Container.vue'
 import NoArticle from '~/components/blog/NoArticle.vue'
 import GradientBackground from '~/components/blog/GradientBackground.vue'
+import type { Post } from '~/types';
 
 const { data } = await useAsyncData('hello', async () => await queryContent('/').find())
 </script>
