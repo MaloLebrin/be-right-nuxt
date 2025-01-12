@@ -13,18 +13,10 @@
     </p>
   </Container>
   <!-- {page === 1 && !category && <FeaturedPosts />} -->
-  <Container class-name="mt-16 pb-24">
-    <ContentDoc>
-      <template #not-found>
-        <NoArticle />
-      </template>
-
-      <template #default="{ doc }">
-        <ContentRenderer
-          :value="doc"
-          class="page-formating" />
-      </template>
-    </ContentDoc>
+  <Container
+    v-if="data"
+    class-name="mt-16 pb-24">
+    <BlogArticleListCards :posts="data" />
   </Container>
 </section>
 </template>
@@ -33,4 +25,7 @@
 import Container from '~/components/blog/Container.vue'
 import NoArticle from '~/components/blog/NoArticle.vue'
 import GradientBackground from '~/components/blog/GradientBackground.vue'
+
+const { data } = await useAsyncData('hello', async () => await queryContent('/').find())
+console.log(data.value, '<==== data.value')
 </script>

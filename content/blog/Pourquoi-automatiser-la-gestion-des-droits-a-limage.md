@@ -1,8 +1,8 @@
 ---
 title: "Pourquoi automatiser la gestion des droits à l'image ?"
 subtitle: "Automatisation des droits à l’image : Gagnez en temps, sécurité et conformité"
-description: "Automatisez la gestion des droits à l’image pour réduire les erreurs, gagner du temps et garantir une conformité juridique optimale."
-longDescription: "Découvrez comment l'automatisation révolutionne la gestion des droits à l'image. En réduisant les tâches manuelles, elle améliore la précision, garantit la conformité juridique et optimise les flux de travail. Cet article explore les avantages clés de cette approche moderne, qui permet aux entreprises de se concentrer sur des activités à forte valeur ajoutée tout en minimisant les risques juridiques."
+shortDescription: "Automatisez la gestion des droits à l’image pour réduire les erreurs, gagner du temps et garantir une conformité juridique optimale."
+description: "Découvrez comment l'automatisation révolutionne la gestion des droits à l'image. En réduisant les tâches manuelles, elle améliore la précision, garantit la conformité juridique et optimise les flux de travail. Cet article explore les avantages clés de cette approche moderne, qui permet aux entreprises de se concentrer sur des activités à forte valeur ajoutée tout en minimisant les risques juridiques."
 ---
   
 ## Automatisation des droits à l’image : Gagnez en temps, sécurité et conformité  
