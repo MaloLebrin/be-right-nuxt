@@ -17,7 +17,7 @@
       </NuxtLink>
     </div>
     <div class="flex-1 mt-2 text-gray-500 text-sm/6">
-      {{post.excerpt}}
+      {{post.shortDescription}}
     </div>
     <div
       v-if="post.author"

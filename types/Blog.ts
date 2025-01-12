@@ -1,13 +1,9 @@
 export interface Post {
-  mainImage: {
-    url: string;
-    alt: string;
-  }
   title: string;
-  slug: string;
-  excerpt: string;
+  description: string;
+  subtitle: string;
+  shortDescription: string;
   publishedAt: string;
-  content: string;
   author: {
     image: {
       url: string;
