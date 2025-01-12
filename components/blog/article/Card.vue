@@ -3,7 +3,7 @@
   <img
     v-if="post.imageUrl"
     :alt="'Image de couverture de l\'article ' + post.title"
-    :src="post.imageUrl"
+    :src="`/${post.imageUrl}`"
     class="aspect-[3/2] w-full rounded-2xl object-cover">
   <div class="flex flex-col flex-1 p-8">
     <div class="text-gray-700 text-sm/5">
