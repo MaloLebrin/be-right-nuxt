@@ -14,9 +14,14 @@
   </Container>
   <!-- {page === 1 && !category && <FeaturedPosts />} -->
   <Container
-    v-if="data"
+    v-if="data && data.length > 0"
     class-name="mt-16 pb-24">
     <BlogArticleListCards :posts="data" />
+  </Container>
+  <Container
+    v-else
+    class-name="mt-16 pb-24">
+    <NoArticle />
   </Container>
 </section>
 </template>
@@ -27,5 +32,4 @@ import NoArticle from '~/components/blog/NoArticle.vue'
 import GradientBackground from '~/components/blog/GradientBackground.vue'
 
 const { data } = await useAsyncData('hello', async () => await queryContent('/').find())
-console.log(data.value, '<==== data.value')
 </script>
