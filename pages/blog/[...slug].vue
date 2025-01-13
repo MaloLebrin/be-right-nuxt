@@ -24,7 +24,11 @@
     <div className="mt-16 grid grid-cols-1 gap-8 pb-24 lg:grid-cols-[15rem_1fr] xl:grid-cols-[15rem_1fr_15rem]">
       <div className="flex flex-wrap items-center gap-8 max-lg:justify-between lg:flex-col lg:items-start">
         <Author />
-        <BlogArticleCategoriesList :categories="post.categories" />
+        <!-- FIXME create page for categories -->
+        <BlogArticleCategoriesList
+          :categories="post.categories"
+          page-category-disable 
+        />
       </div>
     </div>
   </Container>

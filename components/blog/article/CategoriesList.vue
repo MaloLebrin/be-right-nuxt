@@ -4,7 +4,7 @@
     v-for="{ slug, title } in getArticleCategories(categories)"
     :key="title">
     <NuxtLink
-      v-if="slug"
+      v-if="slug && !pageCategoryDisable"
       :to="`/blog/categories/${slug}`"
       class="px-2 font-medium text-gray-500 border border-gray-300 border-dotted rounded-full bg-gray-50 text-sm/6">
       {{ title }}
@@ -19,13 +19,13 @@
 </template>
 
 <script setup lang="ts">
-import type { Category, CategorySlug } from '~/types';
+import type { CategorySlug } from '~/types';
 
 withDefaults(defineProps<{
   categories: CategorySlug[]
+  pageCategoryDisable?: boolean
 }>(), {
-  categories: () => []
+  categories: () => [],
+  pageCategoryDisable: false,
 })
-
-
 </script>

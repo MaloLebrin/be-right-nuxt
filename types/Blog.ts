@@ -12,7 +12,7 @@ export interface Post {
     name: string;
   }
   imageUrl?: string;
-  categories: Category[];
+  categories: CategorySlug[];
 }
 
 export interface Category {
