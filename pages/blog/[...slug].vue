@@ -43,21 +43,36 @@ import Subheading from '~/components/blog/article/SubHeading.vue'
 import Author from '~/components/blog/article/Author.vue'
 import type { Post } from '~/types'
 
+const { $getFrontUrl } = useNuxtApp()
 const route = useRoute()
 const slug = route.params.slug ? route.params.slug[0] : ''
 
 const { data: post } = await useAsyncData<Post>('', async () => await queryContent('/blog').where({ slug: slug }).findOne() as unknown as Post)
 
+const articleUrl = `${$getFrontUrl}${route.fullPath}`
+
 useSeoMeta({
   title: post.value?.title,
   description: post.value?.shortDescription,
-  ogImage: post.value?.imageUrl,
+  ogImage: `${$getFrontUrl}/${post.value?.imageUrl}`,
   ogImageAlt: `Image de couverture de l'article ${post.value?.title}`,
   author: 'Malo Lebrin',
   articleModifiedTime: post.value?.publishedAt,
   articlePublishedTime: post.value?.publishedAt,
-  articleTag: [] // FIXME: Add tags
-  // ogUrl: `https://www.alexandrerenaud.ca/blog/${slug}`, FIXME Not working 
-  // url: `https://www.alexandrerenaud.ca/blog/${slug}` // FIXME: Not working
+  articleTag: [], // FIXME: Add tags
+  ogUrl: articleUrl,
+  ogTitle: post.value?.title,
+  ogDescription: post.value?.shortDescription,
+  ogType: 'article',
+  ogLocale: 'fr_FR',
+})
+
+useHead({
+  link: [
+    {
+      rel: 'canonical',
+      href: articleUrl,
+    }
+  ]
 })
 </script>
