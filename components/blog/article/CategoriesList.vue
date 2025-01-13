@@ -1,18 +1,18 @@
 <template>
 <ul className="flex flex-wrap gap-2">
   <li
-    v-for="{ slug, title } in getArticleCategories(categories)"
-    :key="title">
+    v-for="category in getArticleCategories(categories)"
+    :key="category?.title">
     <NuxtLink
-      v-if="slug && !pageCategoryDisable"
-      :to="`/blog/categories/${slug}`"
+      v-if="category?.slug && !pageCategoryDisable"
+      :to="`/blog/categories/${category?.slug}`"
       class="px-2 font-medium text-gray-500 border border-gray-300 border-dotted rounded-full bg-gray-50 text-sm/6">
-      {{ title }}
+      {{ category.title }}
     </NuxtLink>
     <span
       v-else
       class="px-2 font-medium text-gray-500 border border-gray-300 border-dotted rounded-full bg-gray-50 text-sm/6">
-      {{ title }}
+      {{ category?.title }}
     </span>
   </li>
 </ul>
