@@ -5,23 +5,20 @@
     <h2 class-name="mt-16 font-mono text-xs/5 font-semibold uppercase tracking-widest text-gray-500 data-[dark]:text-gray-400">Blog</h2>
     <h1
       class="mt-2 text-pretty text-4xl font-medium tracking-tighter text-gray-950 data-[dark]:text-white sm:text-6xl">
-      What’s happening at Radiant.
+      Le blog spécialisé dans la gestion des droits à l'image
     </h1>
-    <p class="max-w-3xl mt-6 text-2xl font-medium text-gray-500">
+    <!-- <p class="max-w-3xl mt-6 text-2xl font-medium text-gray-500">
       Stay informed with product updates, company news, and insights on how
       to sell smarter at your company.
-    </p>
+    </p> -->
   </Container>
-  <!-- {page === 1 && !category && <FeaturedPosts />} -->
+
   <Container
-    v-if="data && data.length > 0"
     class-name="mt-16 pb-24">
-    <BlogArticleListCards :posts="data" />
-  </Container>
-  <Container
-    v-else
-    class-name="mt-16 pb-24">
-    <NoArticle />
+    <template v-if="data && data.length > 0">
+      <BlogArticleListCards :posts="data" />
+    </template>
+    <NoArticle v-else />
   </Container>
 </section>
 </template>
