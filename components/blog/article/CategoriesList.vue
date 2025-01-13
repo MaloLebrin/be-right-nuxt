@@ -1,7 +1,7 @@
 <template>
 <ul className="flex flex-wrap gap-2">
   <li
-    v-for="{ slug, title } in categories"
+    v-for="{ slug, title } in getArticleCategories(categories)"
     :key="title">
     <NuxtLink
       v-if="slug"
@@ -19,11 +19,13 @@
 </template>
 
 <script setup lang="ts">
-import type { Category } from '~/types';
+import type { Category, CategorySlug } from '~/types';
 
 withDefaults(defineProps<{
-  categories: Category[]
+  categories: CategorySlug[]
 }>(), {
   categories: () => []
 })
+
+
 </script>
