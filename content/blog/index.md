@@ -4,6 +4,7 @@ description: "La signature électronique révolutionne la gestion des droits à 
 shortDescription: "La signature électronique sécurise les droits d'image. Protection cryptée, valeur légale internationale et traçabilité complète garanties"
 slug: "Securite-et-Conformite-Le-Role-de-la-Signature-electronique-dans-la-Gestion-des-Droits-a-lImage"
 imageUrl: "Securite-et-Conformite-Le-Role-de-la-Signature-electronique-dans-la-Gestion-des-Droits-a-lImage.webp"
+categories: []
 ---
 
 # Sécurité et Conformité : Le Rôle de la Signature Électronique dans la Gestion des Droits à l'Image
