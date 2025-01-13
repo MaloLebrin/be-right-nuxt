@@ -12,4 +12,26 @@ export interface Post {
     name: string;
   }
   imageUrl?: string;
+  categories: Category[];
 }
+
+export interface Category {
+  title: string;
+  slug: CategorySlug;
+  description?: string;
+}
+
+export type CategorySlug = 'droits-image-juridique' |
+  'transformation-digitale-droits-image' |
+  'transformation-digitale' | 
+  'securite-conformite-droits-image' |
+  'securite-conformite' |
+  'droits-image' |
+  'droits-image-juridique' |
+  'droits-image-photographie' |
+  'droits-image-video' |
+  'droits-image-musique' |
+  'automatisation-droits-image' |
+  'automatisation' |
+  'signature-electronique-droits-image' |
+  'signature-electronique'
