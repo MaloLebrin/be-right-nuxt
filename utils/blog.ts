@@ -31,3 +31,8 @@ export const CategoryMap = new Map<CategorySlug, Category>([
     description: "Exploration des technologies de signature électronique et leur impact sur la gestion légale et sécurisée des droits à l'image."
   }],
 ])
+
+export function getArticleCategories(categories: CategorySlug[]): Category[] {
+  if (!categories || categories?.length === 0) return [];
+  return categories.map(slug => CategoryMap.get(slug)!);
+}
