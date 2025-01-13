@@ -27,7 +27,7 @@ export const CategoryMap = new Map<CategorySlug, Category>([
 
   ['signature-electronique-droits-image', {
     title: "Signature Électronique et Droits Numériques",
-    slug: 'signature-electronique-droits-image',
+    slug: 'signature-electronique',
     description: "Exploration des technologies de signature électronique et leur impact sur la gestion légale et sécurisée des droits à l'image."
   }],
 ])
