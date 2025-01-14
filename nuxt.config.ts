@@ -25,7 +25,7 @@ export default defineNuxtConfig({
     '/': { prerender: true },
     '/login': { prerender: true },
     '/register': { prerender: true },
-    '/blog/**': { ssr: true },
+    '/blog/**': { prerender: true },
 
     '/admin/**': { ssr: false },
     '/addresse/**': { ssr: false },
