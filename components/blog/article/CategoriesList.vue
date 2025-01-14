@@ -6,12 +6,12 @@
     <NuxtLink
       v-if="category?.slug && !pageCategoryDisable"
       :to="`/blog/categories/${category?.slug}`"
-      class="px-2 font-medium text-gray-500 border border-gray-300 border-dotted rounded-full bg-gray-50 text-sm/6">
+      class="px-3 py-1 font-medium text-gray-500 border border-gray-300 border-dotted rounded-full bg-gray-50 text-sm/6">
       {{ category.title }}
     </NuxtLink>
     <span
       v-else
-      class="px-2 font-medium text-gray-500 border border-gray-300 border-dotted rounded-full bg-gray-50 text-sm/6">
+      class="px-3 py-1 font-medium text-gray-500 border border-gray-300 border-dotted rounded-full bg-gray-50 text-sm/6">
       {{ category?.title }}
     </span>
   </li>

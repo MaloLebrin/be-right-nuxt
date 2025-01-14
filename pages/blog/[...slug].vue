@@ -1,5 +1,5 @@
 <template>
-<section class="py-16 overflow-hidden">
+<section class="py-16 overflow-hidden blog">
   <GradientBackground />
   <Container v-if="!post">
     <h2
@@ -21,14 +21,21 @@
       {{ post?.subtitle }}
     </p>
 
-    <div className="mt-16 grid grid-cols-1 gap-8 pb-24 lg:grid-cols-[15rem_1fr] xl:grid-cols-[15rem_1fr_15rem]">
-      <div className="flex flex-wrap items-center gap-8 max-lg:justify-between lg:flex-col lg:items-start">
+    <div className="mt-16 grid grid-cols-1 gap-8">
+      <div className="flex flex-wrap items-center gap-8 max-lg:justify-between lg:flex-col lg:items-start lg:space-y-4">
         <Author />
         <!-- FIXME create page for categories -->
         <BlogArticleCategoriesList
           :categories="post.categories"
           page-category-disable 
         />
+        <article className=" text-slate-800">
+          <ContentRenderer
+            :value="post"
+            class="max-w-2xl mx-auto">
+            <ContentRendererMarkdown :value="post" />
+          </ContentRenderer>
+        </article>
       </div>
     </div>
   </Container>
@@ -76,3 +83,49 @@ useHead({
   ]
 })
 </script>
+
+<style module>
+article > div >  p {
+  @apply my-6 text-base/8 first:mt-0 last:mb-0
+}
+
+article > div >  h2 {
+  @apply mb-6 mt-12 text-2xl/8 font-medium tracking-tight text-gray-950 first:mt-0 last:mb-0
+}
+
+article > div >  h3 {
+  @apply mb-6 mt-12 text-xl/8 font-medium tracking-tight text-gray-950 first:mt-0 last:mb-0
+}
+
+article > div >  blockquote {
+  @apply my-6 border-l-2 border-l-gray-300 pl-6 text-base/8 text-gray-950 first:mt-0 last:mb-0
+}
+
+article > div >  hr {
+  @apply my-8 border-t border-gray-200
+}
+
+article > div >  .space {
+  @apply my-8
+}
+
+article > div >  ul {
+  @apply list-disc pl-4 text-base/8 marker:text-gray-400
+}
+
+article > div >  ol {
+  @apply list-decimal pl-4 text-base/8 marker:text-gray-400
+}
+
+article > div >  li {
+  @apply my-2 pl-2 has-[br]:mb-8
+}
+
+article > div >  strong {
+  @apply font-semibold text-gray-950
+}
+
+article > div >  a {
+  @apply font-medium text-gray-950 underline decoration-gray-400 underline-offset-4 data-[hover]:decoration-gray-600
+}
+</style>
