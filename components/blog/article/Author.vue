@@ -3,7 +3,7 @@
   <img
     :alt="`Photo de ${fullName}`"
     :src="imageUrl"
-    className="aspect-square size-6 md:size-12 lg:size-20 rounded-full object-cover"
+    className="aspect-square size-6 md:size-12 rounded-full object-cover"
   >
   <div className="text-sm/5 text-gray-700">
     {{ fullName }}
