@@ -24,10 +24,8 @@
     <div class="grid grid-cols-1 gap-8 mt-16">
       <div class="flex flex-wrap items-center gap-8 max-lg:justify-between lg:flex-col lg:items-start lg:space-y-4">
         <Author />
-        <!-- FIXME create page for categories -->
         <BlogArticleCategoriesList
           :categories="post.categories"
-          page-category-disable 
         />
         <article class="text-slate-800">
           <ContentRenderer
