@@ -32,6 +32,9 @@ export const CategoryMap = new Map<CategorySlug, Category>([
   }],
 ])
 
+export const categoryArray = Array.from(CategoryMap.keys
+());
+
 export function getArticleCategories(categories: CategorySlug[]): Category[] {
   if (!categories || categories?.length === 0) return [];
   return categories.map(slug => CategoryMap.get(slug)!);

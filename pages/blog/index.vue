@@ -7,14 +7,11 @@
       class="mt-2 text-pretty text-4xl font-medium tracking-tighter text-gray-950 data-[dark]:text-white sm:text-6xl">
       Le blog spécialisé dans la gestion des droits à l'image
     </h1>
-    <!-- <p class="max-w-3xl mt-6 text-2xl font-medium text-gray-500">
-      Stay informed with product updates, company news, and insights on how
-      to sell smarter at your company.
-    </p> -->
   </Container>
 
   <Container
     class-name="mt-16 pb-24">
+    <CategoriesList :categories="categoryArray" />
     <template v-if="data && data.length > 0">
       <BlogArticleListCards :posts="data" />
     </template>
@@ -26,6 +23,7 @@
 <script setup lang="ts">
 import Container from '~/components/blog/Container.vue'
 import NoArticle from '~/components/blog/NoArticle.vue'
+import CategoriesList from '~/components/blog/article/CategoriesList.vue'
 import GradientBackground from '~/components/blog/GradientBackground.vue'
 import type { Post } from '~/types';
   
