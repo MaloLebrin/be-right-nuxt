@@ -31,7 +31,7 @@ import type { CategorySlug, Post } from '~/types';
 const route = useRoute()
 const slug = route.params.slug ? route.params.slug[0] : ''
 
-const { data } = await useAsyncData<Post[]>('', async () => await queryContent('/blog')
+const { data } = await useAsyncData<Post[]>('category', async () => await queryContent('/blog')
   .where({
     categories: {
       $in: [slug]
