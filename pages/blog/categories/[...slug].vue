@@ -41,7 +41,7 @@ const { data } = await useAsyncData<Post[]>('', async () => await queryContent('
 const category = getArticleCategories([slug as CategorySlug])[0]
 
 useSeoMeta({
-  title: category.title,
+  title: `Blog - ${category.title}`,
   description: category.description,
   articleTag: ["droits à l'image", "signature électronique"],
   ogTitle: category.title,

@@ -57,7 +57,7 @@ const { data: post } = await useAsyncData<Post>('', async () => await queryConte
 const articleUrl = `${$getFrontUrl}${route.fullPath}`
 
 useSeoMeta({
-  title: post.value?.title,
+  title: `${post.value?.title} - Blog`,
   description: post.value?.shortDescription,
   ogImage: `${$getFrontUrl}/${post.value?.imageUrl}`,
   ogImageAlt: `Image de couverture de l'article ${post.value?.title}`,
