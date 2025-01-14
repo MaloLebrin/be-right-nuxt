@@ -27,6 +27,6 @@ import CategoriesList from '~/components/blog/article/CategoriesList.vue'
 import GradientBackground from '~/components/blog/GradientBackground.vue'
 import type { Post } from '~/types';
   
-const { data } = await useAsyncData<Post[]>('', async () => await queryContent('/blog').find() as unknown as Post[])
+const { data } = await useAsyncData<Post[]>('index-blog', async () => await queryContent('/blog').find() as unknown as Post[])
 </script>
   
