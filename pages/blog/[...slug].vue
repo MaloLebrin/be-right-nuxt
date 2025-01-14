@@ -38,8 +38,8 @@
 
   <Container
     v-if="similarPosts && similarPosts.length > 0"
-    class-name="mt-16 pb-24">
-    <h4>Article similaires</h4>
+    class-name="mt-8 pt-8 pb-24 border-t border-gray-200">
+    <h4 class="text-lg text-gray-800">Articles similaires</h4>
     <BlogArticleListCards :posts="similarPosts" />
   </Container>
 </section>
