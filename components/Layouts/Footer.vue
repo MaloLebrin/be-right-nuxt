@@ -11,7 +11,7 @@
     employés
   </h2>
   <div class="xl:grid xl:grid-cols-3 xl:gap-8">
-    <nav class="grid grid-cols-4 gap-8 py-4 xl:col-span-3 md:py-8">
+    <nav class="grid grid-cols-4 py-4 md:gap-8 xl:col-span-3 md:py-8">
       <NuxtLink
         :to="{ name: 'index' }"
         class="text-sm font-semibold leading-6 text-center text-gray-900 cursor-pointer"
@@ -25,17 +25,17 @@
         Solution
       </a>
       <NuxtLink
-        :to="getLinkPath"
+        :to="{ name: 'blog' }"
         class="text-sm font-semibold leading-6 text-center text-gray-900 cursor-pointer"
       >
-        {{ authStore.getIsLoggedIn ? 'Mon compte' : 'Se connecter' }}
+        Blog
       </NuxtLink>
       <NuxtLink
         v-if="!authStore.getIsLoggedIn"
-        :to="{ name: 'register' }"
+        :to="{ name: 'login' }"
         class="text-sm font-semibold leading-6 text-center text-gray-900 cursor-pointer"
       >
-        S'inscrire
+        Se&nbsp;connecter
       </NuxtLink>
       <p
         v-else
@@ -58,7 +58,7 @@
     <NewsletterForm />
   </div>
   <div class="py-4 border-t md:py-8 border-gray-900/10 md:flex md:items-center md:justify-evenly">
-    <p class="text-xs leading-5 text-gray-500 md:order-1 md:mt-0">
+    <p class="text-xs leading-5 text-center text-gray-500 md:order-1 md:mt-0">
       &copy; {{ `Be Right ${new Date().getFullYear()}` }}. All rights reserved. Designed by digital campus students.
     </p>
   </div>
@@ -71,11 +71,4 @@ import NewsletterForm from '~~/components/Newsletter/NewsletterForm.vue'
 
 const authStore = useAuthStore()
 const { logout } = authHook()
-
-const getLinkPath = computed(() => {
-  if (!authStore.getIsLoggedIn) {
-    return { name: 'login' }
-  }
-  return { name: 'evenement' }
-})
 </script>

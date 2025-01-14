@@ -14,22 +14,22 @@
       {{ $toFormat(post.publishedAt, 'dddd, MMMM D, YYYY') }}
     </Subheading>
     <h1
-      class="mt-2 text-pretty text-4xl font-medium tracking-tighter text-gray-950 data-[dark]:text-white sm:text-6xl">
+      class="mt-2 text-pretty text-4xl font-medium tracking-tighter data-[dark]:text-white sm:text-6xl">
       {{ post?.title }}
     </h1>
     <p class="max-w-3xl mt-6 text-2xl font-medium text-gray-500">
       {{ post?.subtitle }}
     </p>
 
-    <div className="mt-16 grid grid-cols-1 gap-8">
-      <div className="flex flex-wrap items-center gap-8 max-lg:justify-between lg:flex-col lg:items-start lg:space-y-4">
+    <div class="grid grid-cols-1 gap-8 mt-16">
+      <div class="flex flex-wrap items-center gap-8 max-lg:justify-between lg:flex-col lg:items-start lg:space-y-4">
         <Author />
         <!-- FIXME create page for categories -->
         <BlogArticleCategoriesList
           :categories="post.categories"
           page-category-disable 
         />
-        <article className=" text-slate-800">
+        <article class="text-slate-800">
           <ContentRenderer
             :value="post"
             class="max-w-2xl mx-auto">
@@ -66,7 +66,7 @@ useSeoMeta({
   author: 'Malo Lebrin',
   articleModifiedTime: post.value?.publishedAt,
   articlePublishedTime: post.value?.publishedAt,
-  articleTag: [], // FIXME: Add tags
+  articleTag: ["droits à l'image", "signature électronique"],
   ogUrl: articleUrl,
   ogTitle: post.value?.title,
   ogDescription: post.value?.shortDescription,
@@ -85,47 +85,47 @@ useHead({
 </script>
 
 <style module>
-article > div >  p {
+article > div > p {
   @apply my-6 text-base/8 first:mt-0 last:mb-0
 }
 
-article > div >  h2 {
-  @apply mb-6 mt-12 text-2xl/8 font-medium tracking-tight text-gray-950 first:mt-0 last:mb-0
+article > div > h2 {
+  @apply mb-6 mt-12 text-2xl/8 font-medium tracking-tight first:mt-0 last:mb-0
 }
 
-article > div >  h3 {
-  @apply mb-6 mt-12 text-xl/8 font-medium tracking-tight text-gray-950 first:mt-0 last:mb-0
+article > div > h3 {
+  @apply mb-6 mt-12 text-xl/8 font-medium tracking-tight first:mt-0 last:mb-0
 }
 
-article > div >  blockquote {
-  @apply my-6 border-l-2 border-l-gray-300 pl-6 text-base/8 text-gray-950 first:mt-0 last:mb-0
+article > div > blockquote {
+  @apply my-6 border-l-2 border-l-gray-300 pl-6 text-base/8 first:mt-0 last:mb-0
 }
 
-article > div >  hr {
+article > div > hr {
   @apply my-8 border-t border-gray-200
 }
 
-article > div >  .space {
+article > div > .space {
   @apply my-8
 }
 
-article > div >  ul {
+article > div > ul {
   @apply list-disc pl-4 text-base/8 marker:text-gray-400
 }
 
-article > div >  ol {
+article > div > ol {
   @apply list-decimal pl-4 text-base/8 marker:text-gray-400
 }
 
-article > div >  li {
+article > div > li {
   @apply my-2 pl-2 has-[br]:mb-8
 }
 
-article > div >  strong {
-  @apply font-semibold text-gray-950
+article > div > strong {
+  @apply font-semibold
 }
 
-article > div >  a {
-  @apply font-medium text-gray-950 underline decoration-gray-400 underline-offset-4 data-[hover]:decoration-gray-600
+article > div > a {
+  @apply font-medium underline decoration-gray-400 underline-offset-4 data-[hover]:decoration-gray-600
 }
 </style>
