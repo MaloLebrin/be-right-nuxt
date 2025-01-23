@@ -95,7 +95,7 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     '@nuxtjs/tailwindcss',
     'nuxt-headlessui',
-    'nuxt-vitest',
+    '@nuxt/test-utils/module',
     '@pinia-plugin-persistedstate/nuxt',
     // 'nuxt-schema-org',
     ['nuxt-purgecss', {
