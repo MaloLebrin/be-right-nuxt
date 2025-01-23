@@ -1,6 +1,6 @@
-import { defineVitestConfig } from 'nuxt-vitest/config'
+import { defineVitestConfig } from '@nuxt/test-utils/config'
 
-const config = {
+export default defineVitestConfig({
   test: {
     exclude: [
       './e2e/**',
@@ -15,8 +15,4 @@ const config = {
       ],
     },
   },
-} as any
-export default defineVitestConfig({
-  // test: { environment: 'nuxt' },
-  ...config,
 })
