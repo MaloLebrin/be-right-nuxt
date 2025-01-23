@@ -67,35 +67,36 @@ function isUserCurrentLoggedColor() {
 }
 
 const isConnectedPinVariations = computed(() => {
+  const color = isUserCurrentLoggedColor()
   switch (props.size) {
     case 'sm':
       return {
         size: 'w-2.5 h-2.5',
-        color: isUserCurrentLoggedColor(),
+        color,
       }
 
     case 'md':
       return {
         size: 'w-3 h-3',
-        color: isUserCurrentLoggedColor(),
+        color,
       }
 
     case 'lg':
       return {
         size: 'w-3.5 h-3.5',
-        color: isUserCurrentLoggedColor(),
+        color,
       }
 
     case 'xl':
       return {
         size: 'w-4 h-4',
-        color: isUserCurrentLoggedColor(),
+        color,
       }
 
     default:
       return {
         size: 'w-3 h-3',
-        color: isUserCurrentLoggedColor(),
+        color,
       }
   }
 })
