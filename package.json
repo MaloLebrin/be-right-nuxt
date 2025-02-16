@@ -1,6 +1,6 @@
 {
   "private": false,
-  "packageManager": "pnpm@10.2.0",
+  "packageManager": "pnpm@10.4.1",
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
