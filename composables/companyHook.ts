@@ -12,16 +12,16 @@ import {
 } from '~~/store'
 
 export default function companyHook() {
-  const { $toast, $api } = useNuxtApp()
+  const { $toast, $api, $pinia } = useNuxtApp()
 
-  const addressStore = useAddressStore()
-  const eventStore = useEventStore()
-  const fileStore = useFileStore()
-  const userStore = useUserStore()
-  const companyStore = useCompanyStore()
+  const addressStore = useAddressStore($pinia)
+  const eventStore = useEventStore($pinia)
+  const fileStore = useFileStore($pinia)
+  const userStore = useUserStore($pinia)
+  const companyStore = useCompanyStore($pinia)
   const { addOne: addCompany, updateOneCompany } = companyStore
-  const subscriptionStore = useSubscriptionStore()
-  const { IncLoading, DecLoading } = useUiStore()
+  const subscriptionStore = useSubscriptionStore($pinia)
+  const { IncLoading, DecLoading } = useUiStore($pinia)
   const { storeEmployeeRelationsEntities } = employeeHook()
 
   /**

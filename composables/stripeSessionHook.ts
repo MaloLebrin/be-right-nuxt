@@ -1,11 +1,11 @@
 import { type AddressType, type AnswerType, type EventType, useAddressStore, useAnswerStore, useEventStore, useUiStore } from '~/store'
 
 export default function stripeSessionHook() {
-  const { $api } = useNuxtApp()
-  const { DecLoading, IncLoading } = useUiStore()
-  const addressStore = useAddressStore()
-  const answerStore = useAnswerStore()
-  const eventStore = useEventStore()
+  const { $api, $pinia } = useNuxtApp()
+  const { DecLoading, IncLoading } = useUiStore($pinia)
+  const addressStore = useAddressStore($pinia)
+  const answerStore = useAnswerStore($pinia)
+  const eventStore = useEventStore($pinia)
 
   async function getCheckoutSession(sessionId: string) {
     IncLoading()

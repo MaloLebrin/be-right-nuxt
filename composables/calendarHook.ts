@@ -7,21 +7,21 @@ import {
 } from '~~/store'
 
 export function calendarHook(view: TypeOfView = 'month') {
-  const { $api, $router } = useNuxtApp()
+  const { $api, $router, $pinia } = useNuxtApp()
 
-  const eventStore = useEventStore()
+  const eventStore = useEventStore($pinia)
   const {
     addMany,
   } = eventStore
 
-  const calendarStore = useCalendarStore()
+  const calendarStore = useCalendarStore($pinia)
   const {
     setCalendarLoading,
     setCalendarData,
     setSelectedDayToday,
   } = calendarStore
 
-  const answerStore = useAnswerStore()
+  const answerStore = useAnswerStore($pinia)
 
   onMounted(async () => {
     await fetchCalendarData()

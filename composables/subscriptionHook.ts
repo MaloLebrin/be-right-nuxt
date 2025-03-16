@@ -2,10 +2,10 @@ import { uniq } from '@antfu/utils'
 import { type SubscriptionType, useSubscriptionStore, useUiStore } from '~/store'
 
 export default function subscriptionHook() {
-  const { $api, $toast } = useNuxtApp()
+  const { $api, $toast, $pinia } = useNuxtApp()
 
-  const subscriptionStore = useSubscriptionStore()
-  const { IncLoading, DecLoading } = useUiStore()
+  const subscriptionStore = useSubscriptionStore($pinia)
+  const { IncLoading, DecLoading } = useUiStore($pinia)
 
   const { addMany } = subscriptionStore
 

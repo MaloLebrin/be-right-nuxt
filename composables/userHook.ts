@@ -13,13 +13,13 @@ import {
 import type { PhotographerCreatePayload } from '~~/store/form/types'
 
 export default function userHook() {
-  const { $toast, $api } = useNuxtApp()
+  const { $toast, $api, $pinia } = useNuxtApp()
 
-  const userStore = useUserStore()
-  const companyStore = useCompanyStore()
-  const notificationSubscriptionStore = useNotificationsSubscriptionStore()
+  const userStore = useUserStore($pinia)
+  const companyStore = useCompanyStore($pinia)
+  const notificationSubscriptionStore = useNotificationsSubscriptionStore($pinia)
 
-  const { IncLoading, DecLoading } = useUiStore()
+  const { IncLoading, DecLoading } = useUiStore($pinia)
 
   async function fetchOne(userId: number) {
     IncLoading()
