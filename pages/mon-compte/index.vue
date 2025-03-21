@@ -68,6 +68,7 @@ const companyAddress = computed(() => {
   if (companyStore.getAuthCompany) {
     return addressStore.getOne(companyStore.getAuthCompany.addressId)
   }
+  return null
 })
 
 const { fetchOne: fetchOneAddress } = addressHook()

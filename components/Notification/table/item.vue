@@ -64,6 +64,7 @@ const getLinkPath = computed(() => {
       }
     }
   }
+  return null
 })
 
 const { patchAsRead } = notificationHook()

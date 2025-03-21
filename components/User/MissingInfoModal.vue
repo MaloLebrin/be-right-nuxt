@@ -59,6 +59,7 @@ import BaseModal from '../Base/BaseModal.vue'
 
 const emit = defineEmits<{
   (e: 'close'): void
+  // eslint-disable-next-line @typescript-eslint/unified-signatures
   (e: 'toggleFlag'): void
 }>()
 

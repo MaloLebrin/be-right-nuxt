@@ -12,7 +12,7 @@
       :is-active="isLinkActive(item).value || isHovered === index"
     />
     <MenuRecursiveList
-      :menu-items="item.children"
+      :menu-items="item.children || []"
     />
   </template>
 

@@ -24,7 +24,7 @@
   <div class="flex items-center justify-center">
     <Combobox
       v-slot="{ open }"
-      v-model="selected"
+      v-model="selectedEmployees"
       name="employees"
       :multiple="true"
     >
@@ -125,7 +125,7 @@
 
         <div class="mt-4">
           <p
-            v-for="(value, index) in selected"
+            v-for="(value, index) in selectedEmployees"
             :key="index"
             class="flex items-center h-8 px-2 py-2 mt-2 mr-2 space-x-2 bg-blue-200 rounded-md text-blue-dark"
           >
@@ -144,7 +144,7 @@
             Retour
           </BaseButton>
           <BaseButton
-            :disabled="!noNull(selected) || !noUndefined(selected) || selected.length <= 0"
+            :disabled="!noNull(selectedEmployees) || !noUndefined(selectedEmployees) || selectedEmployees.length <= 0"
             @click="onSubmit"
           >
             Enregister
@@ -177,6 +177,7 @@ const props = withDefaults(defineProps<Props>(), {
 
 const emit = defineEmits<{
   (e: 'close'): void
+  // eslint-disable-next-line @typescript-eslint/unified-signatures
   (e: 'submit'): void
 }>()
 
@@ -186,7 +187,7 @@ const groupStore = useGroupStore()
 const { resetUiModalState } = uiStore
 const { patchOne } = groupHook()
 
-const selected = ref<EmployeeType[]>([])
+const selectedEmployees = ref<EmployeeType[]>([])
 const query = ref('')
 const router = useRouter()
 const route = useRoute()
@@ -198,17 +199,17 @@ function filterAlReadyInGroup(employees: EmployeeType[]) {
 
 const filteredEmployee = computed(() => filteredEmployees(employeeStore.getAllArray, query))
 
-const areAllSelected = computed(() => filteredEmployee.value.length === selected.value.length)
+const areAllSelected = computed(() => filteredEmployee.value.length === selectedEmployees.value.length)
 
 function onRemoveValue(index: number) {
-  selected.value.splice(index, 1)
+  selectedEmployees.value.splice(index, 1)
 }
 
 function toggleSelectAll() {
-  if (filteredEmployee.value.length === selected.value.length) {
-    selected.value = []
+  if (filteredEmployee.value.length === selectedEmployees.value.length) {
+    selectedEmployees.value = []
   } else {
-    selected.value = filteredEmployee.value
+    selectedEmployees.value = filteredEmployee.value
   }
 }
 
@@ -218,13 +219,13 @@ function close() {
 }
 
 async function onSubmit() {
-  if (selected?.value.length > 0 && props.groupId) {
+  if (selectedEmployees?.value.length > 0 && props.groupId) {
     const group = groupStore.getOne(props.groupId)
     await patchOne(props.groupId, {
       ...group,
       employeeIds: [
         ...group.employeeIds,
-        ...selected.value.map(emp => emp.id),
+        ...selectedEmployees.value.map(emp => emp.id),
       ],
     })
 

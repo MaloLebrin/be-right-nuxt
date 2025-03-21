@@ -75,7 +75,7 @@
 
 <script setup lang="ts">
 import { ArrowDownTrayIcon, CheckCircleIcon, EnvelopeIcon, XCircleIcon } from '@heroicons/vue/24/outline'
-import type { AnchorHTMLAttributes } from 'nuxt/dist/app/compat/capi'
+import type { AnchorHTMLAttributes } from 'vue'
 import BaseButton from '../Base/BaseButton.vue'
 import BaseMessage from '../Base/BaseMessage.vue'
 import type { AnswerType, EmployeeType } from '~~/store'

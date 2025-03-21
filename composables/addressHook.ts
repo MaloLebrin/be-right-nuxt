@@ -3,11 +3,11 @@ import { areAddressType, isAddressType } from '~/utils/address'
 import { useAddressStore, useCompanyStore, useUiStore } from '~~/store'
 
 export default function addressHook() {
-  const { $toast, $api } = useNuxtApp()
+  const { $toast, $api, $pinia } = useNuxtApp()
 
-  const { IncLoading, DecLoading } = useUiStore()
-  const addressStore = useAddressStore()
-  const { updateOneCompany } = useCompanyStore()
+  const { IncLoading, DecLoading } = useUiStore($pinia)
+  const addressStore = useAddressStore($pinia)
+  const { updateOneCompany } = useCompanyStore($pinia)
   const { updateOneAddress, addOne, addMany } = addressStore
 
   async function fetchOne(id: number) {

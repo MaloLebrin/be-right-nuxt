@@ -5,12 +5,12 @@ import { ModalModeEnum, ModalNameEnum, useCompanyStore, useEmployeeStore, useUiS
 import { useGroupStore } from '~~/store/group/groupStore'
 
 export default function groupHook() {
-  const { $toast, $api } = useNuxtApp()
+  const { $toast, $api, $pinia } = useNuxtApp()
 
-  const { IncLoading, DecLoading, setUiModal } = useUiStore()
-  const groupStore = useGroupStore()
-  const employeeStore = useEmployeeStore()
-  const companyStore = useCompanyStore()
+  const { IncLoading, DecLoading, setUiModal } = useUiStore($pinia)
+  const groupStore = useGroupStore($pinia)
+  const employeeStore = useEmployeeStore($pinia)
+  const companyStore = useCompanyStore($pinia)
   const { fetchMany: fetchManyEmployees } = employeeHook()
 
   const { addMany, removeOne } = groupStore
@@ -137,6 +137,7 @@ export default function groupHook() {
       ? uniq(groups
         .reduce((acc, emp) => {
           if (emp && emp.employeeIds?.length > 0) {
+            // eslint-disable-next-line no-unsafe-optional-chaining
             return [...acc, ...emp?.employeeIds]
           }
           return acc

@@ -16,7 +16,7 @@
     />
 
     <EmployeeModal
-      v-if="isModalActive(ModalNameEnum.DELETE_EMPLOYEE_FOR_EVER).value || isModalActive(ModalNameEnum.DELETE_EMPLOYEE).value"
+      v-if="(isModalActive(ModalNameEnum.DELETE_EMPLOYEE_FOR_EVER).value || isModalActive(ModalNameEnum.DELETE_EMPLOYEE).value) && eventID"
       :is-active="isModalActive(ModalNameEnum.DELETE_EMPLOYEE_FOR_EVER).value || isModalActive(ModalNameEnum.DELETE_EMPLOYEE).value"
       :mode="uiStore.getUiModalState.modalMode"
       :event-id="eventID"
@@ -48,6 +48,7 @@ const eventID = computed(() => {
   if (uiStore.getUiModalState.data && uiStore.getUiModalState.data.eventId) {
     return eventStore.entities.byId[uiStore.getUiModalState.data.eventId].id
   }
+  return null
 })
 
 function CloseResetModalState() {

@@ -129,6 +129,7 @@ const validationSchema = computed(() => {
       file: string().required('Le fichier CSV est requis'),
     })
   }
+  return object({})
 })
 
 const initialValues = {

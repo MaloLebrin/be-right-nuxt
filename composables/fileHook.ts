@@ -3,13 +3,13 @@ import { isFileType } from '~/utils/file'
 import { useFileStore, useUiStore, useUserStore } from '~~/store'
 
 export default function fileHook() {
-  const { $toast, $api } = useNuxtApp()
+  const { $toast, $api, $pinia } = useNuxtApp()
 
-  const { updateOne, setCurrent } = useUserStore()
-  const userStore = useUserStore()
-  const { getAllIds: getAllFilesIds } = useFileStore()
-  const fileStore = useFileStore()
-  const { IncLoading, DecLoading } = useUiStore()
+  const { updateOne, setCurrent } = useUserStore($pinia)
+  const userStore = useUserStore($pinia)
+  const { getAllIds: getAllFilesIds } = useFileStore($pinia)
+  const fileStore = useFileStore($pinia)
+  const { IncLoading, DecLoading } = useUiStore($pinia)
 
   async function postOne(fileForm: FormData, id?: number) {
     const { data } = await $api().post<FileType>(`file/${id}`, fileForm)

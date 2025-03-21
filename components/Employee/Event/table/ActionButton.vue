@@ -55,10 +55,10 @@
 </template>
 
 <script setup lang="ts">
-import type { AnchorHTMLAttributes } from 'nuxt/dist/app/compat/capi'
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
 import { ArrowDownTrayIcon, PencilSquareIcon } from '@heroicons/vue/24/outline'
 import { ChevronDownIcon } from '@heroicons/vue/24/solid'
+import type { AnchorHTMLAttributes } from 'vue'
 import { RouteNames } from '~~/helpers/routes'
 import type { EventType } from '~~/types'
 import { useAnswerStore, useUiStore } from '~~/store'

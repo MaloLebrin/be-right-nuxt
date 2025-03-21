@@ -1,5 +1,5 @@
 import { uniq } from '@antfu/utils'
-import { type EmployeeType } from '~~/types'
+import type {  EmployeeType } from '~~/types'
 
 export function emailSuggestion(basicEmail: string) {
   if (!basicEmail || !isCompleteEmail(basicEmail)) {
