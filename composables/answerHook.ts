@@ -5,10 +5,10 @@ import type { AnswerType } from '~~/store'
 import { useAnswerStore, useUiStore } from '~~/store'
 
 export default function answerHook() {
-  const { $toast, $api } = useNuxtApp()
-  const answerStore = useAnswerStore()
+  const { $toast, $api, $pinia } = useNuxtApp()
+  const answerStore = useAnswerStore($pinia)
   const { addMany, updateOneAnswer } = answerStore
-  const { IncLoading, DecLoading } = useUiStore()
+  const { IncLoading, DecLoading } = useUiStore($pinia)
 
   async function postMany(eventId: number, employeeIds: number[]) {
     IncLoading()

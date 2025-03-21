@@ -16,14 +16,14 @@ dayjs.extend(relativeTime)
 dayjs.extend(isBetween)
 
 export default function notificationHook() {
-  const { $api, $toFormat, $toast } = useNuxtApp()
+  const { $api, $toFormat, $toast, $pinia } = useNuxtApp()
 
-  const { IncLoading, DecLoading } = useUiStore()
-  const authStore = useAuthStore()
-  const userStore = useUserStore()
-  const eventStore = useEventStore()
-  const answerStore = useAnswerStore()
-  const notificationStore = useNotificationsStore()
+  const { IncLoading, DecLoading } = useUiStore($pinia)
+  const authStore = useAuthStore($pinia)
+  const userStore = useUserStore($pinia)
+  const eventStore = useEventStore($pinia)
+  const answerStore = useAnswerStore($pinia)
+  const notificationStore = useNotificationsStore($pinia)
   const { addMany: addManyNotifications, updateManyNotifications } = notificationStore
 
   const { fetchMany: fetchManyAnswers } = answerHook()

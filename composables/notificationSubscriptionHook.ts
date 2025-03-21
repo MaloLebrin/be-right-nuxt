@@ -3,9 +3,9 @@ import type { NotificationSubscriptionType, NotificationTypeEnum } from '~~/stor
 import { useNotificationsSubscriptionStore, useUiStore } from '~~/store'
 
 export default function notificationSubscriptionHook() {
-  const { $api, $toast } = useNuxtApp()
-  const { IncLoading, DecLoading } = useUiStore()
-  const notificationSubscriptionStore = useNotificationsSubscriptionStore()
+  const { $api, $toast, $pinia } = useNuxtApp()
+  const { IncLoading, DecLoading } = useUiStore($pinia)
+  const notificationSubscriptionStore = useNotificationsSubscriptionStore($pinia)
   const { addMany, removeOne } = notificationSubscriptionStore
 
   async function fetchSubscriptions() {

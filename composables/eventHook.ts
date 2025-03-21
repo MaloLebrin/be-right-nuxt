@@ -16,7 +16,7 @@ import {
 import type { AddressType, EventCreatePayload, EventType } from '~~/types'
 
 export default function eventHook() {
-  const { $toast, $api } = useNuxtApp()
+  const { $toast, $api, $pinia } = useNuxtApp()
 
   const { fetchManyAnswerForEvent } = answerHook()
   const { fetchEmployeesByEventId } = employeeHook()
@@ -24,15 +24,15 @@ export default function eventHook() {
   const { fetchMany: fetchManyAddress } = addressHook()
   const { fetchManyFiles } = fileHook()
 
-  const eventStore = useEventStore()
+  const eventStore = useEventStore($pinia)
   const { deleteEventAndRelations } = eventStore
-  const { DecLoading, IncLoading } = useUiStore()
-  const addressStore = useAddressStore()
-  const employeeStore = useEmployeeStore()
-  const userStore = useUserStore()
-  const answerStore = useAnswerStore()
-  const companyStore = useCompanyStore()
-  const fileStore = useFileStore()
+  const { DecLoading, IncLoading } = useUiStore($pinia)
+  const addressStore = useAddressStore($pinia)
+  const employeeStore = useEmployeeStore($pinia)
+  const userStore = useUserStore($pinia)
+  const answerStore = useAnswerStore($pinia)
+  const companyStore = useCompanyStore($pinia)
+  const fileStore = useFileStore($pinia)
   const { createOne: createOneAddress } = addressStore
 
   function storeEventRelationEntities(events: EventType[]) {

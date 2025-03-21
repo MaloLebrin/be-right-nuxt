@@ -3,10 +3,10 @@ import type { Badge } from '~~/store'
 import { useBadgeStore, useUiStore } from '~~/store'
 
 export default function badgeHook() {
-  const { $api } = useNuxtApp()
+  const { $api, $pinia } = useNuxtApp()
 
-  const { IncLoading, DecLoading } = useUiStore()
-  const badgeStore = useBadgeStore()
+  const { IncLoading, DecLoading } = useUiStore($pinia)
+  const badgeStore = useBadgeStore($pinia)
   const { addMany } = badgeStore
 
   function areBadgeTypes(args: unknown[]) {

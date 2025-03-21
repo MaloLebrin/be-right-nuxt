@@ -13,15 +13,15 @@ import { isAddressType } from '~/utils/address'
 import { areEmployeeTypes, isEmployeeType } from '~/utils/employee'
 
 export default function employeeHook() {
-  const { $toast, $api } = useNuxtApp()
+  const { $toast, $api, $pinia } = useNuxtApp()
 
-  const employeeStore = useEmployeeStore()
-  const companyStore = useCompanyStore()
-  const { createMany: createManyFiles } = useFileStore()
-  const { IncLoading, DecLoading } = useUiStore()
-  const addressStore = useAddressStore()
+  const employeeStore = useEmployeeStore($pinia)
+  const companyStore = useCompanyStore($pinia)
+  const { createMany: createManyFiles } = useFileStore($pinia)
+  const { IncLoading, DecLoading } = useUiStore($pinia)
+  const addressStore = useAddressStore($pinia)
   const { addMany: addManyAddresses } = addressStore
-  const groupStore = useGroupStore()
+  const groupStore = useGroupStore($pinia)
   const { filteringFilesNotInStore } = fileHook()
 
   function storeEmployeeRelationsEntities(employees: EmployeeType[]): EmployeeType[] {

@@ -2,10 +2,10 @@ import { type UserType, useCustomerStore, useUiStore, useUserStore } from '~/sto
 import type { StripeCustomer } from '~/types'
 
 export default function stripeCustomerHook() {
-  const { $api } = useNuxtApp()
-  const { IncLoading, DecLoading } = useUiStore()
-  const { updateOneUser } = useUserStore()
-  const stripeCustomerStore = useCustomerStore()
+  const { $api, $pinia } = useNuxtApp()
+  const { IncLoading, DecLoading } = useUiStore($pinia)
+  const { updateOneUser } = useUserStore($pinia)
+  const stripeCustomerStore = useCustomerStore($pinia)
 
   async function fetchCustomer() {
     IncLoading()

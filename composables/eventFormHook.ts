@@ -5,12 +5,12 @@ import type { BaseAddressCreationForm, PhotographerCreatePayload } from '~~/stor
 import { FormEnum } from '~~/store/form/types'
 
 export default function eventFormHook() {
-  const { $router } = useNuxtApp()
+  const { $router, $pinia } = useNuxtApp()
 
-  const formStore = useFormStore()
-  const eventStore = useEventStore()
+  const formStore = useFormStore($pinia)
+  const eventStore = useEventStore($pinia)
   const { setOneActive } = eventStore
-  const uiStore = useUiStore()
+  const uiStore = useUiStore($pinia)
   const { IncLoading, DecLoading } = uiStore
 
   const { postPhotographer } = userHook()

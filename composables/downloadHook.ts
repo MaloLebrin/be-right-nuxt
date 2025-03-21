@@ -2,8 +2,8 @@ import { FetchWrapper } from '~~/helpers/api'
 import { useAuthStore } from '~~/store'
 
 export function downloadHook() {
-  const { $isProductionMode } = useNuxtApp()
-  const authStore = useAuthStore()
+  const { $isProductionMode, $pinia } = useNuxtApp()
+  const authStore = useAuthStore($pinia)
 
   function composeFileName({
     answerIds,

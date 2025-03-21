@@ -5,10 +5,10 @@ import type { TableHookState } from '~/types/TableHookTypes'
 import type { PaginatedResponse } from '~/types/globals'
 
 export default function tableHook<T>(baseUrl: string, onFetched?: ((items: T[]) => Promise<void>), defaultState?: Partial<TableHookState<T>>) {
-  const { $api, $router } = useNuxtApp()
-  const uiStore = useUiStore()
+  const { $api, $router, $pinia } = useNuxtApp()
+  const uiStore = useUiStore($pinia)
   const { DecLoading, IncLoading } = uiStore
-  const authStore = useAuthStore()
+  const authStore = useAuthStore($pinia)
 
   const query = ref('')
 
