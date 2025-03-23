@@ -20,21 +20,19 @@ export default function fileHook() {
     return data
   }
 
-  async function postProfilePicture(fileForm: FormData) {
+  async function postProfilePicture(fileForm: FormData, userId: number) {
     IncLoading()
     const { data } = await $api().post<FileType>('file/profile', fileForm)
     if (data && isFileType(data)) {
-      if (data.createdByUserId) {
-        fileStore.createOne(data)
-        const { data: user } = await $api().get<UserType>(`user/${data.createdByUserId}`)
-        if (user && isUserType(user)) {
-          updateOne(user.id, user)
-          if (userStore.getAuthUserId === user.id) {
-            setCurrent(user)
-          }
+      fileStore.createOne(data)
+      const { data: user } = await $api().get<UserType>(`user/${userId}`)
+      if (user && isUserType(user)) {
+        updateOne(user.id, user)
+        if (userStore.getAuthUserId === user.id) {
+          setCurrent(user)
         }
-        $toast.success('Photo de profile créé avec succès')
       }
+      $toast.success('Photo de profile créé avec succès')
     }
     DecLoading()
   }
@@ -42,7 +40,7 @@ export default function fileHook() {
   async function postLogo(fileForm: FormData) {
     IncLoading()
     const { data } = await $api().post<FileType>('file/logo', fileForm)
-    if (data && data.createdByUserId && isFileType(data)) {
+    if (data && isFileType(data)) {
       fileStore.createOne(data)
       $toast.success('Logo créé avec succès')
     }

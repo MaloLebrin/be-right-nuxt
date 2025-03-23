@@ -1,8 +1,8 @@
 import type { State } from '@malolebrin/pinia-entity-store'
-import type { UserType } from '../user'
 import type { EmployeeType } from '../employee'
 import type { EventType } from '../event'
 import type { BaseEntity } from '@/types/globals'
+import type { Company } from '~/store/company'
 
 export interface FileType extends BaseEntity {
   name: string
@@ -23,8 +23,8 @@ export interface FileType extends BaseEntity {
   eventId: number
   employee?: EmployeeType
   employeeId: number
-  createdByUser?: UserType
-  createdByUserId: number
+  company?: Company
+  companyId: number
 }
 
 export type FileFormType = Omit<FileType, 'id' | 'createdAt' | 'updatedAt'>
@@ -33,7 +33,6 @@ export enum FileTypeEnum {
   MODEL = 'MODEL',
   IMAGE_RIGHT = 'IMAGE_RIGHT',
   LOGO = 'LOGO',
-  BUG_REPORT = 'BUG_REPORT',
   PROFILE_PICTURE = 'PROFILE_PICTURE',
 }
 
