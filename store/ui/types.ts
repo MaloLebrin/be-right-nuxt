@@ -32,6 +32,7 @@ export interface UiState {
   }
   isLoading: number
   isDrawerOpen: boolean
+  loadingMessage: string
 }
 
 export interface ModalOptionsUi {

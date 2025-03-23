@@ -23,11 +23,17 @@ export const useUiStore = defineStore(EntitiesEnum.UI, {
     resetUIState() {
       this.$state = defaultUiState()
     },
-    IncLoading() {
+    IncLoading(message?: string) {
       this.isLoading++
+      if (message) {
+        this.loadingMessage = message
+      }
     },
     DecLoading() {
       this.isLoading--
+      if (this.isLoading <= 0) {
+        this.loadingMessage = 'Chargement en cours...'
+      }
     },
     resetLoading() {
       this.isLoading = 0
