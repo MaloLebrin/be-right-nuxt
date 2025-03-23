@@ -9,8 +9,12 @@
 >
   <div
     v-if="isLoading"
-    class="fixed z-50 transform -translate-x-1/2 bottom-4 left-1/2">
-    <div class="flex items-center px-4 py-2 space-x-3 rounded-full shadow-lg bg-emerald-900">
+    :class="[
+      '',
+      additionalClass,
+    ]"
+  >
+    <div class="flex items-center px-4 py-2 space-x-3 bg-indigo-900 rounded-full shadow-lg">
       <div class="w-4 h-4">
         <svg
           class="text-white animate-spin"
@@ -43,9 +47,11 @@
 interface Props {
   isLoading: boolean
   message?: string
+  additionalClass?: string
 }
 
 withDefaults(defineProps<Props>(), {
-  message: 'Chargement en cours...'
+  message: 'Chargement en cours...',
+  additionalClass: '',
 })
 </script> 

@@ -27,6 +27,8 @@
       <slot />
     </PageAuthWrapper>
 
+    <LayoutsGlobalLoader />
+
     <ClientOnly>
       <AddEmployeeModal
         v-if="uiStore.isModalActive(ModalNameEnum.ADD_RECIPIENT_TO_EVENT)"
@@ -47,6 +49,7 @@
 
 <script setup lang="ts">
 import AddEmployeeModal from '~~/components/Event/Form/AddEmployeeModal.vue'
+import LayoutsGlobalLoader from '~~/components/Layouts/GlobalLoader.vue'
 import BaseButton from '~/components/Base/BaseButton.vue'
 import BaseMessage from '~/components/Base/BaseMessage.vue'
 import HeaderDashboard from '~/components/Header/HeaderDashboard.vue'

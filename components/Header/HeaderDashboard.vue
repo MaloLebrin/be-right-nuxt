@@ -38,7 +38,11 @@
     </h3>
   </div>
 
-  <div class="flex items-ceneter">
+  <div class="flex items-center">
+    <BaseLoadingIndicator
+      :is-loading="uiStore.getUIIsLoading"
+      :message="uiStore.loadingMessage"
+    />
     <NotificationMenu is-in-header />
 
     <UserMenu
@@ -67,6 +71,8 @@ const { $isNotMobile } = useNuxtApp()
 const getRouteHeaderContent = computed(() =>
   findRecusivlyByLinkName(MENU_ITEMS, route.name),
 )
+
+const uiStore = useUiStore()
 
 const getOutsideMenuRouteLabel = computed(() => {
   if (route.name) {

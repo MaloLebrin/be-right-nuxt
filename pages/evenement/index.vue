@@ -15,7 +15,7 @@
       </div>
 
       <div class="flex items-center justify-between py-2 mt-2">
-        <EventTableFilters @setFilter="setEventStatusFilter" />
+        <EventTableFilters @set-filter="setEventStatusFilter" />
 
         <div class="flex items-center space-x-2">
           <BaseButton
@@ -113,12 +113,15 @@ const eventStore = useEventStore()
 const { addMany } = eventStore
 const { $isNotMobile } = useNuxtApp()
 const { fetchManyAnswerForManyEvent } = answerHook()
+const { IncLoading, DecLoading } = uiStore
 
 async function fetchRelations(items: EventType[]) {
+  IncLoading('Chargement des événements en cours...')
   if (items.length > 0) {
     addMany(items.filter(event => !eventStore.isAlreadyInStore(event.id)))
     await fetchManyAnswerForManyEvent(items.map(item => item.id))
   }
+  DecLoading()
 }
 
 const {

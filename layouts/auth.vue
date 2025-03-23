@@ -1,11 +1,12 @@
 <template>
-<main class="flex min-h-screen bg-white dark:bg-blue-dark">
+<main class="relative flex min-h-screen bg-white dark:bg-blue-dark">
   <MenuDrawer />
 
   <div class="w-full lg:ml-64">
     <HeaderDashboard />
     <slot />
   </div>
+  <LayoutsGlobalLoader />
 
   <ClientOnly>
     <EventModal
@@ -61,6 +62,7 @@ import EventModal from '~/components/Event/EventModal.vue'
 import HeaderDashboard from '~/components/Header/HeaderDashboard.vue'
 import MenuDrawer from '~/components/Menu/MenuDrawer.vue'
 import UserMissingInfoModal from '~~/components/User/MissingInfoModal.vue'
+import LayoutsGlobalLoader from '~/components/Layouts/GlobalLoader.vue'
 import { useAuthStore, useEventStore, useUiStore } from '~~/store'
 import { ModalNameEnum } from '~~/types'
 
