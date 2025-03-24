@@ -14,8 +14,8 @@
       'bg-blue-500 text-white': toast.type === 'info'
     }"
   >
-    <Icon
-      :name="getIconName(toast.type)"
+    <component
+      :is="getIcon(toast.type)"
       class="w-5 h-5"
     />
     <span class="flex-1">{{ toast.message }}</span>
@@ -23,8 +23,7 @@
       class="hover:opacity-80"
       @click="removeToast(toast.id)"
     >
-      <Icon
-        name="heroicons:x-mark"
+      <XMarkIcon
         class="w-5 h-5"
       />
     </button>
@@ -33,13 +32,18 @@
 </template>
 
 <script setup lang="ts">
+import CheckCircle from '@heroicons/vue/24/outline/CheckCircleIcon'
+import XCircle from '@heroicons/vue/24/outline/XCircleIcon'
+import InformationCircle from '@heroicons/vue/24/outline/InformationCircleIcon'
+import XMarkIcon from '@heroicons/vue/24/outline/XMarkIcon'
+
 interface Toast {
   id: number
   message: string
   type: 'success' | 'error' | 'info'
 }
 
-const props = defineProps<{
+defineProps<{
   toasts: Toast[]
 }>()
 
@@ -51,14 +55,14 @@ const removeToast = (id: number) => {
   emit('remove', id)
 }
 
-const getIconName = (type: Toast['type']) => {
+const getIcon = (type: Toast['type']) => {
   switch (type) {
     case 'success':
-      return 'heroicons:check-circle'
+      return CheckCircle
     case 'error':
-      return 'heroicons:x-circle'
+      return XCircle
     case 'info':
-      return 'heroicons:information-circle'
+      return InformationCircle
   }
 }
 </script>
