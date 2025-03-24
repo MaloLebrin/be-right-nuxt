@@ -11,9 +11,7 @@
     @remove="removeToast"
   />
   <slot name="modals" />
-</main>
-
-  
+</main>  
 </template>
 
 <script setup lang="ts">
