@@ -1,10 +1,12 @@
 import { object, string } from 'yup'
 import type { ObjectSchema } from 'yup'
-import type { UserType, VeeValidateValues, WithoutId } from '@/types'
+import type { EmployeeType, UserType, VeeValidateValues, WithoutId } from '@/types'
 import type { Company } from '~~/store'
 import { useAuthStore, useUiStore } from '~~/store'
 import { RouteNames } from '~/helpers/routes'
 import { RoleEnum } from '~/types'
+import { ref } from 'vue'
+import type { SubmissionHandler } from 'vee-validate'
 
 /**
  * Interface définissant les valeurs du formulaire de l'étape 1
@@ -33,15 +35,7 @@ interface Step2Values {
  * Interface définissant les valeurs du formulaire de l'étape 3
  */
 interface Step3Values {
-  email: string
-  firstName: string
-  lastName: string
-  phone: string
-  addressLine: string
-  addressLine2: string | null
-  postalCode: string
-  city: string
-  country: string
+  employees?: EmployeeType[]
 }
 
 /**

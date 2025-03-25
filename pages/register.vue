@@ -195,9 +195,10 @@
         </div>
 
         <div class="space-y-4 md:col-span-2">
-          <EmployeeForm
+          <EmployeeListForm
             :company-id="companyId"
-            @submit="handleRecipientCreated"
+            @complete="handleRecipientsComplete"
+            @previous="previousStep"
           />
         </div>
 
@@ -230,7 +231,7 @@ import BaseButton from '~/components/Base/BaseButton.vue'
 import BaseInput from '~/components/Base/BaseInput.vue'
 import BaseRadio from '~/components/Base/BaseRadio.vue'
 import BaseProgressBar from '~/components/Base/BaseProgressBar.vue'
-import EmployeeForm from '~/components/Employee/EmployeeForm.vue'
+import EmployeeListForm from '~/components/Employee/EmployeeListForm.vue'
 import { useRegister } from '~/composables/useRegister'
 import { RoleEnum } from '~/types'
 import { useHead } from 'unhead'
@@ -251,7 +252,7 @@ const {
   handleStep1Submit,
   handleStep2Submit,
   handleStep3Submit,
-  handleRecipientCreated,
+  handleRecipientsComplete,
   submitregister,
 } = useRegister()
 
