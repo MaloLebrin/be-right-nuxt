@@ -46,10 +46,6 @@ describe('isNotPersonnalFile', () => {
     expect(isNotPersonnalFile({ type: false } as unknown as FileType)).toBe(false)
   })
 
-  test('return false when type of file is FileTypeEnum.BUG_REPORT', () => {
-    expect(isNotPersonnalFile({ type: 'BUG_REPORT' } as unknown as FileType)).toBe(false)
-  })
-
   test('return false when type of file is FileTypeEnum.PROFILE_PICTURE', () => {
     expect(isNotPersonnalFile({ type: 'PROFILE_PICTURE' } as unknown as FileType)).toBe(false)
   })
@@ -84,10 +80,6 @@ describe('getTranslationFileType', () => {
 
   test('return "Photo de profil" when fileType is FileTypeEnum.PROFILE_PICTURE', () => {
     expect(getTranslationFileType('PROFILE_PICTURE' as FileTypeEnum)).toBe('Photo de profil')
-  })
-
-  test('return "Capture d\'écran de bug" when fileType is FileTypeEnum.BUG_REPORT', () => {
-    expect(getTranslationFileType('BUG_REPORT' as FileTypeEnum)).toBe('Capture d\'écran de bug')
   })
 
   test('return "Autre" when fileType is not defined', () => {

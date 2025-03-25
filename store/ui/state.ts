@@ -13,6 +13,7 @@ export function defaultUiState() {
       isLoading: false,
     },
     isLoading: 0,
+    loadingMessage: 'Chargement en cours...',
     isDrawerOpen: false,
   }
 }

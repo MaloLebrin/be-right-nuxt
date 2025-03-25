@@ -229,7 +229,7 @@ const answerStore = useAnswerStore()
 const eventStore = useEventStore()
 const employeeStore = useEmployeeStore()
 
-const { $modal, $toast, $router } = useNuxtApp()
+const {$router } = useNuxtApp()
 const { updateAnswerForEmployee } = answerHook()
 
 interface State {
@@ -304,17 +304,6 @@ function closeFormModal() {
 
 onMounted(async () => {
   IncLoading()
-
-  $modal.show({
-    type: 'warning',
-    title: 'Instructions',
-    body: 'Lisez attentivement ce document avant de répondre.',
-    primary: {
-      label: 'OK! Merci',
-      theme: 'blue',
-      action: () => $toast.warning('Merci de votre attention'),
-    },
-  })
 
   const params = route.params as unknown as Record<string, number>
   const answerId = params?.id

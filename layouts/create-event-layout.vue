@@ -1,32 +1,29 @@
 <template>
-<main class="flex min-h-screen bg-white dark:bg-blue-dark">
-  <MenuDrawer />
+<BaseLayout>
+  <PageAuthWrapper>
+    <EventFormStepperWrapper />
 
-  <div class="w-full lg:ml-64">
-    <HeaderDashboard />
-    <PageAuthWrapper>
-      <EventFormStepperWrapper />
+    <div
+      v-if="!haveUserEmployees"
+      class="flex items-center justify-center my-4"
+    >
+      <BaseMessage type="warning">
+        <div class="flex flex-col items-center">
+          <p>Attention vous devez créer des destinataires avant de créer un événement</p>
+          <BaseButton
+            class="mt-4"
+            :href="{ name: RouteNames.EMPLOYEE_CREATE }"
+          >
+            Créer un destinataire
+          </BaseButton>
+        </div>
+      </BaseMessage>
+    </div>
 
-      <div
-        v-if="!haveUserEmployees"
-        class="flex items-center justify-center my-4"
-      >
-        <BaseMessage type="warning">
-          <div class="flex flex-col items-center">
-            <p>Attention vous devez créer des destinataires avant de créer un événement</p>
-            <BaseButton
-              class="mt-4"
-              :href="{ name: RouteNames.EMPLOYEE_CREATE }"
-            >
-              Créer un destinataire
-            </BaseButton>
-          </div>
-        </BaseMessage>
-      </div>
+    <slot />
+  </PageAuthWrapper>
 
-      <slot />
-    </PageAuthWrapper>
-
+  <template #modals>
     <ClientOnly>
       <AddEmployeeModal
         v-if="uiStore.isModalActive(ModalNameEnum.ADD_RECIPIENT_TO_EVENT)"
@@ -41,16 +38,15 @@
         @close="resetUiModalState"
       />
     </ClientOnly>
-  </div>
-</main>
+  </template>
+</BaseLayout>
 </template>
 
 <script setup lang="ts">
+import BaseLayout from '~/components/Layouts/BaseLayout.vue'
 import AddEmployeeModal from '~~/components/Event/Form/AddEmployeeModal.vue'
 import BaseButton from '~/components/Base/BaseButton.vue'
 import BaseMessage from '~/components/Base/BaseMessage.vue'
-import HeaderDashboard from '~/components/Header/HeaderDashboard.vue'
-import MenuDrawer from '~/components/Menu/MenuDrawer.vue'
 import PageAuthWrapper from '~/components/Page/PageAuthWrapper.vue'
 import PhotographerModal from '~/components/Photographer/PhotographerModal.vue'
 import { RouteNames } from '~~/helpers/routes'

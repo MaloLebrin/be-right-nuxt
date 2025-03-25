@@ -1,6 +1,6 @@
 <template>
 <PageAuthWrapper>
-  <div class="flex px-4 mx-auto mb-8 lg:px-8">
+  <div class="container flex px-4 py-4 mx-auto mb-8 lg:px-8 xl:max-w-[1100px]">
     <EmployeeForm has-suggestion />
   </div>
 </PageAuthWrapper>
