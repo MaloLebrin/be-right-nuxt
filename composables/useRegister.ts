@@ -6,6 +6,9 @@ import { useAuthStore, useUiStore } from '~~/store'
 import { RouteNames } from '~/helpers/routes'
 import { RoleEnum } from '~/types'
 
+/**
+ * Interface définissant les valeurs du formulaire de l'étape 1
+ */
 interface Step1Values {
   roles: RoleEnum
   companyName: string
@@ -15,6 +18,9 @@ interface Step1Values {
   password: string
 }
 
+/**
+ * Interface définissant les valeurs du formulaire de l'étape 2
+ */
 interface Step2Values {
   siret: string
   address: string
@@ -23,6 +29,9 @@ interface Step2Values {
   phone: string
 }
 
+/**
+ * Interface définissant les valeurs du formulaire de l'étape 3
+ */
 interface Step3Values {
   email: string
   firstName: string
@@ -35,6 +44,10 @@ interface Step3Values {
   country: string
 }
 
+/**
+ * Hook pour gérer le processus d'inscription en plusieurs étapes
+ * @returns {Object} Un objet contenant toutes les fonctions et états nécessaires pour l'inscription
+ */
 export const useRegister = () => {
   const { $toast, $api, $pinia } = useNuxtApp()
   const uiStore = useUiStore($pinia)
@@ -132,20 +145,32 @@ export const useRegister = () => {
     }),
   }
 
+  /**
+   * Retourne à l'étape précédente si possible
+   */
   function previousStep() {
     if (currentStep.value > 1) {
       currentStep.value--
     }
   }
 
+  /**
+   * Gère la soumission du formulaire de l'étape 1
+   * @param {Step1Values} values - Les valeurs du formulaire de l'étape 1
+   */
   async function handleStep1Submit(values: Step1Values) {
     step1Values.value = values
     currentStep.value++
   }
 
+  /**
+   * Gère la soumission du formulaire de l'étape 2
+   * Crée l'entreprise et récupère son ID
+   * @param {Step2Values} values - Les valeurs du formulaire de l'étape 2
+   * @throws {Error} Si la création de l'entreprise échoue
+   */
   async function handleStep2Submit(values: Step2Values) {
     step2Values.value = values
-    // Créer l'entreprise et récupérer son ID
     try {
       const { data } = await $api().post<{ company: Company }>('company', {
         name: step1Values.value.companyName,
@@ -166,6 +191,10 @@ export const useRegister = () => {
     currentStep.value++
   }
 
+  /**
+   * Gère la création d'un destinataire
+   * Finalise l'inscription après la création du destinataire
+   */
   async function handleRecipientCreated() {
     $toast.success('Destinataire créé avec succès')
     await submitregister({
@@ -175,6 +204,10 @@ export const useRegister = () => {
     })
   }
 
+  /**
+   * Gère la soumission du formulaire de l'étape 3
+   * @param {Step3Values} values - Les valeurs du formulaire de l'étape 3
+   */
   async function handleStep3Submit(values: Step3Values) {
     step3Values.value = values
     await submitregister({
@@ -184,6 +217,12 @@ export const useRegister = () => {
     })
   }
 
+  /**
+   * Soumet le formulaire d'inscription complet
+   * Gère l'authentification et la redirection après une inscription réussie
+   * @param {VeeValidateValues} form - Les valeurs du formulaire complet
+   * @throws {Error} Si l'inscription échoue
+   */
   async function submitregister(form: VeeValidateValues) {
     const cookieToken = getCookie()
     IncLoading('Inscription en cours...')
