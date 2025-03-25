@@ -18,8 +18,6 @@
       name="slide"
       tag="div"
       class="relative"
-      :css="false"
-      @before-enter="beforeEnter"
     >
       <!-- Step 1: Basic Information -->
       <Form
@@ -94,7 +92,7 @@
         <div class="flex justify-end md:col-span-2">
           <BaseButton
             type="submit"
-            :disabled="!meta.valid || !meta.dirty || isSubmitting"
+            :disabled="!meta.valid || isSubmitting || uiStore.getUIIsLoading"
             :is-loading="isSubmitting"
           >
             Suivant
@@ -172,7 +170,7 @@
           </BaseButton>
           <BaseButton
             type="submit"
-            :disabled="!meta.valid || !meta.dirty || isSubmitting"
+            :disabled="!meta.valid || isSubmitting || uiStore.getUIIsLoading"
             :is-loading="isSubmitting"
           >
             Suivant
@@ -214,7 +212,7 @@
           </BaseButton>
           <BaseButton
             type="submit"
-            :disabled="!meta.valid || !meta.dirty || isSubmitting"
+            :disabled="!meta.valid || isSubmitting || uiStore.getUIIsLoading"
             :is-loading="isSubmitting"
           >
             S'inscrire
@@ -236,6 +234,10 @@ import EmployeeForm from '~/components/Employee/EmployeeForm.vue'
 import { useRegister } from '~/composables/useRegister'
 import { RoleEnum } from '~/types'
 import { useHead } from 'unhead'
+import { useUiStore } from '~~/store'
+
+const { $pinia } = useNuxtApp()
+const uiStore = useUiStore($pinia)
 
 const {
   currentStep,
@@ -260,15 +262,6 @@ const direction = ref<'next' | 'prev'>('next')
 watch(currentStep, (newStep, oldStep) => {
   direction.value = newStep > oldStep ? 'next' : 'prev'
 })
-
-// Animation hooks
-function beforeEnter(el: Element) {
-  const form = el as HTMLElement
-  form.style.position = 'absolute'
-  form.style.width = '100%'
-  form.style.opacity = '0'
-  form.style.transform = `translateX(${direction.value === 'next' ? '100%' : '-100%'})`
-}
 
 definePageMeta({
   layout: 'default',
