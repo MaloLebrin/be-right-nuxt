@@ -115,7 +115,6 @@ export default defineNuxtConfig({
       //   'text-white',
       // ],
     }],
-    '@tailvue/nuxt',
     'dayjs-nuxt',
     '@nuxt/image',
     '@unlok-co/nuxt-stripe',
@@ -151,7 +150,10 @@ export default defineNuxtConfig({
     ],
   },
 
-  plugins: ['~/plugins/global.ts'],
+  plugins: [
+    '~/plugins/global.ts',
+    '~/plugins/toast.ts',
+  ],
 
   vite: {
     optimizeDeps: {

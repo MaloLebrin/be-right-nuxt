@@ -44,4 +44,4 @@ export const useToast = () => {
     denied,
     info
   }
-} 
+}
