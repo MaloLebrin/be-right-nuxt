@@ -1,7 +1,7 @@
 <template>
-<div class="min-h-screen">
+<div class="flex flex-col min-h-screen">
   <LayoutsHeader />
-  <div class="flex justify-center w-full h-full">
+  <div class="flex justify-center flex-1 w-full h-full">
     <main class="flex-1">
       <slot />
     </main>

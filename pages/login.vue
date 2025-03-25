@@ -3,12 +3,12 @@
   v-slot="{ meta, isSubmitting }"
   :validation-schema="schema"
   :initial-values="initialValues"
-  class="container grid grid-cols-1 gap-12 py-6 mx-auto md:grid-cols-2"
+  class="container py-6 mx-auto mt-8"
   @submit="submitLogin"
 >
-  <div class="flex flex-col mx-auto space-y-12 max-w-1/2">
+  <div class="mt-10 space-y-12 sm:mx-auto sm:w-full sm:max-w-sm">
     <div class="space-y-2 mb-26">
-      <h1 class="text-center text-black dark:text-white">
+      <h1 class="text-center text-gray-900">
         Connectez vous sur
       </h1>
       <LogoSimpleLogo />
@@ -56,16 +56,6 @@
       </NuxtLink>
     </div>
   </div>
-
-  <NuxtImg
-    v-if="$isTouch || $isDesktop"
-    class="hidden object-cover w-2/3 max-w-5xl shadow-2xl TranslateUpAnimation cursor-none md:block"
-    src="/img/login-picture.webp"
-    width="1577"
-    height="1920"
-    sizes="xs:200px md:500px lg:1024"
-    alt="Objectif d'appareil photo"
-  />
 </Form>
 </template>
 
