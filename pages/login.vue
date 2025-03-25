@@ -34,7 +34,7 @@
     <div class="flex flex-col items-center justify-center space-y-6">
       <BaseButton
         :disabled="!meta.valid || !meta.dirty || isSubmitting"
-        :is-loading="uiStore.getUIIsLoading || isSubmitting"
+        :is-loading="isSubmitting"
         data-test-id="login-submit-button"
         type="submit"
       >
