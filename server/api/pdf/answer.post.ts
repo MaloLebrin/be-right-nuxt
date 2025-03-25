@@ -37,9 +37,10 @@ export default defineEventHandler(async event => {
 
   await browser.close()
   console.timeEnd('pdf')
+  const base64 = Buffer.from(pdf).toString('base64')
 
   return {
     fileName,
-    content: pdf.toString('base64'),
+    content: base64,
   }
 })
