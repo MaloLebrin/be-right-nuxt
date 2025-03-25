@@ -3,12 +3,12 @@
   v-slot="{ meta, isSubmitting }"
   :validation-schema="schema"
   :initial-values="initialValues"
-  class="container grid grid-cols-1 gap-12 py-6 mx-auto md:grid-cols-2"
+  class="container grid grid-cols-1 gap-12 py-6 mx-auto"
   @submit="submitregister"
 >
   <div class="flex flex-col mx-auto space-y-12 md:max-w-1/2">
     <div class="mt-4 md:mt-0">
-      <h1 class="text-3xl font-bold leading-tight text-center text-gray-800 md:text-5xl md:text-left dark:text-white">
+      <h1 class="text-3xl font-bold leading-tight text-center text-gray-800 md:text-5xl dark:text-white">
         Inscription
       </h1>
     </div>
@@ -44,7 +44,7 @@
           label="Prénom"
           name="firstName"
           type="text"
-          autocomplete="firstName"
+          autocomplete="given-name"
           is-required
         />
       </div>
@@ -54,7 +54,7 @@
           label="Nom"
           name="lastName"
           type="text"
-          autocomplete="lastName"
+          autocomplete="family-name"
           is-required
         />
       </div>
@@ -72,7 +72,7 @@
           label="Mot de passe"
           name="password"
           type="password"
-          autocomplete="current-password"
+          autocomplete="new-password"
           is-required
         />
       </div>
@@ -97,16 +97,6 @@
       </div>
     </div>
   </div>
-
-  <NuxtImg
-    v-if="$isTouch || $isDesktop"
-    class="hidden object-cover max-w-5xl shadow-2xl lg:w-2/3 md:max-w-full md:block TranslateUpAnimation cursor-none"
-    src="/img/login-picture.webp"
-    width="1577"
-    height="1920"
-    sizes="xs:200px md:500px lg:1024"
-    alt="Objectif d'appareil photo"
-  />
 </Form>
 </template>
 
