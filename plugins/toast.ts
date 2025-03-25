@@ -1,5 +1,5 @@
 export default defineNuxtPlugin(() => {
-  const { toasts, removeToast, success, denied, info } = useToast()
+  const { toasts, removeToast, success, denied, info, warning } = useToast()
 
   return {
     provide: {
@@ -8,6 +8,8 @@ export default defineNuxtPlugin(() => {
         removeToast,
         success,
         denied,
+        warning,
+        danger: denied,
         info,
       },
     },

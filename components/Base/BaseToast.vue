@@ -36,12 +36,7 @@ import CheckCircle from '@heroicons/vue/24/outline/CheckCircleIcon'
 import XCircle from '@heroicons/vue/24/outline/XCircleIcon'
 import InformationCircle from '@heroicons/vue/24/outline/InformationCircleIcon'
 import XMarkIcon from '@heroicons/vue/24/outline/XMarkIcon'
-
-interface Toast {
-  id: number
-  message: string
-  type: 'success' | 'error' | 'info'
-}
+import ExclamationCircleIcon from '@heroicons/vue/24/outline/ExclamationCircleIcon'
 
 defineProps<{
   toasts: Toast[]
@@ -63,6 +58,8 @@ const getIcon = (type: Toast['type']) => {
       return XCircle
     case 'info':
       return InformationCircle
+    case 'warning':
+      return ExclamationCircleIcon
   }
 }
 </script>
