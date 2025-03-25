@@ -13,206 +13,215 @@
       :total-steps="totalSteps"
     />
 
-    <!-- Step 1: Basic Information -->
-    <Form
-      v-if="currentStep === 1"
-      v-slot="{ meta, isSubmitting }"
-      :validation-schema="stepSchemas[1]"
-      :initial-values="step1Values"
-      class="w-full px-4 space-y-4 text-left md:space-y-0 md:px-0 md:grid md:gap-6 md:grid-cols-2"
-      @submit="handleStep1Submit"
+    <!-- Forms container with transition -->
+    <TransitionGroup
+      name="slide"
+      tag="div"
+      class="relative"
+      :css="false"
+      @before-enter="beforeEnter"
     >
-      <BaseRadio
-        :id="RoleEnum.PHOTOGRAPHER"
-        :value="RoleEnum.PHOTOGRAPHER"
-        name="roles"
-        :label="'Je suis un photographe'"
-      />
-      <BaseRadio
-        :id="RoleEnum.OWNER"
-        :value="RoleEnum.OWNER"
-        name="roles"
-        :label="'Je suis une entreprise ou un particulier'"
-      />
-
-      <div class="space-y-4 md:col-span-2">
-        <BaseInput
-          label="Nom de l'entreprise"
-          name="companyName"
-          type="text"
-          autocomplete="companyName"
-          is-required
+      <!-- Step 1: Basic Information -->
+      <Form
+        v-if="currentStep === 1"
+        v-slot="{ meta, isSubmitting }"
+        :validation-schema="stepSchemas[1]"
+        :initial-values="step1Values"
+        class="w-full px-4 space-y-4 text-left md:space-y-0 md:px-0 md:grid md:gap-6 md:grid-cols-2"
+        @submit="handleStep1Submit"
+      >
+        <BaseRadio
+          :id="RoleEnum.PHOTOGRAPHER"
+          :value="RoleEnum.PHOTOGRAPHER"
+          name="roles"
+          :label="'Je suis un photographe'"
         />
-      </div>
-
-      <div class="space-y-4">
-        <BaseInput
-          label="Prénom"
-          name="firstName"
-          type="text"
-          autocomplete="given-name"
-          is-required
+        <BaseRadio
+          :id="RoleEnum.OWNER"
+          :value="RoleEnum.OWNER"
+          name="roles"
+          :label="'Je suis une entreprise ou un particulier'"
         />
-      </div>
 
-      <div class="space-y-4">
-        <BaseInput
-          label="Nom"
-          name="lastName"
-          type="text"
-          autocomplete="family-name"
-          is-required
-        />
-      </div>
+        <div class="space-y-4 md:col-span-2">
+          <BaseInput
+            label="Nom de l'entreprise"
+            name="companyName"
+            type="text"
+            autocomplete="companyName"
+            is-required
+          />
+        </div>
 
-      <div class="col-span-2 space-y-4">
-        <BaseInput
-          class="md:col-span-2"
-          label="Adresse email"
-          name="email"
-          type="email"
-          autocomplete="email"
-          is-required
-        />
-        <BaseInput
-          label="Mot de passe"
-          name="password"
-          type="password"
-          autocomplete="new-password"
-          is-required
-        />
-      </div>
+        <div class="space-y-4">
+          <BaseInput
+            label="Prénom"
+            name="firstName"
+            type="text"
+            autocomplete="given-name"
+            is-required
+          />
+        </div>
 
-      <div class="flex justify-end md:col-span-2">
-        <BaseButton
-          type="submit"
-          :disabled="!meta.valid || !meta.dirty || isSubmitting"
-          :is-loading="isSubmitting"
-        >
-          Suivant
-        </BaseButton>
-      </div>
-    </Form>
+        <div class="space-y-4">
+          <BaseInput
+            label="Nom"
+            name="lastName"
+            type="text"
+            autocomplete="family-name"
+            is-required
+          />
+        </div>
 
-    <!-- Step 2: Company Information -->
-    <Form
-      v-if="currentStep === 2"
-      v-slot="{ meta, isSubmitting }"
-      :validation-schema="stepSchemas[2]"
-      :initial-values="step2Values"
-      class="w-full px-4 space-y-4 text-left md:space-y-0 md:px-0 md:grid md:gap-6 md:grid-cols-2"
-      @submit="handleStep2Submit"
-    >
-      <div class="space-y-4 md:col-span-2">
-        <BaseInput
-          label="Numéro SIRET"
-          name="siret"
-          type="text"
-          autocomplete="organization"
-          is-required
-        />
-      </div>
+        <div class="col-span-2 space-y-4">
+          <BaseInput
+            class="md:col-span-2"
+            label="Adresse email"
+            name="email"
+            type="email"
+            autocomplete="email"
+            is-required
+          />
+          <BaseInput
+            label="Mot de passe"
+            name="password"
+            type="password"
+            autocomplete="new-password"
+            is-required
+          />
+        </div>
 
-      <div class="space-y-4 md:col-span-2">
-        <BaseInput
-          label="Adresse"
-          name="address"
-          type="text"
-          autocomplete="street-address"
-          is-required
-        />
-      </div>
+        <div class="flex justify-end md:col-span-2">
+          <BaseButton
+            type="submit"
+            :disabled="!meta.valid || !meta.dirty || isSubmitting"
+            :is-loading="isSubmitting"
+          >
+            Suivant
+          </BaseButton>
+        </div>
+      </Form>
 
-      <div class="space-y-4">
-        <BaseInput
-          label="Code postal"
-          name="postalCode"
-          type="text"
-          autocomplete="postal-code"
-          is-required
-        />
-      </div>
+      <!-- Step 2: Company Information -->
+      <Form
+        v-if="currentStep === 2"
+        v-slot="{ meta, isSubmitting }"
+        :validation-schema="stepSchemas[2]"
+        :initial-values="step2Values"
+        class="w-full px-4 space-y-4 text-left md:space-y-0 md:px-0 md:grid md:gap-6 md:grid-cols-2"
+        @submit="handleStep2Submit"
+      >
+        <div class="space-y-4 md:col-span-2">
+          <BaseInput
+            label="Numéro SIRET"
+            name="siret"
+            type="text"
+            autocomplete="organization"
+            is-required
+          />
+        </div>
 
-      <div class="space-y-4">
-        <BaseInput
-          label="Ville"
-          name="city"
-          type="text"
-          autocomplete="address-level2"
-          is-required
-        />
-      </div>
+        <div class="space-y-4 md:col-span-2">
+          <BaseInput
+            label="Adresse"
+            name="address"
+            type="text"
+            autocomplete="street-address"
+            is-required
+          />
+        </div>
 
-      <div class="space-y-4 md:col-span-2">
-        <BaseInput
-          label="Téléphone"
-          name="phone"
-          type="tel"
-          autocomplete="tel"
-          is-required
-        />
-      </div>
+        <div class="space-y-4">
+          <BaseInput
+            label="Code postal"
+            name="postalCode"
+            type="text"
+            autocomplete="postal-code"
+            is-required
+          />
+        </div>
 
-      <div class="flex justify-between md:col-span-2">
-        <BaseButton
-          type="button"
-          variant="default"
-          :disabled="isSubmitting"
-          @click="previousStep"
-        >
-          Précédent
-        </BaseButton>
-        <BaseButton
-          type="submit"
-          :disabled="!meta.valid || !meta.dirty || isSubmitting"
-          :is-loading="isSubmitting"
-        >
-          Suivant
-        </BaseButton>
-      </div>
-    </Form>
+        <div class="space-y-4">
+          <BaseInput
+            label="Ville"
+            name="city"
+            type="text"
+            autocomplete="address-level2"
+            is-required
+          />
+        </div>
 
-    <!-- Step 3: Initial Setup -->
-    <Form
-      v-if="currentStep === 3"
-      v-slot="{ meta, isSubmitting }"
-      :validation-schema="stepSchemas[3]"
-      :initial-values="step3Values"
-      class="w-full px-4 space-y-4 text-left md:space-y-0 md:px-0 md:grid md:gap-6 md:grid-cols-2"
-      @submit="handleStep3Submit"
-    >
-      <div class="space-y-4 md:col-span-2">
-        <h2 class="mb-4 text-xl font-semibold">Configuration initiale</h2>
-        <p class="mb-6 text-gray-600 dark:text-gray-400">
-          Pour commencer à utiliser l'application, nous vous proposons de créer vos premiers destinataires.
-        </p>
-      </div>
+        <div class="space-y-4 md:col-span-2">
+          <BaseInput
+            label="Téléphone"
+            name="phone"
+            type="tel"
+            autocomplete="tel"
+            is-required
+          />
+        </div>
 
-      <div class="space-y-4 md:col-span-2">
-        <EmployeeForm
-          :company-id="companyId"
-          @submit="handleRecipientCreated"
-        />
-      </div>
+        <div class="flex justify-between md:col-span-2">
+          <BaseButton
+            type="button"
+            variant="default"
+            :disabled="isSubmitting"
+            @click="previousStep"
+          >
+            Précédent
+          </BaseButton>
+          <BaseButton
+            type="submit"
+            :disabled="!meta.valid || !meta.dirty || isSubmitting"
+            :is-loading="isSubmitting"
+          >
+            Suivant
+          </BaseButton>
+        </div>
+      </Form>
 
-      <div class="flex justify-between md:col-span-2">
-        <BaseButton
-          type="button"
-          variant="default"
-          :disabled="isSubmitting"
-          @click="previousStep"
-        >
-          Précédent
-        </BaseButton>
-        <BaseButton
-          type="submit"
-          :disabled="!meta.valid || !meta.dirty || isSubmitting"
-          :is-loading="isSubmitting"
-        >
-          S'inscrire
-        </BaseButton>
-      </div>
-    </Form>
+      <!-- Step 3: Initial Setup -->
+      <Form
+        v-if="currentStep === 3"
+        v-slot="{ meta, isSubmitting }"
+        :validation-schema="stepSchemas[3]"
+        :initial-values="step3Values"
+        class="w-full px-4 space-y-4 text-left md:space-y-0 md:px-0 md:grid md:gap-6 md:grid-cols-2"
+        @submit="handleStep3Submit"
+      >
+        <div class="space-y-4 md:col-span-2">
+          <h2 class="mb-4 text-xl font-semibold">Configuration initiale</h2>
+          <p class="mb-6 text-gray-600 dark:text-gray-400">
+            Pour commencer à utiliser l'application, nous vous proposons de créer vos premiers destinataires.
+          </p>
+        </div>
+
+        <div class="space-y-4 md:col-span-2">
+          <EmployeeForm
+            :company-id="companyId"
+            @submit="handleRecipientCreated"
+          />
+        </div>
+
+        <div class="flex justify-between md:col-span-2">
+          <BaseButton
+            type="button"
+            variant="default"
+            :disabled="isSubmitting"
+            @click="previousStep"
+          >
+            Précédent
+          </BaseButton>
+          <BaseButton
+            type="submit"
+            :disabled="!meta.valid || !meta.dirty || isSubmitting"
+            :is-loading="isSubmitting"
+          >
+            S'inscrire
+          </BaseButton>
+        </div>
+      </Form>
+    </TransitionGroup>
   </div>
 </div>
 </template>
@@ -244,6 +253,23 @@ const {
   submitregister,
 } = useRegister()
 
+// Animation direction
+const direction = ref<'next' | 'prev'>('next')
+
+// Update direction when changing steps
+watch(currentStep, (newStep, oldStep) => {
+  direction.value = newStep > oldStep ? 'next' : 'prev'
+})
+
+// Animation hooks
+function beforeEnter(el: Element) {
+  const form = el as HTMLElement
+  form.style.position = 'absolute'
+  form.style.width = '100%'
+  form.style.opacity = '0'
+  form.style.transform = `translateX(${direction.value === 'next' ? '100%' : '-100%'})`
+}
+
 definePageMeta({
   layout: 'default',
   middleware: [
@@ -263,3 +289,35 @@ useHead({
   ],
 })
 </script>
+
+<style scoped>
+.slide-enter-active,
+.slide-leave-active {
+  transition: all 0.5s ease-in-out;
+}
+
+.slide-enter-from {
+  opacity: 0;
+  transform: translateX(100%);
+}
+
+.slide-leave-to {
+  opacity: 0;
+  transform: translateX(-100%);
+}
+
+.slide-enter-to,
+.slide-leave-from {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Reverse animation for previous step */
+.slide-enter-from[data-direction="prev"] {
+  transform: translateX(-100%);
+}
+
+.slide-leave-to[data-direction="prev"] {
+  transform: translateX(100%);
+}
+</style>
