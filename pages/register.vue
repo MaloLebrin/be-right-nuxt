@@ -1,11 +1,5 @@
 <template>
-<Form
-  v-slot="{ meta, isSubmitting }"
-  :validation-schema="schema"
-  :initial-values="initialValues"
-  class="container grid grid-cols-1 gap-12 py-6 mx-auto"
-  @submit="submitregister"
->
+<div class="container grid grid-cols-1 gap-12 py-6 mx-auto">
   <div class="flex flex-col mx-auto space-y-12 md:max-w-1/2">
     <div class="mt-4 md:mt-0">
       <h1 class="text-3xl font-bold leading-tight text-center text-gray-800 md:text-5xl dark:text-white">
@@ -20,9 +14,14 @@
     />
 
     <!-- Step 1: Basic Information -->
-    <div
+    <Form
       v-if="currentStep === 1"
-      class="px-4 space-y-4 text-left md:space-y-0 md:px-0 md:grid md:gap-6 md:grid-cols-2">
+      v-slot="{ meta, isSubmitting }"
+      :validation-schema="stepSchemas[1]"
+      :initial-values="step1Values"
+      class="px-4 space-y-4 text-left md:space-y-0 md:px-0 md:grid md:gap-6 md:grid-cols-2"
+      @submit="handleStep1Submit"
+    >
       <BaseRadio
         :id="RoleEnum.PHOTOGRAPHER"
         :value="RoleEnum.PHOTOGRAPHER"
@@ -83,12 +82,27 @@
           is-required
         />
       </div>
-    </div>
+
+      <div class="flex justify-end md:col-span-2">
+        <BaseButton
+          type="submit"
+          :disabled="!meta.valid || !meta.dirty || isSubmitting"
+          :is-loading="isSubmitting"
+        >
+          Suivant
+        </BaseButton>
+      </div>
+    </Form>
 
     <!-- Step 2: Company Information -->
-    <div
+    <Form
       v-if="currentStep === 2"
-      class="px-4 space-y-4 text-left md:space-y-0 md:px-0 md:grid md:gap-6 md:grid-cols-2">
+      v-slot="{ meta, isSubmitting }"
+      :validation-schema="stepSchemas[2]"
+      :initial-values="step2Values"
+      class="px-4 space-y-4 text-left md:space-y-0 md:px-0 md:grid md:gap-6 md:grid-cols-2"
+      @submit="handleStep2Submit"
+    >
       <div class="space-y-4 md:col-span-2">
         <BaseInput
           label="Numéro SIRET"
@@ -138,12 +152,35 @@
           is-required
         />
       </div>
-    </div>
+
+      <div class="flex justify-between md:col-span-2">
+        <BaseButton
+          type="button"
+          variant="default"
+          :disabled="isSubmitting"
+          @click="previousStep"
+        >
+          Précédent
+        </BaseButton>
+        <BaseButton
+          type="submit"
+          :disabled="!meta.valid || !meta.dirty || isSubmitting"
+          :is-loading="isSubmitting"
+        >
+          Suivant
+        </BaseButton>
+      </div>
+    </Form>
 
     <!-- Step 3: Initial Setup -->
-    <div
+    <Form
       v-if="currentStep === 3"
-      class="px-4 space-y-4 text-left md:space-y-0 md:px-0 md:grid md:gap-6 md:grid-cols-2">
+      v-slot="{ meta, isSubmitting }"
+      :validation-schema="stepSchemas[3]"
+      :initial-values="step3Values"
+      class="px-4 space-y-4 text-left md:space-y-0 md:px-0 md:grid md:gap-6 md:grid-cols-2"
+      @submit="handleStep3Submit"
+    >
       <div class="space-y-4 md:col-span-2">
         <h2 class="mb-4 text-xl font-semibold">Configuration initiale</h2>
         <p class="mb-6 text-gray-600 dark:text-gray-400">
@@ -174,32 +211,17 @@
           :value="false"
         />
       </div>
-    </div>
 
-    <!-- Navigation buttons -->
-    <div class="flex flex-col items-center justify-center space-y-4 md:col-span-2">
-      <div class="flex space-x-4">
+      <div class="flex justify-between md:col-span-2">
         <BaseButton
-          v-if="currentStep > 1"
           type="button"
           variant="default"
+          :disabled="isSubmitting"
           @click="previousStep"
         >
           Précédent
         </BaseButton>
-
         <BaseButton
-          v-if="currentStep < totalSteps"
-          type="button"
-          :disabled="!meta.valid || !meta.dirty || isSubmitting"
-          :is-loading="isSubmitting"
-          @click="nextStep"
-        >
-          Suivant
-        </BaseButton>
-
-        <BaseButton
-          v-if="currentStep === totalSteps"
           type="submit"
           :disabled="!meta.valid || !meta.dirty || isSubmitting"
           :is-loading="isSubmitting"
@@ -207,22 +229,22 @@
           S'inscrire
         </BaseButton>
       </div>
+    </Form>
 
-      <NuxtLink
-        id="already-account-link"
-        class="LinkClass"
-        :to="{ name: 'login' }"
-      >
-        J'ai déjà un compte
-      </NuxtLink>
-    </div>
+    <NuxtLink
+      id="already-account-link"
+      class="LinkClass"
+      :to="{ name: 'login' }"
+    >
+      J'ai déjà un compte
+    </NuxtLink>
   </div>
-</Form>
+</div>
 </template>
 
 <script setup lang="ts">
 import { object, string, boolean } from 'yup'
-import { Form } from 'vee-validate'
+import { Form, useForm } from 'vee-validate'
 import BaseButton from '~/components/Base/BaseButton.vue'
 import BaseInput from '~/components/Base/BaseInput.vue'
 import BaseRadio from '~/components/Base/BaseRadio.vue'
@@ -234,6 +256,7 @@ import type { Company } from '~~/store'
 import { useAuthStore, useUiStore } from '~~/store'
 import { RouteNames } from '~/helpers/routes'
 import { RoleEnum } from '~/types'
+import type { ObjectSchema } from 'yup'
 
 const { $toast, $api } = useNuxtApp()
 const uiStore = useUiStore()
@@ -248,66 +271,74 @@ const router = useRouter()
 const currentStep = ref(1)
 const totalSteps = 3
 
-const schema = object({
-  roles: string()
-    .oneOf([RoleEnum.PHOTOGRAPHER, RoleEnum.OWNER], 'Vous devez renseigner un rôle')
-    .required('Le rôle est requis'),
-  companyName: string().required('Le nom de l\'entreprise est requis'),
-  firstName: string().required('Le prénom est requis'),
-  lastName: string().required('Le nom est requis'),
-  email: string().email('vous devez entrer un email valide').required('L\'adresse email est requise'),
-  password: string().required('Le mot de passe est requis'),
-  siret: string().when('roles', {
-    is: RoleEnum.OWNER,
-    then: schema => schema.required('Le numéro SIRET est requis'),
-    otherwise: schema => schema.nullable(),
-  }),
-  address: string().when('roles', {
-    is: RoleEnum.OWNER,
-    then: schema => schema.required('L\'adresse est requise'),
-    otherwise: schema => schema.nullable(),
-  }),
-  postalCode: string().when('roles', {
-    is: RoleEnum.OWNER,
-    then: schema => schema.required('Le code postal est requis'),
-    otherwise: schema => schema.nullable(),
-  }),
-  city: string().when('roles', {
-    is: RoleEnum.OWNER,
-    then: schema => schema.required('La ville est requise'),
-    otherwise: schema => schema.nullable(),
-  }),
-  phone: string().when('roles', {
-    is: RoleEnum.OWNER,
-    then: schema => schema.required('Le numéro de téléphone est requis'),
-    otherwise: schema => schema.nullable(),
-  }),
-  setupNotifications: boolean().nullable(),
-  createRecipients: boolean().nullable(),
-  createGroups: boolean().nullable(),
-})
-
-const initialValues = {
+// État pour chaque étape
+const step1Values = ref({
   roles: '',
   companyName: '',
   firstName: '',
   lastName: '',
   email: '',
   password: '',
+})
+
+const step2Values = ref({
   siret: '',
   address: '',
   postalCode: '',
   city: '',
   phone: '',
+})
+
+const step3Values = ref({
   setupNotifications: false,
   createRecipients: false,
   createGroups: false,
-}
+})
 
-function nextStep() {
-  if (currentStep.value < totalSteps) {
-    currentStep.value++
-  }
+// Schémas de validation par étape
+const stepSchemas: Record<number, ObjectSchema<any>> = {
+  1: object({
+    roles: string()
+      .oneOf([RoleEnum.PHOTOGRAPHER, RoleEnum.OWNER], 'Vous devez renseigner un rôle')
+      .required('Le rôle est requis'),
+    companyName: string().required('Le nom de l\'entreprise est requis'),
+    firstName: string().required('Le prénom est requis'),
+    lastName: string().required('Le nom est requis'),
+    email: string().email('vous devez entrer un email valide').required('L\'adresse email est requise'),
+    password: string().required('Le mot de passe est requis'),
+  }),
+  2: object({
+    siret: string().when('roles', {
+      is: RoleEnum.OWNER,
+      then: schema => schema.required('Le numéro SIRET est requis'),
+      otherwise: schema => schema.nullable(),
+    }),
+    address: string().when('roles', {
+      is: RoleEnum.OWNER,
+      then: schema => schema.required('L\'adresse est requise'),
+      otherwise: schema => schema.nullable(),
+    }),
+    postalCode: string().when('roles', {
+      is: RoleEnum.OWNER,
+      then: schema => schema.required('Le code postal est requis'),
+      otherwise: schema => schema.nullable(),
+    }),
+    city: string().when('roles', {
+      is: RoleEnum.OWNER,
+      then: schema => schema.required('La ville est requise'),
+      otherwise: schema => schema.nullable(),
+    }),
+    phone: string().when('roles', {
+      is: RoleEnum.OWNER,
+      then: schema => schema.required('Le numéro de téléphone est requis'),
+      otherwise: schema => schema.nullable(),
+    }),
+  }),
+  3: object({
+    setupNotifications: boolean().nullable(),
+    createRecipients: boolean().nullable(),
+    createGroups: boolean().nullable(),
+  }),
 }
 
 function previousStep() {
@@ -316,17 +347,24 @@ function previousStep() {
   }
 }
 
-function isStepValid(step: number) {
-  switch (step) {
-    case 1:
-      return true // Basic validation is handled by the form
-    case 2:
-      return true // Company validation is handled by the form
-    case 3:
-      return true // No validation needed for checkboxes
-    default:
-      return false
-  }
+// Gestionnaires de soumission pour chaque étape
+async function handleStep1Submit(values: any) {
+  step1Values.value = values
+  currentStep.value++
+}
+
+async function handleStep2Submit(values: any) {
+  step2Values.value = values
+  currentStep.value++
+}
+
+async function handleStep3Submit(values: any) {
+  step3Values.value = values
+  await submitregister({
+    ...step1Values.value,
+    ...step2Values.value,
+    ...values,
+  })
 }
 
 async function submitregister(form: VeeValidateValues) {
