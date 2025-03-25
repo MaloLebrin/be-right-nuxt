@@ -156,6 +156,7 @@ interface Props {
 
 const props = withDefaults(defineProps<Props>(), {
   employee: null,
+  address: null,
   mode: ModalModeEnum.CREATE,
   eventId: 0,
   userId: 0,
@@ -179,7 +180,7 @@ const {
 
 const router = useRouter()
 
-const schema = (authStore.isAuthUserAdmin && props.mode === ModalModeEnum.CREATE)
+const schema = (authStore.isAuthUserAdmin)
   ? object({
     email: string().email('vous devez entrer in email valide').required('L\'adresse email est requise'),
     firstName: string().required('Le prénom est requis'),
