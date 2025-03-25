@@ -60,20 +60,20 @@
 import { ref } from 'vue'
 import EmployeeForm from './EmployeeForm.vue'
 import BaseButton from '~/components/Base/BaseButton.vue'
-import type { Employee } from '~/types'
+import type { EmployeeType } from '~/types'
 
 const props = defineProps<{
   companyId: number | null
 }>()
 
 const emit = defineEmits<{
-  (e: 'complete', employees: Employee[]): void
+  (e: 'complete', employees: EmployeeType[]): void
   (e: 'previous'): void
 }>()
 
-const employees = ref<Employee[]>([])
+const employees = ref<EmployeeType[]>([])
 
-function handleSubmit(employee: Employee) {
+function handleSubmit(employee: EmployeeType) {
   employees.value.push(employee)
 }
 

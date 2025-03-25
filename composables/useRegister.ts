@@ -35,6 +35,15 @@ interface Step2Values {
  * Interface définissant les valeurs du formulaire de l'étape 3
  */
 interface Step3Values {
+  email: string
+  firstName: string
+  lastName: string
+  phone: string
+  addressLine: string
+  addressLine2: string | null
+  postalCode: string
+  city: string
+  country: string
   employees?: EmployeeType[]
 }
 
@@ -152,7 +161,7 @@ export const useRegister = () => {
    * Gère la soumission du formulaire de l'étape 1
    * @param {Step1Values} values - Les valeurs du formulaire de l'étape 1
    */
-  async function handleStep1Submit(values: Step1Values) {
+  const handleStep1Submit: SubmissionHandler<Step1Values> = async values => {
     step1Values.value = values
     currentStep.value++
   }
@@ -163,7 +172,7 @@ export const useRegister = () => {
    * @param {Step2Values} values - Les valeurs du formulaire de l'étape 2
    * @throws {Error} Si la création de l'entreprise échoue
    */
-  async function handleStep2Submit(values: Step2Values) {
+  const handleStep2Submit: SubmissionHandler<Step2Values> = async values => {
     step2Values.value = values
     try {
       const { data } = await $api().post<{ company: Company }>('company', {
@@ -186,28 +195,39 @@ export const useRegister = () => {
   }
 
   /**
-   * Gère la création d'un destinataire
-   * Finalise l'inscription après la création du destinataire
-   */
-  async function handleRecipientCreated() {
-    $toast.success('Destinataire créé avec succès')
-    await submitregister({
-      ...step1Values.value,
-      ...step2Values.value,
-      ...step3Values.value,
-    })
-  }
-
-  /**
    * Gère la soumission du formulaire de l'étape 3
    * @param {Step3Values} values - Les valeurs du formulaire de l'étape 3
    */
-  async function handleStep3Submit(values: Step3Values) {
+  const handleStep3Submit: SubmissionHandler<Step3Values> = async values => {
     step3Values.value = values
     await submitregister({
       ...step1Values.value,
       ...step2Values.value,
       ...values,
+    })
+  }
+
+  /**
+   * Gère le saut de l'étape 3
+   * Soumet le formulaire sans les destinataires
+   */
+  async function handleSkipStep3() {
+    await submitregister({
+      ...step1Values.value,
+      ...step2Values.value,
+    })
+  }
+
+  /**
+   * Gère la complétion de la liste des destinataires
+   * @param {EmployeeType[]} employees - La liste des destinataires créés
+   */
+  async function handleRecipientsComplete(employees: EmployeeType[]) {
+    step3Values.value.employees = employees
+    await submitregister({
+      ...step1Values.value,
+      ...step2Values.value,
+      ...step3Values.value,
     })
   }
 
@@ -264,7 +284,8 @@ export const useRegister = () => {
     handleStep1Submit,
     handleStep2Submit,
     handleStep3Submit,
-    handleRecipientCreated,
+    handleRecipientsComplete,
+    handleSkipStep3,
     submitregister,
   }
 } 

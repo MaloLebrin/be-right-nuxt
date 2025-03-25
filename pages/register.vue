@@ -191,6 +191,7 @@
           <h2 class="mb-4 text-xl font-semibold">Configuration initiale</h2>
           <p class="mb-6 text-gray-600 dark:text-gray-400">
             Pour commencer à utiliser l'application, nous vous proposons de créer vos premiers destinataires.
+            Vous pourrez également les ajouter plus tard.
           </p>
         </div>
 
@@ -211,13 +212,23 @@
           >
             Précédent
           </BaseButton>
-          <BaseButton
-            type="submit"
-            :disabled="!meta.valid || isSubmitting || uiStore.getUIIsLoading"
-            :is-loading="isSubmitting"
-          >
-            S'inscrire
-          </BaseButton>
+          <div class="flex space-x-4">
+            <BaseButton
+              type="button"
+              variant="default"
+              :disabled="isSubmitting"
+              @click="handleSkipStep3"
+            >
+              Passer cette étape
+            </BaseButton>
+            <BaseButton
+              type="submit"
+              :disabled="!meta.valid || isSubmitting || uiStore.getUIIsLoading"
+              :is-loading="isSubmitting"
+            >
+              S'inscrire
+            </BaseButton>
+          </div>
         </div>
       </Form>
     </TransitionGroup>
@@ -253,6 +264,7 @@ const {
   handleStep2Submit,
   handleStep3Submit,
   handleRecipientsComplete,
+  handleSkipStep3,
   submitregister,
 } = useRegister()
 
