@@ -27,7 +27,7 @@
       v-if="$getApiUrl && answer.hasSigned"
       color="green"
       class="ml-4"
-      :is-loading="uiStore.getUIIsLoading"
+      :disabled="uiStore.getUIIsLoading"
       title="Télécharger"
       @click="download(answer.id)"
     >
@@ -41,6 +41,7 @@
     </BaseButton>
     <a
       ref="downloadFile"
+      aria-hidden="true"
     />
   </template>
 
@@ -50,7 +51,6 @@
   >
     <BaseButton
       :disabled="uiStore.getUIIsLoading"
-      :is-loading="uiStore.getUIIsLoading"
       title="Relancer"
       @click="raise"
     >
@@ -107,7 +107,7 @@ const isGreenMessage = ref(false)
 const downloadFile = ref<AnchorHTMLAttributes & { click: () => undefined } | null>(null)
 
 async function download(id: number) {
-  IncLoading()
+  IncLoading('Téléchargement de la réponse')
 
   const data = await downloadAnswers({
     answerIds: [id],
@@ -123,7 +123,7 @@ async function download(id: number) {
 }
 
 async function raise() {
-  IncLoading()
+  IncLoading('Relance en cours')
   const response = await raiseAnswer(props.answer.id)
   if (response) {
     const { message, isSuccess } = response

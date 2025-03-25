@@ -29,7 +29,7 @@ onMounted(async () => {
   const { fetchEventWithRelations } = eventHook()
 
   if (eventId) {
-    IncLoading()
+    IncLoading('Chargement de l\'événement')
     await fetchEventWithRelations(eventId)
     DecLoading()
   }

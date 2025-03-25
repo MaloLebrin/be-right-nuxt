@@ -31,7 +31,7 @@ export default function answerHook() {
   }
 
   async function fetchManyAnswerForEvent(eventId: number) {
-    IncLoading()
+    IncLoading('Chargement des réponses de l\'événement')
     const { data: answers } = await $api().get<AnswerType[]>(`answer/event/${eventId}`)
 
     if (answers && answers.length > 0 && areAnswersType(answers)) {

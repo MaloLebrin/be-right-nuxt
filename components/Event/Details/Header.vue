@@ -47,7 +47,6 @@
         </BaseButton>
         <BaseButton
           color="white"
-          :is-loading="uiStore.getUIIsLoading"
           :disabled="uiStore.getUIIsLoading"
           @click="syncEvent(event.id)"
         >

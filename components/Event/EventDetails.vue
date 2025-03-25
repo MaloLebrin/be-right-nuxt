@@ -27,7 +27,6 @@
           <a ref="downloadFiles" />
           <BaseButton
             :disabled="!answerStore.canAnswersBeDownload(event.id) || uiStore.getUIIsLoading"
-            :is-loading="uiStore.getUIIsLoading"
             :title="!answerStore.canAnswersBeDownload(event.id) ? 'Aucune réponse n\'est pas encore disponible' : 'Télécharger toutes les réponses'"
             @click="download(answers.map(answer => answer.id))"
           >
