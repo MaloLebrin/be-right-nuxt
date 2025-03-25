@@ -1,6 +1,6 @@
 <template>
 <div class="container grid grid-cols-1 gap-12 py-6 mx-auto">
-  <div class="flex flex-col mx-auto space-y-12 md:max-w-1/2">
+  <div class="flex flex-col w-full max-w-2xl mx-auto space-y-12 md:max-w-1/2">
     <div class="mt-4 md:mt-0">
       <h1 class="text-3xl font-bold leading-tight text-center text-gray-800 md:text-5xl dark:text-white">
         Inscription
@@ -19,7 +19,7 @@
       v-slot="{ meta, isSubmitting }"
       :validation-schema="stepSchemas[1]"
       :initial-values="step1Values"
-      class="px-4 space-y-4 text-left md:space-y-0 md:px-0 md:grid md:gap-6 md:grid-cols-2"
+      class="w-full px-4 space-y-4 text-left md:space-y-0 md:px-0 md:grid md:gap-6 md:grid-cols-2"
       @submit="handleStep1Submit"
     >
       <BaseRadio
@@ -100,7 +100,7 @@
       v-slot="{ meta, isSubmitting }"
       :validation-schema="stepSchemas[2]"
       :initial-values="step2Values"
-      class="px-4 space-y-4 text-left md:space-y-0 md:px-0 md:grid md:gap-6 md:grid-cols-2"
+      class="w-full px-4 space-y-4 text-left md:space-y-0 md:px-0 md:grid md:gap-6 md:grid-cols-2"
       @submit="handleStep2Submit"
     >
       <div class="space-y-4 md:col-span-2">
@@ -178,7 +178,7 @@
       v-slot="{ meta, isSubmitting }"
       :validation-schema="stepSchemas[3]"
       :initial-values="step3Values"
-      class="px-4 space-y-4 text-left md:space-y-0 md:px-0 md:grid md:gap-6 md:grid-cols-2"
+      class="w-full px-4 space-y-4 text-left md:space-y-0 md:px-0 md:grid md:gap-6 md:grid-cols-2"
       @submit="handleStep3Submit"
     >
       <div class="space-y-4 md:col-span-2">
