@@ -1,5 +1,5 @@
 <template>
-<div class="container grid grid-cols-1 gap-12 py-6 mx-auto">
+<div class="container grid grid-cols-1 gap-12 py-6 mx-auto my-6">
   <div class="flex flex-col w-full max-w-2xl mx-auto space-y-12 md:max-w-1/2">
     <div class="mt-4 md:mt-0">
       <h1 class="text-3xl font-bold leading-tight text-center text-gray-800 md:text-5xl dark:text-white">
@@ -230,14 +230,6 @@
         </BaseButton>
       </div>
     </Form>
-
-    <NuxtLink
-      id="already-account-link"
-      class="LinkClass"
-      :to="{ name: 'login' }"
-    >
-      J'ai déjà un compte
-    </NuxtLink>
   </div>
 </div>
 </template>
