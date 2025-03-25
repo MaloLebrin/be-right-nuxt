@@ -5,7 +5,7 @@ export function isNotPersonnalFile(file: FileType) {
   if (!file?.type || typeof file.type !== 'string') {
     return false
   }
-  return ![FileTypeEnum.BUG_REPORT, FileTypeEnum.PROFILE_PICTURE, FileTypeEnum.LOGO].includes(file.type)
+  return ![FileTypeEnum.PROFILE_PICTURE, FileTypeEnum.LOGO].includes(file.type)
 }
 
 export function isFileType(file: any): file is FileType {
@@ -24,9 +24,6 @@ export function getTranslationFileType(fileType: FileTypeEnum) {
 
     case FileTypeEnum.PROFILE_PICTURE:
       return 'Photo de profil'
-
-    case FileTypeEnum.BUG_REPORT:
-      return 'Capture d\'écran de bug'
 
     default:
       return 'Autre'
