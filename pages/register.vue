@@ -184,31 +184,14 @@
       <div class="space-y-4 md:col-span-2">
         <h2 class="mb-4 text-xl font-semibold">Configuration initiale</h2>
         <p class="mb-6 text-gray-600 dark:text-gray-400">
-          Pour commencer à utiliser l'application, nous vous proposons de configurer quelques éléments essentiels.
+          Pour commencer à utiliser l'application, nous vous proposons de créer vos premiers destinataires.
         </p>
       </div>
 
       <div class="space-y-4 md:col-span-2">
-        <BaseCheckbox
-          name="setupNotifications"
-          label="Configurer les notifications"
-          :value="false"
-        />
-      </div>
-
-      <div class="space-y-4 md:col-span-2">
-        <BaseCheckbox
-          name="createRecipients"
-          label="Créer mes premiers destinataires"
-          :value="false"
-        />
-      </div>
-
-      <div class="space-y-4 md:col-span-2">
-        <BaseCheckbox
-          name="createGroups"
-          label="Créer mes premiers groupes de diffusion"
-          :value="false"
+        <EmployeeForm
+          :company-id="companyId"
+          @submit="handleRecipientCreated"
         />
       </div>
 
@@ -235,164 +218,31 @@
 </template>
 
 <script setup lang="ts">
-import { object, string, boolean } from 'yup'
-import { Form, useForm } from 'vee-validate'
+import { Form } from 'vee-validate'
 import BaseButton from '~/components/Base/BaseButton.vue'
 import BaseInput from '~/components/Base/BaseInput.vue'
 import BaseRadio from '~/components/Base/BaseRadio.vue'
-import BaseCheckbox from '~/components/Base/BaseCheckbox.vue'
 import BaseProgressBar from '~/components/Base/BaseProgressBar.vue'
-import LogoSimpleLogo from '~/components/Logo/SimpleLogo.server.vue'
-import type { UserType, VeeValidateValues, WithoutId } from '@/types'
-import type { Company } from '~~/store'
-import { useAuthStore, useUiStore } from '~~/store'
-import { RouteNames } from '~/helpers/routes'
+import EmployeeForm from '~/components/Employee/EmployeeForm.vue'
+import { useRegister } from '~/composables/useRegister'
 import { RoleEnum } from '~/types'
-import type { ObjectSchema } from 'yup'
+import { useHead } from 'unhead'
 
-const { $toast, $api } = useNuxtApp()
-const uiStore = useUiStore()
-const { storeUsersEntities } = userHook()
-const { storeCompanyEntities } = companyHook()
-const { jwtDecode, getCookie } = authHook()
-const { IncLoading, DecLoading } = uiStore
-const authStore = useAuthStore()
-const { setJWTasUser, setToken } = authStore
-const router = useRouter()
-
-const currentStep = ref(1)
-const totalSteps = 3
-
-// État pour chaque étape
-const step1Values = ref({
-  roles: '',
-  companyName: '',
-  firstName: '',
-  lastName: '',
-  email: '',
-  password: '',
-})
-
-const step2Values = ref({
-  siret: '',
-  address: '',
-  postalCode: '',
-  city: '',
-  phone: '',
-})
-
-const step3Values = ref({
-  setupNotifications: false,
-  createRecipients: false,
-  createGroups: false,
-})
-
-// Schémas de validation par étape
-const stepSchemas: Record<number, ObjectSchema<any>> = {
-  1: object({
-    roles: string()
-      .oneOf([RoleEnum.PHOTOGRAPHER, RoleEnum.OWNER], 'Vous devez renseigner un rôle')
-      .required('Le rôle est requis'),
-    companyName: string().required('Le nom de l\'entreprise est requis'),
-    firstName: string().required('Le prénom est requis'),
-    lastName: string().required('Le nom est requis'),
-    email: string().email('vous devez entrer un email valide').required('L\'adresse email est requise'),
-    password: string().required('Le mot de passe est requis'),
-  }),
-  2: object({
-    siret: string().when('roles', {
-      is: RoleEnum.OWNER,
-      then: schema => schema.required('Le numéro SIRET est requis'),
-      otherwise: schema => schema.nullable(),
-    }),
-    address: string().when('roles', {
-      is: RoleEnum.OWNER,
-      then: schema => schema.required('L\'adresse est requise'),
-      otherwise: schema => schema.nullable(),
-    }),
-    postalCode: string().when('roles', {
-      is: RoleEnum.OWNER,
-      then: schema => schema.required('Le code postal est requis'),
-      otherwise: schema => schema.nullable(),
-    }),
-    city: string().when('roles', {
-      is: RoleEnum.OWNER,
-      then: schema => schema.required('La ville est requise'),
-      otherwise: schema => schema.nullable(),
-    }),
-    phone: string().when('roles', {
-      is: RoleEnum.OWNER,
-      then: schema => schema.required('Le numéro de téléphone est requis'),
-      otherwise: schema => schema.nullable(),
-    }),
-  }),
-  3: object({
-    setupNotifications: boolean().nullable(),
-    createRecipients: boolean().nullable(),
-    createGroups: boolean().nullable(),
-  }),
-}
-
-function previousStep() {
-  if (currentStep.value > 1) {
-    currentStep.value--
-  }
-}
-
-// Gestionnaires de soumission pour chaque étape
-async function handleStep1Submit(values: any) {
-  step1Values.value = values
-  currentStep.value++
-}
-
-async function handleStep2Submit(values: any) {
-  step2Values.value = values
-  currentStep.value++
-}
-
-async function handleStep3Submit(values: any) {
-  step3Values.value = values
-  await submitregister({
-    ...step1Values.value,
-    ...step2Values.value,
-    ...values,
-  })
-}
-
-async function submitregister(form: VeeValidateValues) {
-  const cookieToken = getCookie()
-  IncLoading('Inscription en cours...')
-
-  try {
-    const { data } = await $api().post<{ user: UserType; company: Company }>('user/signup', form as WithoutId<UserType>)
-    
-    if (data) {
-      const { user, company } = data
-      if (user?.token && company) {
-        $api().setCredentials(user.token)
-        storeCompanyEntities(company)
-        storeUsersEntities(user, false)
-        cookieToken.value = user.token
-        const decode = jwtDecode(ref(user.token))
-        setToken(user.token)
-
-        if (decode.value) {
-          setJWTasUser(decode.value)
-        }
-
-        $toast.success(`Bienvenue ${getUserfullName(user)}`)
-        router.replace({
-          name: authStore.isAuthUserAdmin ? RouteNames.ADMIN_EVENTS : RouteNames.LIST_EVENT,
-        })
-      }
-    }
-  } catch (error) {
-    console.error(error)
-    $toast.danger('Une erreur est survenue lors de l\'inscription')
-  }
-
-  DecLoading()
-}
+const {
+  currentStep,
+  totalSteps,
+  companyId,
+  step1Values,
+  step2Values,
+  step3Values,
+  stepSchemas,
+  previousStep,
+  handleStep1Submit,
+  handleStep2Submit,
+  handleStep3Submit,
+  handleRecipientCreated,
+  submitregister,
+} = useRegister()
 
 definePageMeta({
   layout: 'default',
