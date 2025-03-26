@@ -24,7 +24,9 @@ interface Step1Values {
  * Interface définissant les valeurs du formulaire de l'étape 2
  */
 interface Step2Values {
+  logo: string
   siret: string
+  color: string
   address: string
   postalCode: string
   city: string
@@ -35,7 +37,17 @@ interface Step2Values {
  * Interface définissant les valeurs du formulaire de l'étape 3
  */
 interface Step3Values {
-  employees?: EmployeeType[]
+  employees?: {
+    email: string
+    firstName: string
+    lastName: string
+    phone: string
+    addressLine: string
+    addressLine2: string | null
+    postalCode: string
+    city: string
+    country: string
+  }[]
 }
 
 /**
@@ -68,7 +80,9 @@ export const useRegister = () => {
   })
 
   const step2Values = ref<Step2Values>({
+    logo: '',
     siret: '',
+    color: '',
     address: '',
     postalCode: '',
     city: '',
@@ -76,15 +90,17 @@ export const useRegister = () => {
   })
 
   const step3Values = ref<Step3Values>({
-    email: '',
-    firstName: '',
-    lastName: '',
-    phone: '',
-    addressLine: '',
-    addressLine2: null,
-    postalCode: '',
-    city: '',
-    country: 'France',
+    employees: [{
+      email: '',
+      firstName: '',
+      lastName: '',
+      phone: '',
+      addressLine: '',
+      addressLine2: null,
+      postalCode: '',
+      city: '',
+      country: 'France',
+    }],
   })
 
   // Schémas de validation par étape
@@ -99,10 +115,10 @@ export const useRegister = () => {
       email: string().email('vous devez entrer un email valide').required('L\'adresse email est requise'),
       password: string()
         .required('Le mot de passe est requis')
-        .min(8, 'Le mot de passe doit contenir au moins 8 caractères')
-        .matches(/[A-Z]/, 'Le mot de passe doit contenir au moins une lettre majuscule')
-        .matches(/[0-9]/, 'Le mot de passe doit contenir au moins un chiffre')
-        .matches(/[!@#$%^&*(),.?":{}|<>]/, 'Le mot de passe doit contenir au moins un caractère spécial'),
+        // .min(8, 'Le mot de passe doit contenir au moins 8 caractères')
+        // .matches(/[A-Z]/, 'Le mot de passe doit contenir au moins une lettre majuscule')
+        // .matches(/[0-9]/, 'Le mot de passe doit contenir au moins un chiffre')
+        // .matches(/[!@#$%^&*(),.?":{}|<>]/, 'Le mot de passe doit contenir au moins un caractère spécial'),
     }),
     2: object({
       siret: string().when('roles', {
