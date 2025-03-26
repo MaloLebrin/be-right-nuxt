@@ -11,7 +11,7 @@
       label="Prénom"
       name="firstName"
       type="text"
-      autocomplete="firstName"
+      autocomplete="given-name"
       is-required
     />
 
@@ -19,7 +19,7 @@
       label="Nom"
       name="lastName"
       type="text"
-      autocomplete="lastName"
+      autocomplete="family-name"
       is-required
     />
 
@@ -55,7 +55,7 @@
       label="Téléphone"
       name="phone"
       type="tel"
-      autocomplete="phone"
+      autocomplete="tel"
       is-required
     />
 
@@ -63,7 +63,8 @@
       <BaseInput
         label="Adresse"
         name="addressLine"
-        autocomplete="addressLine"
+        type="text"
+        autocomplete="street-address"
         is-required
       />
     </div>
@@ -72,27 +73,32 @@
       <BaseInput
         label="Complément d'adresse"
         name="addressLine2"
-        autocomplete="addressLine"
+        type="text"
+        autocomplete="street-address"
+      />
+    </div>
+
+    <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+      <BaseInput
+        label="Code postal"
+        name="postalCode"
+        type="text"
+        autocomplete="postal-code"
+        is-required
+      />
+      <BaseInput
+        label="Ville"
+        name="city"
+        type="text"
+        autocomplete="address-level2"
+        is-required
       />
     </div>
 
     <BaseInput
-      label="Code postal"
-      name="postalCode"
-      autocomplete="postalCode"
-      is-required
-    />
-
-    <BaseInput
-      label="Ville"
-      name="city"
-      autocomplete="city"
-      is-required
-    />
-
-    <BaseInput
       label="Pays"
       name="country"
+      type="text"
       autocomplete="country"
       is-required
     />
