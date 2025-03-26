@@ -13,7 +13,7 @@ importers:
         version: 2.2.0(vue@3.5.13(typescript@5.8.2))
       '@malolebrin/pinia-entity-store':
         specifier: ^0.2.8
-        version: 0.2.8
+        version: 0.2.9
       '@pinia/nuxt':
         specifier: ^0.9.0
         version: 0.9.0(magicast@0.3.5)(pinia@2.3.1(typescript@5.8.2)(vue@3.5.13(typescript@5.8.2)))
@@ -815,10 +815,6 @@ packages:
     resolution: {integrity: sha512-cmrR6pytBuSMTaBweKoGMwu3EiHiEC+DoyupPmlZ0HxBJBtIxwe+j/E4XPIKNx+Q74c8lXKPwYawBf5glsTkHg==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
-  '@eslint/eslintrc@3.2.0':
-    resolution: {integrity: sha512-grOjVNN8P3hjJn/eIETF1wwd12DdnwFDoyceUJLYYdkpbwq3nLi+4fqrTAONx7XDALqlL220wC/RHSC/QTI/0w==}
-    engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
-
   '@eslint/eslintrc@3.3.1':
     resolution: {integrity: sha512-gtF186CXhIl1p4pJNGZw8Yc6RlshoePRvE0X91oPGb3vZ8pM3qOS9W9NGPat9LziaBV7XrJWGylNQXkGcnM3IQ==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
@@ -978,8 +974,8 @@ packages:
   '@kwsites/promise-deferred@1.1.1':
     resolution: {integrity: sha512-GaHYm+c0O9MjZRu0ongGBRbinu8gVAMd2UZjji6jVmqKtZluZnptXGWhz1E8j8D2HJ3f/yMxKAUC0b+57wncIw==}
 
-  '@malolebrin/pinia-entity-store@0.2.8':
-    resolution: {integrity: sha512-YDHqY5t3WGMEVCLMRRTVrkNsT+sVEsi9mdHn7wqeXtSQa9NpZB4PMvsuK0PLVRzDyQDYVWn+cg+zNoWzzhAecg==}
+  '@malolebrin/pinia-entity-store@0.2.9':
+    resolution: {integrity: sha512-ymuvj/E6AXzVZ4a9C3IT0zA56zFKoKmsjQ/GPOBx+Nce5zM89DLsS/RV7nX1TWpa+WYLhPgi3sXNfj5Xt/Q61g==}
 
   '@mapbox/node-pre-gyp@2.0.0':
     resolution: {integrity: sha512-llMXd39jtP0HpQLVI37Bf1m2ADlEb35GYSh1SDSLsBhR+5iCxiNGlT31yqbNtVHygHAtMy6dWFERpU2JgufhPg==}
@@ -6950,20 +6946,6 @@ snapshots:
     dependencies:
       '@types/json-schema': 7.0.15
 
-  '@eslint/eslintrc@3.2.0':
-    dependencies:
-      ajv: 6.12.6
-      debug: 4.4.0(supports-color@9.4.0)
-      espree: 10.3.0
-      globals: 14.0.0
-      ignore: 5.3.2
-      import-fresh: 3.3.1
-      js-yaml: 4.1.0
-      minimatch: 3.1.2
-      strip-json-comments: 3.1.1
-    transitivePeerDependencies:
-      - supports-color
-
   '@eslint/eslintrc@3.3.1':
     dependencies:
       ajv: 6.12.6
@@ -7176,12 +7158,9 @@ snapshots:
 
   '@kwsites/promise-deferred@1.1.1': {}
 
-  '@malolebrin/pinia-entity-store@0.2.8':
+  '@malolebrin/pinia-entity-store@0.2.9':
     dependencies:
       '@antfu/utils': 9.1.0
-      '@eslint/eslintrc': 3.2.0
-    transitivePeerDependencies:
-      - supports-color
 
   '@mapbox/node-pre-gyp@2.0.0':
     dependencies:
