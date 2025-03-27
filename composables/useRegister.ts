@@ -1,6 +1,6 @@
 import { object, string } from 'yup'
 import type { ObjectSchema } from 'yup'
-import type { EmployeeType, UserType, VeeValidateValues, WithoutId } from '@/types'
+import type { UserType, VeeValidateValues, WithoutId } from '@/types'
 import type { Company } from '~~/store'
 import { useAuthStore, useUiStore } from '~~/store'
 import { RouteNames } from '~/helpers/routes'
@@ -37,6 +37,7 @@ interface Step2Values {
  * Interface définissant les valeurs du formulaire de l'étape 3
  */
 interface Step3Values {
+  isDirty: boolean
   employees?: {
     email: string
     firstName: string
@@ -50,11 +51,7 @@ interface Step3Values {
   }[]
 }
 
-/**
- * Hook pour gérer le processus d'inscription en plusieurs étapes
- * @returns {Object} Un objet contenant toutes les fonctions et états nécessaires pour l'inscription
- */
-export const useRegister = () => {
+export function useRegister() {
   const { $toast, $api, $pinia } = useNuxtApp()
   const uiStore = useUiStore($pinia)
   const { storeUsersEntities } = userHook()
@@ -64,6 +61,7 @@ export const useRegister = () => {
   const authStore = useAuthStore($pinia)
   const { setJWTasUser, setToken } = authStore
   const router = useRouter()
+  const { postOne: postEmployee } = employeeHook()
 
   const currentStep = ref(1)
   const totalSteps = 3
@@ -90,6 +88,7 @@ export const useRegister = () => {
   })
 
   const step3Values = ref<Step3Values>({
+    isDirty: false,
     employees: [{
       email: '',
       firstName: '',
@@ -173,18 +172,22 @@ export const useRegister = () => {
    * Gère la soumission du formulaire de l'étape 1
    * @param {Step1Values} values - Les valeurs du formulaire de l'étape 1
    */
-  const handleStep1Submit: SubmissionHandler<Step1Values> = values => {
+  const handleStep1Submit: SubmissionHandler<Step1Values> = async values => {
     step1Values.value = values
-    currentStep.value++
+    if (values.roles === RoleEnum.PHOTOGRAPHER) {
+      // Si c'est un photographe, on soumet directement le formulaire
+      await submitregister()
+    } else {
+      // Sinon, on passe à l'étape suivante
+      currentStep.value++
+    }
   }
 
   /**
    * Gère la soumission du formulaire de l'étape 2
-   * Crée l'entreprise et récupère son ID
    * @param {Step2Values} values - Les valeurs du formulaire de l'étape 2
-   * @throws {Error} Si la création de l'entreprise échoue
    */
-  function handleStep2Submit(values: Step2Values) {
+  async function handleStep2Submit(values: Step2Values) {
     step2Values.value = values
     currentStep.value++
   }
@@ -195,15 +198,15 @@ export const useRegister = () => {
    */
   async function handleStep3Submit(values: Step3Values) {
     step3Values.value = values
+    await submitregister()
   }
 
   /**
    * Soumet le formulaire d'inscription complet
    * Gère l'authentification et la redirection après une inscription réussie
-   * @param {VeeValidateValues} form - Les valeurs du formulaire complet
    * @throws {Error} Si l'inscription échoue
    */
-  async function submitregister(form: VeeValidateValues) {
+  async function submitregister() {
     IncLoading('Inscription en cours...')
 
     const { user, company } = await createUserAndCompany({
@@ -216,11 +219,30 @@ export const useRegister = () => {
       return
     }
 
-    await updateCompanyInfo({
-      companyId: company.id,
-      form: step2Values.value,
-    })
+    if (step1Values.value.roles === RoleEnum.OWNER) {
+      await updateCompanyInfo({
+        companyId: company.id,
+        form: step2Values.value,
+      })
 
+      const employees = step3Values.value.employees
+      if (employees?.length && step3Values.value.isDirty) {
+        await Promise.allSettled(
+          employees.map(employee => postEmployee({
+            email: employee.email,
+            firstName: employee.firstName,
+            lastName: employee.lastName,
+            phone: employee.phone,
+          }, {
+            addressLine: employee.addressLine,
+            addressLine2: employee.addressLine2,
+            postalCode: employee.postalCode,
+            city: employee.city,
+            country: employee.country,
+          }))
+        )
+      }
+    }
 
     $toast.success(`Bienvenue ${getUserfullName(user)}`)
     router.replace({
@@ -243,7 +265,7 @@ export const useRegister = () => {
     let createdCompany: Company | null = null
 
     try {
-      const { data } = await $api().post<{ user: UserType; company: Company }>('user/signup', form as WithoutId<UserType>)
+      const { data } = await $api().post<{ user: UserType; company: Company }>('auth/signup', form as WithoutId<UserType>)
 
       if (data) {
         const { user, company } = data

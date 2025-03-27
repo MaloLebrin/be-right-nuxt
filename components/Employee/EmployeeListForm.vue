@@ -1,87 +1,272 @@
 <template>
 <div class="space-y-6">
-  <!-- Liste des destinataires -->
+  <!-- Liste des employés -->
   <div
     v-if="employees.length > 0"
     class="space-y-4">
     <h3 class="text-lg font-medium">Destinataires ajoutés</h3>
-    <ul class="space-y-2">
-      <li
-        v-for="(employee, index) in employees"
-        :key="index"
-        class="flex items-center justify-between p-3 rounded-lg bg-gray-50"
-      >
+    <div class="space-y-2">
+      <div
+        v-for="employee in employees"
+        :key="employee.id"
+        class="flex items-center justify-between p-4 bg-white rounded-lg shadow">
         <div>
-          <p class="font-medium">{{ employee.firstName }} {{ employee.lastName }}</p>
+          <p class="font-medium text-indigo-600">{{ employee.firstName }} {{ employee.lastName }}</p>
           <p class="text-sm text-gray-600 dark:text-gray-400">{{ employee.email }}</p>
         </div>
-        <button
+        <BaseButton
           type="button"
-          class="text-red-600 hover:text-red-800 dark:text-red-400 dark:hover:text-red-300"
-          @click="removeEmployee(index)"
+          variant="default"
+          @click="removeEmployee(employee)"
         >
           Supprimer
-        </button>
-      </li>
-    </ul>
+        </BaseButton>
+      </div>
+    </div>
   </div>
 
   <!-- Formulaire d'ajout -->
-  <div class="space-y-4">
-    <h3 class="text-lg font-medium">Ajouter un destinataire</h3>
-    <EmployeeForm
-      :company-id="companyId"
-      @submit="handleSubmit"
-    />
-  </div>
+  <Form
+    v-slot="{ meta, isSubmitting, handleReset, errors }"
+    :validation-schema="schema"
+    :initial-values="form"
+    class="space-y-4"
+    @submit="(values) => {
+      handleSubmit(values)
+      handleReset()
+    }"
+  >
+    <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+      <BaseInput
+        label="Prénom"
+        name="firstName"
+        type="text"
+        autocomplete="given-name"
+        is-required
+      />
+      <BaseInput
+        label="Nom"
+        name="lastName"
+        type="text"
+        autocomplete="family-name"
+        is-required
+      />
+    </div>
 
-  <!-- Boutons d'action -->
-  <div class="flex justify-between">
-    <BaseButton
-      type="button"
-      variant="default"
-      :disabled="employees.length === 0"
-      @click="$emit('previous')"
-    >
-      Précédent
-    </BaseButton>
-    <BaseButton
-      type="button"
-      :disabled="employees.length === 0"
-      @click="handleComplete"
-    >
-      Valider et continuer
-    </BaseButton>
-  </div>
+    <BaseInput
+      label="Adresse email"
+      name="email"
+      type="email"
+      autocomplete="email"
+      is-required
+    />
+
+    <BaseInput
+      label="Téléphone"
+      name="phone"
+      type="tel"
+      autocomplete="tel"
+      is-required
+    />
+
+    <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+      <BaseInput
+        label="Adresse"
+        name="addressLine"
+        type="text"
+        autocomplete="street-address"
+        is-required
+      />
+      <BaseInput
+        label="Complément d'adresse"
+        name="addressLine2"
+        type="text"
+        autocomplete="address-line2"
+      />
+    </div>
+
+    <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
+      <BaseInput
+        label="Code postal"
+        name="postalCode"
+        type="text"
+        autocomplete="postal-code"
+        is-required
+      />
+      <BaseInput
+        label="Ville"
+        name="city"
+        type="text"
+        autocomplete="address-level2"
+        is-required
+      />
+      <BaseInput
+        label="Pays"
+        name="country"
+        type="text"
+        autocomplete="country"
+        is-required
+      />
+    </div>
+
+    <div class="flex justify-end">
+      <BaseButton
+        type="submit"
+        :disabled="!meta.valid || isSubmitting"
+        :is-loading="isSubmitting"
+      >
+        Ajouter
+      </BaseButton>
+    </div>
+
+    <div class="flex justify-between md:col-span-2">
+      <BaseButton
+        type="button"
+        variant="default"
+        :disabled="isSubmitting"
+        @click="previousStep"
+      >
+        Précédent
+      </BaseButton>
+      <div class="flex space-x-4">
+        <BaseButton
+          type="button"
+          variant="default"
+          :disabled="isSubmitting"
+          @click="handleStep3Submit"
+        >
+          Passer cette étape
+        </BaseButton>
+        <BaseButton
+          :disabled="isSubmitting || uiStore.getUIIsLoading"
+          :is-loading="isSubmitting"
+          @click="handleStep3Submit"
+        >
+          S'inscrire
+        </BaseButton>
+      </div>
+      <BaseFormDebug
+        :meta="meta"
+        :is-submitting="isSubmitting"
+        :errors="errors"
+      />
+    </div>
+  </Form>
 </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import EmployeeForm from './EmployeeForm.vue'
-import BaseButton from '~/components/Base/BaseButton.vue'
+import { object, string } from 'yup'
+import type { ObjectSchema } from 'yup'
+import { Form } from 'vee-validate'
 import type { EmployeeType } from '~/types'
+import BaseButton from '~/components/Base/BaseButton.vue'
+import BaseInput from '~/components/Base/BaseInput.vue'
+import BaseFormDebug from '~/components/Base/BaseFormDebug.vue'
+import { useUiStore } from '~~/store'
 
+const uiStore = useUiStore()
 const props = defineProps<{
-  companyId: number | null
+  companyId: number
 }>()
 
 const emit = defineEmits<{
-  (e: 'complete', employees: EmployeeType[]): void
   (e: 'previous'): void
+  (e: 'complete', employees: EmployeeType[]): void
 }>()
 
 const employees = ref<EmployeeType[]>([])
 
-function handleSubmit(employee: EmployeeType) {
-  employees.value.push(employee)
+const {
+  previousStep,
+  handleStep3Submit,
+} = useRegister()
+
+interface FormValues {
+  firstName: string
+  lastName: string
+  email: string
+  phone: string
+  addressLine: string
+  addressLine2: string | null
+  postalCode: string
+  city: string
+  country: string
 }
 
-function removeEmployee(index: number) {
-  employees.value.splice(index, 1)
-}
+const form = ref<FormValues>({
+  firstName: '',
+  lastName: '',
+  email: '',
+  phone: '',
+  addressLine: '',
+  addressLine2: null,
+  postalCode: '',
+  city: '',
+  country: 'France',
+})
 
-function handleComplete() {
+const schema = object({
+  firstName: string().required('Le prénom est requis'),
+  lastName: string().required('Le nom est requis'),
+  email: string().email('Email invalide').required('L\'email est requis'),
+  phone: string().required('Le téléphone est requis'),
+  addressLine: string().required('L\'adresse est requise'),
+  addressLine2: string().nullable(),
+  postalCode: string().required('Le code postal est requis'),
+  city: string().required('La ville est requise'),
+  country: string().required('Le pays est requis'),
+}) as ObjectSchema<FormValues>
+
+function handleSubmit(values: FormValues) {
+  const newEmployee: EmployeeType = {
+    id: employees.value.length + 1,
+    firstName: values.firstName,
+    lastName: values.lastName,
+    email: values.email,
+    phone: values.phone,
+    addressId: 0,
+    address: {
+      id: 0,
+      addressLine: values.addressLine,
+      addressLine2: values.addressLine2,
+      postalCode: values.postalCode,
+      city: values.city,
+      country: values.country,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    },
+    hasSigned: false,
+    bornAt: new Date(),
+    slug: `${values.firstName.toLowerCase()}-${values.lastName.toLowerCase()}`,
+    signedAt: new Date(),
+    createdAt: new Date(),
+    updatedAt: new Date(),
+    companyId: props.companyId,
+    company: null,
+    signature: null,
+    filesIds: [],
+    answersIds: [],
+    groupIds: [],
+  }
+  employees.value.push(newEmployee)
+
+  form.value = {
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    addressLine: '',
+    addressLine2: null,
+    postalCode: '',
+    city: '',
+    country: 'France',
+  }
+
   emit('complete', employees.value)
+}
+
+function removeEmployee(employee: EmployeeType) {
+  employees.value = employees.value.filter(e => e.id !== employee.id)
 }
 </script> 
