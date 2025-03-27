@@ -9,7 +9,7 @@
       <li
         v-for="(employee, index) in employees"
         :key="index"
-        class="flex items-center justify-between p-3 rounded-lg bg-gray-50 dark:bg-gray-800"
+        class="flex items-center justify-between p-3 rounded-lg bg-gray-50"
       >
         <div>
           <p class="font-medium">{{ employee.firstName }} {{ employee.lastName }}</p>
