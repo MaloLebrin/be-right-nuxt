@@ -13,6 +13,7 @@ import type {
 export interface Company extends BaseEntity {
   name: string | null
   siret: string | null
+  color: string | null
 
   subscriptionLabel: SubscriptionEnum | null
   subscriptionId: number | null
