@@ -95,14 +95,14 @@
             :disabled="!meta.valid || isSubmitting || uiStore.getUIIsLoading"
             :is-loading="isSubmitting"
           >
-            Suivant
+            {{ step1Values.roles === RoleEnum.PHOTOGRAPHER ? 'S\'inscrire' : 'Suivant' }}
           </BaseButton>
         </div>
       </Form>
 
       <!-- Step 2: Company Information -->
       <Form
-        v-if="currentStep === 2"
+        v-if="currentStep === 2 && step1Values.roles === RoleEnum.OWNER"
         v-slot="{ meta, isSubmitting }"
         :validation-schema="stepSchemas[2]"
         :initial-values="step2Values"
@@ -179,13 +179,9 @@
       </Form>
 
       <!-- Step 3: Initial Setup -->
-      <Form
-        v-if="currentStep === 3"
-        v-slot="{ meta, isSubmitting }"
-        :validation-schema="stepSchemas[3]"
-        :initial-values="step3Values"
+      <section
+        v-if="currentStep === 3 && step1Values.roles === RoleEnum.OWNER"
         class="w-full px-4 space-y-4 text-left md:space-y-0 md:px-0 md:grid md:gap-6 md:grid-cols-2"
-        @submit="handleStep3Submit"
       >
         <div class="space-y-4 md:col-span-2">
           <h2 class="mb-4 text-xl font-semibold">Configuration initiale</h2>
@@ -198,39 +194,10 @@
         <div class="space-y-4 md:col-span-2">
           <EmployeeListForm
             :company-id="companyId"
-            @complete="handleRecipientsComplete"
             @previous="previousStep"
           />
         </div>
-
-        <div class="flex justify-between md:col-span-2">
-          <BaseButton
-            type="button"
-            variant="default"
-            :disabled="isSubmitting"
-            @click="previousStep"
-          >
-            Précédent
-          </BaseButton>
-          <div class="flex space-x-4">
-            <BaseButton
-              type="button"
-              variant="default"
-              :disabled="isSubmitting"
-              @click="handleSkipStep3"
-            >
-              Passer cette étape
-            </BaseButton>
-            <BaseButton
-              type="submit"
-              :disabled="!meta.valid || isSubmitting || uiStore.getUIIsLoading"
-              :is-loading="isSubmitting"
-            >
-              S'inscrire
-            </BaseButton>
-          </div>
-        </div>
-      </Form>
+      </section>
     </TransitionGroup>
   </div>
 </div>
@@ -257,15 +224,10 @@ const {
   companyId,
   step1Values,
   step2Values,
-  step3Values,
   stepSchemas,
   previousStep,
   handleStep1Submit,
   handleStep2Submit,
-  handleStep3Submit,
-  handleRecipientsComplete,
-  handleSkipStep3,
-  submitregister,
 } = useRegister()
 
 // Animation direction
