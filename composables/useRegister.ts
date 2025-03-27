@@ -58,9 +58,9 @@ export const useRegister = () => {
   const { $toast, $api, $pinia } = useNuxtApp()
   const uiStore = useUiStore($pinia)
   const { storeUsersEntities } = userHook()
-  const { storeCompanyEntities } = companyHook()
+  const { storeCompanyEntities, patchOne } = companyHook()
   const { jwtDecode, getCookie } = authHook()
-  const { IncLoading, DecLoading } = uiStore
+  const { IncLoading, DecLoading, resetLoading } = uiStore
   const authStore = useAuthStore($pinia)
   const { setJWTasUser, setToken } = authStore
   const router = useRouter()
@@ -71,7 +71,7 @@ export const useRegister = () => {
 
   // État pour chaque étape
   const step1Values = ref<Step1Values>({
-    roles: RoleEnum.PHOTOGRAPHER,
+    roles: RoleEnum.OWNER,
     companyName: '',
     firstName: '',
     lastName: '',
@@ -115,10 +115,10 @@ export const useRegister = () => {
       email: string().email('vous devez entrer un email valide').required('L\'adresse email est requise'),
       password: string()
         .required('Le mot de passe est requis')
-        // .min(8, 'Le mot de passe doit contenir au moins 8 caractères')
-        // .matches(/[A-Z]/, 'Le mot de passe doit contenir au moins une lettre majuscule')
-        // .matches(/[0-9]/, 'Le mot de passe doit contenir au moins un chiffre')
-        // .matches(/[!@#$%^&*(),.?":{}|<>]/, 'Le mot de passe doit contenir au moins un caractère spécial'),
+      // .min(8, 'Le mot de passe doit contenir au moins 8 caractères')
+      // .matches(/[A-Z]/, 'Le mot de passe doit contenir au moins une lettre majuscule')
+      // .matches(/[0-9]/, 'Le mot de passe doit contenir au moins un chiffre')
+      // .matches(/[!@#$%^&*(),.?":{}|<>]/, 'Le mot de passe doit contenir au moins un caractère spécial'),
     }),
     2: object({
       siret: string().when('roles', {
@@ -173,7 +173,7 @@ export const useRegister = () => {
    * Gère la soumission du formulaire de l'étape 1
    * @param {Step1Values} values - Les valeurs du formulaire de l'étape 1
    */
-  async function handleStep1Submit(values: Step1Values) {
+  const handleStep1Submit: SubmissionHandler<Step1Values> = values => {
     step1Values.value = values
     currentStep.value++
   }
@@ -184,39 +184,9 @@ export const useRegister = () => {
    * @param {Step2Values} values - Les valeurs du formulaire de l'étape 2
    * @throws {Error} Si la création de l'entreprise échoue
    */
-  async function handleStep2Submit(values: Step2Values) {
+  function handleStep2Submit(values: Step2Values) {
     step2Values.value = values
-    try {
-      const { data } = await $api().post<{ company: Company }>('company', {
-        name: step1Values.value.companyName,
-        siret: values.siret,
-        address: values.address,
-        postalCode: values.postalCode,
-        city: values.city,
-        phone: values.phone,
-      })
-      if (data?.company) {
-        companyId.value = data.company.id
-      }
-    } catch (error) {
-      console.error(error)
-      $toast.danger('Une erreur est survenue lors de la création de l\'entreprise')
-      return
-    }
     currentStep.value++
-  }
-
-  /**
-   * Gère la création d'un destinataire
-   * Finalise l'inscription après la création du destinataire
-   */
-  async function handleRecipientCreated() {
-    $toast.success('Destinataire créé avec succès')
-    await submitregister({
-      ...step1Values.value,
-      ...step2Values.value,
-      ...step3Values.value,
-    })
   }
 
   /**
@@ -225,11 +195,6 @@ export const useRegister = () => {
    */
   async function handleStep3Submit(values: Step3Values) {
     step3Values.value = values
-    await submitregister({
-      ...step1Values.value,
-      ...step2Values.value,
-      ...values,
-    })
   }
 
   /**
@@ -239,14 +204,51 @@ export const useRegister = () => {
    * @throws {Error} Si l'inscription échoue
    */
   async function submitregister(form: VeeValidateValues) {
-    const cookieToken = getCookie()
     IncLoading('Inscription en cours...')
+
+    const { user, company } = await createUserAndCompany({
+      ...step1Values.value,
+    })
+
+    if (!company || !user) {
+      $toast.danger('Une erreur est survenue lors de la création de l\'entreprise')
+      resetLoading()
+      return
+    }
+
+    await updateCompanyInfo({
+      companyId: company.id,
+      form: step2Values.value,
+    })
+
+
+    $toast.success(`Bienvenue ${getUserfullName(user)}`)
+    router.replace({
+      name: authStore.isAuthUserAdmin ? RouteNames.ADMIN_EVENTS : RouteNames.LIST_EVENT,
+    })
+
+    DecLoading()
+  }
+
+  /**
+   * Crée un utilisateur et une entreprise
+   * @param {VeeValidateValues} form - Les valeurs du formulaire
+   * @returns {Promise<{ user: UserType | null; company: Company | null }>} Un objet contenant l'utilisateur et l'entreprise créés
+   */
+  async function createUserAndCompany(form: VeeValidateValues) {
+    const cookieToken = getCookie()
+    IncLoading('Création de l\'entreprise en cours...')
+
+    let createdUser: UserType | null = null
+    let createdCompany: Company | null = null
 
     try {
       const { data } = await $api().post<{ user: UserType; company: Company }>('user/signup', form as WithoutId<UserType>)
-      
+
       if (data) {
         const { user, company } = data
+        createdUser = user
+        createdCompany = company
         if (user?.token && company) {
           $api().setCredentials(user.token)
           storeCompanyEntities(company)
@@ -258,18 +260,35 @@ export const useRegister = () => {
           if (decode.value) {
             setJWTasUser(decode.value)
           }
-
-          $toast.success(`Bienvenue ${getUserfullName(user)}`)
-          router.replace({
-            name: authStore.isAuthUserAdmin ? RouteNames.ADMIN_EVENTS : RouteNames.LIST_EVENT,
-          })
         }
       }
     } catch (error) {
       console.error(error)
-      $toast.danger('Une erreur est survenue lors de l\'inscription')
+      $toast.danger('Une erreur est survenue lors de la création de l\'entreprise')
+    } finally {
+      DecLoading()
     }
+    return { user: createdUser, company: createdCompany }
+  }
 
+  /**
+   * Met à jour les informations de l'entreprise
+   * @param {number} companyId - L'ID de l'entreprise
+   * @param {Step2Values} form - Les valeurs du formulaire
+   */
+  async function updateCompanyInfo({
+    companyId,
+    form,
+  }: {
+    companyId: number
+    form: Step2Values
+  }) {
+    IncLoading('Mise à jour des informations de l\'entreprise en cours...')
+    const { color, siret } = form
+    await patchOne(companyId, {
+      color,
+      siret,
+    })
     DecLoading()
   }
 
@@ -285,7 +304,7 @@ export const useRegister = () => {
     handleStep1Submit,
     handleStep2Submit,
     handleStep3Submit,
-    handleRecipientCreated,
     submitregister,
   }
-} 
+}
+
