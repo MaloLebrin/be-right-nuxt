@@ -143,7 +143,7 @@ export default function employeeHook() {
     DecLoading()
   }
 
-  async function postOne(employee: EmployeeType, address: AddressType) {
+  async function postOne(employee: Partial<EmployeeType>, address: Partial<AddressType>) {
     const { data } = await $api().post<EmployeeType>('employee', { employee, address })
 
     if (data && isEmployeeType(data)) {
@@ -160,6 +160,12 @@ export default function employeeHook() {
     return null
   }
 
+  /**
+   * Crée plusieurs destinataires pour un événement
+   * @param employees - Les destinataires à créer
+   * @param eventId - L'ID de l'événement
+   * @param userId - L'ID de l'utilisateur
+   */
   async function postManyForEvent(employees: EmployeeType[], eventId: number, userId: number) {
     IncLoading()
     const { data } = await $api().post<EmployeeType[]>(`employee/manyonevent/${eventId}/${userId}`, employees)
