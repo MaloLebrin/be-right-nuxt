@@ -123,7 +123,7 @@ export default function companyHook() {
   }
 
   async function patchOne(companyId: number, company: Partial<Company>) {
-    IncLoading()
+    IncLoading('Mise à jour de l\'entreprise en cours...')
     const { data } = await $api().patch<Company>(`company/${companyId}`, { company })
     if (isCompanyType(data)) {
       updateOneCompany(companyId, data)
