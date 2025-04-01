@@ -26,10 +26,11 @@
   </div>
 
   <!-- Formulaire d'ajout -->
+  <!-- FIXME: handleReset is not working -->
   <Form
-    v-slot="{ meta, isSubmitting, handleReset, errors }"
+    v-slot="{ meta, isSubmitting, handleReset, errors, setFieldValue, values }"
     :validation-schema="schema"
-    :initial-values="form"
+    :initial-values="formInitialValues"
     class="space-y-4"
     @submit="(values) => {
       handleSubmit(values)
@@ -53,13 +54,22 @@
       />
     </div>
 
-    <BaseInput
-      label="Adresse email"
-      name="email"
-      type="email"
-      autocomplete="email"
-      is-required
-    />
+    <div>
+      <BaseInput
+        label="Adresse email"
+        name="email"
+        type="email"
+        autocomplete="email"
+        is-required
+      />
+      <BaseEmailSuggestions
+        :first-name="values.firstName"
+        :last-name="values.lastName"
+        :email="values.email"
+        @select="setFieldValue('email', $event)"
+      />
+    </div>
+
 
     <BaseInput
       label="Téléphone"
@@ -119,6 +129,12 @@
       </BaseButton>
     </div>
 
+    <BaseFormDebug
+      :meta="meta"
+      :is-submitting="isSubmitting"
+      :errors="errors"
+    />
+
     <div class="flex justify-between md:col-span-2">
       <BaseButton
         type="button"
@@ -145,11 +161,6 @@
           S'inscrire
         </BaseButton>
       </div>
-      <BaseFormDebug
-        :meta="meta"
-        :is-submitting="isSubmitting"
-        :errors="errors"
-      />
     </div>
   </Form>
 </div>
@@ -194,7 +205,7 @@ interface FormValues {
   country: string
 }
 
-const form = ref<FormValues>({
+const formInitialValues = {
   firstName: '',
   lastName: '',
   email: '',
@@ -204,19 +215,19 @@ const form = ref<FormValues>({
   postalCode: '',
   city: '',
   country: 'France',
-})
+}
 
-const schema = object({
+const schema = object<FormValues>({
   firstName: string().required('Le prénom est requis'),
   lastName: string().required('Le nom est requis'),
-  email: string().email('Email invalide').required('L\'email est requis'),
+  email: string().email('vous devez entrer un email valide').required('L\'adresse email est requise'),
   phone: string().required('Le téléphone est requis'),
   addressLine: string().required('L\'adresse est requise'),
   addressLine2: string().nullable(),
   postalCode: string().required('Le code postal est requis'),
   city: string().required('La ville est requise'),
   country: string().required('Le pays est requis'),
-}) as ObjectSchema<FormValues>
+})
 
 function handleSubmit(values: FormValues) {
   const newEmployee: EmployeeType = {
@@ -250,18 +261,6 @@ function handleSubmit(values: FormValues) {
     groupIds: [],
   }
   employees.value.push(newEmployee)
-
-  form.value = {
-    firstName: '',
-    lastName: '',
-    email: '',
-    phone: '',
-    addressLine: '',
-    addressLine2: null,
-    postalCode: '',
-    city: '',
-    country: 'France',
-  }
 
   emit('complete', employees.value)
 }

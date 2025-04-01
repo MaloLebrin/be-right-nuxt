@@ -31,24 +31,13 @@
         autocomplete="email"
         is-required
       />
-
-      <div
+      <BaseEmailSuggestions
         v-if="hasSuggestion"
-        class="flex flex-wrap flex-1 py-1 space-x-2"
-      >
-        <p
-          v-for="suggest in multipleEmailSuggestions({
-            firstName: values.firstName,
-            lastName: values.lastName,
-            email: userStore.getAuthUser?.email || '',
-          })"
-          :key="suggest"
-          class="text-sm text-gray-500 hover:text-orange-500 hover:cursor-pointer hover:underline"
-          @click="setFieldValue('email', suggest)"
-        >
-          {{ suggest }}
-        </p>
-      </div>
+        :first-name="values.firstName"
+        :last-name="values.lastName"
+        :email="values.email"
+        @select="setFieldValue('email', $event)"
+      />
     </div>
 
     <BaseInput
@@ -146,6 +135,7 @@ import { number, object, string } from 'yup'
 import { Form } from 'vee-validate'
 import BaseButton from '../Base/BaseButton.vue'
 import BaseInput from '../Base/BaseInput.vue'
+import BaseEmailSuggestions from '../Base/BaseEmailSuggestions.vue'
 import EmployeeUserCombobox from '~~/components/Employee/EmployeeUserCombobox.vue'
 import type { AddressType, EmployeeType, VeeValidateValues } from '@/types'
 import { ModalModeEnum } from '@/types'
