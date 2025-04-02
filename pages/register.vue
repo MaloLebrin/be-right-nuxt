@@ -180,7 +180,7 @@
 
       <!-- Step 3: Initial Setup -->
       <section
-        v-if="currentStep === 3 && step1Values.roles === RoleEnum.OWNER && companyId"
+        v-if="currentStep === 3 && step1Values.roles === RoleEnum.OWNER"
         class="w-full px-4 space-y-4 text-left md:space-y-0 md:px-0 md:grid md:gap-6 md:grid-cols-2"
       >
         <div class="space-y-4 md:col-span-2">
