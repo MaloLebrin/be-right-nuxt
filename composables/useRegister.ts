@@ -314,6 +314,23 @@ export function useRegister() {
     DecLoading()
   }
 
+  function setStep3Dirty() {
+    step3Values.value.isDirty = true
+  }
+
+  interface Step3Employee extends Pick<EmployeeType, 'email' | 'firstName' | 'lastName' | 'phone'> {
+    addressLine: string
+    addressLine2: string | null
+    postalCode: string
+    city: string
+    country: string
+  }
+
+  function addStep3Employee(employee: Step3Employee) {
+    const arrayOfEmployees = step3Values.value.employees || []
+    step3Values.value.employees = [...arrayOfEmployees, {...employee, addressLine: employee.addressLine || '', addressLine2: employee.addressLine2 || null, postalCode: employee.postalCode || '', city: employee.city || '', country: employee.country || 'France'}]
+  }
+
   return {
     currentStep,
     totalSteps,
@@ -327,6 +344,8 @@ export function useRegister() {
     handleStep2Submit,
     handleStep3Submit,
     submitregister,
+    setStep3Dirty,
+    addStep3Employee,
   }
 }
 
