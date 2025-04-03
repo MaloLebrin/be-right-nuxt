@@ -1,194 +1,243 @@
 <template>
-<Form
-  v-slot="{ meta, isSubmitting }"
-  :validation-schema="schema"
-  :initial-values="initialValues"
-  class="container grid grid-cols-1 gap-12 py-6 mx-auto"
-  @submit="submitregister"
->
-  <div class="flex flex-col mx-auto space-y-12 md:max-w-1/2">
+<div class="container grid grid-cols-1 gap-12 py-6 mx-auto my-6">
+  <div class="flex flex-col w-full max-w-2xl mx-auto space-y-12 md:max-w-1/2">
     <div class="mt-4 md:mt-0">
-      <h1 class="text-3xl font-bold leading-tight text-center text-gray-800 md:text-5xl dark:text-white">
+      <h1 class="text-3xl font-bold leading-tight text-center text-indigo-950 md:text-5xl">
         Inscription
       </h1>
     </div>
 
-    <div class="px-4 space-y-4 text-left md:space-y-0 md:px-0 md:grid md:gap-6 md:grid-cols-2">
-      <BaseRadio
-        :id="RoleEnum.PHOTOGRAPHER"
-        :value="RoleEnum.PHOTOGRAPHER"
-        name="roles"
+    <!-- Progress bar -->
+    <BaseProgressBar
+      :current-step="currentStep"
+      :total-steps="totalSteps"
+    />
+
+    <!-- Forms container with transition -->
+    <TransitionGroup
+      name="slide"
+      tag="div"
+      class="relative"
+    >
+      <!-- Step 1: Basic Information -->
+      <Form
+        v-if="currentStep === 1"
+        v-slot="{ meta, isSubmitting }"
+        :validation-schema="stepSchemas[1]"
+        :initial-values="step1Values"
+        class="w-full px-4 space-y-4 text-left md:space-y-0 md:px-0 md:grid md:gap-6 md:grid-cols-2"
+        @submit="handleStep1Submit as any"
       >
-        je suis un photographe
-      </BaseRadio>
-      <BaseRadio
-        :id="RoleEnum.OWNER"
-        :value="RoleEnum.OWNER"
-        name="roles"
+        <BaseRadio
+          :id="RoleEnum.PHOTOGRAPHER"
+          :value="RoleEnum.PHOTOGRAPHER"
+          name="roles"
+          :label="'Je suis un photographe'"
+        />
+        <BaseRadio
+          :id="RoleEnum.OWNER"
+          :value="RoleEnum.OWNER"
+          name="roles"
+          :label="'Je suis une entreprise ou un particulier'"
+        />
+
+        <div class="space-y-4 md:col-span-2">
+          <BaseInput
+            label="Nom de l'entreprise"
+            name="companyName"
+            type="text"
+            autocomplete="companyName"
+            is-required
+          />
+        </div>
+
+        <div class="space-y-4">
+          <BaseInput
+            label="Prénom"
+            name="firstName"
+            type="text"
+            autocomplete="given-name"
+            is-required
+          />
+        </div>
+
+        <div class="space-y-4">
+          <BaseInput
+            label="Nom"
+            name="lastName"
+            type="text"
+            autocomplete="family-name"
+            is-required
+          />
+        </div>
+
+        <div class="col-span-2 space-y-4">
+          <BaseInput
+            class="md:col-span-2"
+            label="Adresse email"
+            name="email"
+            type="email"
+            autocomplete="email"
+            is-required
+          />
+          <BaseInput
+            label="Mot de passe"
+            name="password"
+            type="password"
+            autocomplete="new-password"
+            is-required
+          />
+        </div>
+
+        <div class="flex justify-end md:col-span-2">
+          <BaseButton
+            type="submit"
+            :disabled="!meta.valid || isSubmitting || uiStore.getUIIsLoading"
+            data-test-id="register-submit-button"
+            :is-loading="isSubmitting"
+          >
+            {{ step1Values.roles === RoleEnum.PHOTOGRAPHER ? 'S\'inscrire' : 'Suivant' }}
+          </BaseButton>
+        </div>
+      </Form>
+
+      <!-- Step 2: Company Information -->
+      <Form
+        v-if="currentStep === 2 && step1Values.roles === RoleEnum.OWNER"
+        v-slot="{ meta, isSubmitting }"
+        :validation-schema="stepSchemas[2]"
+        :initial-values="step2Values"
+        class="w-full px-4 space-y-4 text-left md:space-y-0 md:px-0 md:grid md:gap-6 md:grid-cols-2"
+        @submit="handleStep2Submit as any"
       >
-        je suis une enteprise ou un particulier
-      </BaseRadio>
+        <div class="space-y-4 md:col-span-2">
+          <BaseInput
+            label="Numéro SIRET"
+            name="siret"
+            type="text"
+            autocomplete="organization"
+            is-required
+          />
+        </div>
 
-      <div class="space-y-4 md:col-span-2">
-        <BaseInput
-          label="Nom de l'entreprise"
-          name="companyName"
-          type="text"
-          autocomplete="companyName"
-          is-required
-        />
-      </div>
+        <div class="space-y-4 md:col-span-2">
+          <BaseInput
+            label="Adresse"
+            name="address"
+            type="text"
+            autocomplete="street-address"
+            is-required
+          />
+        </div>
 
-      <div class="space-y-4">
-        <BaseInput
-          label="Prénom"
-          name="firstName"
-          type="text"
-          autocomplete="given-name"
-          is-required
-        />
-      </div>
+        <div class="space-y-4">
+          <BaseInput
+            label="Code postal"
+            name="postalCode"
+            type="text"
+            autocomplete="postal-code"
+            is-required
+          />
+        </div>
 
-      <div class="space-y-4">
-        <BaseInput
-          label="Nom"
-          name="lastName"
-          type="text"
-          autocomplete="family-name"
-          is-required
-        />
-      </div>
+        <div class="space-y-4">
+          <BaseInput
+            label="Ville"
+            name="city"
+            type="text"
+            autocomplete="address-level2"
+            is-required
+          />
+        </div>
 
-      <div class="col-span-2 space-y-4">
-        <BaseInput
-          class="md:col-span-2"
-          label="Adresse email"
-          name="email"
-          type="email"
-          autocomplete="email"
-          is-required
-        />
-        <BaseInput
-          label="Mot de passe"
-          name="password"
-          type="password"
-          autocomplete="new-password"
-          is-required
-        />
-      </div>
+        <div class="space-y-4 md:col-span-2">
+          <BaseInput
+            label="Téléphone"
+            name="phone"
+            type="tel"
+            autocomplete="tel"
+            is-required
+          />
+        </div>
 
-      <div class="flex flex-col items-center justify-center space-y-4 md:col-span-2">
-        <BaseButton
-          :disabled="!meta.valid || !meta.dirty || isSubmitting"
-          :is-loading="uiStore.getUIIsLoading || isSubmitting"
-          type="submit"
-          data-test-id="register-submit-button"
-        >
-          S'inscrire
-        </BaseButton>
+        <div class="flex justify-between md:col-span-2">
+          <BaseButton
+            type="button"
+            variant="default"
+            :disabled="isSubmitting"
+            @click="previousStep"
+          >
+            Précédent
+          </BaseButton>
+          <BaseButton
+            type="submit"
+            :disabled="!meta.valid || isSubmitting || uiStore.getUIIsLoading"
+            :is-loading="isSubmitting"
+          >
+            Suivant
+          </BaseButton>
+        </div>
+      </Form>
 
-        <NuxtLink
-          id="already-account-link"
-          class="LinkClass"
-          :to="{ name: 'login' }"
-        >
-          J'ai déjà un compte
-        </NuxtLink>
-      </div>
-    </div>
+      <!-- Step 3: Initial Setup -->
+      <section
+        v-if="currentStep === 3 && step1Values.roles === RoleEnum.OWNER"
+        class="w-full px-4 space-y-4 text-left md:space-y-0 md:px-0 md:grid md:gap-6 md:grid-cols-2"
+      >
+        <div class="space-y-4 md:col-span-2">
+          <h2 class="mb-4 text-xl font-semibold">Configuration initiale</h2>
+          <p class="mb-6 text-gray-600 dark:text-gray-400">
+            Pour commencer à utiliser l'application, nous vous proposons de créer vos premiers destinataires.
+            Vous pourrez également les ajouter plus tard.
+          </p>
+        </div>
+
+        <div class="space-y-4 md:col-span-2">
+          <EmployeeListForm
+            :company-id="companyId"
+            @previous="previousStep"
+          />
+        </div>
+      </section>
+    </TransitionGroup>
   </div>
-</Form>
+</div>
 </template>
 
 <script setup lang="ts">
 import { Form } from 'vee-validate'
-import { object, string } from 'yup'
 import BaseButton from '~/components/Base/BaseButton.vue'
 import BaseInput from '~/components/Base/BaseInput.vue'
 import BaseRadio from '~/components/Base/BaseRadio.vue'
-import type { UserType, VeeValidateValues } from '@/types'
-import { RoleEnum } from '@/types'
-import type { Company } from '~~/store'
-import { useAuthStore, useUiStore } from '~~/store'
-import { passwordRegex } from '~/helpers/regex'
-import newsletterHook from '~/composables/newsletterHook'
+import BaseProgressBar from '~/components/Base/BaseProgressBar.vue'
+import EmployeeListForm from '~/components/Employee/EmployeeListForm.vue'
+import { useRegister } from '~/composables/useRegister'
+import { RoleEnum } from '~/types'
+import { useHead } from 'unhead'
+import { useUiStore } from '~~/store'
 
-const { $toast, $api } = useNuxtApp()
-const router = useRouter()
-const { checkMailIsAlreadyExist, jwtDecode, getCookie } = authHook()
-const { storeUsersEntities } = userHook()
-const { storeCompanyEntities } = companyHook()
-const { addToContactList } = newsletterHook()
-const { setJWTasUser } = useAuthStore()
-const uiStore = useUiStore()
-const { IncLoading, DecLoading } = uiStore
+const { $pinia } = useNuxtApp()
+const uiStore = useUiStore($pinia)
 
-const schema = object({
-  companyName: string().required('Nom de l\'entreprise est requis').label('Nom de l\'entreprise'),
-  email: string().email('vous devez entrer in email valide').required('L\'adresse email est requise'),
-  password: string()
-    .min(8, 'Le mot de passe doit contenir au moins 8 caratères')
-    .required('Le mot de passe est requis')
-    .matches(
-      passwordRegex,
-      'Le mot de passe doit contenir au moins 8 caractères, une majuscule, un chiffre et un caractère spécial',
-    ),
-  firstName: string().required('Le prénom est requis').label('Prénom'),
-  lastName: string().required('le nom est requis').label('Nom'),
-  roles: string().oneOf([RoleEnum.PHOTOGRAPHER, RoleEnum.OWNER]),
+const {
+  currentStep,
+  totalSteps,
+  companyId,
+  step1Values,
+  step2Values,
+  stepSchemas,
+  previousStep,
+  handleStep1Submit,
+  handleStep2Submit,
+} = useRegister()
+
+// Animation direction
+const direction = ref<'next' | 'prev'>('next')
+
+// Update direction when changing steps
+watch(currentStep, (newStep, oldStep) => {
+  direction.value = newStep > oldStep ? 'next' : 'prev'
 })
-
-const initialValues = {
-  email: '',
-  companyName: '',
-  password: '',
-  firstName: '',
-  lastName: '',
-  roles: RoleEnum.OWNER,
-}
-
-async function submitregister(form: VeeValidateValues) {
-  IncLoading()
-  const cookieToken = getCookie()
-
-  const isEmailExist = await checkMailIsAlreadyExist(form.email)
-
-  if (isEmailExist && !isEmailExist.success) {
-    $toast.danger(isEmailExist.message)
-  } else {
-    const { data } = await $api().post<{ user: UserType; company: Company }>('auth/signup', form)
-
-    if (data) {
-      const { user, company } = data
-
-      if (company) {
-        storeCompanyEntities(company)
-      }
-
-      if (user) {
-        $api().setCredentials(user.token)
-
-        await addToContactList({
-          email: user.email,
-          name: getUserfullName(user),
-        })
-
-        storeUsersEntities(user, false)
-        cookieToken.value = user.token
-        const decode = jwtDecode(ref(user.token))
-
-        if (decode.value) {
-          setJWTasUser(decode.value)
-        }
-        $toast.success(`Bienvenue ${getUserfullName(user)}`)
-        router.replace({
-          name: 'evenement',
-        })
-      }
-    }
-  }
-  DecLoading()
-}
 
 definePageMeta({
   layout: 'default',
@@ -196,16 +245,36 @@ definePageMeta({
     'is-logged-in-middleware',
   ],
 })
-
-useHead({
-  title: 'S\'inscrire',
-  meta: [
-    { name: 'description', content: 'Inscrivez vous pour gérer vos droits à l\'image' },
-    { property: 'og:title', content: 'Inscription' },
-    { property: 'og:description', content: 'Inscrivez vous pour gérer vos droits à l\'image' },
-    { property: 'og:type', content: 'website' },
-    { property: 'og:url', content: 'https://be-right.co/register' },
-    { property: 'og:locale', content: 'fr_FR' },
-  ],
-})
 </script>
+
+<style scoped>
+.slide-enter-active,
+.slide-leave-active {
+  transition: all 0.5s ease-in-out;
+}
+
+.slide-enter-from {
+  opacity: 0;
+  transform: translateX(100%);
+}
+
+.slide-leave-to {
+  opacity: 0;
+  transform: translateX(-100%);
+}
+
+.slide-enter-to,
+.slide-leave-from {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Reverse animation for previous step */
+.slide-enter-from[data-direction="prev"] {
+  transform: translateX(-100%);
+}
+
+.slide-leave-to[data-direction="prev"] {
+  transform: translateX(100%);
+}
+</style>

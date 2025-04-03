@@ -37,8 +37,6 @@ test('button to submit form login is disabled by default', async ({ page }) => {
 
   await expect(submitButton).toBeDisabled()
 
-  await expect(page.locator('span[role="alert"]')).toBeVisible()
-
   await inputPassword.fill('Password6!')
   await expect(inputPassword).toHaveValue('Password6!')
 

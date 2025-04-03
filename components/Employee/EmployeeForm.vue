@@ -11,7 +11,7 @@
       label="Prénom"
       name="firstName"
       type="text"
-      autocomplete="firstName"
+      autocomplete="given-name"
       is-required
     />
 
@@ -19,7 +19,7 @@
       label="Nom"
       name="lastName"
       type="text"
-      autocomplete="lastName"
+      autocomplete="family-name"
       is-required
     />
 
@@ -31,31 +31,20 @@
         autocomplete="email"
         is-required
       />
-
-      <div
+      <BaseEmailSuggestions
         v-if="hasSuggestion"
-        class="flex flex-wrap flex-1 py-1 space-x-2"
-      >
-        <p
-          v-for="suggest in multipleEmailSuggestions({
-            firstName: values.firstName,
-            lastName: values.lastName,
-            email: userStore.getAuthUser?.email || '',
-          })"
-          :key="suggest"
-          class="text-sm text-gray-500 hover:text-orange-500 hover:cursor-pointer hover:underline"
-          @click="setFieldValue('email', suggest)"
-        >
-          {{ suggest }}
-        </p>
-      </div>
+        :first-name="values.firstName"
+        :last-name="values.lastName"
+        :email="values.email"
+        @select="setFieldValue('email', $event)"
+      />
     </div>
 
     <BaseInput
       label="Téléphone"
       name="phone"
       type="tel"
-      autocomplete="phone"
+      autocomplete="tel"
       is-required
     />
 
@@ -63,7 +52,8 @@
       <BaseInput
         label="Adresse"
         name="addressLine"
-        autocomplete="addressLine"
+        type="text"
+        autocomplete="street-address"
         is-required
       />
     </div>
@@ -72,27 +62,32 @@
       <BaseInput
         label="Complément d'adresse"
         name="addressLine2"
-        autocomplete="addressLine"
+        type="text"
+        autocomplete="street-address"
+      />
+    </div>
+
+    <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+      <BaseInput
+        label="Code postal"
+        name="postalCode"
+        type="text"
+        autocomplete="postal-code"
+        is-required
+      />
+      <BaseInput
+        label="Ville"
+        name="city"
+        type="text"
+        autocomplete="address-level2"
+        is-required
       />
     </div>
 
     <BaseInput
-      label="Code postal"
-      name="postalCode"
-      autocomplete="postalCode"
-      is-required
-    />
-
-    <BaseInput
-      label="Ville"
-      name="city"
-      autocomplete="city"
-      is-required
-    />
-
-    <BaseInput
       label="Pays"
       name="country"
+      type="text"
       autocomplete="country"
       is-required
     />
@@ -140,6 +135,7 @@ import { number, object, string } from 'yup'
 import { Form } from 'vee-validate'
 import BaseButton from '../Base/BaseButton.vue'
 import BaseInput from '../Base/BaseInput.vue'
+import BaseEmailSuggestions from '../Base/BaseEmailSuggestions.vue'
 import EmployeeUserCombobox from '~~/components/Employee/EmployeeUserCombobox.vue'
 import type { AddressType, EmployeeType, VeeValidateValues } from '@/types'
 import { ModalModeEnum } from '@/types'
