@@ -30,7 +30,7 @@
     :validation-schema="schema"
     :initial-values="formInitialValues"
     class="space-y-4"
-    @submit="handleSubmit"
+    @submit="handleSubmit as any"
   >
     <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
       <BaseInput
@@ -145,6 +145,7 @@
 
 <script setup lang="ts">
 import { object, string } from 'yup'
+import type { SubmissionHandler } from 'vee-validate';
 import { Form } from 'vee-validate'
 import type { EmployeeType } from '~/types'
 import BaseButton from '~/components/Base/BaseButton.vue'
@@ -231,7 +232,7 @@ function handleSubmit(values: FormValues) {
  * Supprime un employé de la liste des employés
  * @param {EmployeeType} employee - L'employé à supprimer
  */
-function removeEmployee(employee: EmployeeType) {
+function removeEmployee(employee: Partial<EmployeeType>) {
   removeStep3Employee(employee as unknown as Step3Employee)
   employees.value = employees.value.filter(e => e.email !== employee.email)
 }

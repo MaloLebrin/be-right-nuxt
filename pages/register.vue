@@ -26,7 +26,7 @@
         :validation-schema="stepSchemas[1]"
         :initial-values="step1Values"
         class="w-full px-4 space-y-4 text-left md:space-y-0 md:px-0 md:grid md:gap-6 md:grid-cols-2"
-        @submit="handleStep1Submit"
+        @submit="handleStep1Submit as any"
       >
         <BaseRadio
           :id="RoleEnum.PHOTOGRAPHER"
@@ -107,7 +107,7 @@
         :validation-schema="stepSchemas[2]"
         :initial-values="step2Values"
         class="w-full px-4 space-y-4 text-left md:space-y-0 md:px-0 md:grid md:gap-6 md:grid-cols-2"
-        @submit="handleStep2Submit"
+        @submit="handleStep2Submit as any"
       >
         <div class="space-y-4 md:col-span-2">
           <BaseInput
