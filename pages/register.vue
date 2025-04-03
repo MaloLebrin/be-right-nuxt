@@ -93,6 +93,7 @@
           <BaseButton
             type="submit"
             :disabled="!meta.valid || isSubmitting || uiStore.getUIIsLoading"
+            data-test-id="register-submit-button"
             :is-loading="isSubmitting"
           >
             {{ step1Values.roles === RoleEnum.PHOTOGRAPHER ? 'S\'inscrire' : 'Suivant' }}
