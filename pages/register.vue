@@ -245,17 +245,6 @@ definePageMeta({
     'is-logged-in-middleware',
   ],
 })
-
-useHead({
-  meta: [
-    { name: 'description', content: 'Inscrivez vous pour gérer vos droits à l\'image' },
-    { property: 'og:title', content: 'Inscription' },
-    { property: 'og:description', content: 'Inscrivez vous pour gérer vos droits à l\'image' },
-    { property: 'og:type', content: 'website' },
-    { property: 'og:url', content: 'https://be-right.co/register' },
-    { property: 'og:locale', content: 'fr_FR' },
-  ],
-})
 </script>
 
 <style scoped>
