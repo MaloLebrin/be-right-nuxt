@@ -151,6 +151,7 @@ import BaseButton from '~/components/Base/BaseButton.vue'
 import BaseInput from '~/components/Base/BaseInput.vue'
 import BaseFormDebug from '~/components/Base/BaseFormDebug.vue'
 import { useUiStore } from '~~/store'
+import type { Step3Employee } from '~/composables/useRegister'
 
 const uiStore = useUiStore()
 
@@ -166,6 +167,7 @@ const {
   handleStep3Submit,
   setStep3Dirty,
   addStep3Employee,
+  removeStep3Employee,
 } = useRegister()
 
 interface FormValues {
@@ -205,7 +207,6 @@ const schema = object<FormValues>({
 })
 
 function handleSubmit(values: FormValues) {
-  console.log('values', values)
   setStep3Dirty()
 
   const newEmployee = {
@@ -220,12 +221,18 @@ function handleSubmit(values: FormValues) {
     country: values.country,
     bornAt: new Date(),
   }
+  employees.value.push(newEmployee)
   addStep3Employee(newEmployee)
 
   emit('complete', employees.value)
 }
 
+/**
+ * Supprime un employé de la liste des employés
+ * @param {EmployeeType} employee - L'employé à supprimer
+ */
 function removeEmployee(employee: EmployeeType) {
-  employees.value = employees.value.filter(e => e.id !== employee.id)
+  removeStep3Employee(employee as unknown as Step3Employee)
+  employees.value = employees.value.filter(e => e.email !== employee.email)
 }
 </script>

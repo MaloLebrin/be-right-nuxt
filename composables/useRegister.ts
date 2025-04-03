@@ -1,6 +1,6 @@
 import { object, string } from 'yup'
 import type { ObjectSchema } from 'yup'
-import type { UserType, VeeValidateValues, WithoutId } from '@/types'
+import type { EmployeeType, UserType, VeeValidateValues, WithoutId } from '@/types'
 import type { Company } from '~~/store'
 import { useAuthStore, useUiStore } from '~~/store'
 import { RouteNames } from '~/helpers/routes'
@@ -51,6 +51,14 @@ interface Step3Values {
   }[]
 }
 
+export interface Step3Employee extends Pick<EmployeeType, 'email' | 'firstName' | 'lastName' | 'phone'> {
+  addressLine: string
+  addressLine2: string | null
+  postalCode: string
+  city: string
+  country: string
+}
+
 export function useRegister() {
   const { $toast, $api, $pinia } = useNuxtApp()
   const uiStore = useUiStore($pinia)
@@ -62,6 +70,7 @@ export function useRegister() {
   const { setJWTasUser, setToken } = authStore
   const router = useRouter()
   const { postOne: postEmployee } = employeeHook()
+  const { postOne: postAddress } = addressHook()
 
   const currentStep = ref(1)
   const totalSteps = 3
@@ -89,20 +98,9 @@ export function useRegister() {
 
   const step3Values = ref<Step3Values>({
     isDirty: false,
-    employees: [{
-      email: '',
-      firstName: '',
-      lastName: '',
-      phone: '',
-      addressLine: '',
-      addressLine2: null,
-      postalCode: '',
-      city: '',
-      country: 'France',
-    }],
+    employees: [],
   })
 
-  // Schémas de validation par étape
   const stepSchemas: Record<number, ObjectSchema<any>> = {
     1: object({
       roles: string()
@@ -196,8 +194,7 @@ export function useRegister() {
    * Gère la soumission du formulaire de l'étape 3
    * @param {Step3Values} values - Les valeurs du formulaire de l'étape 3
    */
-  async function handleStep3Submit(values: Step3Values) {
-    step3Values.value = values
+  async function handleStep3Submit() {
     await submitregister()
   }
 
@@ -220,13 +217,27 @@ export function useRegister() {
     }
 
     if (step1Values.value.roles === RoleEnum.OWNER) {
-      await updateCompanyInfo({
-        companyId: company.id,
-        form: step2Values.value,
-      })
+      await Promise.allSettled([
+        updateCompanyInfo({
+          companyId: company.id,
+          form: step2Values.value,
+        }),
+        postAddress({
+          address: {
+            addressLine: step2Values.value.address,
+            addressLine2: null,
+            postalCode: step2Values.value.postalCode,
+            city: step2Values.value.city,
+            country: 'France',
+          },
+          companyId: company.id,
+        })
+      ])
 
       const employees = step3Values.value.employees
-      if (employees?.length && step3Values.value.isDirty) {
+      const isDirty = step3Values.value.isDirty
+
+      if (employees?.length && isDirty) {
         await Promise.allSettled(
           employees.map(employee => postEmployee({
             email: employee.email,
@@ -318,17 +329,14 @@ export function useRegister() {
     step3Values.value.isDirty = true
   }
 
-  interface Step3Employee extends Pick<EmployeeType, 'email' | 'firstName' | 'lastName' | 'phone'> {
-    addressLine: string
-    addressLine2: string | null
-    postalCode: string
-    city: string
-    country: string
-  }
-
   function addStep3Employee(employee: Step3Employee) {
     const arrayOfEmployees = step3Values.value.employees || []
-    step3Values.value.employees = [...arrayOfEmployees, {...employee, addressLine: employee.addressLine || '', addressLine2: employee.addressLine2 || null, postalCode: employee.postalCode || '', city: employee.city || '', country: employee.country || 'France'}]
+    step3Values.value.employees = [...arrayOfEmployees, { ...employee, addressLine: employee.addressLine || '', addressLine2: employee.addressLine2 || null, postalCode: employee.postalCode || '', city: employee.city || '', country: employee.country || 'France' }]
+  }
+
+  function removeStep3Employee(employee: Step3Employee) {
+    const arrayOfEmployees = step3Values.value.employees || []
+    step3Values.value.employees = arrayOfEmployees.filter(e => e.email !== employee.email)
   }
 
   return {
@@ -346,6 +354,7 @@ export function useRegister() {
     submitregister,
     setStep3Dirty,
     addStep3Employee,
+    removeStep3Employee,
   }
 }
 
