@@ -12,7 +12,7 @@ interface Props {
   format?: string
 }
 
-const { date, format } = withDefaults(defineProps<Props>(), {
+withDefaults(defineProps<Props>(), {
   format: 'D/MM/YYYY',
 })
 </script>
