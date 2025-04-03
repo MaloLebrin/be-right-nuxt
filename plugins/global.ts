@@ -21,11 +21,16 @@ export default defineNuxtPlugin(() => {
     return isProductionMode() ? import.meta.env.VITE_API_URL?.toString() : import.meta.env.VITE_DEV_API_URL?.toString()
   }
 
+  function getAppUrl() {
+    return isProductionMode() ? 'https://be-right.co' : 'http://localhost:3000'
+  }
+
   return {
     provide: {
       isProductionMode: isProductionMode(),
 
       getApiUrl: getApiURL(),
+      getFrontUrl: getAppUrl(),
 
       toFormat: (date: Date | string, format: string) => toFormat(date, format),
 
