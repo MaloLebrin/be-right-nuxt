@@ -247,7 +247,6 @@ definePageMeta({
 })
 
 useHead({
-  title: 'Inscription',
   meta: [
     { name: 'description', content: 'Inscrivez vous pour gérer vos droits à l\'image' },
     { property: 'og:title', content: 'Inscription' },
