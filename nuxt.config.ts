@@ -17,9 +17,10 @@ export default defineNuxtConfig({
   },
 
   routeRules: {
-    // Homepage pre-rendered at build time
     '/': { prerender: true },
     '/login': { prerender: true },
+    '/blog/**': { ssr: true },
+
     // Products page generated on demand, revalidates in background, cached until API response changes
     // '/products': { swr: true },
     // Product pages generated on demand, revalidates in background, cached for 1 hour (3600 seconds)
@@ -38,10 +39,7 @@ export default defineNuxtConfig({
     '/mon-compte/**': { ssr: false },
     '/notifications/**': { ssr: false },
     '/paiements/**': { ssr: false },
-    // Add cors headers on API routes
-    // '/api/**': { cors: true },
-    // Redirects legacy urls
-    // '/old-page': { redirect: '/new-page' }
+    // possibilities : ssr, isr, swr, cors, redirect, prerender doc: https://nuxt.com/docs/guide/concepts/rendering
   },
 
   app: {
@@ -85,11 +83,6 @@ export default defineNuxtConfig({
       language: 'fr',
     },
   },
-
-  extends: [
-
-  ],
-
   modules: [
     '@pinia/nuxt',
     '@nuxtjs/tailwindcss',
@@ -118,6 +111,7 @@ export default defineNuxtConfig({
     '@nuxt/image',
     '@unlok-co/nuxt-stripe',
     '@nuxt/eslint',
+    '@nuxt/content',
   ],
 
   stripe: {
