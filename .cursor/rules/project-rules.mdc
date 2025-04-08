@@ -139,10 +139,6 @@ alwaysApply: true
 <script setup lang="ts">
 // Props typées
 </script>
-
-<style>
-/* Variables de couleur du thème */
-</style>
 ```
 
 ### Création de Page
@@ -300,3 +296,58 @@ alwaysApply: true
 - Surveiller les performances
 - Gérer les erreurs
 - Maintenir les logs de sécurité
+
+### 10. Content Management (Nuxt Content)
+
+#### Structure du Contenu
+- Organiser le contenu par type dans le dossier `content/`
+- Utiliser des sous-dossiers pour catégoriser le contenu (ex: `blog/`, `docs/`)
+- Nommer les fichiers en kebab-case
+- Utiliser l'extension `.md` pour les fichiers Markdown
+
+#### Frontmatter
+- Inclure les métadonnées essentielles dans le frontmatter :
+  ```yaml
+  ---
+  title: "Titre de l'article"
+  subtitle: "Sous-titre optionnel"
+  shortDescription: "Description courte pour les aperçus"
+  description: "Description détaillée pour le SEO"
+  imageUrl: "nom-de-l-image.webp"
+  slug: "url-seo-friendly"
+  categories: ['catégorie-1', 'catégorie-2']
+  draft: true/false
+  ---
+  ```
+
+#### Markdown
+- Utiliser le format Markdown standard
+- Structurer le contenu avec des titres hiérarchiques
+- Utiliser des tableaux pour les données structurées
+- Inclure des images optimisées avec des descriptions alt
+- Utiliser des blocs de code avec le langage spécifié
+- Ajouter des liens internes et externes appropriés
+
+#### Composants Vue dans Markdown
+- Utiliser les composants Vue dans le contenu Markdown
+- Définir les composants globaux dans `nuxt.config.ts`
+- Utiliser des slots pour la personnalisation
+- Documenter les composants utilisables dans le contenu
+
+#### SEO et Métadonnées
+- Optimiser les titres et descriptions pour le SEO
+- Utiliser des slugs SEO-friendly
+- Inclure des images optimisées avec des descriptions alt
+- Structurer le contenu avec des balises sémantiques
+
+#### Performance
+- Optimiser les images avec @nuxt/image
+- Utiliser le lazy loading pour les composants lourds
+- Minimiser les requêtes de contenu
+- Mettre en cache le contenu statique
+
+#### Tests
+- Tester le rendu du contenu Markdown
+- Vérifier les liens et les images
+- Tester le SEO et les métadonnées
+- Valider la structure du contenu 
