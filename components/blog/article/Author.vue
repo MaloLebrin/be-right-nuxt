@@ -3,7 +3,7 @@
   <img
     :alt="`Photo de ${fullName}`"
     :src="imageUrl"
-    className="aspect-square size-6 rounded-full object-cover"
+    className="aspect-square size-6 rounded-full object-cover w-8 h-8"
   >
   <div className="text-sm/5 text-gray-700">
     {{ fullName }}
@@ -19,6 +19,6 @@ interface Author {
 
 withDefaults(defineProps<Author>(), {
   fullName: 'Malo Lebrin',
-  imageUrl: 'https://media.licdn.com/dms/image/v2/D5603AQEu5LWkASjNNw/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1705484136800?e=1742428800&v=beta&t=YxLJncs3N1ttjRIYy53zw2_vcjbIQubz2Sg959WJM8s'
+  imageUrl: 'https://img.freepik.com/photos-gratuite/homme-vue-devant-posant-exterieur_23-2151038658.jpg?t=st=1744127595~exp=1744131195~hmac=aba2f72e5bf6ef9f28e4c4f87e38dccea049f9a2b162da31a76bb518f92c1855&w=740'
 })
 </script>
