@@ -9,38 +9,59 @@
   </Container>
 
   <Container v-else>
-    <Subheading
-      v-if="post.publishedAt"
-      additionnal-classes="mt-16">
-      {{ $toFormat(post.publishedAt, 'dddd, MMMM D, YYYY') }}
-    </Subheading>
-    <h1 class="mt-2 text-pretty text-4xl font-medium tracking-tighter data-[dark]:text-white sm:text-6xl">
-      {{ post?.title }}
-    </h1>
-    <p class="max-w-3xl mt-6 text-2xl font-medium text-gray-500">
-      {{ post?.subtitle }}
-    </p>
+    <!-- Article Header -->
+    <div class="max-w-3xl mx-auto">
+      <Subheading
+        v-if="post.publishedAt"
+        additionnal-classes="mt-16">
+        {{ $toFormat(post.publishedAt, 'dddd, MMMM D, YYYY') }}
+      </Subheading>
+      <h1 class="mt-2 text-pretty text-4xl font-medium tracking-tighter data-[dark]:text-white sm:text-5xl">
+        {{ post?.title }}
+      </h1>
+      <p class="mt-6 text-xl text-gray-600">
+        {{ post?.subtitle }}
+      </p>
 
-    <div class="grid grid-cols-1 gap-8 mt-16">
-      <div class="flex flex-wrap items-center gap-8 max-lg:justify-between lg:flex-col lg:items-start lg:space-y-4">
+      <!-- Article Meta -->
+      <div class="flex items-center gap-4 mt-8 text-sm text-gray-600">
         <Author />
+        <span>•</span>
+        <span>{{ estimatedReadingTime }} min de lecture</span>
+        <span>•</span>
         <BlogArticleCategoriesList :categories="post.categories" />
-        <article class="text-slate-800">
-          <ContentRenderer
-            :value="post"
-            class="max-w-2xl mx-auto">
+      </div>
+
+      <!-- Featured Image -->
+      <img
+        v-if="post.imageUrl"
+        :src="`/${post.imageUrl}`"
+        :alt="`Image de couverture de l'article ${post.title}`"
+        class="w-full mt-8 rounded-2xl aspect-[16/9] object-cover bg-gray-50"
+      >
+    </div>
+
+    <!-- Article Content -->
+    <div class="relative max-w-6xl mx-auto mt-16">
+      <div class="max-w-3xl mx-auto">
+        <article class="prose prose-lg prose-gray">
+          <ContentRenderer :value="post">
             <ContentRendererMarkdown :value="post" />
           </ContentRenderer>
         </article>
+        <TableOfContents :headings="headings" />
       </div>
     </div>
   </Container>
 
+  <!-- Similar Articles -->
   <Container
     v-if="similarPosts && similarPosts.length > 0"
-    class-name="mt-8 pt-8 pb-24 border-t border-gray-200">
-    <h4 class="text-lg text-gray-800">Articles similaires</h4>
-    <BlogArticleListCards :posts="similarPosts" />
+    class-name="mt-16 pt-16 border-t border-gray-100">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="text-2xl font-medium tracking-tight text-gray-900">Articles similaires</h2>
+      <BlogArticleListCards :posts="similarPosts" />
+    </div>
   </Container>
 </section>
 </template>
@@ -51,6 +72,7 @@ import NoArticle from '~/components/blog/NoArticle.vue'
 import GradientBackground from '~/components/blog/GradientBackground.vue'
 import Subheading from '~/components/blog/article/SubHeading.vue'
 import Author from '~/components/blog/article/Author.vue'
+import TableOfContents from '~/components/blog/article/TableOfContents.vue'
 import type { Post } from '~/types'
 
 const { $getFrontUrl } = useNuxtApp()
@@ -69,6 +91,33 @@ const { data: similarPosts } = await useAsyncData<Post[]>('similar-article', asy
   }).find() as unknown as Post[])
 
 const articleUrl = `${$getFrontUrl}${route.fullPath}`
+
+// Estimated reading time calculation (based on average reading speed of 200 words per minute)
+const estimatedReadingTime = computed(() => {
+  if (!post.value?.description) return 1
+  const wordCount = post.value.description.split(/\s+/).length
+  return Math.ceil(wordCount / 200)
+})
+
+// Extract headings from content for table of contents
+interface Heading {
+  id: string
+  text: string
+  depth: number
+}
+
+const headings = ref<Heading[]>([])
+
+onMounted(() => {
+  const articleHeadings = document.querySelectorAll('article h2, article h3')
+  headings.value = Array.from(articleHeadings)
+    .map(heading => ({
+      id: heading.id,
+      text: heading.textContent || '',
+      depth: parseInt(heading.tagName.charAt(1))
+    }))
+    .filter(heading => heading.text !== '')
+})
 
 useSeoMeta({
   title: `${post.value?.title} - Blog`,
@@ -96,48 +145,65 @@ useHead({
 })
 </script>
 
-<style module>
-article>div>p {
-  @apply my-6 text-base/8 first:mt-0 last:mb-0
+<style>
+.prose {
+  @apply max-w-none;
 }
 
-article>div>h2 {
-  @apply mb-6 mt-12 text-2xl/8 font-medium tracking-tight first:mt-0 last:mb-0
+.prose h2 {
+  @apply text-2xl font-medium tracking-tight text-gray-900 mt-16 mb-6;
 }
 
-article>div>h3 {
-  @apply mb-6 mt-12 text-xl/8 font-medium tracking-tight first:mt-0 last:mb-0
+.prose h3 {
+  @apply text-xl font-medium tracking-tight text-gray-900 mt-12 mb-4;
 }
 
-article>div>blockquote {
-  @apply my-6 border-l-2 border-l-gray-300 pl-6 text-base/8 first:mt-0 last:mb-0
+.prose p {
+  @apply text-gray-600 leading-relaxed mb-6;
 }
 
-article>div>hr {
-  @apply my-8 border-t border-gray-200
+.prose ul {
+  @apply list-disc pl-6 mb-6 text-gray-600;
 }
 
-article>div>.space {
-  @apply my-8
+.prose ol {
+  @apply list-decimal pl-6 mb-6 text-gray-600;
 }
 
-article>div>ul {
-  @apply list-disc pl-4 text-base/8 marker:text-gray-400
+.prose blockquote {
+  @apply border-l-4 border-gray-200 pl-4 italic text-gray-600 my-6;
 }
 
-article>div>ol {
-  @apply list-decimal pl-4 text-base/8 marker:text-gray-400
+.prose a {
+  @apply text-blue-600 hover:text-blue-800 transition-colors duration-200;
 }
 
-article>div>li {
-  @apply my-2 pl-2 has-[br]:mb-8
+.prose img {
+  @apply rounded-lg my-8;
 }
 
-article>div>strong {
-  @apply font-semibold
+.prose table {
+  @apply w-full border-collapse my-8;
 }
 
-article>div>a {
-  @apply font-medium underline decoration-gray-400 underline-offset-4 data-[hover]:decoration-gray-600
+.prose th,
+.prose td {
+  @apply p-3 text-sm;
+}
+
+.prose th {
+  @apply bg-gray-50 font-medium text-gray-900;
+}
+
+.prose code {
+  @apply bg-gray-50 rounded px-1.5 py-0.5 text-sm font-mono text-gray-800;
+}
+
+.prose pre {
+  @apply bg-gray-900 rounded-lg p-4 overflow-x-auto my-6;
+}
+
+.prose pre code {
+  @apply bg-transparent text-gray-200 p-0;
 }
 </style>
