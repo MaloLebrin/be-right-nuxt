@@ -1,5 +1,6 @@
 <template>
 <section class="py-16 overflow-hidden blog">
+  <ReadingProgress v-if="post" />
   <GradientBackground />
   <Container v-if="!post">
     <h2
@@ -74,6 +75,7 @@ import GradientBackground from '~/components/blog/GradientBackground.vue'
 import Subheading from '~/components/blog/article/SubHeading.vue'
 import Author from '~/components/blog/article/Author.vue'
 import TableOfContents from '~/components/blog/article/TableOfContents.vue'
+import ReadingProgress from '~/components/blog/article/ReadingProgress.vue'
 import type { Post } from '~/types'
 
 const { $getFrontUrl } = useNuxtApp()
