@@ -1,0 +1,302 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# Guidelines Cursor pour Be Right
+
+## Table des matières
+- ](#rojtylstycodng)rmancestsnationalisation](#internationalisation)
+- [Sécurité](mdc:#sécurité)
+- [Développement](mdc:#développement)
+- [Gestion d'État](mdc:#gestion-détat)
+- [Templates](mdc:#templates)
+- [Règles de Développement](mdc:#règles-de-développement)
+
+## Structure du Projet
+
+### Dossiers Principaux
+| Dossier | Description | Convention de nommage |
+|---------|-------------|----------------------|
+| `components/` | Composants réutilisables Vue.js | PascalCase |
+| `pages/` | Routes de l'application | kebab-case |
+| `layouts/` | Layouts de l'application | PascalCase |
+| `composables/` | Logique réutilisable | camelCase |
+| `store/` | Stores Pinia | camelCase |
+| `plugins/` | Plugins Nuxt | camelCase |
+| `utils/` | Utilitaires | camelCase |
+| `types/` | Types TypeScript | PascalCase |
+
+### Structure des Fichiers
+- **Composants** : template > script setup > style
+- **Pages** : layout > composants > logique
+- **Stores** : types > state > actions > getters
+
+## Style de Code
+
+### TypeScript
+- Mode strict activé
+- `any` à éviter (warning)
+- Annotations de type requises
+- Types explicites pour les props et états
+
+### Vue.js
+- Composition API avec `<script setup>`
+- Indentation : 2 espaces
+- Un attribut par ligne en HTML
+- Ordre des balises : template > script > style
+
+### ESLint
+- `console.log` : warning (sauf warn, error, time, timeEnd)
+- Variables non utilisées : error
+- Style de brace : Stroustrup (accolade sur nouvelle ligne)
+
+## Styling
+
+### Framework
+- Tailwind CSS
+
+### Palette de Couleurs
+| Couleur | Valeur | Variantes |
+|---------|--------|-----------|
+| Noir | `#1e1e1c` | light: `rgba(30,30,28,0.05)` |
+| Blanc | `#FFFFFF` | light: `#F3F6F3`, break: `#F6EFE6` |
+| Rouge | `#E73047` | light: `#EA535E` |
+| Vert | `#59a484` | light: `rgba(88,177,105,0.2)`, dark: `#245542` |
+| Bleu | `#453D91` | light: `rgba(69,61,145,0.2)`, dark: `#1b1e3dF2`, darkBold: `rgba(28,31,61)` |
+| Pourpre | `#4835A3` | light: `rgba(72,53,163,0.2)` |
+
+## Performance
+
+### SSR
+- Activé par défaut
+- Désactivé pour :
+  - `/admin/**`
+  - `/addresse/**`
+  - `/answer/**`
+  - `/destinataire/**`
+  - `/evenement/**`
+  - `/groupe/**`
+  - `/mon-compte/**`
+  - `/notifications/**`
+  - `/paiements/**`
+
+### Prerendering
+- Activé pour :
+  - `/`
+  - `/login`
+
+## Tests
+
+### Tests Unitaires
+- Framework : Vitest
+- Dossier : `tests/`
+- Requis pour chaque nouvelle fonctionnalité
+
+### Tests E2E
+- Framework : Playwright
+- Dossier : `e2e/`
+- Requis pour les parcours utilisateur critiques
+
+## Internationalisation
+
+### Configuration
+- Librairie : Day.js
+- Locale par défaut : fr
+- Timezone par défaut : Paris/France
+- Locales supportées : en, fr
+
+## Sécurité
+
+### Cookies
+- `sameSite: 'strict'`
+
+### Stockage
+- Données sensibles : localStorage
+
+## Développement
+
+### Outils
+- Gestionnaire de paquets : pnpm
+- Mise à jour des dépendances : Renovate
+- Conventions de commit : activées
+
+## Gestion d'État
+
+### Pinia
+- Organisation : par domaine
+- Persistance : localStorage
+- Types : TypeScript requis
+
+## Templates
+
+### Création de Composant
+```vue
+<template>
+  <!-- Classes Tailwind appropriées -->
+</template>
+
+<script setup lang="ts">
+// Props typées
+</script>
+
+<style>
+/* Variables de couleur du thème */
+</style>
+```
+
+### Création de Page
+```vue
+<template>
+  <Layout>
+    <!-- Composants réutilisables -->
+  </Layout>
+</template>
+
+<script setup lang="ts">
+// Gestion d'état avec Pinia si nécessaire
+</script>
+```
+
+### Création de Store
+```typescript
+// Types TypeScript
+// Actions et getters typés
+// Persistance si nécessaire
+```
+
+## Validation
+- Vérifier les conventions de nommage
+- Vérifier la structure des fichiers
+- Vérifier la configuration SSR/CSR
+- Vérifier la présence des tests
+
+## Règles de Développement
+
+### 1. Architecture des Composants
+
+#### Structure des Dossiers
+- Organiser les composants par domaine fonctionnel (User, Event, Payment, etc.)
+- Utiliser un dossier `Base` pour les composants fondamentaux réutilisables
+- Créer des sous-dossiers pour les composants complexes avec plusieurs fichiers
+
+#### Conventions de Composants
+- Nommer les composants en PascalCase
+- Utiliser le préfixe "Base" pour les composants fondamentaux
+- Créer des composants atomiques et réutilisables
+- Documenter les props avec des types TypeScript
+- Utiliser des slots pour la personnalisation
+
+### 2. Gestion d'État
+
+#### Stores Pinia
+- Organiser les stores par domaine fonctionnel
+- Utiliser des types TypeScript pour le state
+- Implémenter la persistance avec localStorage
+- Exporter les stores via un fichier index central
+- Nommer les stores avec le suffixe "Store"
+
+#### Composables
+- Utiliser le préfixe "use" pour les composables
+- Nommer les composables selon leur fonction (ex: `useRegister`, `useToast`)
+- Documenter les interfaces et types
+- Séparer la logique métier des composants
+- Réutiliser les composables entre les composants
+
+### 3. Validation et Formulaires
+
+#### Yup
+- Utiliser Yup pour la validation des formulaires
+- Définir des schémas de validation réutilisables
+- Valider les données côté client et serveur
+- Utiliser des messages d'erreur en français
+
+#### Formulaires
+- Utiliser vee-validate pour la gestion des formulaires
+- Implémenter la validation en temps réel
+- Gérer les états de chargement et d'erreur
+- Utiliser des composants de formulaire réutilisables
+
+### 4. Styling et UI
+
+#### Tailwind CSS
+- Utiliser les classes utilitaires de Tailwind
+- Créer des composants avec des styles réutilisables
+- Utiliser la palette de couleurs définie
+- Implémenter des transitions et animations cohérentes
+
+#### Accessibilité
+- Utiliser des attributs ARIA appropriés
+- Implémenter le focus management
+- Assurer la navigation au clavier
+- Utiliser des contrastes de couleur appropriés
+
+### 5. Tests
+
+#### Tests Unitaires
+- Tester les composants avec Vitest
+- Tester les stores et composables
+- Utiliser des tests de snapshot pour les composants UI
+- Tester les cas d'erreur et de succès
+
+#### Tests E2E
+- Utiliser Playwright pour les tests E2E
+- Tester les parcours utilisateur critiques
+- Tester les formulaires et la validation
+- Tester l'accessibilité
+
+### 6. Performance
+
+#### Optimisation
+- Utiliser le SSR pour les pages publiques
+- Désactiver le SSR pour les pages admin
+- Optimiser les images avec @nuxt/image
+- Utiliser le lazy loading pour les composants
+
+#### Caching
+- Utiliser le prerendering pour les pages statiques
+- Implémenter le caching approprié
+- Optimiser les requêtes API
+- Minimiser les re-renders
+
+### 7. Sécurité
+
+#### Authentification
+- Utiliser des tokens JWT
+- Implémenter la validation des tokens
+- Gérer les sessions de manière sécurisée
+- Protéger les routes sensibles
+
+#### Données
+- Valider les données côté serveur
+- Sanitizer les entrées utilisateur
+- Utiliser HTTPS
+- Protéger les données sensibles
+
+### 8. Internationalisation
+
+#### Day.js
+- Utiliser Day.js pour la gestion des dates
+- Formater les dates selon la locale
+- Gérer les timezones
+- Utiliser les formats de date standardisés
+
+#### Traductions
+- Utiliser i18n pour les traductions
+- Maintenir les traductions à jour
+- Utiliser des clés de traduction cohérentes
+- Gérer les pluriels et les formats
+
+### 9. Déploiement
+
+#### CI/CD
+- Utiliser des pipelines de déploiement automatisées
+- Tester avant le déploiement
+- Vérifier la qualité du code
+- Gérer les environnements
+
+#### Monitoring
+- Implémenter le logging approprié
+- Surveiller les performances
+- Gérer les erreurs
+- Maintenir les logs de sécurité
