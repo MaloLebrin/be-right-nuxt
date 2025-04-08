@@ -36,14 +36,8 @@
 </template>
 
 <script setup lang="ts">
-import { 
-  DocumentTextIcon,
-  ShieldCheckIcon,
-  CogIcon,
-  PencilSquareIcon,
-  DocumentCheckIcon
-} from '@heroicons/vue/24/outline'
 import type { CategorySlug } from '~/types'
+import { getCategoryIcon } from '~/utils/blog'
 
 interface Props {
   categories: CategorySlug[]
@@ -56,15 +50,4 @@ const props = withDefaults(defineProps<Props>(), {
   pageCategoryDisable: false,
   showIcon: true
 })
-
-const getCategoryIcon = (slug: CategorySlug) => {
-  const iconMap = {
-    'transformation-digitale-droits-image': CogIcon,
-    'droits-image-juridique': DocumentTextIcon,
-    'securite-conformite-droits-image': ShieldCheckIcon,
-    'automatisation-droits-image': CogIcon,
-    'signature-electronique': DocumentCheckIcon
-  }
-  return iconMap[slug as keyof typeof iconMap] || PencilSquareIcon
-}
 </script>

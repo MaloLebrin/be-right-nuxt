@@ -1,3 +1,10 @@
+import { 
+  DocumentTextIcon,
+  ShieldCheckIcon,
+  CogIcon,
+  PencilSquareIcon,
+  DocumentCheckIcon
+} from '@heroicons/vue/24/outline'
 import type { Category, CategorySlug } from "~/types/Blog";
 
 export const CategoryMap = new Map<CategorySlug, Category>([
@@ -32,10 +39,20 @@ export const CategoryMap = new Map<CategorySlug, Category>([
   }],
 ])
 
-export const categoryArray = Array.from(CategoryMap.keys
-());
+export const categoryArray = Array.from(CategoryMap.keys());
 
 export function getArticleCategories(categories: CategorySlug[]): Category[] {
   if (!categories || categories?.length === 0) return [];
   return categories.map(slug => CategoryMap.get(slug)!);
+}
+
+export function getCategoryIcon(slug: CategorySlug) {
+  const iconMap = {
+    'transformation-digitale-droits-image': CogIcon,
+    'droits-image-juridique': DocumentTextIcon,
+    'securite-conformite-droits-image': ShieldCheckIcon,
+    'automatisation-droits-image': CogIcon,
+    'signature-electronique': DocumentCheckIcon
+  }
+  return iconMap[slug as keyof typeof iconMap] || PencilSquareIcon
 }
