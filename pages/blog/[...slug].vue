@@ -24,11 +24,12 @@
       </p>
 
       <!-- Article Meta -->
-      <div class="flex items-center gap-4 mt-8 text-sm text-gray-600">
-        <Author />
-        <span>•</span>
-        <span>{{ estimatedReadingTime }} min de lecture</span>
-        <span>•</span>
+      <div class="flex flex-col gap-4 mt-8">
+        <div class="flex items-center gap-4 text-sm text-gray-600">
+          <Author />
+          <span>•</span>
+          <span>{{ estimatedReadingTime }} min de lecture</span>
+        </div>
         <BlogArticleCategoriesList :categories="post.categories" />
       </div>
 
