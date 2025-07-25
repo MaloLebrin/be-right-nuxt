@@ -39,7 +39,7 @@
     "yup": "^1.6.1"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^3.16.0",
+    "@antfu/eslint-config": "^5.0.0",
     "@antfu/utils": "^8.1.1",
     "@headlessui/vue": "^1.7.23",
     "@nuxt/devtools": "^1.7.0",
