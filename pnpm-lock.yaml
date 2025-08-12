@@ -125,7 +125,7 @@ importers:
         version: 8.5.6
       start-server-and-test:
         specifier: ^2.0.10
-        version: 2.0.12
+        version: 2.0.13
       tailwindcss:
         specifier: ^3.4.17
         version: 3.4.17
@@ -5715,8 +5715,8 @@ packages:
   standard-as-callback@2.1.0:
     resolution: {integrity: sha512-qoRRSyROncaz1z0mvYqIE4lCd9p2R90i6GxW3uZv5ucSu8tU7B5HXUP1gG8pVZsYNVaXjk8ClXHPttLyxAL48A==}
 
-  start-server-and-test@2.0.12:
-    resolution: {integrity: sha512-U6QiS5qsz+DN5RfJJrkAXdooxMDnLZ+n5nR8kaX//ZH19SilF6b58Z3zM9zTfrNIkJepzauHo4RceSgvgUSX9w==}
+  start-server-and-test@2.0.13:
+    resolution: {integrity: sha512-G42GCIUjBv/nDoK+QsO+nBdX2Cg3DSAKhSic2DN0GLlK4Q+63TkOeN1cV9PHZKnVOzDKGNVZGCREjpvAIAOdiQ==}
     engines: {node: '>=16'}
     hasBin: true
 
@@ -6486,8 +6486,8 @@ packages:
       typescript:
         optional: true
 
-  wait-on@8.0.3:
-    resolution: {integrity: sha512-nQFqAFzZDeRxsu7S3C7LbuxslHhk+gnJZHyethuGKAn2IVleIbTB9I3vJSQiSR+DifUqmdzfPMoMPJfLqMF2vw==}
+  wait-on@8.0.4:
+    resolution: {integrity: sha512-8f9LugAGo4PSc0aLbpKVCVtzayd36sSCp4WLpVngkYq6PK87H79zt77/tlCU6eKCLqR46iFvcl0PU5f+DmtkwA==}
     engines: {node: '>=12.0.0'}
     hasBin: true
 
@@ -13401,7 +13401,7 @@ snapshots:
 
   standard-as-callback@2.1.0: {}
 
-  start-server-and-test@2.0.12:
+  start-server-and-test@2.0.13:
     dependencies:
       arg: 5.0.2
       bluebird: 3.7.2
@@ -13410,7 +13410,7 @@ snapshots:
       execa: 5.1.1
       lazy-ass: 1.6.0
       ps-tree: 1.2.0
-      wait-on: 8.0.3(debug@4.4.1)
+      wait-on: 8.0.4(debug@4.4.1)
     transitivePeerDependencies:
       - supports-color
 
@@ -14285,7 +14285,7 @@ snapshots:
     optionalDependencies:
       typescript: 5.8.3
 
-  wait-on@8.0.3(debug@4.4.1):
+  wait-on@8.0.4(debug@4.4.1):
     dependencies:
       axios: 1.11.0(debug@4.4.1)
       joi: 17.13.3
